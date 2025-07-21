@@ -1,0 +1,66 @@
+title: DudeDope - Portfolio & Blog
+email: your.email@example.com
+description: >-
+  Personal portfolio and blog featuring projects, technical writing,
+  and insights in technology and development.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://dudedope.github.io" # the base hostname & protocol for your site
+twitter_username: your_twitter
+github_username: DudeDope
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /portfolio/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "DudeDope"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# Pagination
+paginate: 5
+paginate_path: "/blog/page:num/"
+
+# SEO
+author:
+  name: DudeDope
+  twitter: your_twitter
+
+social:
+  name: DudeDope
+  links:
+    - https://twitter.com/your_twitter
+    - https://github.com/DudeDope
