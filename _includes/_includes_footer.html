@@ -1,0 +1,17 @@
+<footer class="site-footer h-card">
+  <div class="wrapper">
+    <div class="footer-content">
+      <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title | escape }}. All rights reserved.</p>
+      
+      <div class="social-links">
+        {%- if site.github_username -%}
+        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
+        {%- endif -%}
+        
+        {%- if site.twitter_username -%}
+        <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener">Twitter</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
