@@ -1,0 +1,192 @@
+cv:
+  name: Aditya Aryan
+  label: B.Stat student and researcher
+  email: adityaharshit012345@gmail.com
+  location: Kolkata, West Bengal, India
+  image: ""
+  summary: >
+    Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, interested in
+    mathematical statistics, latent-variable models, high-dimensional inference, sequential
+    decision-making, scientific machine learning, and dependable statistical systems.
+
+  social_networks:
+    - network: LinkedIn
+      username: aditya-aryan-8049b0282
+    - network: GitHub
+      username: DudeDope
+
+  sections:
+    Education:
+      - institution: Indian Statistical Institute
+        area: Statistics
+        degree: Bachelor of Statistics (B.Stat), First Division with Honours (projected)
+        location: Kolkata, West Bengal
+        start_date: 2023-07
+        end_date: 2027
+        highlights:
+          - "Expected graduation: 2027."
+
+      - institution: Kendriya Vidyalaya No. 2, Jalahalli East
+        area: Physics, Chemistry, and Mathematics
+        degree: CBSE Senior Secondary and Secondary Education
+        location: Bengaluru, Karnataka
+        start_date: 2014-04
+        end_date: 2023-03
+        highlights:
+          - "Class XII: 95%."
+          - "Class X: 98.8%."
+
+    Experience:
+      - company: University of Toronto
+        position: Student Researcher
+        location: Remote
+        start_date: 2026-04
+        end_date: present
+        summary: Research with Prof. Xin Bing on expectation-maximisation for k-component Gaussian mixture-type models.
+        highlights:
+          - Studying population and sample EM under nonconvex geometry, mixture imbalance, and high-dimensional noise.
+          - Analysing population maps, fixed points, and local contraction using Stein's lemma and Fisher/missing-information decompositions.
+          - Developing concentration-style bounds that connect population dynamics with finite-sample behaviour.
+
+      - company: Ranial Systems
+        position: Data Science Intern
+        location: Remote
+        start_date: 2026-05
+        end_date: present
+        summary: Machine-learning and optimisation work for U.S. battery energy storage systems.
+        highlights:
+          - Developing degradation and performance models, alert prediction, and survival-modelling workflows.
+          - Building Python pipelines, evaluation dashboards, and decision-support outputs for monitoring and trading.
+          - Studying uncertainty-aware energy-market forecasting and operational optimisation under battery constraints.
+
+      - company: Mercity AI
+        position: Machine Learning Research Intern
+        location: Bengaluru
+        start_date: 2025-04
+        end_date: 2025-08
+        summary: Compact multimodal modelling for medical image caption generation.
+        highlights:
+          - Connected medSigLIP and Qwen-2.5-7B through a Q-Former, compressing 256 image tokens into 32 latent queries.
+          - Achieved an 8× visual-token compression and approximately 70% memory reduction while preserving probabilistic calibration in the frozen-language-model setup.
+          - Trained the Q-Former with cross-entropy on MIMIC captions and explored SFT, PPO, DPO, and GRPO with the Hugging Face trl stack.
+          - Extended a DeepSeek-R1 GRPO workflow to multimodal inputs; recorded improved BLEU and lower perplexity in the reported experiments.
+
+    Projects:
+      - name: "Stein's Paradox: Inadmissibility and Risk-Optimal Shrinkage"
+        summary: Supervised by Dr. Ayanendranath Basu, Indian Statistical Institute.
+        highlights:
+          - Studied inadmissibility of the usual estimator for multivariate normal means when d ≥ 3.
+          - Compared James–Stein and mean-centred shrinkage, heteroscedastic whitening, Normal–Normal empirical Bayes, Monte Carlo risk, and SURE.
+          - Recovered uniform James–Stein dominance and observed the lowest heteroscedastic simulation risk for the MMLE estimator.
+
+      - name: Bivariate Copula Modelling of Extreme Air Pollution Events
+        summary: Supervised by Dr. Shyamal Krishna De, Indian Statistical Institute.
+        highlights:
+          - Modelled duration and severity of AQI episodes in Bengaluru from 2015–2024 using six copula families and nonparametric marginals.
+          - Estimated Kendall's τ = 0.881 and Spearman's ρ = 0.972; the selected Gumbel model had θ = 6.183 and upper-tail dependence 0.881.
+          - Obtained a model-derived estimate P(S > 2000 given D ≥ 12) ≈ 0.9998 under the project's definitions.
+
+      - name: "Sequential Testing: Optimal Stopping under a Reward–Cost Trade-off"
+        summary: Supervised by Dr. Arnab Chakraborty, Indian Statistical Institute.
+        highlights:
+          - Formulated a Bellman recursion over the state S(x, y) and implemented memoised dynamic programming with backtracking and cutoffs.
+          - For N = 20 and C = 5, the specified instance produced an expected gain of 7.6875.
+
+      - name: Variance-Based Audio Denoising via Amplitude Thresholding
+        summary: Supervised by Dr. Arnab Chakraborty, Indian Statistical Institute.
+        highlights:
+          - Estimated local variance over approximately 0.1-second windows and used a modal variance-bin cutoff for suppression and scaling.
+          - Implemented the workflow in R with time-domain and FFT-based diagnostics.
+
+      - name: Elo-Based Football Betting
+        summary: Supervised by Dr. Ayanendranath Basu, Indian Statistical Institute.
+        highlights:
+          - Modelled English Premier League outcomes from 2014–2024 with Elo features and logistic regression.
+          - Recorded a Brier score of 0.2176 and log loss of 0.6249.
+          - A historical value-betting simulation returned 5,139 units of profit on a 10,000-unit test bankroll; this is a retrospective simulation, not a claim of future profitability.
+
+    Skills:
+      - name: Mathematical and statistical methods
+        keywords:
+          - Probability
+          - Markov processes
+          - High-dimensional statistics
+          - Hypothesis testing
+          - Linear modelling
+          - Time series
+      - name: Programming and data
+        keywords:
+          - Python
+          - R
+          - PyTorch
+          - scikit-learn
+          - statsmodels
+          - pandas
+          - NumPy
+          - SciPy
+      - name: Machine-learning tooling
+        keywords:
+          - Hugging Face trl
+          - Accelerate
+          - bitsandbytes
+          - PEFT
+      - name: Machine-learning topics
+        keywords:
+          - Transformers
+          - Vision transformers
+          - CNNs
+          - Diffusion models
+          - Deep reinforcement learning
+          - Computer vision
+          - Language modelling
+
+    Coursework:
+      - bullet: Real Analysis; Probability Theory; Stochastic Processes; Statistical Methods; Linear Algebra; Differential Equations
+      - bullet: Programming and Data Structures; Molecular Biology; Psychology
+
+    Honors and Awards:
+      - title: Indian Statistical Institute Entrance Examination
+        date: 2023
+        summary: All India Rank 90
+      - title: Joint Entrance Examination (Main)
+        date: 2023
+        summary: 98.9 percentile among approximately 1.5 million candidates
+      - title: BITS Admission Test
+        date: 2023
+        summary: 331/390
+      - title: Kishore Vaigyanik Protsahan Yojana, SA stream
+        date: 2022
+        summary: All India Rank 1,034
+      - title: Indian National Mathematical Olympiad
+        date: 2022
+        summary: Merit list
+      - title: Indian Olympiad Qualifier in Mathematics
+        date: 2022
+        summary: Karnataka top 20
+      - title: National Talent Search Examination Scholarship
+        date: 2021
+        summary: Top 1,000 among approximately 2 million candidates
+      - title: National Talent Search Examination, Stage I
+        date: 2021
+        summary: Rank 72
+
+    Academic Interests:
+      - name: Statistics and learning
+        icon: fa-solid fa-tag
+        keywords:
+          - Latent-variable models
+          - EM algorithms
+          - High-dimensional statistics
+          - Statistical decision theory
+          - Copulas
+          - Environmental statistics
+          - Optimal stopping
+          - Sequential learning
+      - name: Scientific systems
+        icon: fa-solid fa-tag
+        keywords:
+          - Battery degradation
+          - Energy storage optimisation
+          - Electricity markets
+          - Reliable multimodal machine learning
+          - Statistical signal processing

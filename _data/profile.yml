@@ -1,0 +1,37 @@
+name: Aditya Aryan
+short_name: AA
+role: B.Stat student and researcher
+headline: Statistics, learning theory, and machine learning for scientific systems.
+institution: Indian Statistical Institute, Kolkata
+degree: Bachelor of Statistics (Hons.)
+expected_graduation: 2027
+location: Kolkata, West Bengal, India
+publications_available: false
+public_contact_available: true
+cv_pdf_available: true
+
+current_positions:
+  - role: Student Researcher
+    organisation: University of Toronto
+    period: Apr 2026–Present
+  - role: Data Science Intern
+    organisation: Ranial Systems
+    period: May 2026–Present
+
+research_interests:
+  - Statistical learning theory
+  - Latent-variable models and EM algorithms
+  - High-dimensional probability and statistics
+  - Statistical decision theory and shrinkage
+  - Copulas and environmental statistics
+  - Optimal stopping and sequential decision-making
+  - Battery analytics and energy storage optimisation
+  - Reliable multimodal machine learning
+
+principles:
+  - Rigorous derivations
+  - Explicit assumptions
+  - Reproducible experiments
+  - Clear technical writing
+  - Careful comparison with baselines
+  - Honest treatment of limitations

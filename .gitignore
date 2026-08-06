@@ -1,0 +1,39 @@
+_site
+.bundle
+.DS_store
+.idea
+.jekyll-cache
+.jekyll-metadata
+.ruby-version
+.sass-cache
+.tweet-cache
+.venv
+assets/libs/
+assets/rendercv/rendercv_output/*.typ
+al-folio-upgrade-report.md
+node_modules/
+output/playwright/
+test-results/
+vendor
+
+# Python bytecode from bin/ helper scripts
+__pycache__/
+*.pyc
+
+# This portfolio publishes only its focused GitHub Pages workflow. The other
+# workflow files in the downloaded starter are upstream-maintainer automation.
+.github/workflows/*
+!.github/workflows/deploy.yml
+
+# Unused media and reports from the downloaded al-folio demonstration site.
+# They are excluded from the generated portfolio as well as the Git repository.
+assets/audio/
+assets/bibliography/
+assets/html/
+assets/img/
+assets/json/
+assets/jupyter/
+assets/plotly/
+assets/video/
+lighthouse_results/
+readme_preview/

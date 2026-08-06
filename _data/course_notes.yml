@@ -1,0 +1,36 @@
+courses:
+  - slug: sample-surveys
+    title: Sample Surveys
+    instructor: Prof. Ambarish Chattopadhyay
+    institution: Indian Statistical Institute, Kolkata
+    term: Fall 2026
+    status: Ongoing
+    lecture_count: 4
+    description: >
+      Design-based survey foundations, finite-population sampling, simple random sampling,
+      variance estimation, confidence intervals, and sample-size determination.
+    contents_url: /notes/sample-surveys/
+    formula_url: /notes/sample-surveys/formula-sheet/
+    topics:
+      - Survey design
+      - Finite populations
+      - SRSWR and SRSWOR
+      - Design-based inference
+
+  - slug: design-and-analysis-of-algorithms
+    title: Design and Analysis of Algorithms
+    instructor: Prof. Sandip Das
+    institution: Indian Statistical Institute, Kolkata
+    term: Fall 2026
+    status: Complete through Lecture 9
+    lecture_count: 9
+    description: >
+      Algorithm specification and correctness, recurrences, computational geometry,
+      deterministic selection, binary search, search trees, and balanced structures.
+    contents_url: /notes/design-and-analysis-of-algorithms/
+    formula_url: /notes/design-and-analysis-of-algorithms/formula-sheet/
+    topics:
+      - Algorithm analysis
+      - Correctness proofs
+      - Selection and search
+      - Search trees
