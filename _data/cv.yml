@@ -6,8 +6,8 @@ cv:
   image: ""
   summary: >
     Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, interested in
-    mathematical statistics, latent-variable models, high-dimensional inference, sequential
-    decision-making, scientific machine learning, and dependable statistical systems.
+    mathematical statistics, probabilistic modelling, machine learning, and optimisation under
+    uncertainty, with experience across theoretical research and applied modelling.
 
   social_networks:
     - network: LinkedIn
@@ -53,11 +53,12 @@ cv:
         location: Remote
         start_date: 2026-05
         end_date: present
-        summary: Machine-learning and optimisation work for U.S. battery energy storage systems.
+        summary: Applied machine learning, probabilistic modelling, and optimisation for energy-system monitoring, forecasting, and electricity-market decision support.
         highlights:
-          - Developing degradation and performance models, alert prediction, and survival-modelling workflows.
-          - Building Python pipelines, evaluation dashboards, and decision-support outputs for monitoring and trading.
-          - Studying uncertainty-aware energy-market forecasting and operational optimisation under battery constraints.
+          - Developing degradation and performance models, machine-learning and deep-learning methods for anomaly and alert prediction, and survival-modelling workflows.
+          - Applying vine-copula methods to model dependence between solar generation and weather variables and support probabilistic forecasting.
+          - Studying stochastic market-clearing-price (MCP) models and quantile-based bidding strategies for electricity-market decisions.
+          - Building Python pipelines for time-aware evaluation, backtesting, operational optimisation under battery constraints, and decision support.
 
       - company: Mercity AI
         position: Machine Learning Research Intern
@@ -171,22 +172,19 @@ cv:
         summary: Rank 72
 
     Academic Interests:
-      - name: Statistics and learning
+      - name: Statistics and probabilistic modelling
         icon: fa-solid fa-tag
         keywords:
+          - Mathematical statistics
+          - Statistical inference
           - Latent-variable models
-          - EM algorithms
+          - Probabilistic modelling
           - High-dimensional statistics
-          - Statistical decision theory
-          - Copulas
-          - Environmental statistics
-          - Optimal stopping
-          - Sequential learning
-      - name: Scientific systems
+      - name: Machine learning and decision methods
         icon: fa-solid fa-tag
         keywords:
-          - Battery degradation
-          - Energy storage optimisation
-          - Electricity markets
-          - Reliable multimodal machine learning
-          - Statistical signal processing
+          - Machine learning and deep learning
+          - Optimisation
+          - Sequential decision-making
+          - Forecasting and uncertainty quantification
+          - Reliable evaluation of predictive models

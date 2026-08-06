@@ -4,7 +4,7 @@ title: "Sequential Testing: Optimal Stopping under a Reward–Cost Trade-off"
 description: A finite-horizon Bellman recursion, memoised dynamic programming, backtracking, and stopping cutoffs.
 permalink: /projects/sequential-testing/
 type: project
-project_area: Optimisation and algorithms
+project_area: Optimisation and decision-making
 status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Arnab Chakraborty

@@ -1,22 +1,22 @@
 ---
 layout: page
 title: Aditya Aryan
-description: Statistics, learning theory, and machine learning for scientific systems.
+description: Statistics, probabilistic modelling, machine learning, and optimisation under uncertainty.
 ---
 
 <div class="aa-home-grid">
   <div class="aa-home-intro">
-    <span class="aa-kicker">Statistics · learning theory · scientific systems</span>
+    <span class="aa-kicker">Statistics · Probabilistic Modelling · Machine Learning · Optimisation</span>
 
     <p class="aa-lede">
-      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata. I work across mathematical statistics, machine learning,
-      and scientific decision systems, with current interests in expectation-maximisation, high-dimensional inference, battery analytics, and
-      reliable multimodal learning.
+      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata. My interests lie in mathematical statistics,
+      probabilistic modelling, machine learning, and optimisation under uncertainty.
     </p>
 
     <p class="aa-lede">
-      I am currently a student researcher with Prof. Xin Bing at the University of Toronto and a data science intern at Ranial Systems. Previously,
-      I worked on compact medical vision-language models at Mercity AI.
+      I am currently a student researcher at the University of Toronto and a data science intern at Ranial Systems, following an earlier
+      machine-learning research internship at Mercity AI. Across these roles, I have worked on theoretical analysis, forecasting, anomaly
+      detection, decision models, and multimodal learning.
     </p>
 
     <nav class="aa-actions" aria-label="Homepage shortcuts">
@@ -61,7 +61,7 @@ description: Statistics, learning theory, and machine learning for scientific sy
 <section class="aa-section" aria-labelledby="experience">
   <div class="aa-section-head">
     <h2 id="experience">Experience</h2>
-    <p>Research and industry roles spanning statistical theory, scientific machine learning, and decision systems.</p>
+    <p>Research and industry experience spanning statistical learning, probabilistic modelling, machine learning, and optimisation.</p>
   </div>
 
   <div class="aa-list">
@@ -69,7 +69,7 @@ description: Statistics, learning theory, and machine learning for scientific sy
       <div class="aa-row-meta">Apr 2026–Present</div>
       <div>
         <h3><a href="{{ '/research/em-convergence/' | relative_url }}">Student Researcher</a></h3>
-        <p>Studying population and sample EM for k-component Gaussian mixture-type models under nonconvex geometry and sampling noise.</p>
+        <p>Working on theoretical questions in statistical learning through the analysis of population and sample expectation-maximisation algorithms.</p>
         <div class="aa-row-context">University of Toronto · Remote · with Prof. Xin Bing</div>
       </div>
       <a class="aa-row-link" href="{{ '/research/em-convergence/' | relative_url }}">Record</a>
@@ -79,7 +79,10 @@ description: Statistics, learning theory, and machine learning for scientific sy
       <div class="aa-row-meta">May 2026–Present</div>
       <div>
         <h3><a href="{{ '/research/battery-dispatch/' | relative_url }}">Data Science Intern</a></h3>
-        <p>Developing battery degradation, forecasting, survival-modelling, and operational decision-support workflows.</p>
+        <p>
+          Working on battery modelling, anomaly detection, probabilistic forecasting, and optimisation for electricity-market and operational
+          decisions.
+        </p>
         <div class="aa-row-context">Ranial Systems · Remote</div>
       </div>
       <a class="aa-row-link" href="{{ '/research/battery-dispatch/' | relative_url }}">Record</a>
@@ -89,7 +92,7 @@ description: Statistics, learning theory, and machine learning for scientific sy
       <div class="aa-row-meta">Apr–Aug 2025</div>
       <div>
         <h3><a href="{{ '/research/medical-vlm/' | relative_url }}">Machine Learning Research Intern</a></h3>
-        <p>Worked on compact medical vision-language modelling, visual-token compression, supervised fine-tuning, and preference optimisation.</p>
+        <p>Worked on efficient multimodal learning, including representation compression, supervised training, and preference optimisation.</p>
         <div class="aa-row-context">Mercity AI · Bengaluru</div>
       </div>
       <a class="aa-row-link" href="{{ '/research/medical-vlm/' | relative_url }}">Record</a>
@@ -103,7 +106,7 @@ description: Statistics, learning theory, and machine learning for scientific sy
 <section class="aa-section" aria-labelledby="selected-research">
   <div class="aa-section-head">
     <h2 id="selected-research">Selected research</h2>
-    <p>Ongoing theoretical and applied work. Each record separates methods and evidence from limitations and release status.</p>
+    <p>Current and completed work across statistical learning, probabilistic modelling, optimisation, and machine-learning systems.</p>
   </div>
 
   <div class="aa-list">
@@ -115,7 +118,7 @@ description: Statistics, learning theory, and machine learning for scientific sy
         </div>
         <div>
           <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
-          <p>{{ project.research_question }}</p>
+          <p>{{ project.summary | default: project.description }}</p>
           <div class="aa-row-context">{{ project.organisation }}</div>
         </div>
         <a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
@@ -129,7 +132,7 @@ description: Statistics, learning theory, and machine learning for scientific sy
 <section class="aa-section" aria-labelledby="selected-projects">
   <div class="aa-section-head">
     <h2 id="selected-projects">Selected projects</h2>
-    <p>Course and supervised technical work in statistical methodology, dependence modelling, algorithms, signal processing, and calibration.</p>
+    <p>Supervised projects applying statistical inference, probabilistic modelling, optimisation, and predictive methods to varied problems.</p>
   </div>
   <div class="aa-list">
     {% for project in selected_projects limit: 3 %}

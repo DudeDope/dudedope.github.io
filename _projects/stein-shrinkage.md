@@ -4,7 +4,7 @@ title: "Stein's Paradox: Inadmissibility and Risk-Optimal Shrinkage"
 description: Decision-theoretic risk, James–Stein shrinkage, heteroscedastic extensions, empirical Bayes estimation, and SURE.
 permalink: /projects/stein-shrinkage/
 type: project
-project_area: Statistical methodology
+project_area: Statistical inference and probabilistic modelling
 status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Ayanendranath Basu

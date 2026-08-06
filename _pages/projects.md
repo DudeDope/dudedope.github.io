@@ -2,24 +2,17 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Supervised technical work in statistical methodology, algorithms, signal processing, and applied statistical learning.
+description: Supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning.
 nav: true
 nav_order: 4
 ---
 
-<div class="aa-page-grid aa-index-intro">
-  <p class="aa-page-intro">
-    These are supervised technical studies rather than formal publications. Each record identifies the problem, method, reported result, and
-    limitations. Repository and note links will be added when the supporting material is ready for public release.
-  </p>
-  <aside class="aa-index-legend" aria-label="Project record guide">
-    <h2>Coverage</h2>
-    <p>Five projects · four supervisors listed by name · no publication claims.</p>
-    <p>Numerical results are those reported in the reviewed CV.</p>
-  </aside>
-</div>
+<p class="aa-page-intro">
+  Selected supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning. Each record summarises the
+  problem, methodology, results, and limitations.
+</p>
 
-{% assign project_areas = "Statistical methodology|Optimisation and algorithms|Applied statistical learning" | split: "|" %}
+{% assign project_areas = "Statistical inference and probabilistic modelling|Optimisation and decision-making|Applied machine learning" | split: "|" %}
 {% assign portfolio_projects = site.projects | where: "type", "project" | sort: "importance" %}
 
 {% for area in project_areas %}
@@ -30,12 +23,12 @@ nav_order: 4
 <div class="aa-section-head">
 <h2 id="{{ area | slugify }}">{{ area }}</h2>
 {% case area %}
-{% when "Statistical methodology" %}
-<p>Risk, shrinkage, empirical Bayes reasoning, copulas, and extremal dependence.</p>
-{% when "Optimisation and algorithms" %}
-<p>Finite-horizon decisions, Bellman recursions, memoisation, and stopping rules.</p>
-{% when "Applied statistical learning" %}
-<p>Signal processing, probability calibration, chronological evaluation, and retrospective simulation.</p>
+{% when "Statistical inference and probabilistic modelling" %}
+<p>Estimation, shrinkage, dependence modelling, and uncertainty quantification.</p>
+{% when "Optimisation and decision-making" %}
+<p>Dynamic programming, optimal stopping, and computational decision methods.</p>
+{% when "Applied machine learning" %}
+<p>Predictive modelling, signal processing, calibration, and evaluation.</p>
 {% endcase %}
 </div>
 <div class="aa-list">

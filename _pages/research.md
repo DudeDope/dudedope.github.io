@@ -2,15 +2,15 @@
 layout: page
 title: Research
 permalink: /research/
-description: Research questions, methods, evidence, limitations, and release status across theoretical and applied work.
+description: Research and technical work in statistical learning, probabilistic modelling, machine learning, and optimisation.
 nav: true
 nav_order: 2
 ---
 
 <div class="aa-page-grid aa-index-intro">
   <p class="aa-page-intro">
-    My research connects mathematical statistics and the analysis of learning algorithms with scientific modelling and sequential decisions. Each
-    record states the question, methods, evidence, limitations, and public-artifact status. Work in progress is not presented as a publication.
+    This page presents current and completed research experience across statistical learning, probabilistic modelling, machine learning, and
+    optimisation. Each record describes the problem, methodology, contributions, and limitations of the work.
   </p>
   <aside class="aa-index-legend" aria-label="Research record guide">
     <h2>Record guide</h2>
@@ -20,7 +20,7 @@ nav_order: 2
 </div>
 
 {% assign research_projects = site.research | sort: "importance" %}
-{% assign research_areas = "Statistical learning and latent-variable models|Battery analytics and energy systems|Multimodal and medical machine learning" | split: "|" %}
+{% assign research_areas = "Statistical learning and inference|Probabilistic modelling and decision-making|Machine-learning systems" | split: "|" %}
 
 {% for area in research_areas %}
 {% assign area_projects = research_projects | where: "research_area", area %}
@@ -30,12 +30,12 @@ nav_order: 2
 <div class="aa-section-head">
 <h2 id="{{ area | slugify }}">{{ area }}</h2>
 {% case area %}
-{% when "Statistical learning and latent-variable models" %}
-<p>EM dynamics, fixed points, local contraction, mixture imbalance, and finite-sample questions.</p>
-{% when "Battery analytics and energy systems" %}
-<p>Degradation, survival analysis, probabilistic forecasting, and constrained market decisions.</p>
-{% when "Multimodal and medical machine learning" %}
-<p>Compact visual-language interfaces, reproducible training, preference optimisation, and evaluation.</p>
+{% when "Statistical learning and inference" %}
+<p>Theoretical and computational questions in estimation, latent-variable models, and finite-sample behaviour.</p>
+{% when "Probabilistic modelling and decision-making" %}
+<p>Forecasting, uncertainty quantification, anomaly detection, and optimisation for sequential and market decisions.</p>
+{% when "Machine-learning systems" %}
+<p>Efficient representation learning, multimodal modelling, training methods, and evaluation.</p>
 {% endcase %}
 </div>
 <div class="aa-list">
@@ -47,7 +47,7 @@ nav_order: 2
 </div>
 <div>
 <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
-<p>{{ project.research_question }}</p>
+<p>{{ project.summary | default: project.description }}</p>
 <div class="aa-row-context">
 {{ project.organisation }}
 {% if project.collaborators.size > 0 %}

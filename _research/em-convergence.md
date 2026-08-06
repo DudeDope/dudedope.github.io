@@ -3,7 +3,7 @@ layout: page
 title: EM in k-Component Gaussian Mixture-Type Models
 description: Population and sample EM under nonconvex geometry, mixture imbalance, and high-dimensional noise.
 permalink: /research/em-convergence/
-research_area: Statistical learning and latent-variable models
+research_area: Statistical learning and inference
 status: Research in progress
 organisation: University of Toronto
 collaborators:
@@ -12,6 +12,7 @@ period: Apr 2026–Present
 featured: true
 importance: 1
 research_question: When do population and sample EM updates contract toward the target parameters in k-component Gaussian mixture-type models?
+summary: Theoretical analysis of expectation-maximisation algorithms for latent-variable models.
 tags:
   - EM algorithm
   - Gaussian mixtures

@@ -8,11 +8,10 @@ middle_name:
 last_name: Aryan
 contact_note:
 description: >
-  Aditya Aryan is a Bachelor of Statistics student at the Indian Statistical Institute working on
-  latent-variable models, high-dimensional statistics, statistical decision theory, sequential decisions,
-  battery and energy systems, copula modelling, and reliable multimodal machine learning.
+  Aditya Aryan is a Bachelor of Statistics student at the Indian Statistical Institute interested in
+  mathematical statistics, probabilistic modelling, machine learning, and optimisation under uncertainty.
 footer_text:
-keywords: statistics, machine learning, EM algorithm, Gaussian mixtures, high-dimensional statistics, statistical decision theory, copulas, optimal stopping, battery analytics, energy systems
+keywords: statistics, mathematical statistics, statistical inference, probabilistic modelling, machine learning, deep learning, optimisation, stochastic modelling, decision-making
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: AA # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 

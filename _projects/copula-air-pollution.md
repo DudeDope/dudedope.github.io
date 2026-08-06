@@ -4,7 +4,7 @@ title: Bivariate Copula Modelling of Extreme Air-Pollution Events
 description: Nonparametric marginals, copula selection, upper-tail dependence, and conditional severity estimates for Bengaluru AQI episodes.
 permalink: /projects/copula-air-pollution/
 type: project
-project_area: Statistical methodology
+project_area: Statistical inference and probabilistic modelling
 status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Shyamal Krishna De

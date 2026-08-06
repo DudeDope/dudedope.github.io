@@ -3,7 +3,7 @@ layout: page
 title: Battery Degradation, Alert Prediction, and Survival Modelling
 description: Statistical pipelines for early degradation signals, operational alerts, and time-to-event outcomes.
 permalink: /research/battery-life/
-research_area: Battery analytics and energy systems
+research_area: Probabilistic modelling and decision-making
 status: Industry research
 organisation: Ranial Systems
 collaborators: []
@@ -11,10 +11,12 @@ period: May 2026–Present
 featured: true
 importance: 2
 research_question: How can early operational measurements support defensible degradation, alert, and survival estimates for battery energy storage systems?
+summary: Machine-learning and statistical methods for battery degradation, anomaly detection, alert prediction, and survival modelling.
 tags:
   - battery degradation
   - survival analysis
   - alert prediction
+  - anomaly detection
   - evaluation
 paper_url:
 code_url:
@@ -29,8 +31,8 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    Applied statistical work on battery performance and degradation, alert prediction, survival modelling, and decision-support outputs for U.S.
-    battery energy storage systems.
+    Applied statistical and machine-learning work on battery performance and degradation, anomaly detection, alert prediction, survival modelling,
+    and decision-support outputs for U.S. battery energy storage systems.
   </p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
@@ -64,7 +66,7 @@ image:
       <ul>
         <li>Feature engineering from early and longitudinal performance measurements.</li>
         <li>Degradation and performance modelling with interpretable baselines.</li>
-        <li>Alert prediction under class imbalance and time-aware evaluation.</li>
+        <li>Machine-learning and deep-learning methods for anomaly and alert prediction under class imbalance.</li>
         <li>Survival models with explicit event and censoring definitions.</li>
         <li>Group-aware splitting, reproducible preprocessing, and evaluation dashboards.</li>
       </ul>

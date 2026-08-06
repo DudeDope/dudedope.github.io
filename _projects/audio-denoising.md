@@ -4,7 +4,7 @@ title: Variance-Based Audio Denoising via Amplitude Thresholding
 description: Sliding-window variance, modal threshold selection, time-domain suppression, and FFT-based diagnostics.
 permalink: /projects/audio-denoising/
 type: project
-project_area: Applied statistical learning
+project_area: Applied machine learning
 status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Arnab Chakraborty

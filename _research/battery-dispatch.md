@@ -1,21 +1,22 @@
 ---
 layout: page
-title: Battery Forecasting and Energy-Market Optimisation
-description: Uncertainty-aware forecasting and operational optimisation for battery energy storage systems.
+title: Probabilistic Forecasting and Electricity-Market Bidding
+description: Probabilistic forecasting, stochastic price modelling, and optimisation for renewable generation and electricity-market decisions.
 permalink: /research/battery-dispatch/
-research_area: Battery analytics and energy systems
+research_area: Probabilistic modelling and decision-making
 status: Industry research
 organisation: Ranial Systems
 collaborators: []
 period: May 2026–Present
 featured: true
 importance: 3
-research_question: How should battery monitoring and trading decisions combine uncertain market information with operational and degradation constraints?
+research_question: How can probabilistic forecasts of generation, weather, and market prices support bidding and battery-operation decisions under uncertainty?
+summary: Probabilistic forecasting and optimisation for renewable generation and electricity-market decisions.
 tags:
   - energy markets
-  - battery optimisation
+  - vine copulas
   - probabilistic forecasting
-  - decision support
+  - bidding optimisation
 paper_url:
 code_url:
 technical_note_url:
@@ -29,7 +30,8 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    Machine-learning and optimisation work for operational decision support, monitoring, and trading in U.S. battery energy storage systems.
+    Probabilistic forecasting and decision modelling for renewable generation and electricity markets, including vine-copula dependence models,
+    stochastic market-clearing-price models, quantile-based bidding, and battery-constrained optimisation.
   </p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
@@ -48,9 +50,9 @@ image:
     <section id="abstract" class="aa-entry-section">
       <h2>Abstract</h2>
       <p>
-        Battery decisions couple forecasts with physical state: an action changes available energy, future flexibility, and degradation exposure.
-        The work develops forecasting and optimisation components that respect information timing and translate model outputs into inspectable
-        decision support.
+        Renewable generation, weather, market prices, and battery conditions interact across different time scales. This work develops probabilistic
+        models for those uncertainties and connects their outputs to bidding and operational decisions while respecting information timing and
+        physical constraints.
       </p>
     </section>
 
@@ -62,36 +64,38 @@ image:
     <section id="setup" class="aa-entry-section">
       <h2>Decision setup</h2>
       <p>
-        Market and operational signals arrive on different timelines. Feasible actions depend on power, energy, efficiency, state of charge, and
-        degradation considerations, so forecast evaluation and policy evaluation must be aligned with the information available at each decision.
+        Weather, solar-generation, market, and operational signals arrive on different timelines. Feasible battery actions depend on power, energy,
+        efficiency, state of charge, and degradation considerations, so forecast and bidding-policy evaluation must use only the information
+        available at each decision.
       </p>
     </section>
 
     <section id="methods" class="aa-entry-section">
       <h2>Methods</h2>
       <ul>
-        <li>Probabilistic and uncertainty-aware electricity-market forecasting.</li>
-        <li>Scenario-based analysis and time-consistent feature construction.</li>
-        <li>Operational optimisation under power, energy, and state constraints.</li>
-        <li>Degradation-aware objectives and sensitivity analysis.</li>
-        <li>Python pipelines, model evaluation, and decision-support dashboards.</li>
+        <li>Machine-learning and deep-learning forecasting of solar generation and weather-dependent quantities.</li>
+        <li>Vine-copula models for multivariate dependence and probabilistic forecasting.</li>
+        <li>Stochastic modelling of market-clearing prices (MCP) for electricity-market decisions.</li>
+        <li>Quantile-based bidding strategies and time-aware backtesting.</li>
+        <li>Operational optimisation under battery power, energy, state, and degradation constraints.</li>
       </ul>
     </section>
 
     <section id="contribution" class="aa-entry-section">
       <h2>Contribution</h2>
       <p>
-        My contribution spans data and modelling pipelines, evaluation outputs, and the connection between forecast uncertainty and operational
-        choices. Exact strategies and numerical performance are intentionally omitted from the public record.
+        My contribution spans data and modelling pipelines, probabilistic forecasts, time-aware evaluation, and the connection between uncertainty,
+        bidding strategies, and battery-operational choices. Exact strategies and numerical performance are intentionally omitted from the public
+        record.
       </p>
     </section>
 
     <section id="limitations" class="aa-entry-section">
       <h2>Limitations and next questions</h2>
       <p>
-        Historical conditions may not represent future price spikes, equipment behaviour, or market-rule changes. Policy quality also depends on
-        forecast calibration and cost assumptions. Current questions include tail scenarios, distribution shift, degradation sensitivity, and
-        scalable representations of operational state.
+        Historical conditions may not represent future weather regimes, generation patterns, price spikes, equipment behaviour, or market-rule
+        changes. Decision quality also depends on forecast calibration, dependence assumptions, bid construction, and operating costs. Evaluation
+        therefore needs time-aware backtesting, tail-scenario analysis, and sensitivity checks.
       </p>
     </section>
 

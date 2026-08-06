@@ -2,7 +2,7 @@
 layout: page
 title: About
 permalink: /about/
-description: Statistics, mathematical machine learning, and scientific decision systems.
+description: Mathematical statistics, probabilistic modelling, machine learning, and optimisation under uncertainty.
 nav: true
 nav_order: 1
 ---
@@ -10,28 +10,32 @@ nav_order: 1
 <div class="aa-page-grid">
   <div class="aa-prose">
     <p class="aa-lede">
-      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, with an expected graduation year of 2027. I work on
-      problems that connect mathematical statistics, machine learning, and scientific decision-making.
+      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, with an expected graduation year of 2027. I am interested
+      in mathematical statistics, probabilistic modelling, machine learning, and optimisation.
     </p>
 
-    <h2>Research trajectory</h2>
+    <h2>Interests and experience</h2>
 
     <p>
-      My theoretical work centres on the geometry and statistics of learning algorithms. With Prof. Xin Bing at the University of Toronto, I study
-      population and sample expectation-maximisation for k-component Gaussian mixture-type models, including fixed points, local contraction,
-      mixture imbalance, high-dimensional noise, and concentration-style control.
-    </p>
-
-    <p>
-      Statistical decision theory, dependence modelling, and sequential decisions form a second thread. Projects on James–Stein shrinkage,
-      bivariate copulas for extreme air-pollution episodes, and finite-horizon optimal stopping ask how structure and uncertainty should affect an
-      estimator or action.
+      My interests centre on methods for learning and decision-making under uncertainty. I am particularly drawn to problems where statistical
+      structure, predictive models, and optimisation must work together.
     </p>
 
     <p>
-      Applied work at Ranial Systems brings these concerns to battery degradation, survival modelling, energy-market forecasting, and constrained
-      dispatch. Earlier work at Mercity AI examined compact medical vision-language models, visual-token compression, supervised fine-tuning, and
-      preference optimisation. Across these settings, I value explicit assumptions, reproducible evaluation, and appropriately limited claims.
+      My current academic research examines the behaviour of expectation-maximisation algorithms for latent-variable models. My applied experience
+      includes battery degradation and survival modelling, machine-learning and deep-learning methods for anomaly detection, probabilistic
+      forecasting, stochastic price modelling, bidding optimisation, and efficient multimodal learning.
+    </p>
+
+    <p>
+      I have worked across academic and industry settings at the University of Toronto, Ranial Systems, and Mercity AI. Although these projects
+      arise in different application areas, they share a common emphasis on uncertainty, reliable modelling, careful evaluation, and data-informed
+      decisions.
+    </p>
+
+    <p>
+      I value explicit assumptions, reproducible analysis, well-chosen comparisons, and conclusions that reflect the strength of the available
+      evidence.
     </p>
 
   </div>
@@ -68,25 +72,23 @@ nav_order: 1
   </aside>
 </div>
 
-<section class="aa-section" aria-labelledby="current-questions">
+<section class="aa-section" aria-labelledby="areas-of-interest">
   <div class="aa-section-head">
-    <h2 id="current-questions">Current questions</h2>
-    <p>Questions I am actively studying or using to connect current work with longer-term research interests.</p>
+    <h2 id="areas-of-interest">Areas of interest</h2>
+    <p>Broad methodological directions connecting my current research, technical projects, and industry experience.</p>
   </div>
-  <ol class="aa-question-list">
-    <li>When do population and sample EM updates contract around the target parameter in k-component mixture models?</li>
-    <li>How do mixture imbalance, nonconvex geometry, and high-dimensional noise affect the fixed-point landscape?</li>
-    <li>How can shrinkage and empirical Bayes methods improve decisions under heterogeneous uncertainty?</li>
-    <li>Which copula structures best represent extremal dependence without imposing parametric marginals?</li>
-    <li>How should prediction uncertainty and degradation costs affect battery-market decisions?</li>
-    <li>How can compact multimodal systems be compressed and evaluated without overstating what automatic metrics establish?</li>
-  </ol>
+  <ul class="aa-question-list">
+    <li>Statistical learning and inference for complex and latent-variable models.</li>
+    <li>Probabilistic modelling of dependent, high-dimensional, and time-varying data.</li>
+    <li>Machine-learning methods for forecasting, anomaly detection, and representation learning.</li>
+    <li>Optimisation and sequential decision-making under uncertainty.</li>
+  </ul>
 </section>
 
 <section class="aa-section" aria-labelledby="working-style">
   <div class="aa-section-head">
     <h2 id="working-style">Research practice</h2>
-    <p>I aim for work whose assumptions, comparisons, numerical evidence, and limits can be inspected.</p>
+    <p>I value explicit assumptions, reproducible analysis, well-chosen baselines, and conclusions supported by the available evidence.</p>
   </div>
   <div class="aa-topic-list" aria-label="Research principles">
     {% for principle in site.data.profile.principles %}

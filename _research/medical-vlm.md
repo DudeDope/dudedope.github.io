@@ -3,7 +3,7 @@ layout: page
 title: Compact Medical Vision-Language Modelling
 description: Visual-token compression, reproducible training, preference optimisation, and calibrated caption generation.
 permalink: /research/medical-vlm/
-research_area: Multimodal and medical machine learning
+research_area: Machine-learning systems
 status: Completed internship
 organisation: Mercity AI
 collaborators: []
@@ -11,6 +11,7 @@ period: Apr–Aug 2025
 featured: true
 importance: 4
 research_question: How can a compact visual-language interface reduce training memory while preserving useful caption-generation behaviour?
+summary: Efficient multimodal learning through representation compression and targeted training.
 tags:
   - vision-language models
   - Q-Former

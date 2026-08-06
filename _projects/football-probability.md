@@ -4,7 +4,7 @@ title: Elo-Based Football Probability Modelling and Betting Simulation
 description: Elo features, logistic outcome probabilities, calibration metrics, and a retrospective value-betting simulation.
 permalink: /projects/football-probability/
 type: project
-project_area: Applied statistical learning
+project_area: Applied machine learning
 status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Ayanendranath Basu
