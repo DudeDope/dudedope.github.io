@@ -129,8 +129,9 @@ $$
 \begin{aligned}
 \operatorname{Var}_\theta(W)
 &=\frac14\operatorname{Var}_\theta(T_1+T_2)\\
-&=\frac12\bigl(\operatorname{Var}_\theta(T_1)+\operatorname{Var}_\theta(T_2)\bigr)
-   -\frac14\operatorname{Var}_\theta(T_1-T_2)\\
+&=\frac12\operatorname{Var}_\theta(T_1)
+  +\frac12\operatorname{Var}_\theta(T_2)\\
+&\quad-\frac14\operatorname{Var}_\theta(T_1-T_2)\\
 &=v_\theta-\frac14\operatorname{Var}_\theta(T_1-T_2).
 \end{aligned}
 $$
@@ -427,8 +428,10 @@ $\operatorname{Var}(\overline X)=\theta^2/n$, exactly equal to the CRLB, so $\ov
 Let
 
 $$
-X_1,\dots,X_n\overset{\mathrm{iid}}{\sim}N(\mu,\sigma^2),
-\qquad n\ge2,\quad \mu\in\mathbb{R},\quad\sigma^2>0.
+\begin{gathered}
+X_1,\dots,X_n\overset{\mathrm{iid}}{\sim}N(\mu,\sigma^2),\\
+n\ge2,\qquad \mu\in\mathbb{R},\qquad \sigma^2>0.
+\end{gathered}
 $$
 
 Define
@@ -583,9 +586,12 @@ $$
 Its bias and MSE are
 
 $$
-\operatorname{Bias}\left(\frac Qn\right)=-\frac{\sigma^2}{n},
-\qquad
-\operatorname{MSE}\left(\frac Qn\right)=\frac{2n-1}{n^2}\sigma^4.
+\begin{aligned}
+\operatorname{Bias}\left(\frac Qn\right)
+&=-\frac{\sigma^2}{n},\\
+\operatorname{MSE}\left(\frac Qn\right)
+&=\frac{2n-1}{n^2}\sigma^4.
+\end{aligned}
 $$
 
 It has lower MSE than $S^2$, but it is not the best member of the full class $cQ$; the choice $c=1/(n+1)$ is slightly better.
@@ -646,9 +652,11 @@ There is no unbiased estimator of $\sigma^2$ that attains $2\sigma^4/n$ simultan
 Equality would require the centred estimator to be a linear combination of the two score components. Because $g(\mu,\sigma^2)=\sigma^2$, the required combination reduces to
 
 $$
+\begin{aligned}
 T-\sigma^2
-=\frac{2\sigma^4}{n}\frac{\partial}{\partial\sigma^2}\log L(\mu,\sigma^2)
-=\frac1n\sum_{i=1}^n(X_i-\mu)^2-\sigma^2.
+&=\frac{2\sigma^4}{n}\frac{\partial}{\partial\sigma^2}\log L(\mu,\sigma^2)\\
+&=\frac1n\sum_{i=1}^n(X_i-\mu)^2-\sigma^2.
+\end{aligned}
 $$
 
 Therefore equality would force

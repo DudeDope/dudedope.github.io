@@ -168,9 +168,10 @@ Squaring and taking expectations gives
 $$
 \begin{aligned}
 \operatorname{E}_\theta[(T-\psi(\theta))^2]
-&=\operatorname{E}_\theta[(T-m_\theta)^2]
-+2\bigl(m_\theta-\psi(\theta)\bigr)\operatorname{E}_\theta[T-m_\theta]\\
-&\qquad+\bigl(m_\theta-\psi(\theta)\bigr)^2.
+&=\operatorname{E}_\theta[(T-m_\theta)^2]\\
+&\quad+2\bigl(m_\theta-\psi(\theta)\bigr)
+  \operatorname{E}_\theta[T-m_\theta]\\
+&\quad+\bigl(m_\theta-\psi(\theta)\bigr)^2.
 \end{aligned}
 $$
 
