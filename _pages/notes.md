@@ -2,7 +2,7 @@
 layout: page
 permalink: /notes/
 title: Notes
-description: Lecture-wise notes in sample surveys and the design and analysis of algorithms.
+description: Lecture-wise notes in sample surveys, algorithms, and parametric inference.
 nav: true
 nav_order: 5
 ---

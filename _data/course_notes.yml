@@ -34,3 +34,21 @@ courses:
       - Correctness proofs
       - Selection and search
       - Search trees
+
+  - slug: parametric-inference
+    title: Parametric Inference
+    instructor: Prof. Probal Chaudhuri
+    institution: Indian Statistical Institute, Kolkata
+    term: Fall 2026
+    status: Complete through Lecture 6
+    lecture_count: 6
+    description: >
+      Point estimation, unbiased estimation, risk and efficiency, Fisher information,
+      sufficiency, completeness, Rao-Blackwell improvement, and UMVUE construction.
+    contents_url: /notes/parametric-inference/
+    formula_url: /notes/parametric-inference/formula-sheet/
+    topics:
+      - Point estimation
+      - Unbiased estimation
+      - Sufficiency and completeness
+      - UMVUE theory

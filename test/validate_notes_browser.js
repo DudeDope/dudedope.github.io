@@ -122,6 +122,13 @@ function assert(condition, message) {
           `${note.permalink}: a definition, theorem, or lemma is outside its formal statement box`
         );
       }
+      if (note.permalink.startsWith("/notes/parametric-inference/lecture-")) {
+        assert(measurements.boxedQuestionAnswers === 0, `${note.permalink}: a question or answer is still boxed`);
+        assert(
+          measurements.formalStatementsOutsideBoxes === 0,
+          `${note.permalink}: a definition, theorem, or lemma is outside its formal statement box`
+        );
+      }
       if (mathRuntimeAvailable)
         assert(measurements.mathErrors.length === 0, `${note.permalink}: MathJax errors: ${measurements.mathErrors.join("; ")}`);
     }
@@ -132,6 +139,8 @@ function assert(condition, message) {
     "/notes/sample-surveys/lecture-03-design-based-estimation/",
     "/notes/design-and-analysis-of-algorithms/formula-sheet/",
     "/notes/design-and-analysis-of-algorithms/lecture-05-deterministic-linear-selection/",
+    "/notes/parametric-inference/formula-sheet/",
+    "/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/",
   ]) {
     await page.setViewportSize({ width: 1440, height: 900 });
     const url = new URL(permalink.replace(/^\//, ""), baseUrl).href;

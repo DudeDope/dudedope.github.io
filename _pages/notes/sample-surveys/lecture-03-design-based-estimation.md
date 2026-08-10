@@ -589,12 +589,12 @@ The exact distribution is
 
 $$
 \mathbb{P}(K=k)
-=\frac{(N)_k\,\left\lbrace\begin{matrix}n\\k\end{matrix}\right\rbrace}{N^n},
+=\frac{(N)_k\,S(n,k)}{N^n},
 \qquad
 k=1,\ldots,\min(n,N),
 $$
 
-where $\left\lbrace\begin{matrix}n\\k\end{matrix}\right\rbrace$ is a Stirling number of the second kind. Choose the $k$ distinct labels, partition the $n$ draw positions into $k$ nonempty groups, and assign the groups to the labels.
+where $S(n,k)$ is a Stirling number of the second kind. Choose the $k$ distinct labels, partition the $n$ draw positions into $k$ nonempty groups, and assign the groups to the labels.
 
 ## The distinct-units estimator
 
