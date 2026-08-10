@@ -59,7 +59,7 @@ $$
 \mathcal P=\lbrace P_\theta:\theta\in\Theta \rbrace,
 $$
 
-where $\Theta\subseteq\mathbb{R}^k$ is the parameter space. The unknown quantity $\theta$ indexes the distribution that generated the data.
+where \\(\Theta\subseteq\mathbb{R}^k\\) is the parameter space. The unknown quantity \\(\theta\\) indexes the distribution that generated the data.
 
 </div>
 
@@ -69,7 +69,7 @@ $$
 X=(X_1,\dots,X_n),\qquad X_1,\dots,X_n\overset{\mathrm{iid}}{\sim}P_\theta.
 $$
 
-Before observation, $X$ is random. After observation, its realised value is denoted
+Before observation, \\(X\\) is random. After observation, its realised value is denoted
 
 $$
 x=(x_1,\dots,x_n).
@@ -78,14 +78,14 @@ $$
 <div class="definition" markdown="1">
 
 **Definition 1.2 — Statistic and estimator.**
-A _statistic_ is any measurable function $T=T(X)$ of the sample that does not involve the unknown parameter. When $T$ is used to estimate a parameter or a parametric function $\psi(\theta)$, it is called an _estimator_. The observed number $T(x)$ is called the _estimate_.
+A _statistic_ is any measurable function \\(T=T(X)\\) of the sample that does not involve the unknown parameter. When \\(T\\) is used to estimate a parameter or a parametric function \\(\psi(\theta)\\), it is called an _estimator_. The observed number \\(T(x)\\) is called the _estimate_.
 
 </div>
 
 <div class="warning" markdown="1">
 
 **Common pitfall 1.3.**
-An estimator may depend on known constants, but it cannot contain the unknown value of $\theta$. For example, $T(X)=X_1$ is an estimator of $\theta$, while $T(X)=X_1-\theta$ is not.
+An estimator may depend on known constants, but it cannot contain the unknown value of \\(\theta\\). For example, \\(T(X)=X_1\\) is an estimator of \\(\theta\\), while \\(T(X)=X_1-\theta\\) is not.
 
 </div>
 
@@ -96,7 +96,7 @@ An estimator is a rule for choosing an action after observing the data. To decid
 <div class="definition" markdown="1">
 
 **Definition 1.4 — Loss and risk.**
-Let $a$ be an action intended to estimate $\psi(\theta)$. A _loss function_ $L(\theta,a)$ measures the cost of taking action $a$ when the true parameter is $\theta$. The _risk function_ of an estimator $T$ is
+Let \\(a\\) be an action intended to estimate \\(\psi(\theta)\\). A _loss function_ \\(L(\theta,a)\\) measures the cost of taking action \\(a\\) when the true parameter is \\(\theta\\). The _risk function_ of an estimator \\(T\\) is
 
 $$
 R(\theta,T)=\operatorname{E}_\theta\!\left[L\bigl(\theta,T(X)\bigr)\right].
@@ -119,13 +119,13 @@ $$
 <div class="definition" markdown="1">
 
 **Definition 1.5 — Uniform comparison.**
-Under a fixed loss, an estimator $T_1$ is at least as good as $T_2$ if
+Under a fixed loss, an estimator \\(T_1\\) is at least as good as \\(T_2\\) if
 
 $$
 R(\theta,T_1)\le R(\theta,T_2)\qquad\text{for every }\theta\in\Theta.
 $$
 
-It is strictly better if the inequality is strict for at least one $\theta$.
+It is strictly better if the inequality is strict for at least one \\(\theta\\).
 
 </div>
 
@@ -134,20 +134,20 @@ It is strictly better if the inequality is strict for at least one $\theta$.
 <div class="definition" markdown="1">
 
 **Definition 1.6 — Bias.**
-The bias of an estimator $T$ of $\psi(\theta)$ is
+The bias of an estimator \\(T\\) of \\(\psi(\theta)\\) is
 
 $$
 \operatorname{Bias}_\theta(T)=\operatorname{E}_\theta[T]-\psi(\theta).
 $$
 
-The estimator is _unbiased_ if $\operatorname{E}_\theta[T]=\psi(\theta)$ for every $\theta\in\Theta$.
+The estimator is _unbiased_ if \\(\operatorname{E}\_\theta[T]=\psi(\theta)\\) for every \\(\theta\in\Theta\\).
 
 </div>
 
 <div class="theorem" markdown="1">
 
 **Theorem 1.7 — Bias–variance decomposition.**
-Suppose $\operatorname{E}_\theta[T^2]<\infty$. Then
+Suppose \\(\operatorname{E}\_\theta[T^2]<\infty\\). Then
 
 $$
 \operatorname{MSE}_\theta(T)=\operatorname{Var}_\theta(T)+\operatorname{Bias}_\theta(T)^2.
@@ -157,7 +157,7 @@ $$
 
 **Proof.**
 
-Write $m_\theta=\operatorname{E}_\theta[T]$. Then
+Write \\(m\_\theta=\operatorname{E}\_\theta[T]\\). Then
 
 $$
 T-\psi(\theta)=\bigl(T-m_\theta\bigr)+\bigl(m_\theta-\psi(\theta)\bigr).
@@ -177,7 +177,7 @@ $$
 
 The middle term is zero, so the result follows.
 
-$\square$
+\\(\square\\)
 
 For an unbiased estimator,
 
@@ -194,19 +194,19 @@ The following argument explains why we generally restrict the class of estimator
 <div class="proposition" markdown="1">
 
 **Proposition 1.8 — No uniformly best estimator over all estimators.**
-Suppose $\Theta$ contains at least two points, the loss is squared error, and the model distributions overlap sufficiently that no statistic can equal two different constants almost surely under different parameter values. Then there is no estimator that has risk no larger than every other estimator at every $\theta\in\Theta$.
+Suppose \\(\Theta\\) contains at least two points, the loss is squared error, and the model distributions overlap sufficiently that no statistic can equal two different constants almost surely under different parameter values. Then there is no estimator that has risk no larger than every other estimator at every \\(\theta\in\Theta\\).
 
 </div>
 
 **Proof.**
 
-Assume that $T^*$ is uniformly best among all estimators. Fix any $\theta_0\in\Theta$, and compare $T^*$ with the constant estimator
+Assume that \\(T^{\star}\\) is uniformly best among all estimators. Fix any \\(\theta_0\in\Theta\\), and compare \\(T^{\star}\\) with the constant estimator
 
 $$
 T_{\theta_0}(X)\equiv \psi(\theta_0).
 $$
 
-At $\theta=\theta_0$,
+At \\(\theta=\theta_0\\),
 
 $$
 R(\theta_0,T_{\theta_0})=0.
@@ -215,12 +215,12 @@ $$
 Uniform optimality would therefore imply
 
 $$
-0\le R(\theta_0,T^*)\le 0,
+0\le R(\theta_0,T^{\star})\le 0,
 $$
 
-so $T^*=\psi(\theta_0)$ almost surely under $P_{\theta_0}$. Since $\theta_0$ was arbitrary, $T^*$ would have to equal a different constant almost surely for each parameter value. In ordinary overlapping models this is impossible.
+so \\(T^{\star}=\psi(\theta_0)\\) almost surely under \\(P\_{\theta_0}\\). Since \\(\theta_0\\) was arbitrary, \\(T^{\star}\\) would have to equal a different constant almost surely for each parameter value. In ordinary overlapping models this is impossible.
 
-$\square$
+\\(\square\\)
 
 ### Worked Example 1.1 — Binomial illustration
 
@@ -230,13 +230,13 @@ Show, in a concrete binomial model, why an estimator cannot be uniformly best am
 
 **Solution.**
 
-Let $X\sim\operatorname{Bin}(n,\theta)$, $0<\theta<1$, and suppose we estimate $\theta$. If a universally best estimator $T^*$ existed, then comparison with the constant estimator $T_0\equiv 1/2$ would force
+Let \\(X\sim\operatorname{Bin}(n,\theta)\\), \\(0<\theta<1\\), and suppose we estimate \\(\theta\\). If a universally best estimator \\(T^{\star}\\) existed, then comparison with the constant estimator \\(T_0\equiv 1/2\\) would force
 
 $$
-R(1/2,T^*)=0,
+R(1/2,T^{\star})=0,
 $$
 
-so $T^*=1/2$ for every $x\in\lbrace 0,\dots,n \rbrace$, because every such $x$ has positive probability when $\theta=1/2$. Thus $T^*\equiv1/2$. But at, say, $\theta=1/4$, the constant estimator $T_1\equiv1/4$ has risk zero, whereas $T^*\equiv1/2$ has risk $1/16$. This contradicts universal optimality.
+so \\(T^{\star}=1/2\\) for every \\(x\in\lbrace 0,\dots,n \rbrace\\), because every such \\(x\\) has positive probability when \\(\theta=1/2\\). Thus \\(T^{\star}\equiv1/2\\). But at, say, \\(\theta=1/4\\), the constant estimator \\(T_1\equiv1/4\\) has risk zero, whereas \\(T^{\star}\equiv1/2\\) has risk \\(1/16\\). This contradicts universal optimality.
 
 **Final result.**
 
@@ -253,7 +253,7 @@ What is the difference between an estimator and an estimate?
 
 **Answer.**
 
-The estimator $T(X)$ is a random variable before the sample is observed; the estimate $T(x)$ is its realised numerical value after observing $x$.
+The estimator \\(T(X)\\) is a random variable before the sample is observed; the estimate \\(T(x)\\) is its realised numerical value after observing \\(x\\).
 
 **Question.**
 
@@ -261,7 +261,7 @@ Why can an estimator not contain the unknown parameter?
 
 **Answer.**
 
-An estimator must be computable from the observed data and known constants. An expression such as $X_1-\theta$ is not computable without already knowing $\theta$.
+An estimator must be computable from the observed data and known constants. An expression such as \\(X_1-\theta\\) is not computable without already knowing \\(\theta\\).
 
 **Question.**
 
@@ -269,7 +269,7 @@ Why do we compare variances when all competing estimators are unbiased?
 
 **Answer.**
 
-Because unbiasedness makes the bias term zero, so $\operatorname{MSE}_\theta(T)=\operatorname{Var}_\theta(T)$.
+Because unbiasedness makes the bias term zero, so \\(\operatorname{MSE}\_\theta(T)=\operatorname{Var}\_\theta(T)\\).
 
 **Question.**
 

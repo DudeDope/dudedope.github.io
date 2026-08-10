@@ -63,10 +63,12 @@ function assert(condition, message) {
         const displayMath = [...document.querySelectorAll('.aa-course-note mjx-container[display="true"]')];
         const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         const rawMathFragments = [];
+        const rawInlineMathFragments = [];
         let textNode;
         while ((textNode = treeWalker.nextNode())) {
           if (["SCRIPT", "STYLE", "CODE", "PRE"].includes(textNode.parentElement?.tagName)) continue;
           if (/\$\$|\\begin\{|\\end\{/.test(textNode.textContent)) rawMathFragments.push(textNode.textContent.trim().slice(0, 100));
+          if (/\$(?!\$)|\\\(|\\\)/.test(textNode.textContent)) rawInlineMathFragments.push(textNode.textContent.trim().slice(0, 100));
         }
 
         return {
@@ -75,6 +77,7 @@ function assert(condition, message) {
           headingCount: document.querySelectorAll("h1").length,
           mathErrors: [...document.querySelectorAll("mjx-merror")].map((error) => error.textContent.trim()),
           rawMathFragments,
+          rawInlineMathFragments,
           tableCount: tables.length,
           tablesInsideQuotes: tables.filter((table) => table.closest("blockquote")).length,
           malformedTables: tables.filter((table) => {
@@ -127,6 +130,12 @@ function assert(condition, message) {
         assert(
           measurements.formalStatementsOutsideBoxes === 0,
           `${note.permalink}: a definition, theorem, or lemma is outside its formal statement box`
+        );
+      }
+      if (/\/notes\/parametric-inference\/lecture-0[12]-/.test(note.permalink)) {
+        assert(
+          measurements.rawInlineMathFragments.length === 0,
+          `${note.permalink}: unprocessed inline math remains visible: ${measurements.rawInlineMathFragments.join("; ")}`
         );
       }
       if (mathRuntimeAvailable)

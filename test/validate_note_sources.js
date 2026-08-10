@@ -29,6 +29,7 @@ if (files.length !== expectedPageCount) {
 for (const file of files) {
   const source = fs.readFileSync(file, "utf8");
   const lines = source.split(/\r?\n/);
+  const requiresStrictInlineMath = /parametric-inference[\\/]lecture-0[12]-/.test(file);
   let displayDelimiterCount = 0;
   let fenceCount = 0;
 
@@ -54,14 +55,30 @@ for (const file of files) {
       report(file, lineNumber, "possible Markdown-damaged TeX token");
     }
 
-    const inlineExpressions = [...line.matchAll(/(?<!\$)\$(?!\$)([^$]+?)(?<!\$)\$(?!\$)/g)];
+    const dollarInlineExpressions = [...line.matchAll(/(?<!\$)\$(?!\$)([^$]+?)(?<!\$)\$(?!\$)/g)];
+    const parenthesizedInlineExpressions = [...line.matchAll(/\\\\\((.+?)\\\\\)/g)];
+    const inlineExpressions = [...dollarInlineExpressions, ...parenthesizedInlineExpressions];
+    if (requiresStrictInlineMath && dollarInlineExpressions.length > 0) {
+      report(file, lineNumber, "dollar-delimited inline math is fragile; use escaped MathJax parenthesis delimiters");
+    }
     for (const expression of inlineExpressions) {
       if (expression[1].includes("|")) report(file, lineNumber, "raw vertical bar inside inline math can become a Markdown table");
+      if (requiresStrictInlineMath && expression[1].includes("*")) {
+        report(file, lineNumber, "raw asterisk inside inline math can be parsed as Markdown; use a named TeX symbol");
+      }
     }
+    if (requiresStrictInlineMath && /\\\*/.test(line)) report(file, lineNumber, "stray escaped asterisk in prose");
   });
 
   if (displayDelimiterCount % 2 !== 0) report(file, 1, "unbalanced display-math delimiters");
   if (fenceCount % 2 !== 0) report(file, 1, "unbalanced fenced code block");
+  if (requiresStrictInlineMath) {
+    const inlineOpenCount = (source.match(/\\\\\(/g) || []).length;
+    const inlineCloseCount = (source.match(/\\\\\)/g) || []).length;
+    if (inlineOpenCount !== inlineCloseCount) {
+      report(file, 1, `unbalanced inline-math delimiters (${inlineOpenCount} open, ${inlineCloseCount} close)`);
+    }
+  }
 
   const beginCount = (source.match(/\\begin\{/g) || []).length;
   const endCount = (source.match(/\\end\{/g) || []).length;
