@@ -40,34 +40,29 @@ nav_order: 1
 
   </div>
 
-  <aside class="aa-academic-rail aa-profile-rail" aria-label="Profile facts">
-    <h2>Profile</h2>
-    <dl class="aa-fact-list">
-      <div>
-        <dt>Institution</dt>
-        <dd>Indian Statistical Institute, Kolkata</dd>
-      </div>
-      <div>
-        <dt>Programme</dt>
-        <dd>B.Stat (Hons.), expected 2027</dd>
-      </div>
-      <div>
-        <dt>Current roles</dt>
-        <dd>Student Researcher, University of Toronto<br />Data Science Intern, Ranial Systems</dd>
-      </div>
-      <div>
-        <dt>Previously</dt>
-        <dd>ML Research Intern, Mercity AI</dd>
-      </div>
-      <div>
-        <dt>Contact</dt>
-        <dd><a href="mailto:{{ site.data.socials.email }}">{{ site.data.socials.email }}</a></dd>
-      </div>
-    </dl>
-    <nav class="aa-rail-nav" aria-label="Profile links">
-      <a href="https://github.com/{{ site.data.socials.github_username }}">GitHub</a>
-      <a href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}">LinkedIn</a>
-      <a href="{{ '/assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf' | relative_url }}">CV PDF</a>
+  <aside class="aa-academic-rail aa-profile-rail aa-contact-rail" aria-label="Contact and profile links">
+    <h2>Contact</h2>
+    <a class="aa-contact-email" href="mailto:{{ site.data.socials.email }}">{{ site.data.socials.email }}</a>
+    <nav class="aa-contact-links" aria-label="Profile and document links">
+      <a
+        class="aa-social-link"
+        href="https://github.com/{{ site.data.socials.github_username }}"
+        aria-label="GitHub profile"
+        title="GitHub"
+        rel="me"
+      >
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+      </a>
+      <a
+        class="aa-social-link"
+        href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}"
+        aria-label="LinkedIn profile"
+        title="LinkedIn"
+        rel="me"
+      >
+        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+      </a>
+      <a class="aa-cv-link" href="{{ '/assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf' | relative_url }}">CV PDF</a>
     </nav>
   </aside>
 </div>

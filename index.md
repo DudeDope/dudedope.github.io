@@ -27,15 +27,29 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
 
   </div>
 
-  <aside class="aa-academic-rail" aria-label="Contact">
-    <dl class="aa-fact-list">
-      <div>
-        <dt>Contact</dt>
-        <dd><a href="mailto:{{ site.data.socials.email }}">{{ site.data.socials.email }}</a></dd>
-      </div>
-    </dl>
-    <nav class="aa-rail-nav" aria-label="Document links">
-      <a href="{{ '/assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf' | relative_url }}">CV PDF</a>
+  <aside class="aa-academic-rail aa-contact-rail" aria-label="Contact and profile links">
+    <h2>Contact</h2>
+    <a class="aa-contact-email" href="mailto:{{ site.data.socials.email }}">{{ site.data.socials.email }}</a>
+    <nav class="aa-contact-links" aria-label="Profile and document links">
+      <a
+        class="aa-social-link"
+        href="https://github.com/{{ site.data.socials.github_username }}"
+        aria-label="GitHub profile"
+        title="GitHub"
+        rel="me"
+      >
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+      </a>
+      <a
+        class="aa-social-link"
+        href="https://www.linkedin.com/in/{{ site.data.socials.linkedin_username }}"
+        aria-label="LinkedIn profile"
+        title="LinkedIn"
+        rel="me"
+      >
+        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+      </a>
+      <a class="aa-cv-link" href="{{ '/assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf' | relative_url }}">CV PDF</a>
     </nav>
   </aside>
 </div>
