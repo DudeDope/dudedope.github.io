@@ -40,11 +40,11 @@ courses:
     instructor: Prof. Probal Chaudhuri
     institution: Indian Statistical Institute, Kolkata
     term: Fall 2026
-    status: Complete through Lecture 6
-    lecture_count: 6
+    status: Complete through Lecture 8
+    lecture_count: 8
     description: >
       Point estimation, unbiased estimation, risk and efficiency, Fisher information,
-      sufficiency, completeness, Rao-Blackwell improvement, and UMVUE construction.
+      sufficiency, completeness, UMVUE construction, hypothesis testing, and Bayesian inference.
     contents_url: /notes/parametric-inference/
     formula_url: /notes/parametric-inference/formula-sheet/
     topics:
@@ -52,3 +52,5 @@ courses:
       - Unbiased estimation
       - Sufficiency and completeness
       - UMVUE theory
+      - Hypothesis testing
+      - Bayesian inference

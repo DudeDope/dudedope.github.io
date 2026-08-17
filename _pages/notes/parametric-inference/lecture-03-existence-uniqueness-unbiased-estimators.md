@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Characterises unbiasedly estimable functions in binomial and Poisson models, explains the analytic power-series condition, and proves uniqueness for one exponential observation using Laplace transforms."
+description: "Characterises unbiasedly estimable functions in binomial, Poisson, exponential, and negative-binomial sampling models using polynomial, power-series, analytic, and Laplace-transform arguments."
 topics:
   - "unbiased estimability"
   - "binomial polynomials"
@@ -16,11 +16,13 @@ topics:
   - "analytic functions"
   - "Laplace transform"
   - "exponential model"
+  - "negative-binomial sampling"
+  - "stopping rules"
 previous: "lecture-02-unbiased-estimation-umvue-crlb"
-next: "lecture-04-sufficiency-rao-blackwell"
+next: "lecture-04-sufficiency-rao-blackwell-ancillarity"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-11"
+last_updated: "2026-08-17"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-03-existence-uniqueness-unbiased-estimators/
@@ -35,18 +37,26 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
-> **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. The exposition includes additional definitions, derivations, and worked solutions. Any remaining errors belong to the note maintainer, not to the instructor or the Institute.
+> **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/parametric-inference/lecture-04-sufficiency-rao-blackwell/' | relative_url }})
+[Previous lecture]({{ '/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture]({{ '/notes/parametric-inference/lecture-04-sufficiency-rao-blackwell-ancillarity/' | relative_url }})
 </nav>
 
 ## Learning objectives
+
+<div class="intuition" markdown="1">
+
+**Additional context.**
+This section was added to make the lecture easier to use as a self-contained study note.
+
+</div>
 
 - Determine when a target function can possess an unbiased estimator in finite-support models.
 - Use polynomial and power-series identities to construct or rule out unbiased estimators.
 - Explain precisely what analyticity means in the Poisson argument.
 - Prove uniqueness of the unbiased estimator of an exponential mean from one observation.
+- Analyse unbiased estimation under a negative-binomial stopping rule.
 
 ## 1. The binomial model
 
@@ -56,19 +66,20 @@ $$
 X\sim\operatorname{Bin}(n,\theta),\qquad 0<\theta<1.
 $$
 
-For any statistic $T=T(X)$,
+For any statistic \\(T=T(X)\\),
 
 $$
 \operatorname{E}_\theta[T]
 =\sum_{x=0}^n T(x)\binom nx\theta^x(1-\theta)^{n-x}.
 $$
 
-The right side is a polynomial in $\theta$ of degree at most $n$.
+The right side is a polynomial in \\(\theta\\) of degree at most \\(n\\).
 
 <div class="theorem" markdown="1">
 
 **Theorem 3.1 — Unbiasedly estimable functions in the binomial model.**
-A function $\psi:(0,1)\to\mathbb{R}$ has an unbiased estimator based on $X\sim\operatorname{Bin}(n,\theta)$ if and only if $\psi$ is the restriction to $(0,1)$ of a polynomial of degree at most $n$.
+
+A function \\(\psi:(0,1)\to\mathbb{R}\\) has an unbiased estimator based on \\(X\sim\operatorname{Bin}(n,\theta)\\) if and only if \\(\psi\\) is the restriction to \\((0,1)\\) of a polynomial of degree at most \\(n\\).
 
 </div>
 
@@ -82,7 +93,7 @@ $$
 \psi(\theta)=\sum_{k=0}^n a_k\theta^k.
 $$
 
-Let $(x)_{k}=x(x-1)\cdots(x-k+1)$ denote the falling factorial, with $(x)_{0}=1$. A standard binomial factorial-moment calculation gives
+Let \\((x)\_{k}=x(x-1)\cdots(x-k+1)\\) denote the falling factorial, with \\((x)\_{0}=1\\). A standard binomial factorial-moment calculation gives
 
 $$
 \operatorname{E}_\theta[(X)_{k}]=(n)_{k}\theta^k.
@@ -102,13 +113,13 @@ $$
 =\psi(\theta).
 $$
 
-$\square$
+\\(\square\\)
 
-### Worked Example 3.1 — No unbiased estimator of the binomial odds
+### Worked Example 3.1 — No unbiased estimator of \\((1-\theta)/\theta\\)
 
 **Problem.**
 
-Work through the source example “No unbiased estimator of $(1-\theta)/\theta$” in full.
+Work through the source example “No unbiased estimator of \\((1-\theta)/\theta\\)” in full.
 
 **Solution.**
 
@@ -118,20 +129,20 @@ $$
 \psi(\theta)=\frac{1-\theta}{\theta}=\frac1\theta-1.
 $$
 
-This is not a polynomial on $(0,1)$. Therefore no statistic $T(X)$ can satisfy
+This is not a polynomial on \\((0,1)\\). Therefore no statistic \\(T(X)\\) can satisfy
 
 $$
 \operatorname{E}_\theta[T(X)]=\frac{1-\theta}{\theta}
 \qquad\text{for every }0<\theta<1.
 $$
 
-- \*A direct contradiction can also be seen by multiplying by $\theta$: if an unbiased estimator existed, then
+A direct contradiction can also be seen by multiplying by \\(\theta\\): if an unbiased estimator existed, then
 
 $$
 \sum_{x=0}^n T(x)\binom nx\theta^{x+1}(1-\theta)^{n-x}=1-\theta.
 $$
 
-Every term on the left contains a factor $\theta$, so the left side vanishes at $\theta=0$, whereas the right side equals $1$. Polynomial identity makes this impossible.
+Every term on the left contains a factor \\(\theta\\), so the left side vanishes at \\(\theta=0\\), whereas the right side equals \\(1\\). Polynomial identity makes this impossible.
 
 **Final result.**
 
@@ -141,11 +152,11 @@ The conclusion is the final result derived in the solution above.
 
 **Problem.**
 
-Construct unbiased estimators of $\theta$, $\theta^2$, and more generally $\theta^k$ in the binomial model.
+Construct unbiased estimators of \\(\theta\\), \\(\theta^2\\), and more generally \\(\theta^k\\) in the binomial model.
 
 **Solution.**
 
-For $X\sim\operatorname{Bin}(n,\theta)$:
+For \\(X\sim\operatorname{Bin}(n,\theta)\\):
 
 $$
 \frac Xn\quad\text{is unbiased for }\theta,
@@ -165,7 +176,7 @@ $$
 
 **Final result.**
 
-For $0\le k\le n$, $(X)_k/(n)_k$ is unbiased for $\theta^k$.
+For \\(0\le k\le n\\), \\((X)\_k/(n)\_k\\) is unbiased for \\(\theta^k\\).
 
 ## 2. The Poisson model
 
@@ -182,7 +193,7 @@ $$
 =e^{-\theta}\sum_{x=0}^\infty T(x)\frac{\theta^x}{x!}.
 $$
 
-Hence unbiasedness for $\psi(\theta)$ requires
+Hence unbiasedness for \\(\psi(\theta)\\) requires
 
 $$
 e^\theta\psi(\theta)
@@ -192,7 +203,8 @@ $$
 <div class="theorem" markdown="1">
 
 **Theorem 3.2 — Unbiasedly estimable functions in the Poisson model.**
-Suppose $T(X)$ is integrable for every $\theta>0$. Then $T$ is unbiased for $\psi$ if and only if
+
+Suppose \\(T(X)\\) is integrable for every \\(\theta>0\\). Then \\(T\\) is unbiased for \\(\psi\\) if and only if
 
 $$
 F(z)=e^z\psi(z)
@@ -210,16 +222,16 @@ $$
 T(x)=x!a_x=F^{(x)}(0).
 $$
 
-Equivalently, $\psi$ must extend to an entire function on $\mathbb C$.
+Equivalently, \\(\psi\\) must extend to an entire function on \\(\mathbb C\\).
 
 </div>
 
 **Proof.**
 
-If $T$ is integrable for every positive $\theta$, then for every $r>0$,
+If \\(T\\) is integrable for every positive \\(\theta\\), then for every \\(r>0\\),
 
 $$
-\sum_{x=0}^\infty |T(x)|\frac{r^x}{x!}<\infty.
+\sum_{x=0}^\infty \lvert T(x)\rvert\frac{r^x}{x!}<\infty.
 $$
 
 Thus the series
@@ -228,9 +240,9 @@ $$
 F(z)=\sum_{x=0}^\infty T(x)\frac{z^x}{x!}
 $$
 
-converges absolutely for every complex $z$, so it is entire, and $F(\theta)=e^\theta\psi(\theta)$.
+converges absolutely for every complex \\(z\\), so it is entire, and \\(F(\theta)=e^\theta\psi(\theta)\\).
 
-Conversely, if $F(z)=\sum a_xz^x$ is entire, define $T(x)=x!a_x$. Then
+Conversely, if \\(F(z)=\sum a_xz^x\\) is entire, define \\(T(x)=x!a_x\\). Then
 
 $$
 \operatorname{E}_\theta[T(X)]
@@ -241,7 +253,7 @@ $$
 
 Uniqueness follows from uniqueness of power-series coefficients.
 
-$\square$
+\\(\square\\)
 
 ### Worked Example 3.3 — Poisson powers
 
@@ -257,7 +269,7 @@ $$
 \operatorname{E}_\theta[(X)_{k}]=\theta^k.
 $$
 
-Hence $(X)_{k}$ is unbiased for $\theta^k$. For example,
+Hence \\((X)\_{k}\\) is unbiased for \\(\theta^k\\). For example,
 
 $$
 X(X-1)\quad\text{is unbiased for }\theta^2.
@@ -265,17 +277,17 @@ $$
 
 **Final result.**
 
-$(X)_k$ is unbiased for $\theta^k$; in particular, $X(X-1)$ is unbiased for $\theta^2$.
+\\((X)\_k\\) is unbiased for \\(\theta^k\\); in particular, \\(X(X-1)\\) is unbiased for \\(\theta^2\\).
 
-### Worked Example 3.4 — No unbiased estimator of the reciprocal Poisson mean
+### Worked Example 3.4 — No unbiased estimator of \\(1/\theta\\)
 
 **Problem.**
 
-Work through the source example “No unbiased estimator of $1/\theta$” in full.
+Work through the source example “No unbiased estimator of \\(1/\theta\\)” in full.
 
 **Solution.**
 
-The function $1/\theta$ has a pole at zero and does not extend to an entire function. Therefore no integrable unbiased estimator of $1/\theta$ exists in the one-observation Poisson model.
+The function \\(1/\theta\\) has a pole at zero and does not extend to an entire function. Therefore no integrable unbiased estimator of \\(1/\theta\\) exists in the one-observation Poisson model.
 
 **Final result.**
 
@@ -283,28 +295,32 @@ The conclusion is the final result derived in the solution above.
 
 ## Additional context: Analytic functions and the Poisson power-series condition
 
-> **Additional context.**
-> This explanation was added to make the lecture self-contained.
+<div class="intuition" markdown="1">
 
-A real-valued function $f$ is **analytic at $a$** if there exists $r>0$ and coefficients $c_0,c_1,\ldots$ such that
+**Additional context.**
+This explanation was added to make the lecture self-contained.
+
+</div>
+
+A real-valued function \\(f\\) is **analytic at \\(a\\)** if there exists \\(r>0\\) and coefficients \\(c_0,c_1,\ldots\\) such that
 
 $$
-f(x)=\sum_{m=0}^{\infty}c_m(x-a)^m,\qquad |x-a|<r,
+f(x)=\sum_{m=0}^{\infty}c_m(x-a)^m,\qquad \lvert x-a\rvert<r,
 $$
 
-and this power series converges to $f(x)$ throughout that neighbourhood. The coefficients are necessarily the Taylor coefficients,
+and this power series converges to \\(f(x)\\) throughout that neighbourhood. The coefficients are necessarily the Taylor coefficients,
 
 $$
 c_m=\frac{f^{(m)}(a)}{m!},
 $$
 
-so analyticity at $a$ means
+so analyticity at \\(a\\) means
 
 $$
 f(x)=\sum_{m=0}^{\infty}\frac{f^{(m)}(a)}{m!}(x-a)^m
 $$
 
-for all $x$ sufficiently close to $a$.
+for all \\(x\\) sufficiently close to \\(a\\).
 
 Analyticity is stronger than infinite differentiability. For example,
 
@@ -316,7 +332,7 @@ e^{-1/x^2}, & x\ne0,\\
 \end{cases}
 $$
 
-is infinitely differentiable at $0$ and satisfies $f^{(m)}(0)=0$ for every $m$, so its Taylor series at $0$ is identically zero. Yet $f(x)>0$ for $x\ne0$, so the Taylor series does not recover the function near $0$; hence $f$ is not analytic at $0$.
+is infinitely differentiable at \\(0\\) and satisfies \\(f^{(m)}(0)=0\\) for every \\(m\\), so its Taylor series at \\(0\\) is identically zero. Yet \\(f(x)>0\\) for \\(x\ne0\\), so the Taylor series does not recover the function near \\(0\\); hence \\(f\\) is not analytic at \\(0\\).
 
 For the Poisson unbiased-estimation problem,
 
@@ -325,91 +341,242 @@ e^\theta\psi(\theta)
 =\sum_{x=0}^{\infty}T(x)\frac{\theta^x}{x!}.
 $$
 
-If $T$ is integrable for every $\theta>0$, then for each $r>0$,
+If \\(T\\) is integrable for every \\(\theta>0\\), then for each \\(r>0\\),
 
 $$
-\sum_{x=0}^{\infty}|T(x)|\frac{r^x}{x!}<\infty.
+\sum_{x=0}^{\infty}\lvert T(x)\rvert\frac{r^x}{x!}<\infty.
 $$
 
-Thus the same power series converges absolutely for every complex $z$, so it has **infinite radius of convergence** and defines an **entire function**. Entire is stronger than merely analytic on $(0,\infty)$: it means analytic on all of $\mathbb C$.
+Thus the same power series converges absolutely for every complex \\(z\\), so it has **infinite radius of convergence** and defines an **entire function**. Entire is stronger than merely analytic on \\((0,\infty)\\): it means analytic on all of \\(\mathbb C\\).
 
-This distinction explains why $1/\theta$ fails. Although $1/\theta$ is analytic around every positive point, it has a pole at $0$ and does not extend to an entire function. Therefore it cannot satisfy the Poisson unbiased-estimation condition above.
+This distinction explains why \\(1/\theta\\) fails. Although \\(1/\theta\\) is analytic around every positive point, it has a pole at \\(0\\) and does not extend to an entire function. Therefore it cannot satisfy the Poisson unbiased-estimation condition above.
 
 ## 3. The one-observation exponential model
 
 <div class="theorem" markdown="1">
 
 **Theorem 3.3 — Uniqueness of the unbiased estimator of an exponential mean.**
+
 Let
 
 $$
 X\sim\operatorname{Exp}(\text{mean }\theta),\qquad \theta>0.
 $$
 
-Then $X$ is the unique unbiased estimator of $\theta$, up to almost-sure equality.
+Then \\(X\\) is the unique unbiased estimator of \\(\theta\\), up to almost-sure equality.
 
 </div>
 
 **Proof.**
 
-Clearly $\operatorname{E}_\theta[X]=\theta$. Suppose $T(X)$ is any other integrable unbiased estimator. Then
+Clearly \\(\operatorname{E}\_\theta[X]=\theta\\). Suppose \\(T(X)\\) is any other integrable unbiased estimator. Then
 
 $$
 \operatorname{E}_\theta[T(X)-X]=0
 \qquad\text{for every }\theta>0.
 $$
 
-Let $h(x)=T(x)-x$. Since the exponential density is $\theta^{-1}e^{-x/\theta}$,
+Let \\(h(x)=T(x)-x\\). Since the exponential density is \\(\theta^{-1}e^{-x/\theta}\\),
 
 $$
 \int_0^\infty h(x)\frac1\theta e^{-x/\theta}\,\mathrm{d}x=0.
 $$
 
-Multiplying by $\theta$ and writing $s=1/\theta$,
+Multiplying by \\(\theta\\) and writing \\(s=1/\theta\\),
 
 $$
 \int_0^\infty h(x)e^{-sx}\,\mathrm{d}x=0
 \qquad\text{for every }s>0.
 $$
 
-The left side is the Laplace transform of $h$. By uniqueness of the Laplace transform,
+The left side is the Laplace transform of \\(h\\). By uniqueness of the Laplace transform,
 
 $$
 h(x)=0
 \quad\text{for Lebesgue-almost every }x>0.
 $$
 
-Therefore $T(X)=X$ almost surely under every $P_\theta$.
+Therefore \\(T(X)=X\\) almost surely under every \\(P\_\theta\\).
 
-$\square$
+\\(\square\\)
 
 <div class="remark" markdown="1">
 
 **Remark 3.4.**
-For $n\ge2$ exponential observations, $\overline X$ is not the only unbiased estimator; for example, $X_1$ is also unbiased. What is unique is the UMVUE, namely $\overline X$.
+
+For \\(n\ge2\\) exponential observations, \\(\overline X\\) is not the only unbiased estimator; for example, \\(X_1\\) is also unbiased. What is unique is the UMVUE, namely \\(\overline X\\).
+
+</div>
+
+## 4. A stopping-time example: negative-binomial sampling
+
+The handwritten continuation considers repeated coin tossing until the second tail. This is useful because the sampling scheme changes the model even though the underlying coin parameter is the same.
+
+Let
+
+$$
+\Pr(H)=\theta,
+\qquad
+\Pr(T)=1-\theta,
+\qquad
+0<\theta<1,
+$$
+
+and let \\(N\\) be the total number of tosses required to observe the second tail. Then \\(N=2,3,\ldots\\) and
+
+$$
+\Pr_\theta(N=n)
+=
+(n-1)\theta^{n-2}(1-\theta)^2.
+$$
+
+Indeed, for the second tail to occur on toss \\(n\\), the first \\(n-1\\) tosses must contain exactly one tail and the \\(n\\)th toss must be a tail. There are \\(n-1\\) possible positions for the first tail.
+
+### Worked Example 3.5 — Constructing an unbiased estimator under negative-binomial sampling
+
+**Problem.**
+
+Does there exist an unbiased estimator of \\(\theta\\) based only on \\(N\\)?
+
+**Solution.**
+
+We seek a function \\(T(N)\\) such that
+
+$$
+\operatorname{E}_\theta[T(N)]=\theta
+\qquad\text{for every }0<\theta<1.
+$$
+
+Expanding the expectation,
+
+$$
+\sum_{n=2}^{\infty}
+T(n)(n-1)\theta^{n-2}(1-\theta)^2
+=
+\theta.
+$$
+
+Divide by \\((1-\theta)^2\\):
+
+$$
+\sum_{n=2}^{\infty}
+T(n)(n-1)\theta^{n-2}
+=
+\frac{\theta}{(1-\theta)^2}.
+$$
+
+Using
+
+$$
+\frac{1}{(1-\theta)^2}
+=
+\sum_{k=0}^{\infty}(k+1)\theta^k,
+$$
+
+we get
+
+$$
+\frac{\theta}{(1-\theta)^2}
+=
+\sum_{k=1}^{\infty}k\theta^k.
+$$
+
+Put \\(k=n-2\\). Matching coefficients gives
+
+$$
+T(2)=0,
+$$
+
+and, for \\(n\ge3\\),
+
+$$
+T(n)(n-1)=n-2.
+$$
+
+Thus
+
+$$
+\boxed{
+T(N)=\frac{N-2}{N-1}
+=
+1-\frac{1}{N-1}
+}
+$$
+
+is unbiased for \\(\theta\\).
+
+A direct verification is short:
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta\!\left[\frac1{N-1}\right]
+&=
+\sum_{n=2}^{\infty}
+\frac1{n-1}(n-1)\theta^{n-2}(1-\theta)^2\\
+&=
+(1-\theta)^2\sum_{k=0}^{\infty}\theta^k\\
+&=
+1-\theta.
+\end{aligned}
+$$
+
+Therefore
+
+$$
+\operatorname{E}_\theta\!\left[1-\frac1{N-1}\right]
+=
+\theta.
+$$
+
+**Final result.**
+
+$$
+\boxed{
+\widehat\theta
+=
+\frac{N-2}{N-1}
+}
+$$
+
+is unbiased for \\(\theta\\).
+
+<div class="remark" markdown="1">
+
+**Editorial note.**
+The handwritten page states that there is no unbiased estimator of \\(\theta\\) in this stopping scheme. Under the probability mass function displayed on that same page,
+
+$$
+\Pr_\theta(N=n)=(n-1)\theta^{n-2}(1-\theta)^2,
+$$
+
+that statement is incorrect. The estimator above is an explicit counterexample. The correction is substantive and is therefore recorded here rather than silently changed.
+
+</div>
+
+<div class="remark" markdown="1">
+
+**Remark.**
+This example also illustrates why the sampling plan matters. A fixed number of coin tosses gives a binomial experiment, whereas stopping at a prescribed number of tails gives a negative-binomial experiment. Unbiased estimability must be checked in the actual statistical model.
 
 </div>
 
 ## Questions answered in this lecture
 
 **Question.**
-
-Which functions of $\theta$ admit an unbiased estimator from $X\sim\operatorname{Bin}(n,\theta)$?
-
-**Answer.**
-
-Exactly the restrictions to $(0,1)$ of polynomials of degree at most $n$.
-
-**Question.**
-
-Why is there no unbiased estimator of $(1-\theta)/\theta$ in the binomial model?
+Which functions of \\(\theta\\) admit an unbiased estimator from \\(X\sim\operatorname{Bin}(n,\theta)\\)?
 
 **Answer.**
 
-Its expectation would have to be a polynomial of degree at most $n$, but $(1-\theta)/\theta$ is not a polynomial.
+Exactly the restrictions to \\((0,1)\\) of polynomials of degree at most \\(n\\).
 
 **Question.**
+Why is there no unbiased estimator of \\((1-\theta)/\theta\\) in the binomial model?
 
+**Answer.**
+
+Its expectation would have to be a polynomial of degree at most \\(n\\), but \\((1-\theta)/\theta\\) is not a polynomial.
+
+**Question.**
 What does “analytic” mean in the Poisson power-series argument?
 
 **Answer.**
@@ -417,12 +584,24 @@ What does “analytic” mean in the Poisson power-series argument?
 A function is analytic at a point when it equals a convergent power series in a neighbourhood of that point. Here the integrability condition is stronger: the relevant series has infinite radius of convergence, yielding an entire extension.
 
 **Question.**
-
-Why is $X$ the unique unbiased estimator of the mean from one exponential observation?
+Why is \\(X\\) the unique unbiased estimator of the mean from one exponential observation?
 
 **Answer.**
 
 The difference between any two unbiased estimators has Laplace transform zero for every positive transform parameter; uniqueness of the Laplace transform implies that difference is zero almost everywhere.
+
+**Question.**
+If a coin is tossed until the second tail, is there an unbiased estimator of the head probability \\(\theta\\) based on the stopping time?
+
+**Answer.**
+
+Yes. If \\(N\\) is the total number of tosses, then
+
+$$
+\frac{N-2}{N-1}
+$$
+
+is unbiased for \\(\theta\\). The full coefficient-matching derivation is given in Worked Example 3.5.
 
 ## References and further reading
 
@@ -432,7 +611,7 @@ The difference between any two unbiased estimators has Laplace transform zero fo
 ---
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/parametric-inference/lecture-04-sufficiency-rao-blackwell/' | relative_url }})
+[Previous lecture]({{ '/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture]({{ '/notes/parametric-inference/lecture-04-sufficiency-rao-blackwell-ancillarity/' | relative_url }})
 </nav>
 
 </div>

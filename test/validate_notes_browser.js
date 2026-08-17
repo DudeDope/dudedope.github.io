@@ -61,6 +61,7 @@ function assert(condition, message) {
         const noteBody = document.querySelector(".aa-course-note");
         const tables = [...document.querySelectorAll(".aa-course-note table")];
         const displayMath = [...document.querySelectorAll('.aa-course-note mjx-container[display="true"]')];
+        const viewportWidth = document.documentElement.clientWidth;
         const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         const rawMathFragments = [];
         const rawInlineMathFragments = [];
@@ -95,17 +96,34 @@ function assert(condition, message) {
             const noteRect = noteBody.getBoundingClientRect();
             return mathRect.left < noteRect.left - 1 || mathRect.right > noteRect.right + 1;
           }).length,
+          overflowingElements: [...document.body.querySelectorAll("*")]
+            .filter((element) => {
+              const rectangle = element.getBoundingClientRect();
+              return rectangle.left < -1 || rectangle.right > viewportWidth + 1;
+            })
+            .slice(0, 8)
+            .map((element) => ({
+              tag: element.tagName.toLowerCase(),
+              className: element.className?.toString().slice(0, 80) || "",
+              text: element.textContent.trim().replace(/\s+/g, " ").slice(0, 100),
+              displayMathIndex: displayMath.indexOf(element.closest('mjx-container[display="true"]')),
+              left: Math.round(element.getBoundingClientRect().left),
+              right: Math.round(element.getBoundingClientRect().right),
+            })),
           boxedQuestionAnswers: [...document.querySelectorAll(".aa-course-note blockquote strong")].filter((label) =>
             /^(?:slide question|question|answer)\./i.test(label.textContent.trim())
           ).length,
           formalStatementsOutsideBoxes: [...document.querySelectorAll(".aa-course-note strong")].filter((label) => {
-            if (!/^(?:definition|theorem|lemma)\s+\d/i.test(label.textContent.trim())) return false;
-            return !label.closest(".definition, .theorem, .lemma");
+            if (!/^(?:definition|theorem|lemma|proposition)\s+\d/i.test(label.textContent.trim())) return false;
+            return !label.closest(".definition, .theorem, .lemma, .proposition");
           }).length,
         };
       });
 
-      assert(measurements.bodyWidth <= width, `${note.permalink} at ${width}px: body overflows at ${measurements.bodyWidth}px`);
+      assert(
+        measurements.bodyWidth <= width,
+        `${note.permalink} at ${width}px: body overflows at ${measurements.bodyWidth}px; offenders: ${JSON.stringify(measurements.overflowingElements)}`
+      );
       assert(measurements.documentWidth <= width, `${note.permalink} at ${width}px: document overflows at ${measurements.documentWidth}px`);
       assert(measurements.headingCount === 1, `${note.permalink}: expected one h1, found ${measurements.headingCount}`);
       assert(
@@ -132,7 +150,7 @@ function assert(condition, message) {
           `${note.permalink}: a definition, theorem, or lemma is outside its formal statement box`
         );
       }
-      if (/\/notes\/parametric-inference\/lecture-0[12]-/.test(note.permalink)) {
+      if (/\/notes\/parametric-inference\/lecture-\d{2}-/.test(note.permalink)) {
         assert(
           measurements.rawInlineMathFragments.length === 0,
           `${note.permalink}: unprocessed inline math remains visible: ${measurements.rawInlineMathFragments.join("; ")}`
@@ -150,6 +168,9 @@ function assert(condition, message) {
     "/notes/design-and-analysis-of-algorithms/lecture-05-deterministic-linear-selection/",
     "/notes/parametric-inference/formula-sheet/",
     "/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/",
+    "/notes/parametric-inference/lecture-04-sufficiency-rao-blackwell-ancillarity/",
+    "/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/",
+    "/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/",
   ]) {
     await page.setViewportSize({ width: 1440, height: 900 });
     const url = new URL(permalink.replace(/^\//, ""), baseUrl).href;

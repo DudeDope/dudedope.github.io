@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Introduces unbiased estimation and UMVUEs, proves uniqueness, derives Fisher information and the Cramér–Rao lower bound, and works through the normal, exponential, and normal-variance examples."
+description: "Introduces unbiased estimation and UMVUEs, proves uniqueness, derives Fisher information and the Cramér–Rao lower bound, and develops normal, exponential, and normal-variance examples in detail."
 topics:
   - "unbiased estimation"
   - "UMVUE"
@@ -20,7 +20,7 @@ previous: "lecture-01-point-estimation-risk-mse"
 next: "lecture-03-existence-uniqueness-unbiased-estimators"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-11"
+last_updated: "2026-08-17"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/
@@ -35,13 +35,20 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
-> **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. The exposition includes additional definitions, derivations, and worked solutions. Any remaining errors belong to the note maintainer, not to the instructor or the Institute.
+> **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/parametric-inference/lecture-01-point-estimation-risk-mse/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/parametric-inference/lecture-03-existence-uniqueness-unbiased-estimators/' | relative_url }})
+[Previous lecture]({{ '/notes/parametric-inference/lecture-01-point-estimation-risk-mse/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture]({{ '/notes/parametric-inference/lecture-03-existence-uniqueness-unbiased-estimators/' | relative_url }})
 </nav>
 
 ## Learning objectives
+
+<div class="intuition" markdown="1">
+
+**Additional context.**
+This section was added to make the lecture easier to use as a self-contained study note.
+
+</div>
 
 - Distinguish unbiasedness, variance optimality, and MSE optimality.
 - Define a UMVUE and prove its uniqueness.
@@ -49,8 +56,12 @@ toc:
 - Check equality and regularity conditions for CRLB attainment.
 - Work through the normal mean, exponential mean, and normal variance examples in full.
 
-> **Editorial note.**
-> The handwritten argument for uniqueness was replaced in the expanded LaTeX notes by a variance-of-the-difference proof. This avoids relying on an informal correlation argument and proves almost-sure equality directly.
+<div class="remark" markdown="1">
+
+**Editorial note.**
+The handwritten argument for uniqueness was replaced in the expanded LaTeX notes by a variance-of-the-difference proof. This avoids relying on an informal correlation argument and proves almost-sure equality directly.
+
+</div>
 
 ## 1. Unbiased estimators need not be unique
 
@@ -87,14 +98,15 @@ For \\(n\ge2\\), unbiased estimators of \\(\theta\\) are not unique.
 <div class="definition" markdown="1">
 
 **Definition 2.1 — UMVUE.**
-An estimator \\(T^{\star}\\) is a _uniformly minimum-variance unbiased estimator_ of \\(\psi(\theta)\\) if:
 
-1.  \\(\operatorname{E}\_\theta[T^{\star}]=\psi(\theta)\\) for every \\(\theta\in\Theta\\), and
+An estimator \\(T^{\ast}\\) is a _uniformly minimum-variance unbiased estimator_ of \\(\psi(\theta)\\) if:
+
+1.  \\(\operatorname{E}\_\theta[T^{\ast}]=\psi(\theta)\\) for every \\(\theta\in\Theta\\), and
 
 2.  for every other unbiased estimator \\(U\\),
 
 $$
-\operatorname{Var}_\theta(T^{\star})\le \operatorname{Var}_\theta(U)
+\operatorname{Var}_\theta(T^{\ast})\le \operatorname{Var}_\theta(U)
     \qquad\text{for every }\theta\in\Theta.
 $$
 
@@ -103,6 +115,7 @@ $$
 <div class="theorem" markdown="1">
 
 **Theorem 2.2 — A UMVUE is unique.**
+
 If a UMVUE exists, then it is unique up to almost-sure equality under every \\(P\_\theta\\).
 
 </div>
@@ -149,6 +162,7 @@ Also \\(\operatorname{E}\_\theta[T\_1-T\_2]=0\\), hence \\(T_1=T_2\\) almost sur
 <div class="remark" markdown="1">
 
 **Remark 2.3.**
+
 The word “unique” in estimation theory always means unique up to probability-zero modifications. Two formulas that differ only on a set having probability zero under every model distribution represent the same estimator statistically.
 
 </div>
@@ -160,6 +174,7 @@ Assume the model has density or probability mass function \\(f\_\theta(x)\\) wit
 <div class="definition" markdown="1">
 
 **Definition 2.4 — Score.**
+
 The score for one observation is
 
 $$
@@ -181,6 +196,7 @@ $$
 <div class="definition" markdown="1">
 
 **Definition 2.5 — Fisher information.**
+
 The Fisher information in one observation is
 
 $$
@@ -206,6 +222,7 @@ $$
 <div class="theorem" markdown="1">
 
 **Theorem 2.6 — Cramér–Rao lower bound.**
+
 Let \\(T\\) be unbiased for \\(\psi(\theta)\\), and suppose the standard regularity conditions hold. Then
 
 $$
@@ -248,6 +265,7 @@ Rearranging proves the result.
 <div class="proposition" markdown="1">
 
 **Proposition 2.7 — Equality condition.**
+
 Equality in the Cramér–Rao bound at a parameter value \\(\theta\\) holds if and only if
 
 $$
@@ -266,6 +284,7 @@ $$
 <div class="warning" markdown="1">
 
 **Common pitfall 2.8.**
+
 The ordinary Cramér–Rao theorem requires parameter-independent support and differentiation under the integral sign. It cannot be applied blindly to models such as \\(\operatorname{Uniform}(0,\theta)\\), whose support depends on \\(\theta\\).
 
 </div>
@@ -320,7 +339,7 @@ $$
 =\frac{\sigma^2}{n}.
 $$
 
-- For one observation,
+For one observation,
 
 $$
 \log f_\theta(x)
@@ -428,10 +447,8 @@ Since \\(\overline X\\) attains the bound, it is a UMVUE of \\(\theta\\).
 Let
 
 $$
-\begin{gathered}
-X_1,\dots,X_n\overset{\mathrm{iid}}{\sim}N(\mu,\sigma^2),\\
-n\ge2,\qquad \mu\in\mathbb{R},\qquad \sigma^2>0.
-\end{gathered}
+X_1,\dots,X_n\overset{\mathrm{iid}}{\sim}N(\mu,\sigma^2),
+\qquad n\ge2,\quad \mu\in\mathbb{R},\quad\sigma^2>0.
 $$
 
 Define
@@ -547,19 +564,19 @@ $$
 Thus the risk-minimising constant within this class is
 
 $$
-c^{\star}=\frac1{n+1}.
+c^{\ast}=\frac1{n+1}.
 $$
 
 The optimal estimator within the class is therefore
 
 $$
-T_{c^{\star}}=\frac1{n+1}\sum_{i=1}^n(X_i-\overline X)^2,
+T_{c^{\ast}}=\frac1{n+1}\sum_{i=1}^n(X_i-\overline X)^2,
 $$
 
 and its MSE is
 
 $$
-\operatorname{MSE}(T_{c^{\star}})=\frac{2\sigma^4}{n+1}.
+\operatorname{MSE}(T_{c^{\ast}})=\frac{2\sigma^4}{n+1}.
 $$
 
 By comparison,
@@ -572,20 +589,20 @@ Thus the biased estimator \\(Q/(n+1)\\) has smaller MSE than the unbiased estima
 
 **Final result.**
 
-The minimizing constant is \\(c^{\star}=1/(n+1)\\), and
+The optimal coefficient and MSE comparison are
 
 $$
 \begin{aligned}
-\operatorname{MSE}(T_{c^{\star}})
-&=\frac{2\sigma^4}{n+1}\\
-&<\frac{2\sigma^4}{n-1}
-=\operatorname{MSE}(S^2).
+c^{\ast}&=\frac{1}{n+1},\\
+\operatorname{MSE}(T_{c^{\ast}})&=\frac{2\sigma^4}{n+1}\\
+&<\frac{2\sigma^4}{n-1}=\operatorname{MSE}(S^2).
 \end{aligned}
 $$
 
 <div class="remark" markdown="1">
 
 **Remark 2.9 — The maximum-likelihood variance estimator.**
+
 The usual maximum-likelihood estimator is
 
 $$
@@ -595,19 +612,16 @@ $$
 Its bias and MSE are
 
 $$
-\begin{aligned}
-\operatorname{Bias}\left(\frac Qn\right)
-&=-\frac{\sigma^2}{n},\\
-\operatorname{MSE}\left(\frac Qn\right)
-&=\frac{2n-1}{n^2}\sigma^4.
-\end{aligned}
+\operatorname{Bias}\left(\frac Qn\right)=-\frac{\sigma^2}{n},
+\qquad
+\operatorname{MSE}\left(\frac Qn\right)=\frac{2n-1}{n^2}\sigma^4.
 $$
 
 It has lower MSE than \\(S^2\\), but it is not the best member of the full class \\(cQ\\); the choice \\(c=1/(n+1)\\) is slightly better.
 
 </div>
 
-## 9. CRLB for the variance when the mean is unknown
+## 9. CRLB for \\(\sigma^2\\) when \\(\mu\\) is unknown
 
 For one normal observation, with parameter \\(\eta=(\mu,\sigma^2)\\), the information matrix is
 
@@ -652,6 +666,7 @@ So \\(S^2\\) does not attain the CRLB.
 <div class="proposition" markdown="1">
 
 **Proposition 2.10 — The CRLB is not attainable here.**
+
 There is no unbiased estimator of \\(\sigma^2\\) that attains \\(2\sigma^4/n\\) simultaneously for every \\((\mu,\sigma^2)\\).
 
 </div>
@@ -661,11 +676,9 @@ There is no unbiased estimator of \\(\sigma^2\\) that attains \\(2\sigma^4/n\\) 
 Equality would require the centred estimator to be a linear combination of the two score components. Because \\(g(\mu,\sigma^2)=\sigma^2\\), the required combination reduces to
 
 $$
-\begin{aligned}
 T-\sigma^2
-&=\frac{2\sigma^4}{n}\frac{\partial}{\partial\sigma^2}\log L(\mu,\sigma^2)\\
-&=\frac1n\sum_{i=1}^n(X_i-\mu)^2-\sigma^2.
-\end{aligned}
+=\frac{2\sigma^4}{n}\frac{\partial}{\partial\sigma^2}\log L(\mu,\sigma^2)
+=\frac1n\sum_{i=1}^n(X_i-\mu)^2-\sigma^2.
 $$
 
 Therefore equality would force
@@ -683,7 +696,6 @@ Later, the Lehmann–Scheffé theorem will show that \\(S^2\\) is nevertheless t
 ## Questions answered in this lecture
 
 **Question.**
-
 Can we define a “best” estimator after restricting attention to unbiased estimators?
 
 **Answer.**
@@ -691,7 +703,6 @@ Can we define a “best” estimator after restricting attention to unbiased est
 Yes. A UMVUE is an unbiased estimator whose variance is no larger than that of every other unbiased estimator for every parameter value.
 
 **Question.**
-
 If two formulas are both UMVUEs, can they genuinely differ?
 
 **Answer.**
@@ -699,7 +710,6 @@ If two formulas are both UMVUEs, can they genuinely differ?
 Only on sets of probability zero under the model. The UMVUE is unique up to almost-sure equality.
 
 **Question.**
-
 Why does the score have expectation zero?
 
 **Answer.**
@@ -707,7 +717,6 @@ Why does the score have expectation zero?
 Under the regularity assumptions, differentiation may pass under the integral: \\(\operatorname{E}\_\theta[\mathcal S\_\theta]=\int \partial f\_\theta/\partial\theta=\partial 1/\partial\theta=0\\).
 
 **Question.**
-
 When is the ordinary CRLB unsafe to use?
 
 **Answer.**
@@ -715,7 +724,6 @@ When is the ordinary CRLB unsafe to use?
 A key failure occurs when the support depends on the unknown parameter, as in \\(\operatorname{Uniform}(0,\theta)\\).
 
 **Question.**
-
 What changes when a nuisance parameter is present?
 
 **Answer.**
@@ -723,7 +731,6 @@ What changes when a nuisance parameter is present?
 Use the full Fisher information matrix and the quadratic form \\(\nabla g(\eta)^\top \mathcal I_n(\eta)^{-1}\nabla g(\eta)\\).
 
 **Question.**
-
 Does unbiasedness guarantee the smallest MSE?
 
 **Answer.**
@@ -731,7 +738,6 @@ Does unbiasedness guarantee the smallest MSE?
 No. In the class \\(T_c=cQ\\), the MSE-minimising choice is \\(c=1/(n+1)\\), which is biased but has smaller MSE than \\(S^2=Q/(n-1)\\).
 
 **Question.**
-
 Can an unbiased estimator of \\(\sigma^2\\) attain the CRLB when \\(\mu\\) is unknown?
 
 **Answer.**
@@ -739,7 +745,6 @@ Can an unbiased estimator of \\(\sigma^2\\) attain the CRLB when \\(\mu\\) is un
 No. Equality would force \\(T=n^{-1}\sum_i(X_i-\mu)^2\\), which depends on the unknown nuisance parameter and is therefore not a statistic.
 
 **Question.**
-
 Can \\(S^2\\) still be a UMVUE if it does not attain the CRLB?
 
 **Answer.**
@@ -754,7 +759,7 @@ Yes. Later the complete-sufficiency argument shows that \\(S^2\\) is the UMVUE; 
 ---
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/parametric-inference/lecture-01-point-estimation-risk-mse/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/parametric-inference/lecture-03-existence-uniqueness-unbiased-estimators/' | relative_url }})
+[Previous lecture]({{ '/notes/parametric-inference/lecture-01-point-estimation-risk-mse/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture]({{ '/notes/parametric-inference/lecture-03-existence-uniqueness-unbiased-estimators/' | relative_url }})
 </nav>
 
 </div>

@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const notesRoot = path.resolve("_pages/notes");
-const expectedPageCount = 25;
+const expectedPageCount = 27;
 const issues = [];
 
 function markdownFiles(directory) {
@@ -29,7 +29,7 @@ if (files.length !== expectedPageCount) {
 for (const file of files) {
   const source = fs.readFileSync(file, "utf8");
   const lines = source.split(/\r?\n/);
-  const requiresStrictInlineMath = /parametric-inference[\\/]lecture-0[12]-/.test(file);
+  const requiresStrictInlineMath = /parametric-inference[\\/]lecture-\d{2}-/.test(file);
   let displayDelimiterCount = 0;
   let fenceCount = 0;
 

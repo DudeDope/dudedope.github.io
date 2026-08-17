@@ -27,31 +27,13 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
 
   </div>
 
-  <aside class="aa-academic-rail" aria-label="Academic profile">
-    <h2>Academic profile</h2>
+  <aside class="aa-academic-rail" aria-label="Contact">
     <dl class="aa-fact-list">
-      <div>
-        <dt>Education</dt>
-        <dd>B.Stat (Hons.), Indian Statistical Institute</dd>
-      </div>
-      <div>
-        <dt>Expected</dt>
-        <dd>2027</dd>
-      </div>
-      <div>
-        <dt>Current</dt>
-        <dd>University of Toronto · Ranial Systems</dd>
-      </div>
-      <div>
-        <dt>Location</dt>
-        <dd>Kolkata, India</dd>
-      </div>
       <div>
         <dt>Contact</dt>
         <dd><a href="mailto:{{ site.data.socials.email }}">{{ site.data.socials.email }}</a></dd>
       </div>
     </dl>
-    <div class="aa-rail-links">{% social_links %}</div>
     <nav class="aa-rail-nav" aria-label="Document links">
       <a href="{{ '/assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf' | relative_url }}">CV PDF</a>
     </nav>

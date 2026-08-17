@@ -11,6 +11,8 @@ These guides cover the `al-folio` v1.x starter and its pluginized runtime.
 - [Troubleshooting](TROUBLESHOOTING.md): build, deployment, styling, and content debugging.
 - [Analytics](ANALYTICS.md): analytics provider setup.
 - [SEO](SEO.md): search-engine and social preview setup.
+- [Notes Markdown Guide](NOTES_MARKDOWN_GUIDE.md): authoritative note structure, formal callouts, MathJax rules, and publication checks.
+- [Blog Markdown Guide](BLOG_MARKDOWN_GUIDE.md): authoritative research-post structure, metadata, MathJax rules, media, citations, and publication checks.
 
 ## Maintainer Guides
 

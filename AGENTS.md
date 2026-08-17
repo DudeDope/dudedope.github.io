@@ -23,6 +23,13 @@ Find your change on the left; edit only what is on the right.
 
 [`docs/BOUNDARIES.md`](docs/BOUNDARIES.md) is the authoritative area-to-gem table. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) explains how the pieces connect.
 
+## Content authoring rules
+
+- Every course-note file under `_pages/notes/` must follow [`docs/NOTES_MARKDOWN_GUIDE.md`](docs/NOTES_MARKDOWN_GUIDE.md).
+- Every blog-post file under `_posts/` must follow [`docs/BLOG_MARKDOWN_GUIDE.md`](docs/BLOG_MARKDOWN_GUIDE.md).
+
+Treat these as the authoritative, website-specific rules for front matter, structure, MathJax, callouts, links, media, and final validation. Link to them instead of duplicating their instructions elsewhere.
+
 ## Stop sign
 
 **If your change would create any of these paths in this repo, it belongs in a gem instead:**
