@@ -408,11 +408,14 @@ For \\(n\ge2\\) exponential observations, \\(\overline X\\) is not the only unbi
 
 </div>
 
-## 4. A stopping-time example: negative-binomial sampling
+## 4. Same coin, different sampling plans
 
-The handwritten continuation considers repeated coin tossing until the second tail. This is useful because the sampling scheme changes the model even though the underlying coin parameter is the same.
+The handwritten continuation compares two experiments involving the same unknown head probability \\(\theta\\):
 
-Let
+1. toss the coin a fixed number of times;
+2. keep tossing until the second tail appears.
+
+The parameter has the same interpretation in both experiments,
 
 $$
 \Pr(H)=\theta,
@@ -422,32 +425,77 @@ $$
 0<\theta<1,
 $$
 
-and let \\(N\\) be the total number of tosses required to observe the second tail. Then \\(N=2,3,\ldots\\) and
+but the distribution of the observed data is different. This matters because unbiasedness is always defined relative to the actual sampling distribution.
 
-$$
-\Pr_\theta(N=n)
-=
-(n-1)\theta^{n-2}(1-\theta)^2.
-$$
-
-Indeed, for the second tail to occur on toss \\(n\\), the first \\(n-1\\) tosses must contain exactly one tail and the \\(n\\)th toss must be a tail. There are \\(n-1\\) possible positions for the first tail.
-
-### Worked Example 3.5 — Constructing an unbiased estimator under negative-binomial sampling
+### Worked Example 3.5 — Fixed seven tosses versus stopping at the second tail
 
 **Problem.**
 
-Does there exist an unbiased estimator of \\(\theta\\) based only on \\(N\\)?
+Compare unbiased estimation of \\(\theta\\) in the two sampling schemes explicitly mentioned in the source notes.
 
-**Solution.**
+#### Scenario A: the coin is tossed exactly seven times
 
-We seek a function \\(T(N)\\) such that
+Let \\(Y\\) be the number of heads in seven tosses. Then
 
 $$
-\operatorname{E}_\theta[T(N)]=\theta
-\qquad\text{for every }0<\theta<1.
+Y\sim\operatorname{Binomial}(7,\theta).
 $$
 
-Expanding the expectation,
+Since
+
+$$
+\operatorname{E}_{\theta}[Y]=7\theta,
+$$
+
+we immediately obtain
+
+$$
+\operatorname{E}_{\theta}\!\left[\frac{Y}{7}\right]=\theta.
+$$
+
+Therefore
+
+$$
+\boxed{
+\widehat\theta_{\mathrm{fixed}}
+=
+\frac{Y}{7}
+}
+$$
+
+is unbiased for \\(\theta\\).
+
+This is the usual sample proportion of heads.
+
+#### Scenario B: toss until the second tail
+
+Now let \\(N\\) be the total number of tosses required to observe the second tail. Then \\(N=2,3,\ldots\\). For the event \\(N=n\\) to occur,
+
+- among the first \\(n-1\\) tosses there must be exactly one tail and hence \\(n-2\\) heads;
+- the \\(n\\)th toss must be a tail.
+
+There are \\(n-1\\) possible positions for the first tail. Hence
+
+$$
+\boxed{
+\Pr_{\theta}(N=n)
+=
+(n-1)\theta^{n-2}(1-\theta)^2,
+\qquad n\ge2.
+}
+$$
+
+We now ask whether there is a function \\(T(N)\\) satisfying
+
+$$
+\operatorname{E}_{\theta}[T(N)]
+=
+\theta
+\qquad
+\text{for every }0<\theta<1.
+$$
+
+Expanding the expectation gives
 
 $$
 \sum_{n=2}^{\infty}
@@ -456,7 +504,7 @@ T(n)(n-1)\theta^{n-2}(1-\theta)^2
 \theta.
 $$
 
-Divide by \\((1-\theta)^2\\):
+Divide by \\( (1-\theta)^2\\):
 
 $$
 \sum_{n=2}^{\infty}
@@ -465,15 +513,16 @@ T(n)(n-1)\theta^{n-2}
 \frac{\theta}{(1-\theta)^2}.
 $$
 
-Using
+Use the power-series identity
 
 $$
 \frac{1}{(1-\theta)^2}
 =
 \sum_{k=0}^{\infty}(k+1)\theta^k,
+\qquad \lvert\theta\rvert<1.
 $$
 
-we get
+Multiplying by \\(\theta\\),
 
 $$
 \frac{\theta}{(1-\theta)^2}
@@ -481,23 +530,40 @@ $$
 \sum_{k=1}^{\infty}k\theta^k.
 $$
 
-Put \\(k=n-2\\). Matching coefficients gives
+On the left side of the unbiasedness equation, put \\(k=n-2\\). Then
+
+$$
+\sum_{k=0}^{\infty}
+T(k+2)(k+1)\theta^k
+=
+\sum_{k=1}^{\infty}k\theta^k.
+$$
+
+Equality for every \\(0<\theta<1\\) forces equality of the power-series coefficients. Thus
 
 $$
 T(2)=0,
 $$
 
-and, for \\(n\ge3\\),
+and for \\(k\ge1\\),
 
 $$
-T(n)(n-1)=n-2.
+T(k+2)(k+1)=k.
 $$
 
-Thus
+Equivalently, for \\(n\ge2\\),
+
+$$
+T(n)=\frac{n-2}{n-1}.
+$$
+
+Therefore
 
 $$
 \boxed{
-T(N)=\frac{N-2}{N-1}
+\widehat\theta_{\mathrm{stop}}
+=
+\frac{N-2}{N-1}
 =
 1-\frac{1}{N-1}
 }
@@ -505,60 +571,72 @@ $$
 
 is unbiased for \\(\theta\\).
 
-A direct verification is short:
+A direct verification is useful. We have
 
 $$
 \begin{aligned}
-\operatorname{E}_\theta\!\left[\frac1{N-1}\right]
+\operatorname{E}_{\theta}\!\left[\frac{1}{N-1}\right]
 &=
 \sum_{n=2}^{\infty}
-\frac1{n-1}(n-1)\theta^{n-2}(1-\theta)^2\\
+\frac{1}{n-1}
+(n-1)\theta^{n-2}(1-\theta)^2\\
 &=
-(1-\theta)^2\sum_{k=0}^{\infty}\theta^k\\
+(1-\theta)^2
+\sum_{n=2}^{\infty}\theta^{n-2}\\
+&=
+(1-\theta)^2
+\sum_{k=0}^{\infty}\theta^k\\
+&=
+(1-\theta)^2\frac{1}{1-\theta}\\
 &=
 1-\theta.
 \end{aligned}
 $$
 
-Therefore
+Hence
 
 $$
-\operatorname{E}_\theta\!\left[1-\frac1{N-1}\right]
+\operatorname{E}_{\theta}\!\left[1-\frac{1}{N-1}\right]
 =
 \theta.
 $$
 
 **Final result.**
 
+The two sampling plans lead to different unbiased estimators:
+
 $$
 \boxed{
-\widehat\theta
-=
-\frac{N-2}{N-1}
+\widehat\theta_{\mathrm{fixed}}=\frac{Y}{7},
+\qquad
+\widehat\theta_{\mathrm{stop}}=\frac{N-2}{N-1}.
 }
 $$
 
-is unbiased for \\(\theta\\).
+The important point is not that one formula is universally preferred, but that the estimator and its unbiasedness calculation must match the sampling scheme.
 
 <div class="remark" markdown="1">
 
 **Editorial note.**
-The handwritten page states that there is no unbiased estimator of \\(\theta\\) in this stopping scheme. Under the probability mass function displayed on that same page,
+The handwritten page states that there is no unbiased estimator of \\(\theta\\) under the stopping rule. Under the probability mass function written on the same page,
 
 $$
-\Pr_\theta(N=n)=(n-1)\theta^{n-2}(1-\theta)^2,
+\Pr_{\theta}(N=n)
+=
+(n-1)\theta^{n-2}(1-\theta)^2,
 $$
 
-that statement is incorrect. The estimator above is an explicit counterexample. The correction is substantive and is therefore recorded here rather than silently changed.
+that statement is incorrect. The estimator
+
+$$
+\frac{N-2}{N-1}
+$$
+
+is an explicit unbiased estimator. Because this changes the mathematical conclusion, the correction is recorded explicitly rather than made silently.
 
 </div>
 
-<div class="remark" markdown="1">
-
-**Remark.**
-This example also illustrates why the sampling plan matters. A fixed number of coin tosses gives a binomial experiment, whereas stopping at a prescribed number of tails gives a negative-binomial experiment. Unbiased estimability must be checked in the actual statistical model.
-
-</div>
+> **Key point.** A fixed-sample binomial experiment and a negative-binomial stopping experiment may involve the same coin parameter, but they are different statistical models. Expectations, unbiasedness, sufficiency, and risk must always be computed under the actual sampling law.
 
 ## Questions answered in this lecture
 
@@ -602,6 +680,10 @@ $$
 $$
 
 is unbiased for \\(\theta\\). The full coefficient-matching derivation is given in Worked Example 3.5.
+
+## Lecture summary
+
+Unbiased estimability depends on the sampling model. In the binomial model, the estimable targets are precisely polynomials of degree at most \\(n\\); in the Poisson model, coefficient matching imposes an entire-function condition on \\(e^\theta\psi(\theta)\\). For one exponential observation, Laplace-transform uniqueness makes \\(X\\) the unique unbiased estimator of the mean. The negative-binomial stopping example also shows why two experiments involving the same coin parameter can admit different unbiased estimators.
 
 ## References and further reading
 

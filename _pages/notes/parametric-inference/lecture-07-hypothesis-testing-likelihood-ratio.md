@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Introduces randomized tests, power and size, shows that sufficient-statistic conditioning preserves the power function, and proves the Neyman–Pearson lemma for simple hypotheses."
+description: "Develops randomized tests, power and size, proves that sufficient-statistic conditioning preserves the power function, shows that the likelihood ratio itself is sufficient in a two-point model, and proves the Neyman–Pearson lemma."
 topics:
   - "hypothesis testing"
   - "randomized tests"
@@ -16,6 +16,7 @@ topics:
   - "size and level"
   - "sufficiency in testing"
   - "likelihood ratio"
+  - "likelihood-ratio sufficiency"
   - "Neyman–Pearson lemma"
 previous: "lecture-06-lehmann-scheffe-umvue-consistency"
 next: "lecture-08-bayesian-inference-bayes-risk"
@@ -51,6 +52,8 @@ After this lecture, you should be able to:
 - define the power function, size, level, Type I error, and Type II error;
 - show that conditioning a test on a sufficient statistic preserves its entire power function;
 - derive the likelihood ratio for a simple-versus-simple problem;
+- prove directly that the likelihood ratio is sufficient when the parameter space contains only the two tested values;
+- distinguish the raw likelihood-comparison rule \\(\Lambda>1\\) from a prescribed level-\\(\alpha\\) likelihood-ratio test;
 - state and prove the Neyman–Pearson lemma;
 - derive the most powerful level-\\(\alpha\\) test for two normal means with known variance.
 
@@ -269,59 +272,185 @@ $$
 
 So, for testing as well as estimation, a sufficient statistic contains everything relevant about \\(\theta\\).
 
-## 5. Likelihood ratio for simple hypotheses
+## 5. Likelihood ratios in a two-point testing problem
 
-Consider
+Consider the special case emphasized in the handwritten notes:
 
 $$
 H_0:\theta=\theta_0
 \qquad\text{versus}\qquad
-H_1:\theta=\theta_1,
+H_1:\theta=\theta_1.
 $$
 
-with densities or mass functions \\(f\_{\theta_0}\\) and \\(f\_{\theta_1}\\) with respect to a common dominating measure.
+Assume that \\(f\_{\theta_0}\\) and \\(f\_{\theta_1}\\) are densities or mass functions with respect to a common dominating measure and that they have a common support. On points where \\(f\_{\theta_0}(x)>0\\), define
 
 <div class="definition" markdown="1">
 
 **Definition 7.6 — Likelihood ratio.**
+
 The likelihood ratio in favour of \\(H_1\\) against \\(H_0\\) is
 
 $$
 \Lambda(x)
 =
-\frac{f_{\theta_1}(x)}
-{f_{\theta_0}(x)}
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}.
 $$
-
-whenever the denominator is positive.
 
 </div>
 
-Large values of \\(\Lambda(x)\\) mean that the observed data are relatively more plausible under \\(H_1\\) than under \\(H_0\\).
-
-If
+The ratio compares the relative support that the observed value gives to the two simple models:
 
 $$
-f_\theta(x)=g_\theta(T(x))h(x)
+\Lambda(x)>1
+\iff
+f_{\theta_1}(x)>f_{\theta_0}(x),
 $$
 
-by factorisation, then
+whereas
+
+$$
+\Lambda(x)<1
+\iff
+f_{\theta_0}(x)>f_{\theta_1}(x).
+$$
+
+### 5.1 The likelihood ratio itself is sufficient for the two-point family
+
+A detail written explicitly in the source notes is easy to overlook but important: after restricting the parameter space to
+
+$$
+\Theta=\lbrace\theta_0,\theta_1\rbrace,
+$$
+
+the likelihood ratio itself is a sufficient statistic.
+
+<div class="proposition" markdown="1">
+
+**Proposition 7.7 — Sufficiency of the likelihood ratio for a two-point model.**
+
+Let
+
+$$
+T(x)
+=
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}.
+$$
+
+Then \\(T\\) is sufficient for \\(\theta\\) in the restricted model
+
+$$
+\Theta=\lbrace\theta_0,\theta_1\rbrace.
+$$
+
+</div>
+
+**Proof.**
+
+Take
+
+$$
+h(x)=f_{\theta_0}(x).
+$$
+
+Define
+
+$$
+g_{\theta_0}(t)=1,
+\qquad
+g_{\theta_1}(t)=t.
+$$
+
+If \\(\theta=\theta_0\\), then
+
+$$
+f_{\theta_0}(x)
+=
+g_{\theta_0}(T(x))h(x).
+$$
+
+If \\(\theta=\theta_1\\), then
+
+$$
+\begin{aligned}
+f_{\theta_1}(x)
+&=
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+f_{\theta_0}(x)\\
+&=
+T(x)h(x)\\
+&=
+g_{\theta_1}(T(x))h(x).
+\end{aligned}
+$$
+
+Thus, for both possible parameter values,
+
+$$
+f_\theta(x)=g_\theta(T(x))h(x).
+$$
+
+By the Neyman–Fisher factorisation criterion, \\(T\\) is sufficient.
+
+\\(\square\\)
+
+This gives a concrete version of the general sufficiency principle from Section 4: for a simple-versus-simple problem, all information in the sample relevant to deciding between the two parameter values can be compressed into the single scalar \\(\Lambda(X)\\).
+
+### 5.2 The source rule \\(\Lambda>1\\): what it does and what it does not do
+
+The handwritten notes suggest the following direct comparison rule. First compute the likelihood ratio
 
 $$
 \Lambda(x)
 =
-\frac{g_{\theta_1}(T(x))}
-{g_{\theta_0}(T(x))},
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}.
 $$
 
-so the likelihood ratio is automatically a function of the sufficient statistic.
+Then reject \\(H_0\\) when \\(\Lambda(x)>1\\), and retain \\(H_0\\) when \\(\Lambda(x)<1\\).
 
-<div class="remark" markdown="1">
+If additionally
 
-**Editorial note.**
-One handwritten page suggests rejecting whenever \\(\Lambda(x)>1\\). That threshold is meaningful for some equal-prior/equal-loss classification problems, but it does **not** in general produce a prescribed frequentist size. In a level-\\(\alpha\\) test the threshold must be chosen so that the null rejection probability is \\(\alpha\\) (or at most \\(\alpha\\)).
+$$
+P_\theta\bigl(\Lambda(X)=1\bigr)=0
+$$
 
-</div>
+for the parameter values under consideration, then ties occur with probability zero and no boundary randomisation is needed for this particular rule.
+
+This rule has a clear interpretation: choose the hypothesis under which the observed data have the larger likelihood. It is therefore a natural _likelihood-comparison rule_.
+
+However, it is not automatically a level-\\(\alpha\\) frequentist test. Its Type I error probability is whatever value
+
+$$
+P_{\theta_0}(\Lambda(X)>1)
+$$
+
+happens to have. If we require a prescribed level \\(\alpha\\), the threshold must generally be changed from \\(1\\) to a constant \\(k\\) chosen from the null distribution of the likelihood ratio.
+
+> **Key distinction.** The threshold \\(1\\) compares which simple model gives the larger likelihood. The Neyman–Pearson threshold \\(k\\) is chosen to satisfy a frequentist Type I error constraint.
+
+Under equal prior probabilities on \\(\theta_0\\) and \\(\theta_1\\) and equal 0–1 losses, the threshold-1 rule is also the Bayes classification rule. That is a different optimality criterion from fixing a frequentist level.
+
+### 5.3 Relation with an arbitrary sufficient statistic
+
+Suppose more generally that \\(S(X)\\) is sufficient and
+
+$$
+f_\theta(x)
+=
+g_\theta(S(x))h(x).
+$$
+
+Then
+
+$$
+\Lambda(x)
+=
+\frac{g_{\theta_1}(S(x))}{g_{\theta_0}(S(x))}.
+$$
+
+Hence the likelihood ratio is a function of every sufficient statistic. Combining this observation with Proposition 7.7 gives two complementary facts:
+
+- in the two-point model, \\(\Lambda(X)\\) is itself sufficient;
+- if we already know a sufficient statistic \\(S(X)\\), then \\(\Lambda(X)\\) can be computed from \\(S(X)\\) alone.
 
 ## 6. The Neyman–Pearson lemma
 
@@ -334,7 +463,7 @@ The handwritten notes introduce the simple-versus-simple likelihood ratio. The N
 
 <div class="theorem" markdown="1">
 
-**Theorem 7.7 — Neyman–Pearson lemma.**
+**Theorem 7.8 — Neyman–Pearson lemma.**
 For testing
 
 $$
@@ -448,7 +577,7 @@ In a discrete model it may be impossible to choose a nonrandomized rejection reg
 
 ## 7. Worked normal example
 
-### Worked Example 7.1 — Most powerful test for two normal means
+### Worked Example 7.1 — Likelihood-ratio reduction and the most powerful test for two normal means
 
 **Problem.**
 
@@ -469,6 +598,9 @@ $$
 where \\(\theta_1>\theta_0\\). Find the most powerful level-\\(\alpha\\) test.
 
 **Solution.**
+
+Because the restricted parameter space is \\(\lbrace heta_0, heta_1
+brace\\), Proposition 7.7 first tells us that the likelihood ratio itself is sufficient for this two-point model.
 
 The likelihood ratio is
 
@@ -672,6 +804,26 @@ Why do likelihood-ratio tests reject for large ratios?
 **Answer.**
 
 The Neyman–Pearson proof shows that, subject to a fixed Type I error budget, placing rejection probability on outcomes with largest \\(f_1/f_0\\) maximizes power under \\(H_1\\).
+
+**Question.**
+Why is the likelihood ratio itself a sufficient statistic in a simple-versus-simple problem?
+
+**Answer.**
+
+With \\(T=f\_{\theta_1}/f\_{\theta_0}\\), take \\(h=f\_{\theta_0}\\), \\(g\_{\theta_0}(t)=1\\), and \\(g\_{\theta_1}(t)=t\\). Then
+
+$$
+f_\theta(x)=g_\theta(T(x))h(x)
+$$
+
+for both possible values of \\(\theta\\), so factorisation gives sufficiency.
+
+**Question.**
+Why do the source notes compare the likelihood ratio with \\(1\\), while the Neyman–Pearson lemma uses a threshold \\(k\\)?
+
+**Answer.**
+
+The threshold \\(1\\) simply chooses the model assigning the larger likelihood to the observation. A frequentist level-\\(\alpha\\) test instead chooses \\(k\\) so that the null rejection probability is \\(\alpha\\), with randomisation on the boundary if necessary. The two thresholds coincide only in special circumstances.
 
 ## Lecture summary
 

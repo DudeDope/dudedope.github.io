@@ -46,8 +46,8 @@ toc:
 |       4 | [Lecture 4: Sufficiency, Rao–Blackwell Improvement, and Ancillary Statistics]({{ lecture_04_url }})                     | sufficiency, Neyman–Fisher factorisation, Rao–Blackwell theorem, normal, beta, Cauchy and uniform examples, ancillarity                         | Complete |
 |       5 | [Lecture 5: Completeness, Exponential Families, and Basu’s Theorem]({{ lecture_05_url }})                               | completeness, one- and multiparameter exponential families, natural parameter spaces, uniform endpoints, Basu’s theorem                         | Complete |
 |       6 | [Lecture 6: Lehmann–Scheffé Theory, UMVUE Constructions, and Consistency]({{ lecture_06_url }})                         | Lehmann–Scheffé theorem, UMVUE constructions, CRLB distinctions, weak and mean-square consistency                                               | Complete |
-|       7 | [Lecture 7: Hypothesis Testing, Power, Sufficiency, and Likelihood-Ratio Tests]({{ lecture_07_url }})                   | test functions, randomization, power, size, Type I and II errors, sufficient-statistic reduction, Neyman–Pearson lemma                          | Complete |
-|       8 | [Lecture 8: Bayesian Point Estimation, Conjugate Priors, Bayes Risk, and Generalized Bayes Rules]({{ lecture_08_url }}) | prior and posterior, beta–binomial, gamma–Poisson, normal–normal, Bayes risk, sufficient statistics, improper priors                            | Complete |
+|       7 | [Lecture 7: Hypothesis Testing, Power, Sufficiency, and Likelihood-Ratio Tests]({{ lecture_07_url }})                   | test functions, randomization, power, size, sufficient-statistic reduction, likelihood-ratio sufficiency, Neyman–Pearson lemma                  | Complete |
+|       8 | [Lecture 8: Bayesian Point Estimation, Conjugate Priors, Bayes Risk, and Generalized Bayes Rules]({{ lecture_08_url }}) | beta–binomial, gamma–Poisson, normal–normal and Cauchy conjugacy, Bayes risk, sufficient statistics, improper priors, generalized Bayes rules   | Complete |
 
 ## Formula and notation sheet
 

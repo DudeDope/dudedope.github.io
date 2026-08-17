@@ -8,11 +8,12 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Develops posterior distributions and conjugate priors, proves posterior-mean optimality under squared-error loss, and studies Bayes risk, sufficiency, improper priors, and generalized Bayes rules."
+description: "Develops posterior distributions and conjugate families through beta-binomial, Poisson, normal, and Cauchy examples; proves posterior-mean optimality under squared-error loss; and studies Bayes risk, sufficiency, improper priors, and generalized Bayes rules."
 topics:
   - "Bayesian inference"
   - "prior and posterior"
   - "conjugate priors"
+  - "Cauchy reciprocal-polynomial conjugate family"
   - "Bayes estimator"
   - "Bayes risk"
   - "sufficiency"
@@ -48,7 +49,10 @@ toc:
 After this lecture, you should be able to:
 
 - distinguish the likelihood, prior, marginal distribution, and posterior distribution;
-- derive conjugate posteriors in beta-binomial, gamma-Poisson, and normal-normal models;
+- test whether a proposed prior family is conjugate by multiplying the likelihood and prior kernels and checking closure;
+- derive the beta-binomial and normal-normal conjugate updates and compare two Poisson prior constructions;
+- prove that reciprocal-polynomial densities form a conjugate family for the Cauchy location model;
+- explain why the family of all proper densities is formally a conjugate family for every model, and why this fact is mathematically important but computationally uninformative;
 - define frequentist risk and Bayes risk;
 - prove that the posterior mean is the Bayes estimator under squared-error loss;
 - show that the posterior depends on the data only through a sufficient statistic;
@@ -119,18 +123,36 @@ $$
 
 where the proportionality is with respect to \\(\theta\\).
 
-## 2. Conjugate priors
+## 2. Conjugate families and how to check them
 
 <div class="definition" markdown="1">
 
 **Definition 8.3 — Conjugate family.**
-A family of prior distributions is _conjugate_ for a likelihood model if, whenever the prior belongs to that family, the posterior belongs to the same family, with updated parameters.
+
+Fix a sampling model \\(f(x\mid\theta)\\). A family \\(\mathcal C\\) of prior distributions is called _conjugate_ for this model if, whenever
+
+$$
+\pi\in\mathcal C
+$$
+
+and the posterior is well defined, the posterior distribution also belongs to \\(\mathcal C\\).
 
 </div>
 
-Conjugacy is a computational closure property. It is not a requirement of Bayesian inference.
+The operational procedure is exactly the one repeatedly used in the handwritten notes:
 
-### Worked Example 8.1 — Beta prior with binomial data
+1. write the likelihood kernel as a function of \\(\theta\\);
+2. multiply it by the prior kernel;
+3. collect all factors involving \\(\theta\\);
+4. identify the resulting posterior kernel;
+5. check whether it belongs to the same proposed family;
+6. finally check that the posterior can be normalized to integrate or sum to \\(1\\).
+
+Conjugacy is therefore a _closure property under Bayesian updating_. The family need not be unique, and a model can have many conjugate families of very different sizes.
+
+### Worked Example 8.1 — Beta family for binomial data
+
+**Problem.**
 
 Let
 
@@ -138,41 +160,47 @@ $$
 X\mid\theta
 \sim
 \operatorname{Binomial}(n,\theta),
+\qquad
+0<\theta<1,
 $$
 
-and place the prior
+and suppose the prior is beta:
 
 $$
 \theta\sim\operatorname{Beta}(a,b),
-\qquad a,b>0.
+\qquad
+a,b>0.
 $$
+
+Show directly that the beta family is conjugate and obtain the posterior mean.
+
+**Solution.**
 
 The likelihood is
 
 $$
 f(x\mid\theta)
 =
-\binom nx
-\theta^x(1-\theta)^{n-x},
+\binom{n}{x}
+\theta^x(1-\theta)^{n-x}.
 $$
 
-and the prior density is
+The prior density is
 
 $$
 \pi(\theta)
 =
-\frac{
-\theta^{a-1}(1-\theta)^{b-1}
-}{
-B(a,b)
-}.
+\frac{1}{B(a,b)}
+\theta^{a-1}(1-\theta)^{b-1}.
 $$
 
-Therefore
+Bayes' formula gives
 
 $$
 \begin{aligned}
 \pi(\theta\mid x)
+&\propto
+f(x\mid\theta)\pi(\theta)\\
 &\propto
 \theta^x(1-\theta)^{n-x}
 \theta^{a-1}(1-\theta)^{b-1}\\
@@ -182,7 +210,7 @@ $$
 \end{aligned}
 $$
 
-Hence
+This is again a beta kernel. Hence
 
 $$
 \boxed{
@@ -192,24 +220,157 @@ $$
 }
 $$
 
-Under squared-error loss, the Bayes estimator is the posterior mean:
+Therefore, under squared-error loss, the posterior-mean Bayes estimator is
 
 $$
 \boxed{
 \delta_\pi(x)
 =
+\operatorname{E}[\theta\mid X=x]
+=
 \frac{a+x}{a+b+n}.
 }
 $$
 
-For an iid Bernoulli sample with \\(S=\sum_iX_i\\), replace \\(x\\) by \\(S\\).
+For an iid Bernoulli sample \\(X_1,\ldots,X_n\\), write
 
-### Worked Example 8.2 — Gamma prior with Poisson data
+$$
+S=\sum_{i=1}^{n}X_i.
+$$
+
+Then
+
+$$
+\boxed{
+\theta\mid X_1,\ldots,X_n
+\sim
+\operatorname{Beta}(a+S,b+n-S).
+}
+$$
+
+**Final result.**
+
+The beta family is closed under binomial/Bernoulli updating: the posterior parameters equal the prior parameters plus the observed success and failure counts.
+
+### Worked Example 8.2 — The Poisson calculation in the source: checking a proposed prior family
+
+The handwritten notes next consider
+
+$$
+X\mid\theta
+\sim
+\operatorname{Poisson}(\theta),
+\qquad
+\theta>0,
+$$
+
+so
+
+$$
+f(x\mid\theta)
+=
+\frac{e^{-\theta}\theta^x}{x!}.
+$$
+
+The prior factor written in the source has the kernel of an inverse-gamma-type density. The handwriting reuses the symbol \\(x\\) inside the prior, which conflicts with the observed count. To separate the two roles, write the prior hyperparameter as \\(c>0\\) and consider the kernel
+
+$$
+\pi(\theta)
+\propto
+\theta^{-\nu}
+\exp\!\left(-\frac{c}{\theta}\right),
+\qquad
+\theta>0.
+$$
+
+For checking conjugacy, the normalizing constant is not needed. Multiplying likelihood and prior gives
+
+$$
+\begin{aligned}
+\pi(\theta\mid x)
+&\propto
+\frac{e^{-\theta}\theta^x}{x!}
+\theta^{-\nu}
+\exp\!\left(-\frac{c}{\theta}\right)\\
+&\propto
+\theta^{x-\nu}
+\exp\!\left(-\theta-\frac{c}{\theta}\right).
+\end{aligned}
+$$
+
+The factor \\(e^{-\theta}\\) introduced by the Poisson likelihood remains in the posterior. Therefore the posterior is not of the original inverse-gamma form
+
+$$
+\theta^{-\nu'}
+\exp\!\left(-\frac{c'}{\theta}\right).
+$$
+
+So the inverse-gamma family by itself is not conjugate for a Poisson mean.
 
 <div class="intuition" markdown="1">
 
 **Additional context.**
-The handwritten material moves from the Poisson likelihood to a conjugacy calculation. The standard finite-dimensional conjugate family is the gamma family, written here in rate parametrisation.
+The posterior kernel
+
+$$
+\theta^{\lambda-1}
+\exp\!\left[
+-\frac{1}{2}
+\left(
+a\theta+\frac{b}{\theta}
+\right)
+\right],
+\qquad
+\theta>0,
+$$
+
+is of generalized-inverse-Gaussian type. Consider the larger collection of such kernels, with \\(a\ge0\\), \\(b\ge0\\), and \\(\lambda\\) restricted so that the kernel is integrable. Multiplication by a Poisson likelihood kernel gives
+
+$$
+\begin{aligned}
+\theta^x e^{-\theta}
+\theta^{\lambda-1}
+\exp\!\left[
+-\frac{1}{2}
+\left(
+a\theta+\frac{b}{\theta}
+\right)
+\right]
+&=
+\theta^{(\lambda+x)-1}
+\exp\!\left[
+-\frac{1}{2}
+\left(
+(a+2)\theta+\frac{b}{\theta}
+\right)
+\right].
+\end{aligned}
+$$
+
+Thus the update is
+
+$$
+\boxed{
+\lambda\mapsto\lambda+x,
+\qquad
+a\mapsto a+2,
+\qquad
+b\mapsto b.
+}
+$$
+
+So the broader generalized-inverse-Gaussian-type family is closed under Poisson updating. The inverse-gamma-type prior used in the source is a boundary case with no linear \\(\theta\\) term before observing data; the Poisson likelihood creates that term in the posterior.
+
+</div>
+
+This example illustrates why the procedure “multiply first, then identify the posterior family” matters. A prior can be perfectly valid without being conjugate.
+
+### Worked Example 8.3 — Gamma family for a Poisson mean
+
+<div class="intuition" markdown="1">
+
+**Additional context.**
+A standard finite-dimensional conjugate family for the Poisson mean is the gamma family. It is useful to contrast it with the source's inverse-gamma-type trial above.
 
 </div>
 
@@ -221,13 +382,15 @@ X_1,\ldots,X_n\mid\theta
 \operatorname{Poisson}(\theta),
 $$
 
-and let
+and use the gamma prior in shape-rate parametrization,
 
 $$
-\theta\sim\operatorname{Gamma}(a,b)
+\theta\sim\operatorname{Gamma}(a,b),
+\qquad
+a,b>0,
 $$
 
-with shape \\(a>0\\) and rate \\(b>0\\):
+with density
 
 $$
 \pi(\theta)
@@ -236,27 +399,27 @@ $$
 \theta^{a-1}e^{-b\theta}.
 $$
 
-If
+Let
 
 $$
-S=\sum_{i=1}^nX_i,
+S=\sum_{i=1}^{n}X_i.
 $$
 
-then the likelihood kernel is
+The likelihood kernel is
 
 $$
 L(\theta;x)
 \propto
-e^{-n\theta}\theta^S.
+\theta^S e^{-n\theta}.
 $$
 
-Thus
+Hence
 
 $$
 \begin{aligned}
 \pi(\theta\mid x)
 &\propto
-e^{-n\theta}\theta^S
+\theta^S e^{-n\theta}
 \theta^{a-1}e^{-b\theta}\\
 &=
 \theta^{a+S-1}
@@ -264,7 +427,7 @@ e^{-(b+n)\theta}.
 \end{aligned}
 $$
 
-Hence
+Therefore
 
 $$
 \boxed{
@@ -284,14 +447,7 @@ $$
 }
 $$
 
-<div class="remark" markdown="1">
-
-**Editorial note.**
-The handwritten Poisson page contains a prior factor in which the symbol \\(x\\) is reused inside what should be a prior density for \\(\theta\\). Taken literally, that expression depends on the observed data and is not a prior specified before seeing \\(X\\). The gamma-Poisson calculation above is the mathematically well-defined conjugate version of the intended idea, with independent hyperparameters \\(a\\) and \\(b\\).
-
-</div>
-
-### Worked Example 8.3 — Normal likelihood with normal prior
+### Worked Example 8.4 — Normal likelihood with normal prior
 
 Suppose
 
@@ -312,9 +468,10 @@ The posterior kernel is
 $$
 \pi(\theta\mid x)
 \propto
-\exp\left\lbrace -\frac{(x-\theta)^2}{2\sigma^2}
+\exp\left\lbrace
+-\frac{(x-\theta)^2}{2\sigma^2}
 -\frac{(\theta-\mu)^2}{2\tau^2}
-\right\rbrace .
+\right\rbrace.
 $$
 
 Expand the quadratic terms:
@@ -330,9 +487,9 @@ $$
 \frac{\theta^2-2\mu\theta+\mu^2}{\tau^2}\\
 &=
 \left(
-\frac1{\sigma^2}
+\frac{1}{\sigma^2}
 +
-\frac1{\tau^2}
+\frac{1}{\tau^2}
 \right)\theta^2
 -
 2\left(
@@ -347,46 +504,33 @@ $$
 \end{aligned}
 $$
 
-Define the posterior precision and variance by
+Define
 
 $$
-\frac1v
+A
 =
-\frac1{\sigma^2}
+\frac{1}{\sigma^2}
 +
-\frac1{\tau^2},
+\frac{1}{\tau^2},
 \qquad
-v
+B
 =
-\left(
-\frac1{\sigma^2}
-+
-\frac1{\tau^2}
-\right)^{-1},
-$$
-
-and set
-
-$$
-m
-=
-v\left(
 \frac{x}{\sigma^2}
 +
-\frac{\mu}{\tau^2}
-\right).
+\frac{\mu}{\tau^2}.
 $$
 
-Then completing the square gives
+Then
 
 $$
-\pi(\theta\mid x)
-\propto
-\exp\left\lbrace -\frac{(\theta-m)^2}{2v}
-\right\rbrace .
+A\theta^2-2B\theta
+=
+A\left(\theta-\frac{B}{A}\right)^2
+-
+\frac{B^2}{A}.
 $$
 
-Therefore
+Terms not involving \\(\theta\\) are absorbed into the normalizing constant. Therefore
 
 $$
 \boxed{
@@ -400,37 +544,40 @@ where
 
 $$
 \boxed{
-m
-=
-\frac{
-x/\sigma^2+\mu/\tau^2
-}{
-1/\sigma^2+1/\tau^2
-},
-\qquad
 v
 =
-\frac1{
-1/\sigma^2+1/\tau^2
-}.
+\left(
+\frac{1}{\sigma^2}
++
+\frac{1}{\tau^2}
+\right)^{-1},
+\qquad
+m
+=
+v\left(
+\frac{x}{\sigma^2}
++
+\frac{\mu}{\tau^2}
+\right).
 }
 $$
 
-The posterior mean is a precision-weighted average of the data and prior mean.
-
-For \\(n\\) iid observations,
+Equivalently,
 
 $$
-X_i\mid\theta\sim N(\theta,\sigma^2),
+m
+=
+\frac{x/\sigma^2+\mu/\tau^2}
+{1/\sigma^2+1/\tau^2}.
 $$
 
-the same calculation gives
+For \\(n\\) iid observations with known variance \\(\sigma^2\\),
 
 $$
 \boxed{
 v_n
 =
-\frac1{n/\sigma^2+1/\tau^2},
+\frac{1}{n/\sigma^2+1/\tau^2},
 \qquad
 m_n
 =
@@ -443,11 +590,20 @@ v_n
 }
 $$
 
-## 3. Cauchy likelihood and the meaning of conjugacy
+The posterior mean is a precision-weighted average of the sample mean and the prior mean.
 
-The handwritten notes ask whether the Cauchy location family has a conjugate prior.
+## 3. Cauchy location model: the reciprocal-polynomial conjugate family
 
-For
+The handwritten notes explicitly ask:
+
+**Question.**
+Does the Cauchy location model have a conjugate family of priors?
+
+**Answer.**
+
+Yes. The notes construct one by considering densities of the form \\(1/p(\theta)\\), where \\(p\\) is a polynomial satisfying the conditions required for \\(1/p\\) to be a density.
+
+Suppose
 
 $$
 X\mid\theta
@@ -455,22 +611,274 @@ X\mid\theta
 \operatorname{Cauchy}(\theta,1),
 $$
 
-the likelihood kernel is
+so
+
+$$
+f(x\mid\theta)
+=
+\frac{1}{\pi\left\lbrace 1+(x-\theta)^2\right\rbrace}.
+$$
+
+### 3.1 Conditions on the reciprocal-polynomial prior
+
+Let \\(p\\) be a real polynomial satisfying
+
+$$
+p(\theta)>0
+\qquad
+\text{for every }\theta\in\mathbb R,
+$$
+
+and
+
+$$
+\int_{-\infty}^{\infty}
+\frac{1}{p(\theta)}
+\,\mathrm d\theta
+=
+1.
+$$
+
+Then
+
+$$
+\pi_p(\theta)
+=
+\frac{1}{p(\theta)}
+$$
+
+is a proper prior density.
+
+Both conditions matter:
+
+- \\(p(\theta)>0\\) guarantees nonnegativity and prevents poles on the real line;
+- the integral condition guarantees that \\(1/p\\) has total mass \\(1\\).
+
+Equivalently, one may begin with a strictly positive polynomial \\(p_0\\) for which
+
+$$
+0<
+\int_{\mathbb R}\frac{1}{p_0(\theta)}\,\mathrm d\theta
+<
+\infty
+$$
+
+and then multiply \\(p_0\\) by the appropriate positive constant so that its reciprocal integrates to \\(1\\).
+
+Define
+
+$$
+\mathcal C
+=
+\left\lbrace
+\pi_p:
+\pi_p(\theta)=\frac{1}{p(\theta)},
+\;
+p\text{ polynomial},
+\;
+p(\theta)>0,
+\;
+\int_{\mathbb R}\frac{1}{p(\theta)}\,\mathrm d\theta=1
+\right\rbrace.
+$$
+
+### Worked Example 8.5 — Proving conjugacy for the Cauchy location likelihood
+
+**Problem.**
+
+Show that if \\(\pi_p\in\mathcal C\\), then after observing one Cauchy location observation, the posterior also belongs to \\(\mathcal C\\).
+
+**Solution.**
+
+Start from
+
+$$
+\pi_p(\theta)
+=
+\frac{1}{p(\theta)}.
+$$
+
+After observing \\(X=x\\),
+
+$$
+\begin{aligned}
+f(x\mid\theta)\pi_p(\theta)
+&=
+\frac{1}{\pi\left\lbrace 1+(x-\theta)^2\right\rbrace}
+\frac{1}{p(\theta)}\\
+&=
+\frac{1}
+{\pi p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace}.
+\end{aligned}
+$$
+
+Let
+
+$$
+Z_p(x)
+=
+\int_{-\infty}^{\infty}
+\frac{1}
+{\pi p(u)\left\lbrace 1+(x-u)^2\right\rbrace}
+\,\mathrm du.
+$$
+
+Since
+
+$$
+1+(x-u)^2\ge1,
+$$
+
+we have
+
+$$
+0<Z_p(x)
+\le
+\frac{1}{\pi}
+\int_{-\infty}^{\infty}
+\frac{1}{p(u)}
+\,\mathrm du
+=
+\frac{1}{\pi}.
+$$
+
+Thus the posterior is proper. Normalizing,
+
+$$
+\pi_p(\theta\mid x)
+=
+\frac{1}
+{\pi Z_p(x)\,
+p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace}.
+$$
+
+Define
+
+$$
+q_x(\theta)
+=
+\pi Z_p(x)\,
+p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace.
+$$
+
+Now verify the family conditions. First, \\(q_x\\) is a polynomial in \\(\theta\\). Second, \\(q_x(\theta)>0\\) for every real \\(\theta\\). Third, by construction,
+
+$$
+\int_{-\infty}^{\infty}
+\frac{1}{q_x(\theta)}
+\,\mathrm d\theta
+=
+1.
+$$
+
+Therefore
+
+$$
+\boxed{
+\pi_p(\theta\mid x)
+=
+\frac{1}{q_x(\theta)}
+\in
+\mathcal C.
+}
+$$
+
+Hence \\(\mathcal C\\) is conjugate.
+
+For an iid sample \\(x_1,\ldots,x_n\\),
 
 $$
 L(\theta;x)
 \propto
-\frac1{1+(x-\theta)^2}.
+\prod_{i=1}^{n}
+\frac{1}{1+(x_i-\theta)^2},
 $$
 
-There is no standard low-dimensional conjugate family analogous to beta-binomial or normal-normal that is routinely used for the Cauchy location parameter.
+so
 
-<div class="remark" markdown="1">
+$$
+\pi_p(\theta\mid x_1,\ldots,x_n)
+\propto
+\frac{1}
+{p(\theta)
+\prod_{i=1}^{n}\left\lbrace 1+(x_i-\theta)^2\right\rbrace}.
+$$
 
-**Editorial note.**
-The source observes that the set of _all_ prior densities is closed under Bayesian updating. In that very broad formal sense, the class of all priors is indeed conjugate for any likelihood. This is mathematically true but not useful: in statistical practice, “a conjugate family” normally means a tractable finite-dimensional or otherwise structured family whose form is preserved by updating.
+The denominator is again a strictly positive polynomial. After normalization, the posterior again has the form \\(1/q(\theta)\\) with reciprocal integral \\(1\\).
+
+**Final result.**
+
+$$
+\boxed{
+\mathcal C
+=
+\left\lbrace
+\frac{1}{p(\theta)}:
+p\text{ polynomial},
+\;
+p(\theta)>0,
+\;
+\int_{\mathbb R}\frac{1}{p(\theta)}\,\mathrm d\theta=1
+\right\rbrace
+}
+$$
+
+is a conjugate family for the Cauchy location model.
+
+### 3.2 Why the ordinary Cauchy family is not closed
+
+A single Cauchy density has a quadratic denominator. Multiplying one Cauchy prior by one Cauchy likelihood generally produces a reciprocal quartic polynomial, not another ordinary two-parameter Cauchy density.
+
+So the ordinary location-scale Cauchy family is not conjugate. The reciprocal-polynomial family is conjugate because it allows the polynomial degree to increase after each update.
+
+### 3.3 The family of all densities is always conjugate
+
+The source notes also state the following fact explicitly.
+
+<div class="proposition" markdown="1">
+
+**Proposition 8.4 — Universal conjugate family.**
+
+For any likelihood model, the family of all proper densities on the parameter space is a conjugate family, provided the posterior is proper.
 
 </div>
+
+**Proof.**
+
+Let \\(\mathcal D\\) be the class of all proper densities on \\(\Theta\\). Choose any \\(\pi\in\mathcal D\\). If
+
+$$
+0<
+m(x)
+=
+\int_\Theta
+f(x\mid\theta)\pi(\theta)
+\,\mathrm d\theta
+<
+\infty,
+$$
+
+then
+
+$$
+\pi(\theta\mid x)
+=
+\frac{f(x\mid\theta)\pi(\theta)}{m(x)}
+$$
+
+is itself a proper density on \\(\Theta\\). Therefore
+
+$$
+\pi(\cdot\mid x)\in\mathcal D.
+$$
+
+Hence \\(\mathcal D\\) is closed under Bayesian updating.
+
+\\(\square\\)
+
+This is not merely a remark: it clarifies what the word _conjugate_ can mean. If the family is allowed to be arbitrarily large, existence of a conjugate family is almost automatic. The statistically useful question is whether there is a smaller structured family whose posterior remains easy to identify and compute.
+
+The beta-binomial, gamma-Poisson, and normal-normal examples give finite-dimensional conjugate families. The reciprocal-polynomial Cauchy construction gives a larger, non-fixed-dimensional but explicit conjugate family.
 
 ## 4. Frequentist risk and Bayes risk
 
@@ -502,7 +910,7 @@ $$
 
 <div class="definition" markdown="1">
 
-**Definition 8.4 — Bayes risk.**
+**Definition 8.5 — Bayes risk.**
 For a proper prior \\(\pi\\),
 
 $$
@@ -530,7 +938,7 @@ A _Bayes rule_ is a decision rule that minimises \\(r\_\pi(\delta)\\).
 
 <div class="theorem" markdown="1">
 
-**Theorem 8.5 — Bayes estimator under squared-error loss.**
+**Theorem 8.6 — Bayes estimator under squared-error loss.**
 Assume
 
 $$
@@ -598,9 +1006,15 @@ $$
 
 This identity quantifies the posterior uncertainty that remains after observing the data.
 
-## 6. A Bayes estimator is a function of a sufficient statistic
+## 6. Bayes and generalized Bayes rules are functions of sufficient statistics
 
-Suppose \\(T(X)\\) is sufficient and
+The source notes explicitly ask whether a Bayes estimator must be a function of a sufficient statistic. The answer is yes. The same argument also applies to a generalized Bayes calculation whenever an improper prior kernel produces a proper posterior.
+
+<div class="proposition" markdown="1">
+
+**Proposition 8.7 — Sufficiency determines the posterior.**
+
+Suppose \\(T(X)\\) is sufficient for \\(\theta\\), so that
 
 $$
 f(x\mid\theta)
@@ -608,7 +1022,18 @@ f(x\mid\theta)
 g_\theta(T(x))h(x).
 $$
 
-Then
+Let \\(\pi(\theta)\\) be either
+
+- a proper prior density, or
+- a nonnegative improper prior kernel for which the posterior normalizing integral is finite and positive.
+
+Then the posterior depends on \\(x\\) only through \\(T(x)\\). Consequently, every Bayes or generalized Bayes rule obtained from that posterior is a function of \\(T(X)\\).
+
+</div>
+
+**Proof.**
+
+Bayes' formula gives
 
 $$
 \begin{aligned}
@@ -617,18 +1042,22 @@ $$
 \frac{
 g_\theta(T(x))h(x)\pi(\theta)
 }{
-\int g_u(T(x))h(x)\pi(u)\,\mathrm du
+\int_\Theta
+g_u(T(x))h(x)\pi(u)
+\,\mathrm du
 }\\
 &=
 \frac{
 g_\theta(T(x))\pi(\theta)
 }{
-\int g_u(T(x))\pi(u)\,\mathrm du
+\int_\Theta
+g_u(T(x))\pi(u)
+\,\mathrm du
 }.
 \end{aligned}
 $$
 
-The factor \\(h(x)\\) cancels. Therefore the entire posterior distribution depends on \\(x\\) only through \\(T(x)\\):
+The factor \\(h(x)\\), which contains the part of the sample not carrying information about \\(\theta\\), cancels. Therefore
 
 $$
 \boxed{
@@ -638,14 +1067,19 @@ $$
 }
 $$
 
-Consequently every posterior functional, including the posterior mean, is a function of the sufficient statistic.
+Thus every posterior functional is a function of \\(T\\). In particular, under squared-error loss,
 
-<div class="remark" markdown="1">
+$$
+\boxed{
+\operatorname{E}[\theta\mid X]
+=
+\operatorname{E}[\theta\mid T].
+}
+$$
 
-**Remark.**
-This is the Bayesian analogue of the information-reduction interpretation of sufficiency: once a sufficient statistic is known, the rest of the sample does not change the posterior.
+The cancellation argument only requires the posterior ratio to be well defined. It does not require the prior kernel itself to integrate to one, so the conclusion also applies to generalized Bayes rules whenever the formal posterior is proper.
 
-</div>
+\\(\square\\)
 
 ## 7. Can a posterior-mean Bayes estimator be unbiased?
 
@@ -667,7 +1101,7 @@ Under a proper prior and finite second moments, this can happen only in a degene
 
 <div class="proposition" markdown="1">
 
-**Proposition 8.6 — Proper-prior posterior mean plus exact unbiasedness forces zero Bayes risk.**
+**Proposition 8.8 — Proper-prior posterior mean plus exact unbiasedness forces zero Bayes risk.**
 Suppose \\(\pi\\) is proper,
 
 $$
@@ -774,7 +1208,7 @@ In an ordinary noisy model, the data do not determine \\(\theta\\) exactly, so a
 
 <div class="definition" markdown="1">
 
-**Definition 8.7 — Improper prior.**
+**Definition 8.9 — Improper prior.**
 A nonnegative function \\(\pi(\theta)\\) is called an improper prior if
 
 $$
@@ -797,12 +1231,12 @@ is nevertheless proper for almost every sample, one can still minimise posterior
 
 <div class="definition" markdown="1">
 
-**Definition 8.8 — Generalized Bayes rule.**
+**Definition 8.10 — Generalized Bayes rule.**
 A rule obtained by Bayesian posterior minimisation from an improper prior is called a generalized Bayes rule.
 
 </div>
 
-### Worked Example 8.4 — Flat prior for a normal mean
+### Worked Example 8.6 — Flat prior for a normal mean: one observation and an iid sample
 
 Let
 
@@ -881,7 +1315,7 @@ $$
 }
 $$
 
-Notice that \\(\bar X\\) is unbiased. This does not contradict Proposition 8.6 because the flat prior is improper, so the proper-prior integrated-risk argument does not apply.
+Notice that \\(\bar X\\) is unbiased. This does not contradict Proposition 8.8 because the flat prior is improper, so the proper-prior integrated-risk argument does not apply.
 
 ## 9. Bayes-risk decomposition
 
@@ -986,11 +1420,75 @@ What is the difference between a Bayes estimator and a generalized Bayes estimat
 A Bayes estimator uses a proper prior probability distribution. A generalized Bayes estimator is obtained from an improper prior when the resulting posterior calculation is still meaningful.
 
 **Question.**
-Does every model have a useful conjugate prior?
+Is a generalized Bayes estimator also a function of a sufficient statistic?
 
 **Answer.**
 
-No. The class of all priors is trivially closed under updating, but useful conjugacy refers to a tractable structured family. Models such as the Cauchy location family do not have a standard low-dimensional conjugate family comparable to beta-binomial or normal-normal conjugacy.
+Yes, provided the improper prior kernel yields a proper posterior. The factorization
+
+$$
+f(x\mid\theta)=g_\theta(T(x))h(x)
+$$
+
+still causes \\(h(x)\\) to cancel from the formal posterior, so the posterior and every generalized Bayes rule derived from it depend on the sample only through \\(T(X)\\).
+
+**Question.**
+Does the Cauchy location model have a conjugate family?
+
+**Answer.**
+
+Yes. The source notes construct the reciprocal-polynomial family
+
+$$
+\pi_p(\theta)
+=
+\frac{1}{p(\theta)},
+$$
+
+where \\(p\\) is a strictly positive polynomial and \\(1/p\\) is normalized to integrate to \\(1\\). Multiplication by the Cauchy likelihood multiplies the denominator by another strictly positive quadratic polynomial, so the posterior remains in the same reciprocal-polynomial class.
+
+**Question.**
+Why is the family of all proper densities a conjugate family for every likelihood model?
+
+**Answer.**
+
+Because whenever a proper prior produces a proper posterior, that posterior is itself a proper density on the same parameter space. Therefore the class of all densities is closed under updating. The fact is formally important, but the family is usually too large to provide computational simplification.
+
+**Question.**
+What happens to the inverse-gamma-type prior kernel used in the source Poisson calculation?
+
+**Answer.**
+
+Multiplying
+
+$$
+\theta^{-\nu}
+\exp\!\left(-\frac{c}{\theta}\right)
+$$
+
+by the Poisson likelihood kernel \\(\theta^x e^{-\theta}\\) gives
+
+$$
+\theta^{x-\nu}
+\exp\!\left(-\theta-\frac{c}{\theta}\right).
+$$
+
+This is not inverse-gamma, so that smaller family is not conjugate. The resulting kernel belongs to the broader generalized inverse Gaussian class.
+
+**Question.**
+What conditions must be checked before \\(1/p(\theta)\\) can be used as a prior density?
+
+**Answer.**
+
+The source construction requires \\(p(\theta)>0\\) for every real \\(\theta\\) and
+
+$$
+\int_{\mathbb R}\frac{1}{p(\theta)}\,\mathrm d\theta
+=
+1.
+$$
+
+More generally, if the integral is finite and positive, a constant rescaling of \\(p\\) can normalize the reciprocal to a density.
 
 ## Lecture summary
 
@@ -1012,16 +1510,20 @@ $$
 
 minimises both posterior expected loss and Bayes risk. If \\(T\\) is sufficient, the posterior and therefore every Bayes rule based on it are functions of \\(T\\).
 
-Conjugate priors give algebraically closed posterior families. Improper priors can lead to generalized Bayes rules, as in the flat-prior normal example.
+Conjugate families are closed under Bayesian updating, but the family need not be unique. The beta-binomial, gamma-Poisson, and normal-normal examples are finite-dimensional conjugate families; the reciprocal-polynomial Cauchy construction is a larger conjugate family; and the class of all proper densities is the universal, formally conjugate family. Improper priors can lead to generalized Bayes rules, as in the flat-prior normal example.
 
 ## Review problems
 
 1. Derive the beta posterior for \\(n\\) iid Bernoulli observations with \\(S\\) successes.
-2. Derive the gamma posterior for the Poisson mean using both shape-rate and shape-scale parametrisations.
-3. Verify directly that the normal-normal posterior mean is a weighted average of \\(x\\) and \\(\mu\\), with weights proportional to precisions.
-4. Prove the Bayes-risk decomposition in Section 9 from the law of total expectation.
-5. For \\(X_1,\ldots,X_n\sim N(\theta,\sigma^2)\\) with known \\(\sigma^2\\), derive the generalized Bayes estimator under the flat prior.
-6. Explain exactly where properness of the prior is used in Proposition 8.6.
+2. Starting from the inverse-gamma-type kernel \\(\theta^{-\nu}e^{-c/\theta}\\), multiply by a Poisson likelihood and identify exactly which factor destroys inverse-gamma conjugacy.
+3. Derive the gamma posterior for the Poisson mean using both shape-rate and shape-scale parametrizations.
+4. Verify directly that the normal-normal posterior mean is a weighted average of \\(x\\) and \\(\mu\\), with weights proportional to precisions.
+5. Prove that the reciprocal-polynomial family in Section 3 remains conjugate after \\(n\\) iid Cauchy observations.
+6. Explain why positivity of \\(p\\) is not by itself enough for \\(1/p\\) to define a prior density.
+7. Prove Proposition 8.4 directly from the definition of a posterior density.
+8. Prove the Bayes-risk decomposition in Section 9 from the law of total expectation.
+9. For \\(X_1,\ldots,X_n\sim N(\theta,\sigma^2)\\) with known \\(\sigma^2\\), derive the generalized Bayes estimator under the flat prior.
+10. Explain exactly where properness of the prior is used in Proposition 8.8.
 
 ## References and further reading
 

@@ -1159,6 +1159,33 @@ v_n\left(
 \right).
 $$
 
+### Cauchy reciprocal-polynomial conjugacy
+
+For the Cauchy location likelihood
+
+$$
+f(x\mid\theta)
+=
+\frac{1}{\pi\left\lbrace 1+(x-\theta)^2\right\rbrace},
+$$
+
+let \\(\pi_p(\theta)=1/p(\theta)\\), where \\(p\\) is a strictly positive polynomial and \\(1/p\\) is normalized to integrate to \\(1\\). After observing \\(X=x\\),
+
+$$
+\pi_p(\theta\mid x)
+=
+\frac{1}
+{\pi Z_p(x)\,p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace}
+=
+\frac{1}{q_x(\theta)},
+$$
+
+where \\(q_x\\) is again a strictly positive polynomial whose reciprocal integrates to \\(1\\). Thus the reciprocal-polynomial family is conjugate; for an iid sample, the denominator acquires the factor
+
+$$
+\prod_{i=1}^{n}\left\lbrace 1+(x_i-\theta)^2\right\rbrace.
+$$
+
 ### Sufficiency and the posterior
 
 If
