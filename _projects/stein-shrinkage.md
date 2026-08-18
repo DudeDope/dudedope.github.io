@@ -9,7 +9,7 @@ status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Ayanendranath Basu
 period:
-featured: true
+featured: false
 importance: 3
 tags:
   - decision theory

@@ -4,7 +4,7 @@ permalink: /notes/
 title: Notes
 description: Lecture-wise notes in sample surveys, algorithms, and parametric inference.
 nav: true
-nav_order: 5
+nav_order: 4
 ---
 
 <p class="aa-page-intro">Lecture-wise notes and formula sheets, organised by subject.</p>

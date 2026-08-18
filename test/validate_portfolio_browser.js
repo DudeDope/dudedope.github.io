@@ -77,6 +77,11 @@ function assert(condition, message) {
       footerBaseFontSize: getComputedStyle(document.querySelector("footer .container")).fontSize,
       footerContent: getComputedStyle(document.querySelector("footer .container"), "::after").content.replace(/^['"]|['"]$/g, ""),
       footerAttributionLinks: document.querySelectorAll('footer a[href*="alshedivat/al-folio"]').length,
+      publicationsNavLinks: document.querySelectorAll('.navbar a[href$="/publications/"]').length,
+      courseNotesSectionPresent: Boolean(document.querySelector("#notes-status")),
+      selectedProjectTitles: [...document.querySelector("#selected-projects").closest("section").querySelectorAll("h3")].map((heading) =>
+        heading.textContent.trim()
+      ),
     }));
     assert(measurements.bodyWidth <= width, `${width}px: body overflows at ${measurements.bodyWidth}px`);
     assert(measurements.documentWidth <= width, `${width}px: document overflows at ${measurements.documentWidth}px`);
@@ -85,6 +90,17 @@ function assert(condition, message) {
     assert(measurements.footerBaseFontSize === "0px", `${width}px: default footer text is still visible`);
     assert(/^Last updated: \w+ \d{2}, \d{4}\.$/.test(measurements.footerContent), `${width}px: footer date is missing or malformed`);
     assert(measurements.footerAttributionLinks === 0, `${width}px: al-folio attribution link is still present`);
+    assert(measurements.publicationsNavLinks === 0, `${width}px: Publications is still present in the main navigation`);
+    assert(!measurements.courseNotesSectionPresent, `${width}px: Course notes still compete for space on the landing page`);
+    assert(
+      JSON.stringify(measurements.selectedProjectTitles) ===
+        JSON.stringify([
+          "BioStat-PO: Policy Selection for Causal Survival Analysis",
+          "Nonlinear-MLP: Controlled Studies of Neural-Network Nonlinearity",
+          "Bivariate Copula Modelling of Extreme Air-Pollution Events",
+        ]),
+      `${width}px: unexpected selected-project order: ${measurements.selectedProjectTitles.join(" | ")}`
+    );
 
     await page.screenshot({
       path: path.join(screenshotDirectory, `portfolio-${width}-dark.png`),
@@ -151,6 +167,16 @@ function assert(condition, message) {
     }
   }
 
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(new URL("about/", baseUrl).href, { waitUntil: "domcontentloaded" });
+  const aboutText = await page.locator("body").innerText();
+  for (const expected of ["All India Rank 90", "Indian National Mathematical Olympiad merit list", "All India Rank 1,034", "top-1,000 candidate"]) {
+    assert(aboutText.includes(expected), `About page is missing verified academic highlight: ${expected}`);
+  }
+
+  await page.goto(new URL("research/", baseUrl).href, { waitUntil: "domcontentloaded" });
+  assert(await page.locator("#publication-status").isVisible(), "Research page is missing the publication-status note");
+
   for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of mathRoutes) {
@@ -183,6 +209,8 @@ function assert(condition, message) {
 
   await page.setViewportSize({ width: 1440, height: 900 });
   for (const route of [
+    "about/",
+    "research/",
     "research/em-convergence/",
     "projects/copula-air-pollution/",
     "notes/sample-surveys/lecture-03-design-based-estimation/",

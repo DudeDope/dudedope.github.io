@@ -10,8 +10,9 @@ nav_order: 1
 <div class="aa-page-grid">
   <div class="aa-prose">
     <p class="aa-lede">
-      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, with an expected graduation year of 2027. I am interested
-      in mathematical statistics, probabilistic modelling, machine learning, and optimisation.
+      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, graduating in 2027. I work across statistical inference,
+      probabilistic modelling, machine learning, and optimisation, with a broader interest in reliable learning and decision-making under
+      uncertainty.
     </p>
 
     <h2>Interests and experience</h2>
@@ -22,15 +23,14 @@ nav_order: 1
     </p>
 
     <p>
-      My current academic research examines the behaviour of expectation-maximisation algorithms for latent-variable models. My applied experience
-      includes battery degradation and survival modelling, machine-learning and deep-learning methods for anomaly detection, probabilistic
-      forecasting, stochastic price modelling, bidding optimisation, and efficient multimodal learning.
+      At the University of Toronto, my current academic research examines statistical learning for latent-variable models. At Ranial Systems, I work
+      on probabilistic modelling, forecasting, anomaly detection, and optimisation for energy systems, alongside battery degradation and survival
+      modelling. Earlier, at Mercity AI, I worked on efficient multimodal learning for medical AI.
     </p>
 
     <p>
-      I have worked across academic and industry settings at the University of Toronto, Ranial Systems, and Mercity AI. Although these projects
-      arise in different application areas, they share a common emphasis on uncertainty, reliable modelling, careful evaluation, and data-informed
-      decisions.
+      Although these projects arise in different application areas, they share a common emphasis on uncertainty, reliable modelling, careful
+      evaluation, and data-informed decisions.
     </p>
 
     <p>
@@ -66,6 +66,36 @@ nav_order: 1
     </nav>
   </aside>
 </div>
+
+<section class="aa-section" aria-labelledby="academic-highlights">
+  <div class="aa-section-head">
+    <h2 id="academic-highlights">Academic highlights</h2>
+    <p>Selected distinctions in mathematics, science, and national entrance examinations.</p>
+  </div>
+  <div class="aa-list">
+    <article class="aa-row">
+      <div class="aa-row-meta">2023</div>
+      <div>
+        <h3>University entrance examinations</h3>
+        <p>All India Rank 90 in the Indian Statistical Institute entrance examination; 98.9 percentile in JEE Main; 331/390 in BITSAT.</p>
+      </div>
+    </article>
+    <article class="aa-row">
+      <div class="aa-row-meta">2022</div>
+      <div>
+        <h3>Mathematics and science</h3>
+        <p>Indian National Mathematical Olympiad merit list; Karnataka top 20 in IOQM; All India Rank 1,034 in KVPY (SA stream).</p>
+      </div>
+    </article>
+    <article class="aa-row">
+      <div class="aa-row-meta">2021</div>
+      <div>
+        <h3>National Talent Search Examination</h3>
+        <p>National scholarship as a top-1,000 candidate among approximately two million students; Stage I Rank 72.</p>
+      </div>
+    </article>
+  </div>
+</section>
 
 <section class="aa-section" aria-labelledby="areas-of-interest">
   <div class="aa-section-head">

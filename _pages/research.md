@@ -67,3 +67,10 @@ nav_order: 2
 </section>
 {% endif %}
 {% endfor %}
+
+<section class="aa-section" aria-labelledby="publication-status">
+  <div class="aa-section-head">
+    <h2 id="publication-status">Publication status</h2>
+    <p>No publications or public manuscripts at present. Public research outputs will be listed here when they become available.</p>
+  </div>
+</section>

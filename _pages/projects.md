@@ -4,7 +4,7 @@ title: Projects
 permalink: /projects/
 description: Independent and supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning.
 nav: true
-nav_order: 4
+nav_order: 3
 ---
 
 <p class="aa-page-intro">

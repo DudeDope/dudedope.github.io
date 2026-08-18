@@ -9,14 +9,14 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
     <span class="aa-kicker">Statistics · Probabilistic Modelling · Machine Learning · Optimisation</span>
 
     <p class="aa-lede">
-      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata. My interests lie in mathematical statistics,
-      probabilistic modelling, machine learning, and optimisation under uncertainty.
+      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, interested in statistical learning, probabilistic
+      modelling, machine learning, and optimisation for problems involving uncertainty.
     </p>
 
     <p class="aa-lede">
-      I am currently a student researcher at the University of Toronto and a data science intern at Ranial Systems, following an earlier
-      machine-learning research internship at Mercity AI. Across these roles, I have worked on theoretical analysis, forecasting, anomaly
-      detection, decision models, and multimodal learning.
+      My work spans academic research at the University of Toronto and applied data science at Ranial Systems, following an earlier research
+      internship at Mercity AI. Across these settings, I study how statistical and machine-learning methods can support reliable inference,
+      prediction, and decision-making, with experience in latent-variable models, energy systems, and multimodal learning.
     </p>
 
     <nav class="aa-actions" aria-label="Homepage shortcuts">
@@ -144,29 +144,6 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
           {% endif %}
         </div>
         <a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
-      </article>
-    {% endfor %}
-  </div>
-</section>
-
-<section class="aa-section" aria-labelledby="notes-status">
-  <div class="aa-section-head">
-    <h2 id="notes-status">Course notes</h2>
-    <p>Lecture-wise notes with explicit attribution, cumulative formula sheets, and navigable course indexes.</p>
-  </div>
-  <div class="aa-list">
-    {% for course in site.data.course_notes.courses %}
-      <article class="aa-row">
-        <div class="aa-row-meta">
-          {{ course.term }}
-          <div>{{ course.lecture_count }} lectures</div>
-        </div>
-        <div>
-          <h3><a href="{{ course.contents_url | relative_url }}">{{ course.title }}</a></h3>
-          <p>{{ course.description }}</p>
-          <div class="aa-row-context">{{ course.instructor }} · {{ course.institution }}</div>
-        </div>
-        <a class="aa-row-link" href="{{ course.contents_url | relative_url }}">Browse</a>
       </article>
     {% endfor %}
   </div>

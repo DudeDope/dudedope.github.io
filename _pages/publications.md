@@ -3,8 +3,7 @@ layout: page
 permalink: /publications/
 title: Publications
 description: Publications, preprints, working manuscripts, and public technical reports.
-nav: true
-nav_order: 3
+nav: false
 ---
 
 {% if site.data.profile.publications_available %}
