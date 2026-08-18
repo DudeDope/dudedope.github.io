@@ -13,6 +13,8 @@ assets/rendercv/rendercv_output/*.typ
 al-folio-upgrade-report.md
 node_modules/
 output/playwright/
+output/report-audit/
+assets/pdf/projects/
 test-results/
 vendor
 
@@ -30,7 +32,9 @@ __pycache__/
 assets/audio/
 assets/bibliography/
 assets/html/
-assets/img/
+assets/img/*
+!assets/img/projects/
+!assets/img/projects/**
 assets/json/
 assets/jupyter/
 assets/plotly/

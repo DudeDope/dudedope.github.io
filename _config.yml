@@ -210,10 +210,10 @@ exclude:
   - assets/audio/
   - assets/bibliography/
   - assets/html/
-  - assets/img/
   - assets/json/
   - assets/jupyter/
   - assets/plotly/
+  - assets/pdf/projects/
   - assets/video/
   - bin/
   - CLAUDE.md
@@ -432,7 +432,7 @@ external_links:
 # MAKE SURE imagemagick is installed and on your PATH before enabling imagemagick. In a terminal, run:
 #   convert -version
 imagemagick:
-  enabled: false # enable after original portfolio figures are added under assets/img/
+  enabled: false # enable after ImageMagick is available locally and in deployment
   widths:
     - 480
     - 800

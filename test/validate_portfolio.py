@@ -58,6 +58,15 @@ EXPECTED_ROUTES = {
     "/research/medical-vlm/",
 }
 
+EXPECTED_PROJECT_ASSETS = {
+    "assets/img/projects/audio/amplitude-variance.png",
+    "assets/img/projects/audio/denoised-waveform.png",
+    "assets/img/projects/copula/marginals-joint.png",
+    "assets/img/projects/copula/pseudo-observations.png",
+    "assets/img/projects/football/elo-top-five.png",
+    "assets/img/projects/sequential/cutoff-growth.png",
+}
+
 
 class PortfolioHTMLParser(HTMLParser):
     """Collect document metadata, links, and JSON-LD blocks."""
@@ -188,7 +197,10 @@ def main() -> int:
 
     assert (SITE / "feed.xml").is_file()
     assert (SITE / "sitemap.xml").is_file()
-    for excluded in ("assets/audio", "assets/html", "assets/img", "assets/jupyter", "assets/plotly", "assets/video", "test"):
+    for asset in EXPECTED_PROJECT_ASSETS:
+        assert (SITE / asset).is_file(), f"Missing published project asset: {asset}"
+    assert not (SITE / "assets/pdf/projects").exists(), "Unsanitised source reports were published"
+    for excluded in ("assets/audio", "assets/html", "assets/jupyter", "assets/plotly", "assets/video", "test"):
         assert not (SITE / excluded).exists(), f"Excluded demo path was published: {excluded}"
 
     print(f"Portfolio validation passed: {len(html_files)} HTML files, {checked_links} internal URLs, {len(titles)} unique titles.")

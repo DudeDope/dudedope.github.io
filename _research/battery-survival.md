@@ -17,7 +17,8 @@ tags:
   - survival analysis
   - alert prediction
   - anomaly detection
-  - evaluation
+  - remaining useful life
+  - out-of-distribution detection
 paper_url:
 code_url:
 technical_note_url:
@@ -51,8 +52,9 @@ image:
     <section id="abstract" class="aa-entry-section">
       <h2>Abstract</h2>
       <p>
-        Battery monitoring combines longitudinal measurements, operational context, rare alerts, and partially observed lifetimes. The work builds
-        statistical pipelines that keep target definitions, data splits, preprocessing, and evaluation aligned with the operational question.
+        Battery-health modelling combines longitudinal electrochemical measurements, operational context, rare alerts, and partially observed
+        lifetimes. This work develops leakage-aware pipelines for early degradation signals, cycle-life and horizon-risk prediction, unusualness
+        detection, and time-to-end-of-life ranking, while keeping each output tied to a clearly defined decision problem.
       </p>
     </section>
 
@@ -64,29 +66,40 @@ image:
     <section id="methods" class="aa-entry-section">
       <h2>Methods</h2>
       <ul>
-        <li>Feature engineering from early and longitudinal performance measurements.</li>
-        <li>Degradation and performance modelling with interpretable baselines.</li>
-        <li>Machine-learning and deep-learning methods for anomaly and alert prediction under class imbalance.</li>
-        <li>Survival models with explicit event and censoring definitions.</li>
-        <li>Group-aware splitting, reproducible preprocessing, and evaluation dashboards.</li>
+        <li>Early-cycle features from voltage-curve change, capacity, internal resistance, temperature, charge time, and operating protocol.</li>
+        <li>Regression and fixed-horizon classification for cycle life and early risk, with interpretable scientific baselines.</li>
+        <li>Checkpoint-based remaining-useful-life prototypes and survival-style ranking with Cox proportional-hazards and Weibull AFT models.</li>
+        <li>Robust-distance, reconstruction, covariance, and isolation-based scores for out-of-distribution review.</li>
+        <li>Group-aware splitting, train-only preprocessing, feature-family ablations, and reproducible diagnostic tables.</li>
       </ul>
+    </section>
+
+    <section id="evaluation" class="aa-entry-section">
+      <h2>Evaluation principles</h2>
+      <p>
+        Regression, classification, risk ranking, and anomaly review answer different questions and are evaluated separately. Cycle-life models use
+        held-out errors and feature-family comparisons; survival-style models emphasize concordance ranking; classifiers require discrimination and
+        calibration checks. Unsupervised unusualness is not relabelled as failure severity: an unusual cell can be better, worse, or simply exposed
+        to a rare protocol.
+      </p>
     </section>
 
     <section id="contribution" class="aa-entry-section">
       <h2>Contribution</h2>
       <p>
-        My work includes Python data pipelines, model comparisons, evaluation dashboards, and decision-support outputs. A central concern is
-        preventing information leakage across time, assets, or operating groups while separating discrimination, calibration, and operational
-        usefulness.
+        My work includes Python data and feature pipelines, purpose-specific model comparisons, survival and RUL prototypes, unusualness diagnostics,
+        and evaluation outputs. A central concern is preventing information leakage across time, cells, batches, or operating groups while keeping
+        ranking, probability calibration, and operational usefulness conceptually separate.
       </p>
     </section>
 
     <section id="limitations" class="aa-entry-section">
       <h2>Limitations and next questions</h2>
       <p>
-        Battery behaviour can shift across chemistries, protocols, equipment, and operating conditions. Models require recalibration and genuinely
-        out-of-group evaluation before transfer claims. Public numerical results are omitted because the underlying company artifacts are not
-        released.
+        Early development uses cell-level laboratory cycling data, which are not equivalent to full BESS site telemetry or a naturally censored
+        fleet-lifetime dataset. Small sample sizes, batch and protocol effects, correlated features, and missing maintenance or system-failure labels
+        limit transfer claims. Checkpoint RUL and survival probabilities remain prototypes; relative risk ranking is more defensible than exact
+        lifetime calibration. External validation across chemistries, protocols, equipment, and operating regimes is required.
       </p>
     </section>
 
@@ -126,6 +139,7 @@ image:
       <a href="#abstract">Abstract</a>
       <a href="#question">Question</a>
       <a href="#methods">Methods</a>
+      <a href="#evaluation">Evaluation</a>
       <a href="#contribution">Contribution</a>
       <a href="#limitations">Limitations</a>
       <a href="#artifacts">Artifacts</a>

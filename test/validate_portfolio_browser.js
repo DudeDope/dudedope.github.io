@@ -46,6 +46,12 @@ const contentRoutes = [
   "notes/design-and-analysis-of-algorithms/lecture-09-consolidated-algorithm-review/",
   "cv/",
 ];
+const projectArtifacts = [
+  { route: "projects/audio-denoising/", images: 2 },
+  { route: "projects/copula-air-pollution/", images: 2 },
+  { route: "projects/football-probability/", images: 1 },
+  { route: "projects/sequential-testing/", images: 1 },
+];
 const screenshotDirectory = path.resolve("output/playwright");
 let browser;
 
@@ -176,6 +182,26 @@ function assert(condition, message) {
 
   await page.goto(new URL("research/", baseUrl).href, { waitUntil: "domcontentloaded" });
   assert(await page.locator("#publication-status").isVisible(), "Research page is missing the publication-status note");
+
+  for (const project of projectArtifacts) {
+    await page.goto(new URL(project.route, baseUrl).href, { waitUntil: "networkidle" });
+    const artifacts = await page.evaluate(() => ({
+      images: [...document.querySelectorAll('img[src*="/assets/img/projects/"]')].map((image) => ({
+        complete: image.complete,
+        naturalWidth: image.naturalWidth,
+      })),
+      pdfs: [...document.querySelectorAll('a[href*="/assets/pdf/projects/"]')].map((link) => link.getAttribute("href")),
+    }));
+    assert(
+      artifacts.images.length === project.images,
+      `${project.route}: expected ${project.images} project images, found ${artifacts.images.length}`
+    );
+    assert(
+      artifacts.images.every((image) => image.complete && image.naturalWidth > 0),
+      `${project.route}: one or more project images failed to load`
+    );
+    assert(artifacts.pdfs.length === 0, `${project.route}: an unsanitised source report is linked publicly`);
+  }
 
   for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 900 });
