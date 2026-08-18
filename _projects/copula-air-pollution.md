@@ -10,7 +10,7 @@ organisation: Indian Statistical Institute
 supervisor: Dr. Shyamal Krishna De
 period:
 featured: true
-importance: 2
+importance: 4
 tags:
   - copulas
   - tail dependence

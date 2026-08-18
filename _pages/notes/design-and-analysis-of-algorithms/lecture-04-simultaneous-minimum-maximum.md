@@ -220,7 +220,6 @@ Pairing elements lets the smaller member challenge only the running minimum and 
 
 ## References and further reading
 
-- Vrajishnu Chakraborty, _Design and Analysis of Algorithms, Lecture 1_, supplied class notes.
 - T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, _Introduction to Algorithms_, for comparison-model analysis.
 
 ---

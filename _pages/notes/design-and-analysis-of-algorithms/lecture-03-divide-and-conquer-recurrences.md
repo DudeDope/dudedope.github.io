@@ -273,7 +273,6 @@ For $T(n)=aT(n/b)+\Theta(n^k)$, the comparison between $a$ and $b^k$ determines 
 
 ## References and further reading
 
-- Vrajishnu Chakraborty, _Design and Analysis of Algorithms, Lecture 1_, supplied class notes.
 - T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, _Introduction to Algorithms_, for recurrence analysis and the Master Theorem.
 
 ---

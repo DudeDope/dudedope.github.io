@@ -123,12 +123,12 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
   </div>
 </section>
 
-{% assign selected_projects = site.projects | where: "type", "project" | sort: "importance" %}
+{% assign selected_projects = site.projects | where: "type", "project" | where: "featured", true | sort: "importance" %}
 
 <section class="aa-section" aria-labelledby="selected-projects">
   <div class="aa-section-head">
     <h2 id="selected-projects">Selected projects</h2>
-    <p>Supervised projects applying statistical inference, probabilistic modelling, optimisation, and predictive methods to varied problems.</p>
+    <p>Independent and supervised projects in statistical inference, machine learning, optimisation, and predictive modelling.</p>
   </div>
   <div class="aa-list">
     {% for project in selected_projects limit: 3 %}
@@ -139,6 +139,8 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
           <p>{{ project.description }}</p>
           {% if project.supervisor %}
             <div class="aa-row-context">Supervised by {{ project.supervisor }}</div>
+          {% else %}
+            <div class="aa-row-context">{{ project.organisation }}</div>
           {% endif %}
         </div>
         <a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>

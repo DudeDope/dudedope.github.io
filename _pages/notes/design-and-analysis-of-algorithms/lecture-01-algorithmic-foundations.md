@@ -124,7 +124,6 @@ Algorithm analysis requires a precise input-output specification, a proof that t
 
 ## References and further reading
 
-- Vrajishnu Chakraborty, supplied course notes and lecture material for Design and Analysis of Algorithms.
 - T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, _Introduction to Algorithms_, for standard algorithmic models, asymptotic notation, and correctness techniques.
 
 ---

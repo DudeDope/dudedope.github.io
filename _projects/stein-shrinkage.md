@@ -10,7 +10,7 @@ organisation: Indian Statistical Institute
 supervisor: Dr. Ayanendranath Basu
 period:
 featured: true
-importance: 1
+importance: 3
 tags:
   - decision theory
   - James–Stein estimation

@@ -2,14 +2,14 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning.
+description: Independent and supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning.
 nav: true
 nav_order: 4
 ---
 
 <p class="aa-page-intro">
-  Selected supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning. Each record summarises the
-  problem, methodology, results, and limitations.
+  Selected independent and supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning. Each record
+  summarises the problem, methodology, current evidence, and limitations.
 </p>
 
 {% assign project_areas = "Statistical inference and probabilistic modelling|Optimisation and decision-making|Applied machine learning" | split: "|" %}
@@ -38,7 +38,11 @@ nav_order: 4
 <div>
 <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
 <p>{{ project.description }}</p>
+{% if project.supervisor %}
 <div class="aa-row-context">Supervised by {{ project.supervisor }}</div>
+{% else %}
+<div class="aa-row-context">{{ project.organisation }}</div>
+{% endif %}
 <div class="aa-tags" aria-label="Topics">
 {% for tag in project.tags limit: 4 %}
 <span class="aa-tag">{{ tag }}</span>

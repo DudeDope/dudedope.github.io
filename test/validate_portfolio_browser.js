@@ -19,6 +19,8 @@ const contentRoutes = [
   "research/medical-vlm/",
   "publications/",
   "projects/",
+  "projects/biostat-policyopt/",
+  "projects/nonlinear-mlp/",
   "projects/stein-shrinkage/",
   "projects/copula-air-pollution/",
   "projects/sequential-testing/",

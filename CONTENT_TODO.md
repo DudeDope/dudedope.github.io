@@ -31,6 +31,9 @@ This file tracks verified content and the material still needed for a complete p
 
 ## Research and project artifacts
 
+- [x] Present BioStat-PO as the paired original `biostat-policyopt` and `biostat-simbench` research-software system.
+- [x] Present the original `Nonlinear-MLP` research-software project without overstating unfinished experimental results.
+- [x] Keep public forks out of project records and artifact links.
 - [ ] Add the EM technical note and GitHub repository when ready for public release.
 - [ ] Add the copula-modelling note and GitHub repository when ready.
 - [ ] Add repositories or technical notes for the shrinkage, optimal-stopping, audio-denoising, and football projects.
@@ -39,6 +42,8 @@ This file tracks verified content and the material still needed for a complete p
 - [ ] For the football project, publish the data source, chronological split, baselines, odds/staking assumptions, calibration plots, and simulation code.
 - [ ] Add public Ranial Systems artifacts only after confidentiality review.
 - [ ] Add Mercity AI artifacts only after data-governance and release review.
+- [ ] Convert the supplied project reports into web-native records or posts when the PDFs arrive, reusing their figures with clear captions and source notes.
+- [ ] Synchronise the website CV and downloadable PDF after the expanded project content is finalised.
 
 ## Publications
 

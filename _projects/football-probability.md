@@ -10,7 +10,7 @@ organisation: Indian Statistical Institute
 supervisor: Dr. Ayanendranath Basu
 period:
 featured: false
-importance: 5
+importance: 7
 tags:
   - Elo ratings
   - probabilistic prediction

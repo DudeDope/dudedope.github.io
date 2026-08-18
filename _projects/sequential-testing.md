@@ -10,7 +10,7 @@ organisation: Indian Statistical Institute
 supervisor: Dr. Arnab Chakraborty
 period:
 featured: true
-importance: 3
+importance: 5
 tags:
   - optimal stopping
   - dynamic programming
