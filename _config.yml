@@ -213,7 +213,6 @@ exclude:
   - assets/json/
   - assets/jupyter/
   - assets/plotly/
-  - assets/pdf/projects/
   - assets/video/
   - bin/
   - CLAUDE.md

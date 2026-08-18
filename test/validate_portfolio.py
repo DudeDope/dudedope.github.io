@@ -65,6 +65,14 @@ EXPECTED_PROJECT_ASSETS = {
     "assets/img/projects/copula/pseudo-observations.png",
     "assets/img/projects/football/elo-top-five.png",
     "assets/img/projects/sequential/cutoff-growth.png",
+    "assets/pdf/projects/audio-denoising-public.pdf",
+    "assets/pdf/projects/copula-air-pollution-public.pdf",
+    "assets/pdf/projects/football-elo-logistic-public.pdf",
+    "assets/pdf/projects/sequential-testing-public.pdf",
+    "assets/code/projects/audio-variance-gate.R",
+    "assets/code/projects/copula-gumbel-reference.py",
+    "assets/code/projects/football-elo-reference.py",
+    "assets/code/projects/sequential-stopping.cpp",
 }
 
 
@@ -199,7 +207,13 @@ def main() -> int:
     assert (SITE / "sitemap.xml").is_file()
     for asset in EXPECTED_PROJECT_ASSETS:
         assert (SITE / asset).is_file(), f"Missing published project asset: {asset}"
-    assert not (SITE / "assets/pdf/projects").exists(), "Unsanitised source reports were published"
+    project_html = "\n".join((SITE / "projects" / slug / "index.html").read_text(encoding="utf-8") for slug in (
+        "audio-denoising",
+        "copula-air-pollution",
+        "football-probability",
+        "sequential-testing",
+    ))
+    assert not re.search(r"\bteam\b|\bmembers?\b", project_html, re.IGNORECASE), "Project collaboration-count language was published"
     for excluded in ("assets/audio", "assets/html", "assets/jupyter", "assets/plotly", "assets/video", "test"):
         assert not (SITE / excluded).exists(), f"Excluded demo path was published: {excluded}"
 

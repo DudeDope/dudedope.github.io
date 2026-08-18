@@ -5,6 +5,11 @@ const { chromium } = require("playwright");
 const baseUrl = process.env.PORTFOLIO_URL || "http://127.0.0.1:4001/al-folio/";
 const widths = [375, 768, 1024, 1440];
 const mathRoutes = [
+  "projects/audio-denoising/",
+  "projects/copula-air-pollution/",
+  "projects/football-probability/",
+  "projects/sequential-testing/",
+  "projects/stein-shrinkage/",
   "notes/sample-surveys/formula-sheet/",
   "notes/sample-surveys/lecture-03-design-based-estimation/",
   "notes/design-and-analysis-of-algorithms/formula-sheet/",
@@ -47,10 +52,10 @@ const contentRoutes = [
   "cv/",
 ];
 const projectArtifacts = [
-  { route: "projects/audio-denoising/", images: 2 },
-  { route: "projects/copula-air-pollution/", images: 2 },
-  { route: "projects/football-probability/", images: 1 },
-  { route: "projects/sequential-testing/", images: 1 },
+  { route: "projects/audio-denoising/", images: 2, pdfs: 1, code: 1 },
+  { route: "projects/copula-air-pollution/", images: 2, pdfs: 1, code: 1 },
+  { route: "projects/football-probability/", images: 1, pdfs: 1, code: 1 },
+  { route: "projects/sequential-testing/", images: 1, pdfs: 1, code: 1 },
 ];
 const screenshotDirectory = path.resolve("output/playwright");
 let browser;
@@ -191,6 +196,7 @@ function assert(condition, message) {
         naturalWidth: image.naturalWidth,
       })),
       pdfs: [...document.querySelectorAll('a[href*="/assets/pdf/projects/"]')].map((link) => link.getAttribute("href")),
+      code: [...document.querySelectorAll('a[href*="/assets/code/projects/"]')].map((link) => link.getAttribute("href")),
     }));
     assert(
       artifacts.images.length === project.images,
@@ -200,7 +206,8 @@ function assert(condition, message) {
       artifacts.images.every((image) => image.complete && image.naturalWidth > 0),
       `${project.route}: one or more project images failed to load`
     );
-    assert(artifacts.pdfs.length === 0, `${project.route}: an unsanitised source report is linked publicly`);
+    assert(artifacts.pdfs.length === project.pdfs, `${project.route}: expected ${project.pdfs} public report, found ${artifacts.pdfs.length}`);
+    assert(artifacts.code.length === project.code, `${project.route}: expected ${project.code} code link, found ${artifacts.code.length}`);
   }
 
   for (const width of [375, 1440]) {
@@ -238,7 +245,11 @@ function assert(condition, message) {
     "about/",
     "research/",
     "research/em-convergence/",
+    "projects/audio-denoising/",
     "projects/copula-air-pollution/",
+    "projects/football-probability/",
+    "projects/sequential-testing/",
+    "projects/stein-shrinkage/",
     "notes/sample-surveys/lecture-03-design-based-estimation/",
     "notes/design-and-analysis-of-algorithms/lecture-05-deterministic-linear-selection/",
     "cv/",

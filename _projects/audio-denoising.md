@@ -1,22 +1,25 @@
 ---
 layout: page
-title: Variance-Based Audio Denoising via Amplitude Thresholding
-description: Sliding-window variance, modal threshold selection, time-domain suppression, and FFT-based diagnostics.
+title: Variance-Gated Suppression of Noise-Dominated Audio
+description: An interpretable time-domain speech-pause detector developed after a frequency-domain separation attempt failed on real audio.
 permalink: /projects/audio-denoising/
 type: project
-project_area: Applied machine learning
+project_area: Applied statistics and signal processing
 status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Arnab Chakraborty
 period: November 2023
 featured: false
 importance: 6
+math: true
 tags:
   - signal processing
-  - variance thresholding
-  - audio denoising
+  - local variance
+  - voice activity detection
   - R
 repository_url:
+report_url: /assets/pdf/projects/audio-denoising-public.pdf
+code_url: /assets/code/projects/audio-variance-gate.R
 image: /assets/img/projects/audio/amplitude-variance.png
 output_image: /assets/img/projects/audio/denoised-waveform.png
 ---
@@ -28,7 +31,8 @@ output_image: /assets/img/projects/audio/denoised-waveform.png
     <span>with {{ page.supervisor }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    An interpretable R-based speech-pause detector that grew from an unsuccessful frequency-domain approach into a local-variance gating rule.
+    An interpretable signal-processing study that moved from an unsuccessful spectral filter to a local-variance rule for detecting and suppressing
+    noise-dominated pauses.
   </p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
@@ -39,89 +43,153 @@ output_image: /assets/img/projects/audio/denoised-waveform.png
 
 <div class="aa-entry-layout">
   <div class="aa-entry-main">
-    <section id="problem" class="aa-entry-section">
-      <h2>Problem</h2>
+    <section id="objective" class="aa-entry-section">
+      <h2>Objective and scope</h2>
       <p>
-        The project considers speech recorded with mild, approximately steady background noise. Its practical target is narrower than general audio
-        denoising: identify intervals dominated by background noise during pauses, then suppress those intervals without erasing clearly active
-        speech.
+        The input is a speech recording with mild, approximately stationary background noise. The intended operation is deliberately narrower than
+        general source separation: detect intervals dominated by background noise during speech pauses, suppress those intervals, and preserve
+        clearly active speech.
+      </p>
+      <p>
+        This distinction matters. The method can act as a transparent voice-activity gate, but it cannot remove noise whose frequency and time support
+        overlap active speech.
       </p>
     </section>
 
-    <section id="initial" class="aa-entry-section">
-      <h2>Why the first approach failed</h2>
+    <section id="spectral" class="aa-entry-section">
+      <h2>The frequency-domain attempt</h2>
       <p>
-        The initial idea used the fast Fourier transform to isolate stable frequencies. It worked on a synthetic mixture of three sinusoids and
-        random noise, but real speech produced many overlapping spectral peaks. Because speech and background noise occupied overlapping frequency
-        ranges, a simple frequency cutoff could not separate them reliably. That failure motivated a return to the time domain.
+        The first approach used the discrete Fourier transform. On a synthetic signal made from three sinusoids plus random noise, the power spectrum
+        exposed three dominant frequency peaks, so frequency selection appeared promising.
+      </p>
+      <p>
+        Real speech broke that assumption. Speech is broadband and time-varying, while ordinary background noise can occupy the same frequencies. The
+        observed power spectrum contained many overlapping peaks rather than a clean separation. A fixed spectral cutoff would therefore remove useful
+        speech components together with noise. This negative result motivated a statistic localised in time.
       </p>
     </section>
 
-    <section id="method" class="aa-entry-section">
-      <h2>Variance-gating method</h2>
+    <section id="statistic" class="aa-entry-section">
+      <h2>Local variance as an activity statistic</h2>
       <p>
-        Voice-active windows showed larger amplitude variation than noise-only pauses. The implementation therefore estimates local variance and
-        derives its threshold from the empirical variance distribution rather than choosing one by hand.
+        Let \(a_1,\ldots,a_T\) be the waveform amplitudes sampled at rate \(f_s\). The implementation uses windows of roughly \(0.1\) seconds,
+        \(m=\lfloor f_s/10\rfloor-1\) samples, with starting points separated by 1,000 samples. For window \(W_j\), it computes
       </p>
-      <ul>
-        <li>Read the waveform amplitudes in R and use windows of approximately 0.1 seconds—4,410 samples at 44.1 kHz—with a 1,000-sample step.</li>
-        <li>Linearly scale the window variances, divide them into 40 bins of width 25, and place the cutoff just above the modal bin.</li>
-        <li>Set amplitudes to zero for windows below the cutoff.</li>
-        <li>Halve amplitudes in the transition band from the cutoff to 1.5 times the cutoff, cushioning the boundary between pauses and speech.</li>
-      </ul>
+
+$$
+v_j
+=\frac{1}{m-1}\sum_{t\in W_j}\left(a_t-\bar a_j\right)^2.
+$$
+
+      <p>
+        At \(f_s=44.1\) kHz, each window contains approximately 4,410 samples. Voice-active windows tend to have larger amplitude variation than
+        noise-only pauses, making \(v_j\) a simple, interpretable activity score.
+      </p>
     </section>
 
-    <figure>
+    <figure class="aa-project-figure">
       <img
-        class="img-fluid rounded"
+        class="img-fluid"
         src="{{ page.image | relative_url }}"
-        alt="Audio waveform with a local variance trace rising during voice-active intervals"
+        alt="Audio waveform and sliding-window variance increasing over voice-active intervals"
         loading="lazy"
       >
-      <figcaption>Audio amplitude and the sliding-window variance signal used by the gating rule. Source: project report.</figcaption>
+      <figcaption>Waveform amplitude and the sliding-window variance signal used by the gate. Source: project report.</figcaption>
+    </figure>
+
+    <section id="threshold" class="aa-entry-section">
+      <h2>Data-derived threshold</h2>
+      <p>The window variances are linearly rescaled to \([0,1000]\):</p>
+
+$$
+z_j
+=1000\,
+\frac{v_j-\min_k v_k}{\max_k v_k-\min_k v_k}.
+$$
+
+      <p>
+        The \(z_j\) values are placed into bins of width 25. If \(b^\star\) is the modal bin, the cutoff is set immediately above it,
+        \(c=25(b^\star+1)+1\). The modal region is treated as the recording's prevailing low-variance background regime, so the threshold adapts to
+        the observed clip instead of being chosen as a fixed amplitude.
+      </p>
+    </section>
+
+    <section id="algorithm" class="aa-entry-section">
+      <h2>Suppression rule</h2>
+      <p>For each overlapping window, the documented algorithm applies</p>
+
+$$
+\widetilde a_t=
+\begin{cases}
+0, & z_j<c,\\[3pt]
+\frac{1}{2}a_t, & c\leq z_j<1.5c,\\[3pt]
+a_t, & z_j\geq1.5c,
+\end{cases}
+\qquad t\in W_j.
+$$
+
+      <p>
+        The middle band softens the transition between silence and active speech. Because windows overlap, a sample may be visited more than once:
+        any low-variance visit can zero it, while repeated transition-band visits can attenuate it repeatedly. That behaviour is part of the
+        reported implementation and is important when interpreting the output.
+      </p>
+      <ol>
+        <li>Read a WAV file and extract the waveform and sampling rate.</li>
+        <li>Compute local variance over overlapping 0.1-second windows.</li>
+        <li>Scale the variances and estimate the modal-bin cutoff.</li>
+        <li>Zero low-variance windows and attenuate the transition band.</li>
+        <li>Write the processed amplitudes back to a WAV file.</li>
+      </ol>
+    </section>
+
+    <figure class="aa-project-figure">
+      <img
+        class="img-fluid"
+        src="{{ page.output_image | relative_url }}"
+        alt="Processed speech waveform with pause intervals suppressed near zero amplitude"
+        loading="lazy"
+      >
+      <figcaption>Processed waveform after local-variance suppression and transition-band attenuation. Source: project report.</figcaption>
     </figure>
 
     <section id="evaluation" class="aa-entry-section">
-      <h2>Evaluation</h2>
+      <h2>What the experiments establish</h2>
       <p>
-        The report applies the rule to a primary clip and two additional samples, including a two-speaker recording and a clip with few clear silence
-        periods. Evaluation is qualitative, using the original waveform, variance trace, scaled variance distribution, and processed waveform.
-        The strongest evidence is interpretability: every suppressed interval is traceable to the observed local-variance threshold.
+        The rule was applied to a primary recording and two additional clips: one with two speakers and one with few clear silence periods. The report
+        compares original waveforms, local-variance traces, scaled variance distributions, and processed waveforms. These plots show that the
+        algorithm identifies many visibly quiet intervals and makes its decisions traceable to a single statistic.
+      </p>
+      <p>
+        The evidence is qualitative rather than comparative. There is no clean reference signal, signal-to-noise improvement, perceptual score,
+        intelligibility test, listening study, or baseline such as spectral subtraction. The experiment therefore demonstrates algorithmic behaviour,
+        not superior perceptual denoising.
       </p>
     </section>
-
-    <figure>
-      <img
-        class="img-fluid rounded"
-        src="{{ page.output_image | relative_url }}"
-        alt="Processed speech waveform with noise-dominated pause intervals suppressed near zero amplitude"
-        loading="lazy"
-      >
-      <figcaption>Processed waveform after variance-based suppression and transition-band scaling. Source: project report.</figcaption>
-    </figure>
 
     <section id="limitations" class="aa-entry-section">
-      <h2>Limitations</h2>
+      <h2>Failure modes and extensions</h2>
+      <ul>
+        <li>Noise present during active speech is retained because high-variance windows are preserved.</li>
+        <li>Quiet phonemes, breaths, or distant speech may be mistaken for background noise.</li>
+        <li>A dominant high-variance noise process can invalidate the modal-bin interpretation.</li>
+        <li>Min–max scaling is undefined for constant local variance and sensitive to extreme windows.</li>
+        <li>Sequential updates over overlapping windows make attenuation depend on window overlap and processing order.</li>
+      </ul>
       <p>
-        The method suppresses noise mainly when speech is absent; it does not separate overlapping speech and noise. A single modal cutoff can erase
-        weak phonemes, breaths, or low-amplitude speech, and it relies on relatively steady, mild background noise. The report does not include
-        signal-to-noise improvement, intelligibility metrics, listening tests, or modern denoising baselines, so the figures demonstrate algorithmic
-        behaviour rather than perceptual superiority.
-      </p>
-    </section>
-
-    <section id="team" class="aa-entry-section">
-      <h2>Project team</h2>
-      <p>
-        This work was completed as a six-student course project supervised by {{ page.supervisor }} at the Indian Statistical Institute.
+        A stronger extension would aggregate window-level masks before altering samples, smooth the mask in time, compare robust activity statistics,
+        and evaluate against labelled voice activity or paired clean/noisy audio.
       </p>
     </section>
 
     <section id="artifacts" class="aa-entry-section">
-      <h2>Artifacts</h2>
+      <h2>Report and code</h2>
+      <nav class="aa-artifacts" aria-label="Audio variance-gating artifacts">
+        <a href="{{ page.report_url | relative_url }}">Read the public report (PDF)</a>
+        <a href="{{ page.code_url | relative_url }}">Download the cleaned R implementation</a>
+      </nav>
       <p class="aa-empty">
-        The audio samples and standalone implementation will be linked only if their redistribution status and collaborator permissions are
-        confirmed.
+        The public PDF begins after the original identifying cover page. The R file is a cleaned transcription of the documented main algorithm;
+        audio samples are not redistributed.
       </p>
     </section>
 
@@ -151,23 +219,20 @@ output_image: /assets/img/projects/audio/denoised-waveform.png
         <dd>{{ page.period }}</dd>
       </div>
       <div>
-        <dt>Team</dt>
-        <dd>Six students</dd>
-      </div>
-      <div>
         <dt>Public output</dt>
-        <dd>Web project record</dd>
+        <dd>Technical record, report, code</dd>
       </div>
     </dl>
     <nav class="aa-entry-toc" aria-label="On this page">
       <span>On this page</span>
-      <a href="#problem">Problem</a>
-      <a href="#initial">Initial approach</a>
-      <a href="#method">Method</a>
+      <a href="#objective">Objective</a>
+      <a href="#spectral">Spectral attempt</a>
+      <a href="#statistic">Activity statistic</a>
+      <a href="#threshold">Threshold</a>
+      <a href="#algorithm">Algorithm</a>
       <a href="#evaluation">Evaluation</a>
       <a href="#limitations">Limitations</a>
-      <a href="#team">Team</a>
-      <a href="#artifacts">Artifacts</a>
+      <a href="#artifacts">Report and code</a>
     </nav>
   </aside>
 </div>

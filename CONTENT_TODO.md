@@ -36,16 +36,16 @@ This file tracks verified content and the material still needed for a complete p
 - [x] Present the original `Nonlinear-MLP` research-software project without overstating unfinished experimental results.
 - [x] Keep public forks out of project records and artifact links.
 - [ ] Add the EM technical note and GitHub repository when ready for public release.
-- [x] Add the copula report and presentation with project-authored figures.
+- [x] Add the sanitised copula report and project-authored figures.
 - [x] Add web-native records and report-derived figures for optimal stopping, audio denoising, and football probability modelling.
-- [ ] Publish sanitised reports only after student identifiers are removed and collaborator permissions are confirmed.
+- [x] Publish report copies with the identifying first pages and PDF metadata removed.
 - [ ] Add repositories for the copula, shrinkage, optimal-stopping, audio-denoising, and football projects when ready.
 - [ ] For the James–Stein project, publish the parameter grid, seeds, baselines, uncertainty summaries, and figures with the code.
-- [ ] For the sequential-stopping project, publish a standalone implementation and formal complexity analysis; the full problem specification is now public.
+- [x] For the sequential-stopping project, publish a standalone implementation, optimality proof, formal complexity analysis, and full problem specification.
 - [ ] For the football project, publish the data source, chronological split, baselines, odds/staking assumptions, calibration plots, and simulation code.
 - [ ] Add public Ranial Systems artifacts only after confidentiality review.
 - [ ] Add Mercity AI artifacts only after data-governance and release review.
-- [x] Convert the supplied project reports into web-native records, reusing selected figures with clear captions and source notes while retaining the raw reports privately.
+- [x] Convert the supplied project reports into detailed web-native records, reusing selected figures with clear captions and retaining the original reports privately.
 - [ ] Synchronise the website CV and downloadable PDF after the expanded project content is finalised.
 
 ## Publications
