@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Develops the parametric estimation framework, squared-error risk, bias–variance decomposition, estimator comparison, and the likelihood and maximum-likelihood framework with a Cauchy location example."
+description: "Develops point estimation, squared-error risk and MSE, maximum likelihood, likelihood equations, Newton–Raphson and Fisher scoring, sufficiency reduction for MLEs, and the invariance principle."
 topics:
   - "parametric models"
   - "estimators"
@@ -18,11 +18,15 @@ topics:
   - "estimator comparison"
   - "maximum likelihood"
   - "Cauchy location"
+  - "Newton–Raphson"
+  - "Fisher scoring"
+  - "MLE invariance"
+  - "MLE and sufficiency"
 previous: null
 next: "lecture-02-unbiased-estimation-umvue-crlb"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-01-point-estimation-risk-mse/
@@ -57,6 +61,9 @@ This section was added to make the lecture easier to use as a self-contained stu
 - Derive the bias–variance decomposition.
 - Explain why unrestricted pointwise risk comparison rarely produces a universally best estimator.
 - Define likelihood, log-likelihood, and the MLE, and derive a likelihood equation.
+- Derive Newton–Raphson and Fisher-scoring iterations for likelihood maximisation.
+- Explain why an MLE can be taken to be a function of a sufficient statistic.
+- State and prove the invariance principle for MLEs, and contrast it with unbiased and squared-error Bayes estimation.
 
 ## 1. Parametric statistical models
 
@@ -294,7 +301,7 @@ $$
 A maximum-likelihood estimator is any measurable choice
 
 $$
-\widehat\theta_{\mathrm{MLE}}\in\mathop{\mathrm{arg\,max}}_{\theta\in\Theta}L(\theta;X).
+\widehat\theta_{\mathrm{MLE}}\in\underset{\theta\in\Theta}{\operatorname{arg\,max}}\,L(\theta;X).
 $$
 
 Equivalently, when the logarithm is finite, it maximises \\(\ell(\theta;X)\\).
@@ -417,6 +424,396 @@ Maximum likelihood, unbiasedness, minimum MSE, and the UMVUE property are differ
 
 </div>
 
+## 6. Newton–Raphson and Fisher scoring for the MLE
+
+The 21 August notes introduce a numerical procedure for solving likelihood equations. For iid data,
+
+$$
+X_1,\ldots,X_n\overset{\mathrm{iid}}{\sim}f(x\mid\theta),
+$$
+
+the log-likelihood is
+
+$$
+\ell_n(\theta)
+=
+\sum_{i=1}^n\log f(X_i\mid\theta).
+$$
+
+Its first derivative is the sample score
+
+$$
+U_n(\theta)
+=
+\ell_n'(\theta)
+=
+\sum_{i=1}^n
+\frac{\partial f(X_i\mid\theta)/\partial\theta}
+{f(X_i\mid\theta)}.
+$$
+
+An interior MLE therefore satisfies
+
+$$
+U_n(\widehat\theta)=0.
+$$
+
+When this equation cannot be solved explicitly, one can iterate numerically.
+
+<div class="definition" markdown="1">
+
+**Definition 1.11 — Newton–Raphson iteration for a likelihood equation.**
+
+Starting from an initial value \\(\theta^{(0)}\\), Newton–Raphson applies Newton's method to the equation \\(U_n(\theta)=0\\):
+
+$$
+\boxed{
+\theta^{(m+1)}
+=
+\theta^{(m)}
+-
+\frac{U_n(\theta^{(m)})}
+{U_n'(\theta^{(m)})}
+}
+$$
+
+whenever the denominator is nonzero.
+
+</div>
+
+Because \\(U_n'(\theta)=\ell_n''(\theta)\\), this can also be written as
+
+$$
+\theta^{(m+1)}
+=
+\theta^{(m)}
+-
+\frac{\ell_n'(\theta^{(m)})}
+{\ell_n''(\theta^{(m)})}.
+$$
+
+For one observation,
+
+$$
+\frac{\partial^2}{\partial\theta^2}
+\log f(x\mid\theta)
+=
+\frac{f_{\theta\theta}(x\mid\theta)}{f(x\mid\theta)}
+-
+\left(
+\frac{f_\theta(x\mid\theta)}{f(x\mid\theta)}
+\right)^2,
+$$
+
+so for the full sample,
+
+$$
+\ell_n''(\theta)
+=
+\sum_{i=1}^n
+\left[
+\frac{f_{\theta\theta}(X_i\mid\theta)}{f(X_i\mid\theta)}
+-
+\left(
+\frac{f_\theta(X_i\mid\theta)}{f(X_i\mid\theta)}
+\right)^2
+\right].
+$$
+
+The handwritten note remarks that multiplying the likelihood equation by \\(1/n\\) does not change its roots. This is useful because the average score and average observed curvature have the same zeros and are often numerically better scaled.
+
+### 6.1 From Newton–Raphson to Fisher scoring
+
+Under the regularity conditions from Lecture 2,
+
+$$
+\mathcal I_n(\theta)
+=
+-\operatorname{E}_\theta[\ell_n''(\theta)].
+$$
+
+Fisher scoring replaces the random observed curvature \\(-\ell_n''(\theta)\\) by its expectation, the Fisher information.
+
+<div class="definition" markdown="1">
+
+**Definition 1.12 — Fisher-scoring iteration.**
+
+The Fisher-scoring update is
+
+$$
+\boxed{
+\theta^{(m+1)}
+=
+\theta^{(m)}
++
+\mathcal I_n(\theta^{(m)})^{-1}
+U_n(\theta^{(m)}).
+}
+$$
+
+For a vector parameter, the same formula holds with the score vector and Fisher information matrix.
+
+</div>
+
+The sign is positive because
+
+$$
+\operatorname{E}_\theta[\ell_n''(\theta)]
+=
+-\mathcal I_n(\theta).
+$$
+
+So the Newton denominator \\(\ell_n''\\) is replaced by approximately \\(-\mathcal I_n\\), producing
+
+$$
+-\frac{U_n}{-\mathcal I_n}
+=
+\mathcal I_n^{-1}U_n.
+$$
+
+<div class="remark" markdown="1">
+
+**Remark — observed versus expected information.**
+Newton–Raphson uses the _observed_ second derivative at the current sample and iterate. Fisher scoring uses its expected value. In regular models the two are asymptotically close near the true parameter, but their finite-sample iterations can differ.
+
+</div>
+
+<div class="proposition" markdown="1">
+
+**Proposition 1.13 — Fisher information is parameter-free in a regular location family.**
+
+Suppose
+
+$$
+f_\theta(x)=f_0(x-\theta),
+$$
+
+with support independent of \\(\theta\\) and the usual differentiability and integrability conditions. Then the Fisher information in one observation does not depend on \\(\theta\\).
+
+</div>
+
+**Proof.**
+
+Let \\(U=X-\theta\\). Under \\(P\_\theta\\), the distribution of \\(U\\) is always \\(f_0\\), independent of \\(\theta\\). The score can be written as a function of \\(U\\) alone:
+
+$$
+\mathcal S_\theta(X)
+=
+-\frac{\mathrm d}{\mathrm du}
+\log f_0(u)
+\bigg\vert_{u=X-\theta}.
+$$
+
+Hence
+
+$$
+\mathcal I_1(\theta)
+=
+\operatorname{E}_\theta[\mathcal S_\theta(X)^2]
+=
+\int
+\left[
+\frac{\mathrm d}{\mathrm du}\log f_0(u)
+\right]^2
+f_0(u)\,\mathrm du,
+$$
+
+which contains no \\(\theta\\).
+
+\\(\square\\)
+
+### Worked Example 1.3 — Fisher scoring for a normal mean
+
+**Problem.**
+
+Let
+
+$$
+X_1,\ldots,X_n\overset{\mathrm{iid}}{\sim}N(\mu,\sigma^2),
+$$
+
+with \\(\sigma^2\\) known. Derive one Fisher-scoring step for \\(\mu\\).
+
+**Solution.**
+
+The score is
+
+$$
+U_n(\mu)
+=
+\frac{1}{\sigma^2}
+\sum_{i=1}^n(X_i-\mu)
+=
+\frac{n}{\sigma^2}(\bar X-\mu).
+$$
+
+The Fisher information is
+
+$$
+\mathcal I_n(\mu)=\frac{n}{\sigma^2}.
+$$
+
+Hence
+
+$$
+\begin{aligned}
+\mu^{(m+1)}
+&=
+\mu^{(m)}
++
+\frac{\sigma^2}{n}
+\frac{n}{\sigma^2}(\bar X-\mu^{(m)})\\
+&=\bar X.
+\end{aligned}
+$$
+
+**Final result.**
+
+From any starting value, Fisher scoring reaches
+
+$$
+\boxed{\widehat\mu_{\mathrm{MLE}}=\bar X}
+$$
+
+in one step.
+
+## 7. The MLE and sufficient statistics
+
+The 21 August notes connect the Neyman–Fisher factorisation theorem to maximum likelihood.
+
+<div class="proposition" markdown="1">
+
+**Proposition 1.14 — An MLE can be chosen as a function of a sufficient statistic.**
+
+Suppose \\(T(X)\\) is sufficient and the likelihood factorises as
+
+$$
+L(\theta;x)
+=
+g_\theta(T(x))h(x),
+$$
+
+where \\(h(x)\\) does not depend on \\(\theta\\). Then the set of likelihood maximisers depends on the sample only through \\(T(x)\\). Consequently, with a fixed tie-breaking rule, an MLE can be chosen as a function of \\(T(X)\\).
+
+</div>
+
+**Proof.**
+
+For fixed observed data \\(x\\), the factor \\(h(x)\\) is constant as a function of \\(\theta\\). Therefore
+
+$$
+\underset{\theta\in\Theta}{\operatorname{arg\,max}}\,L(\theta;x)
+=
+\underset{\theta\in\Theta}{\operatorname{arg\,max}}\,g_\theta(T(x)).
+$$
+
+The right side depends on \\(x\\) only through \\(T(x)\\). Thus any deterministic choice from the set of maximisers can be made using only \\(T(x)\\).
+
+\\(\square\\)
+
+> **Key point.** Sufficiency does not say that every statistic computed from the data is a function of \\(T\\). It says that for likelihood maximisation, the part of the likelihood that depends on \\(\theta\\) can be evaluated from \\(T\\) alone.
+
+## 8. Invariance principle of maximum likelihood
+
+<div class="theorem" markdown="1">
+
+**Theorem 1.15 — Invariance of the MLE.**
+
+Let \\(\widehat\theta\\) be an MLE of \\(\theta\\), and let \\(\eta=g(\theta)\\). Under the usual induced-likelihood definition for \\(\eta\\),
+
+$$
+\boxed{
+\widehat\eta_{\mathrm{MLE}}
+=
+g(\widehat\theta).
+}
+$$
+
+</div>
+
+**Proof for one-to-one \\(g\\).**
+
+If \\(g\\) is one-to-one, write \\(\theta=g^{-1}(\eta)\\). The likelihood for \\(\eta\\) is
+
+$$
+L_\eta(\eta;x)
+=
+L(g^{-1}(\eta);x).
+$$
+
+Since \\(\widehat\theta\\) maximises \\(L(\theta;x)\\), the value \\(g(\widehat\theta)\\) maximises \\(L\_\eta(\eta;x)\\). Hence
+
+$$
+\widehat\eta=g(\widehat\theta).
+$$
+
+For a many-to-one transformation, define the profile likelihood
+
+$$
+L_\eta(\eta;x)
+=
+\sup_{\theta:g(\theta)=\eta}L(\theta;x).
+$$
+
+If \\(\widehat\theta\\) is a global maximiser of the original likelihood, then \\(g(\widehat\theta)\\) attains the maximum of this profile likelihood.
+
+\\(\square\\)
+
+### Why unbiased estimators are not invariant in this sense
+
+Suppose \\(T\\) is unbiased for \\(\theta\\). In general,
+
+$$
+\operatorname{E}_\theta[g(T)]
+\neq
+g(\operatorname{E}_\theta[T])
+=
+g(\theta).
+$$
+
+So \\(g(T)\\) need not be unbiased for \\(g(\theta)\\). If \\(g\\) is affine,
+
+$$
+g(t)=a+bt,
+$$
+
+then expectation passes through the transformation and invariance is recovered:
+
+$$
+\operatorname{E}[g(T)]
+=a+b\operatorname{E}[T]
+=g(\theta).
+$$
+
+### Why squared-error Bayes estimators are not generally invariant
+
+Under squared-error loss, the Bayes estimator of \\(\theta\\) is
+
+$$
+\delta_\pi(X)=\operatorname{E}[\theta\mid X].
+$$
+
+The Bayes estimator of \\(g(\theta)\\) is instead
+
+$$
+\operatorname{E}[g(\theta)\mid X],
+$$
+
+which generally differs from
+
+$$
+g\!\left(\operatorname{E}[\theta\mid X]\right).
+$$
+
+Again, equality holds automatically for affine \\(g\\), but not for nonlinear transformations.
+
+<div class="remark" markdown="1">
+
+**Editorial note — source reference to Assignment 1.**
+The 21 August page says “solve Q3 when \\(\sigma^2\\) is unknown (of Assignment 1).” The statement of Assignment 1, Question 3 is not contained in the supplied PDFs, so reproducing a solution here would require inventing the missing problem. The reference is retained, but no unsupported solution is inserted.
+
+</div>
+
 ## Questions answered in this lecture
 
 **Question.**
@@ -460,6 +857,47 @@ $$
 $$
 
 A root is only a candidate MLE; the likelihood must still be globally maximised.
+
+**Question.**
+What is the difference between Newton–Raphson and Fisher scoring?
+
+**Answer.**
+
+Newton–Raphson uses the observed second derivative \\(\ell_n''(\theta)\\), whereas Fisher scoring replaces \\(-\ell_n''(\theta)\\) by its expectation \\(\mathcal I_n(\theta)\\). Thus
+
+$$
+\theta^{(m+1)}
+=
+\theta^{(m)}
+-
+\frac{U_n(\theta^{(m)})}{\ell_n''(\theta^{(m)})}
+$$
+
+for Newton–Raphson, while
+
+$$
+\theta^{(m+1)}
+=
+\theta^{(m)}
++
+\mathcal I_n(\theta^{(m)})^{-1}U_n(\theta^{(m)})
+$$
+
+for Fisher scoring.
+
+**Question.**
+Why can an MLE be taken to be a function of a sufficient statistic?
+
+**Answer.**
+
+Factorisation writes the likelihood as \\(g\_\theta(T(x))h(x)\\). Since \\(h(x)\\) does not depend on \\(\theta\\), maximising the likelihood is equivalent to maximising \\(g\_\theta(T(x))\\), which depends on the data only through \\(T(x)\\).
+
+**Question.**
+What is the invariance principle of the MLE?
+
+**Answer.**
+
+If \\(\widehat\theta\\) is an MLE of \\(\theta\\), then the MLE of \\(g(\theta)\\) is \\(g(\widehat\theta)\\), using the induced or profile likelihood. This property does not generally hold for unbiased or squared-error Bayes estimators under nonlinear \\(g\\).
 
 ## References and further reading
 

@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Develops posterior distributions and conjugate families through beta-binomial, Poisson, normal, and Cauchy examples; proves posterior-mean optimality under squared-error loss; and connects Bayes risk with minimaxity, equalizer rules, admissibility, sufficiency, and generalized Bayes procedures."
+description: "Develops conjugate and generalized Bayes inference, posterior-mean optimality, Bayes and minimax risk, exact binomial minimax construction, sequence-of-priors arguments, Pareto conjugacy, and the unbounded uniform-endpoint decision problem."
 topics:
   - "Bayesian inference"
   - "prior and posterior"
@@ -21,6 +21,11 @@ topics:
   - "sufficiency"
   - "improper priors"
   - "generalized Bayes"
+  - "least favourable priors"
+  - "sequence-of-priors minimax theorem"
+  - "binomial minimax estimator"
+  - "Pareto conjugacy"
+  - "uniform endpoint maximum risk"
 previous: "lecture-07-hypothesis-testing-likelihood-ratio"
 next: null
 contents: "course-contents"
@@ -62,6 +67,9 @@ After this lecture, you should be able to:
 - work with an improper prior when it yields a proper posterior and identify the resulting generalized Bayes estimator;
 - derive the fundamental inequality relating Bayes risk and minimax risk, and use it to recognize minimax Bayes/equalizer rules;
 - distinguish admissibility, dominance, minimaxity, and least-favourable-prior arguments.
+- derive the exact symmetric-beta Bayes rule whose binomial risk is constant and prove that it is minimax.
+- use a sequence of proper priors to prove minimaxity when a generalized Bayes equalizer argument cannot be used directly.
+- derive the Pareto conjugate family for the endpoint of a uniform model and prove that the unbounded endpoint problem has infinite maximum squared-error risk for every estimator.
 
 ## 1. Prior, likelihood, marginal distribution, and posterior
 
@@ -620,7 +628,7 @@ so
 $$
 f(x\mid\theta)
 =
-\frac{1}{\pi\left\lbrace 1+(x-\theta)^2\right\rbrace}.
+\frac{1}{\pi\left\lbrace1+(x-\theta)^2\right\rbrace}.
 $$
 
 ### 3.1 Conditions on the reciprocal-polynomial prior
@@ -708,11 +716,11 @@ $$
 \begin{aligned}
 f(x\mid\theta)\pi_p(\theta)
 &=
-\frac{1}{\pi\left\lbrace 1+(x-\theta)^2\right\rbrace}
+\frac{1}{\pi\left\lbrace1+(x-\theta)^2\right\rbrace}
 \frac{1}{p(\theta)}\\
 &=
 \frac{1}
-{\pi p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace}.
+{\pi p(\theta)\left\lbrace1+(x-\theta)^2\right\rbrace}.
 \end{aligned}
 $$
 
@@ -723,7 +731,7 @@ Z_p(x)
 =
 \int_{-\infty}^{\infty}
 \frac{1}
-{\pi p(u)\left\lbrace 1+(x-u)^2\right\rbrace}
+{\pi p(u)\left\lbrace1+(x-u)^2\right\rbrace}
 \,\mathrm du.
 $$
 
@@ -753,7 +761,7 @@ $$
 =
 \frac{1}
 {\pi Z_p(x)\,
-p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace}.
+p(\theta)\left\lbrace1+(x-\theta)^2\right\rbrace}.
 $$
 
 Define
@@ -762,7 +770,7 @@ $$
 q_x(\theta)
 =
 \pi Z_p(x)\,
-p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace.
+p(\theta)\left\lbrace1+(x-\theta)^2\right\rbrace.
 $$
 
 Now verify the family conditions. First, \\(q_x\\) is a polynomial in \\(\theta\\). Second, \\(q_x(\theta)>0\\) for every real \\(\theta\\). Third, by construction,
@@ -805,7 +813,7 @@ $$
 \propto
 \frac{1}
 {p(\theta)
-\prod_{i=1}^{n}\left\lbrace 1+(x_i-\theta)^2\right\rbrace}.
+\prod_{i=1}^{n}\left\lbrace1+(x_i-\theta)^2\right\rbrace}.
 $$
 
 The denominator is again a strictly positive polynomial. After normalization, the posterior again has the form \\(1/q(\theta)\\) with reciprocal integral \\(1\\).
@@ -1725,6 +1733,551 @@ $$
 
 and the two endpoints are equal. Hence \\(\delta^{\star}\\) is minimax.
 
+### 10.1 Exact binomial minimax construction from the source notes
+
+The 21 August notes ask for a choice of beta-prior hyperparameters that makes the Bayes estimator's frequentist risk independent of \\(\theta\\).
+
+Let
+
+$$
+X\sim\operatorname{Bin}(n,\theta),
+\qquad 0<\theta<1,
+$$
+
+and place the prior
+
+$$
+\theta\sim\operatorname{Beta}(p,q).
+$$
+
+Under squared-error loss, the Bayes estimator is the posterior mean
+
+$$
+\delta_{p,q}(X)
+=
+\frac{p+X}{p+q+n}.
+$$
+
+The source chooses a symmetric beta prior, so set
+
+$$
+p=q=a.
+$$
+
+Then
+
+$$
+\delta_a(X)
+=
+\frac{X+a}{n+2a}.
+$$
+
+We now compute its **frequentist** risk as a function of the fixed true \\(\theta\\).
+
+First,
+
+$$
+\operatorname{E}_\theta[\delta_a(X)]
+=
+\frac{n\theta+a}{n+2a}.
+$$
+
+Therefore the bias is
+
+$$
+\begin{aligned}
+\operatorname{Bias}_\theta(\delta_a)
+&=
+\frac{n\theta+a}{n+2a}-\theta\\
+&=
+\frac{a-2a\theta}{n+2a}\\
+&=
+\frac{a(1-2\theta)}{n+2a}.
+\end{aligned}
+$$
+
+The variance is
+
+$$
+\operatorname{Var}_\theta(\delta_a)
+=
+\frac{n\theta(1-\theta)}{(n+2a)^2}.
+$$
+
+Hence
+
+$$
+\boxed{
+R(\theta,\delta_a)
+=
+\frac{
+ n\theta(1-\theta)+a^2(1-2\theta)^2
+}{(n+2a)^2}.
+}
+$$
+
+To make this independent of \\(\theta\\), expand the numerator:
+
+$$
+\begin{aligned}
+n\theta(1-\theta)+a^2(1-2\theta)^2
+&=
+n\theta-n\theta^2
++a^2-4a^2\theta+4a^2\theta^2\\
+&=
+a^2
++(n-4a^2)\theta
++(-n+4a^2)\theta^2.
+\end{aligned}
+$$
+
+Both coefficients involving \\(\theta\\) vanish exactly when
+
+$$
+4a^2=n.
+$$
+
+Thus
+
+$$
+\boxed{
+a=\frac{\sqrt n}{2},
+\qquad
+p=q=\frac{\sqrt n}{2}.
+}
+$$
+
+For this choice, the numerator becomes simply \\(n/4\\), and
+
+$$
+\begin{aligned}
+R(\theta,\delta^{\ast})
+&=
+\frac{n/4}{(n+\sqrt n)^2}\\
+&=
+\frac{1}{4(\sqrt n+1)^2},
+\end{aligned}
+$$
+
+which is constant in \\(\theta\\).
+
+<div class="proposition" markdown="1">
+
+**Proposition 8.17 — The symmetric-beta Bayes rule is minimax.**
+
+For
+
+$$
+p=q=\frac{\sqrt n}{2},
+$$
+
+the Bayes estimator
+
+$$
+\boxed{
+\delta^{\ast}(X)
+=
+\frac{X+\sqrt n/2}{n+\sqrt n}
+}
+$$
+
+has constant risk
+
+$$
+\boxed{
+R(\theta,\delta^{\ast})
+=
+\frac{1}{4(\sqrt n+1)^2}.
+}
+$$
+
+Since it is Bayes under a proper beta prior and is an equalizer rule, it is minimax.
+
+</div>
+
+The chosen prior is symmetric about \\(1/2\\). Its mean is \\(1/2\\), and for \\(a=\sqrt n/2\\),
+
+$$
+\operatorname{Var}(\theta)
+=
+\frac{1}{4(2a+1)}
+=
+\frac{1}{4(\sqrt n+1)}
+\longrightarrow0.
+$$
+
+Thus, as the sample size indexing this minimax construction grows, the least-favourable-style beta prior becomes increasingly concentrated around \\(1/2\\), the parameter value where the unbiased estimator \\(X/n\\) has its largest risk.
+
+For comparison, the unbiased estimator \\(X/n\\) has
+
+$$
+R\left(\theta,\frac Xn\right)
+=
+\frac{\theta(1-\theta)}{n},
+$$
+
+whose maximum is
+
+$$
+\sup_{0<\theta<1}
+R\left(\theta,\frac Xn\right)
+=
+\frac{1}{4n}.
+$$
+
+Thus unbiasedness and minimaxity lead to different estimators and different worst-case risks.
+
+### 10.2 Can the equalizer argument be used for generalized Bayes rules?
+
+The 21 August notes explicitly ask whether the preceding result remains true for a generalized Bayes estimator.
+
+The answer is: **not automatically**.
+
+The proof of Proposition 8.13 used a proper prior \\(\pi\\) to write
+
+$$
+r_\pi(\delta_\pi)
+=
+\int R(\theta,\delta_\pi)\pi(\theta)\,\mathrm d\theta.
+$$
+
+For an improper prior, the integral of the prior kernel need not be \\(1\\), and the corresponding integrated risk may be infinite or undefined. Therefore the simple implication
+
+$$
+\text{generalized Bayes}+\text{constant risk}
+\Longrightarrow
+\text{minimax}
+$$
+
+is **not** valid without additional assumptions.
+
+A standard replacement is the sequence-of-proper-priors argument in the 25 August notes.
+
+<div class="theorem" markdown="1">
+
+**Theorem 8.18 — Minimaxity from a sequence of proper priors.**
+
+Let \\(\delta^{\ast}\\) be a candidate rule with finite worst-case risk
+
+$$
+C
+=
+\sup_{\theta\in\Theta}R(\theta,\delta^{\ast}).
+$$
+
+Suppose there exists a sequence of proper priors \\(\pi_k\\), with Bayes rules \\(\delta\_{\pi_k}\\), such that
+
+$$
+\boxed{
+r_{\pi_k}(\delta_{\pi_k})\longrightarrow C.
+}
+$$
+
+Then \\(\delta^{\ast}\\) is minimax and the minimax value equals \\(C\\).
+
+</div>
+
+**Proof.**
+
+For any competing rule \\(\delta\\) and every \\(k\\),
+
+$$
+\sup_\theta R(\theta,\delta)
+\ge
+r_{\pi_k}(\delta)
+\ge
+r_{\pi_k}(\delta_{\pi_k}),
+$$
+
+because a Bayes rule minimizes integrated risk under \\(\pi_k\\). Taking \\(k\to\infty\\),
+
+$$
+\sup_\theta R(\theta,\delta)
+\ge C.
+$$
+
+Since this holds for every \\(\delta\\),
+
+$$
+R^{\star}
+=
+\inf_\delta\sup_\theta R(\theta,\delta)
+\ge C.
+$$
+
+But \\(\delta^{\ast}\\) itself has worst-case risk \\(C\\), so
+
+$$
+R^{\star}\le C.
+$$
+
+Hence
+
+$$
+\boxed{R^{\star}=C,}
+$$
+
+and \\(\delta^{\ast}\\) is minimax.
+
+\\(\square\\)
+
+This theorem is especially useful for generalized Bayes rules: one often approximates an improper prior by proper priors \\(\pi_k\\) and shows that their Bayes risks approach the constant risk of the generalized Bayes rule.
+
+<div class="remark" markdown="1">
+
+**Connection with least favourable priors.**
+A sequence \\(\pi_k\\) whose minimum Bayes risks rise to the minimax value behaves like an approximating sequence of least favourable priors, even if no single least favourable proper prior exists.
+
+</div>
+
+### 10.3 Uniform endpoint model: Pareto conjugacy
+
+The 25 August notes ask for a convenient conjugate family when
+
+$$
+X_1,\ldots,X_n
+\overset{\mathrm{iid}}{\sim}
+\operatorname{Uniform}(0,\theta),
+\qquad
+\theta\ge a>0.
+$$
+
+The likelihood is
+
+$$
+L(\theta;x)
+=
+\theta^{-n}
+\mathbf 1_{\lbrace \theta\ge X_{(n)}\rbrace }.
+$$
+
+A natural prior family is the Pareto-type family
+
+$$
+\boxed{
+\pi_{\alpha,a}(\theta)
+=
+(\alpha-1)a^{\alpha-1}
+\theta^{-\alpha}
+\mathbf 1_{\lbrace \theta\ge a\rbrace },
+\qquad
+\alpha>1.
+}
+$$
+
+The constant is correct because
+
+$$
+\int_a^\infty
+\theta^{-\alpha}\,\mathrm d\theta
+=
+\frac{a^{1-\alpha}}{\alpha-1}.
+$$
+
+Multiplying prior and likelihood gives
+
+$$
+\begin{aligned}
+\pi(\theta\mid x)
+&\propto
+\theta^{-n}
+\mathbf 1_{\lbrace \theta\ge X_{(n)}\rbrace }
+\theta^{-\alpha}
+\mathbf 1_{\lbrace \theta\ge a\rbrace }\\
+&=
+\theta^{-(\alpha+n)}
+\mathbf 1_{\lbrace \theta\ge m\rbrace },
+\end{aligned}
+$$
+
+where
+
+$$
+m=\max\lbrace a,X_{(n)}\rbrace .
+$$
+
+Thus the posterior is in the same family with updated parameters
+
+$$
+\boxed{
+\alpha' = \alpha+n,
+\qquad
+a' = m.
+}
+$$
+
+The normalized posterior is
+
+$$
+\boxed{
+\pi(\theta\mid x)
+=
+(\alpha+n-1)m^{\alpha+n-1}
+\theta^{-(\alpha+n)}
+\mathbf 1_{\lbrace \theta\ge m\rbrace }.
+}
+$$
+
+Under squared-error loss, if \\(\alpha+n>2\\), the Bayes estimator is the posterior mean,
+
+$$
+\boxed{
+\delta_\pi(x)
+=
+\operatorname{E}[\theta\mid x]
+=
+\frac{\alpha+n-1}{\alpha+n-2}
+\max\lbrace a,X_{(n)}\rbrace .
+}
+$$
+
+This solves the conjugate-family question in the source.
+
+### 10.4 Why every estimator has infinite maximum squared-error risk in \\(U(0,\theta)\\) with unbounded \\(\theta\\)
+
+The 25 August page also asks to show that if
+
+$$
+\Theta=(0,\infty),
+$$
+
+then no estimator can have finite maximum squared-error risk.
+
+<div class="theorem" markdown="1">
+
+**Theorem 8.19 — Infinite maximum risk for the unbounded uniform endpoint problem.**
+
+Let
+
+$$
+X_1,\ldots,X_n
+\overset{\mathrm{iid}}{\sim}
+\operatorname{Uniform}(0,\theta),
+\qquad \theta>0,
+$$
+
+and let \\(\delta(X)\\) be any estimator of \\(\theta\\). Under squared-error loss,
+
+$$
+\boxed{
+\sup_{\theta>0}R(\theta,\delta)=\infty.
+}
+$$
+
+</div>
+
+**Proof.**
+
+Fix \\(t>0\\) and compare the two parameter values
+
+$$
+\theta_0=t,
+\qquad
+\theta_1=2t.
+$$
+
+Define the event
+
+$$
+A_t
+=
+\left\lbrace
+\lvert\delta(X)-t\rvert<\frac t2
+\right\rbrace .
+$$
+
+On \\(A_t^c\\), the squared error at parameter \\(t\\) is at least \\(t^2/4\\), so
+
+$$
+R(t,\delta)
+\ge
+\frac{t^2}{4}P_t(A_t^c).
+$$
+
+On \\(A_t\\), the estimator lies between \\(t/2\\) and \\(3t/2\\), hence its distance from \\(2t\\) is at least \\(t/2\\). Therefore
+
+$$
+R(2t,\delta)
+\ge
+\frac{t^2}{4}P_{2t}(A_t).
+$$
+
+Now add the two lower bounds. The joint density under \\(t\\) is
+
+$$
+f_t(x)
+=
+t^{-n}
+\mathbf 1_{(0,t)^n}(x),
+$$
+
+and under \\(2t\\),
+
+$$
+f_{2t}(x)
+=
+(2t)^{-n}
+\mathbf 1_{(0,2t)^n}(x).
+$$
+
+For any event \\(A\\),
+
+$$
+P_t(A^c)+P_{2t}(A)
+\ge
+\int \min\lbrace f_t(x),f_{2t}(x)\rbrace\,\mathrm dx.
+$$
+
+The two densities overlap on \\((0,t)^n\\), and on this region the smaller density is \\((2t)^{-n}\\). Hence
+
+$$
+\begin{aligned}
+\int \min\lbrace f_t,f_{2t}\rbrace\,\mathrm dx
+&=
+\int_{(0,t)^n}(2t)^{-n}\,\mathrm dx\\
+&=
+\frac{t^n}{(2t)^n}\\
+&=
+2^{-n}.
+\end{aligned}
+$$
+
+Therefore
+
+$$
+\begin{aligned}
+R(t,\delta)+R(2t,\delta)
+&\ge
+\frac{t^2}{4}
+\left[P_t(A_t^c)+P_{2t}(A_t)\right]\\
+&\ge
+\frac{t^2}{4}\,2^{-n}.
+\end{aligned}
+$$
+
+Thus at least one of the two risks satisfies
+
+$$
+\max\lbrace R(t,\delta),R(2t,\delta)\rbrace
+\ge
+\frac{t^2}{2^{n+3}}.
+$$
+
+Letting \\(t\to\infty\\) gives
+
+$$
+\sup_{\theta>0}R(\theta,\delta)=\infty.
+$$
+
+\\(\square\\)
+
+<div class="remark" markdown="1">
+
+**Interpretation.**
+With a fixed sample size and an unbounded scale parameter, absolute squared error necessarily grows on the scale of \\(\theta^2\\) somewhere in the parameter space. Hence the ordinary minimax value under unscaled squared-error loss is infinite in this problem.
+
+</div>
+
 ## 11. Relationship with earlier lectures
 
 The same estimator can be evaluated under several different criteria:
@@ -1902,6 +2455,58 @@ What does admissible mean?
 
 A rule is admissible if no other rule has risk no larger for every parameter value and strictly smaller for at least one parameter value. In other words, an admissible rule cannot be uniformly improved.
 
+**Question.**
+How do we choose the symmetric beta prior in the binomial problem so that the Bayes estimator has constant frequentist risk?
+
+**Answer.**
+
+For \\(p=q=a\\),
+
+$$
+R(\theta,\delta_a)
+=
+\frac{n\theta(1-\theta)+a^2(1-2\theta)^2}{(n+2a)^2}.
+$$
+
+The coefficients of \\(\theta\\) and \\(\theta^2\\) vanish when \\(4a^2=n\\), hence
+
+$$
+p=q=\frac{\sqrt n}{2}.
+$$
+
+The resulting proper-Bayes equalizer rule is minimax.
+
+**Question.**
+Does “generalized Bayes + constant risk” automatically imply minimaxity?
+
+**Answer.**
+
+No. The proper-prior Bayes-risk proof cannot be used directly with an improper prior. A standard sufficient replacement is to find proper priors \\(\pi_k\\) whose minimum Bayes risks converge to the candidate rule's constant worst-case risk.
+
+**Question.**
+What is a conjugate prior family for the endpoint in \\(U(0,\theta)\\)?
+
+**Answer.**
+
+A Pareto-type density
+
+$$
+\pi_{\alpha,a}(\theta)
+=
+(\alpha-1)a^{\alpha-1}\theta^{-\alpha}
+\mathbf 1_{\lbrace\theta\ge a\rbrace},
+\qquad \alpha>1,
+$$
+
+is conjugate. After observing \\(X\_{(n)}\\), the posterior has updated lower bound \\(\max\lbrace a,X\_{(n)}\rbrace\\) and exponent \\(\alpha+n\\).
+
+**Question.**
+Why is the maximum squared-error risk infinite for every estimator of an unbounded uniform endpoint?
+
+**Answer.**
+
+Compare the two parameter values \\(t\\) and \\(2t\\). Their sample distributions retain an overlap of probability order \\(2^{-n}\\), so no estimator can distinguish them perfectly. On one of the two models it must incur squared error of order \\(t^2\\). Letting \\(t\to\infty\\) forces the supremum risk to diverge.
+
 ## Lecture summary
 
 The posterior is
@@ -1940,6 +2545,10 @@ Conjugate families are closed under Bayesian updating, but the family need not b
 12. Give an example of two risk functions that cross, and explain why neither rule necessarily dominates the other.
 13. Prove that a Bayes equalizer rule is minimax.
 14. Explain why an admissible equalizer rule must be minimax.
+15. For the beta-binomial Bayes estimator with \\(p=q=a\\), derive the full risk function and solve for the value of \\(a\\) that makes it constant.
+16. Prove Theorem 8.18 using the two inequalities \\(\sup\_\theta R(\theta,\delta)\ge r\_{\pi_k}(\delta)\ge r\_{\pi_k}(\delta\_{\pi_k})\\).
+17. Derive the Pareto posterior for the endpoint of \\(U(0,\theta)\\) and compute its posterior mean.
+18. Reproduce the two-point lower-bound proof showing that every estimator of an unbounded uniform endpoint has infinite maximum squared-error risk.
 
 ## References and further reading
 

@@ -6,7 +6,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Cumulative notation, identities, estimator formulas, regularity conditions, consistency rates, testing results, exponential-family forms, Bayesian updating formulas, and minimax decision-theory results for the Parametric Inference lectures."
+description: "Cumulative notation and formulas for likelihood computation and scoring, unbiased estimation and CRLB, sufficiency and completeness, consistency and asymptotics, MLR/UMP testing, Bayesian updating, and minimax decision theory."
 last_updated: "2026-09-06"
 status: "complete"
 math: true
@@ -151,6 +151,76 @@ $$
 $$
 
 See [Lecture 1]({{ '/notes/parametric-inference/lecture-01-point-estimation-risk-mse/' | relative_url }}).
+
+### Newton–Raphson and Fisher scoring
+
+For iid data, the score is \\(U_n(\theta)=\ell_n'(\theta)\\). Newton–Raphson uses
+
+$$
+\boxed{
+\theta^{(m+1)}
+=
+\theta^{(m)}
+-
+\frac{U_n(\theta^{(m)})}{\ell_n''(\theta^{(m)})}.
+}
+$$
+
+Under regularity,
+
+$$
+\mathcal I_n(\theta)
+=
+-\operatorname{E}_\theta[\ell_n''(\theta)],
+$$
+
+so Fisher scoring is
+
+$$
+\boxed{
+\theta^{(m+1)}
+=
+\theta^{(m)}
++
+\mathcal I_n(\theta^{(m)})^{-1}U_n(\theta^{(m)}).
+}
+$$
+
+For a regular location family \\(f\_\theta(x)=f_0(x-\theta)\\), the distribution of \\(X-\theta\\) is parameter-free, so
+
+$$
+\boxed{\mathcal I_1(\theta)=\text{constant in }\theta.}
+$$
+
+If \\(L(\theta;x)=g\_\theta(T(x))h(x)\\) with \\(T\\) sufficient, then
+
+$$
+\underset{\theta}{\operatorname{arg\,max}}\,L(\theta;x)
+=
+\underset{\theta}{\operatorname{arg\,max}}\,g_\theta(T(x)),
+$$
+
+so an MLE can be chosen as a function of \\(T\\).
+
+For \\(\eta=g(\theta)\\), MLE invariance gives
+
+$$
+\boxed{
+\widehat\eta_{\mathrm{MLE}}
+=
+g(\widehat\theta_{\mathrm{MLE}}).
+}
+$$
+
+Nonlinear transformations do not generally preserve unbiasedness or squared-error Bayes rules:
+
+$$
+\operatorname{E}[g(T)]\ne g(\operatorname{E}[T]),
+\qquad
+\operatorname{E}[g(\theta)\mid X]
+\ne
+g(\operatorname{E}[\theta\mid X]).
+$$
 
 ## 3. Lecture 2 — Unbiased estimation, UMVUEs, and CRLB
 
@@ -1381,6 +1451,91 @@ $$
 
 so \\(T_n\\) is mean-square and weakly consistent. See [Lecture 6]({{ '/notes/parametric-inference/lecture-06-lehmann-scheffe-umvue-consistency/' | relative_url }}).
 
+### Additional asymptotic formulas from the August notes
+
+If
+
+$$
+\sqrt n(T_n-\theta)\xrightarrow{d}Z
+$$
+
+for a proper limit \\(Z\\), then Slutsky gives
+
+$$
+T_n-\theta
+=
+\frac1{\sqrt n}\left[\sqrt n(T_n-\theta)\right]
+\xrightarrow{P}0.
+$$
+
+For fixed-design simple linear regression,
+
+$$
+Y_i=\alpha+\beta x_i+\varepsilon_i,
+\qquad
+S_{xx}=\sum_i(x_i-\bar x)^2,
+$$
+
+we have
+
+$$
+\boxed{
+\widehat\beta
+=
+\frac{\sum_i(x_i-\bar x)Y_i}{S_{xx}},
+\qquad
+\operatorname{Var}(\widehat\beta)=\frac{\sigma^2}{S_{xx}}.
+}
+$$
+
+Thus \\(S\_{xx}\to\infty\\) implies \\(\widehat\beta\xrightarrow{P}\beta\\). For
+
+$$
+\widehat\alpha=\bar Y-\widehat\beta\bar x,
+$$
+
+$$
+\boxed{
+\operatorname{Var}(\widehat\alpha)
+=
+\sigma^2\left(\frac1n+\frac{\bar x^2}{S_{xx}}\right).
+}
+$$
+
+Hence \\(\bar x^2/S\_{xx}\to0\\) is a convenient additional condition for intercept consistency.
+
+Convergence in distribution satisfies
+
+$$
+X_n\xrightarrow{d}X
+\iff
+F_n(t)\to F(t)
+$$
+
+at every continuity point \\(t\\) of the limiting cdf \\(F\\). The example \\(X_n=X/n\\), \\(X\sim N(0,1)\\), shows why discontinuity points are excluded: \\(X_n\to0\\) almost surely, but \\(F_n(0)=1/2\not\to1=F(0)\\).
+
+A standard MLE consistency criterion uses
+
+$$
+M_n(\theta)=\frac1n\ell_n(\theta).
+$$
+
+If \\(M_n\to M\\) uniformly in probability and \\(M\\) has unique maximizer \\(\theta_0\\), then
+
+$$
+\widehat\theta_n\xrightarrow{P}\theta_0.
+$$
+
+For \\(X_i\sim U(0,\theta)\\),
+
+$$
+\widehat\theta_{\mathrm{MLE}}=X_{(n)},
+\qquad
+P_\theta(X_{(n)}<\theta-\varepsilon)
+=
+\left(1-\frac{\varepsilon}{\theta}\right)^n\to0.
+$$
+
 ## 8. Lecture 7 — Hypothesis testing and likelihood ratios
 
 A randomized test is a measurable function
@@ -1478,7 +1633,52 @@ $$
 \Lambda(x)>1,
 $$
 
-which chooses \\(H_1\\) whenever the observed data are more likely under \\(\theta_1\\) than under \\(\theta_0\\). This is **not** the same as a prescribed level-\\(\alpha\\) Neyman–Pearson test unless its induced Type I error happens to equal the desired level. For level \\(\alpha\\), the threshold is chosen as \\(c\_\alpha\\), not necessarily \\(1\\). See [Lecture 7]({{ '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url }}).
+which chooses \\(H_1\\) whenever the observed data are more likely under \\(\theta_1\\) than under \\(\theta_0\\). This is **not** the same as a prescribed level-\\(\alpha\\) Neyman–Pearson test unless its induced Type I error happens to equal the desired level. For level \\(\alpha\\), the threshold is chosen as \\(c\_\alpha\\), not necessarily \\(1\\). A family has MLR in \\(T(X)\\) if for every \\(\theta_1>\theta_0\\),
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+$$
+
+is nondecreasing in \\(T(x)\\). Under the standard one-sided MLR conditions, a threshold test in \\(T\\), calibrated at \\(\theta_0\\), is UMP for
+
+$$
+H_0:\theta\le\theta_0
+\qquad\text{versus}\qquad
+H_1:\theta>\theta_0.
+$$
+
+For \\(X\sim\operatorname{Bin}(n,\theta)\\),
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+=
+\left(\frac{1-\theta_1}{1-\theta_0}\right)^n
+\left[
+\frac{\theta_1(1-\theta_0)}{\theta_0(1-\theta_1)}
+\right]^x,
+$$
+
+and the bracketed factor is greater than \\(1\\) when \\(\theta_1>\theta_0\\), so the family has MLR in \\(X\\).
+
+More generally, if
+
+$$
+f_\theta(x)=h(x)c(\theta)e^{\eta(\theta)T(x)}
+$$
+
+with \\(\eta(\theta)\\) nondecreasing, then the family has MLR in \\(T\\).
+
+For the Cauchy location family,
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+=
+\frac{1+(x-\theta_0)^2}{1+(x-\theta_1)^2}
+$$
+
+is nonconstant but tends to \\(1\\) at both \\(-\infty\\) and \\(+\infty\\), so it is not monotone in \\(x\\).
+
+See [Lecture 7]({{ '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url }}).
 
 Let \\(\Phi\\) denote the standard normal cdf and \\(z_q=\Phi^{-1}(q)\\) its \\(q\\)th quantile. For \\(X\sim N(\theta,1)\\) and \\(\theta_1>\theta_0\\),
 
@@ -1891,6 +2091,110 @@ r_{\pi^\star}(\delta^\star)
 $$
 
 then the Bayes lower bound and the rule's worst-case upper bound coincide, proving that \\(\delta^\star\\) is minimax. See [Lecture 8]({{ '/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/' | relative_url }}).
+
+### Additional minimax and conjugacy formulas from the August notes
+
+For \\(X\sim\operatorname{Bin}(n,\theta)\\) and a symmetric beta prior \\(p=q=a\\),
+
+$$
+\delta_a(X)=\frac{X+a}{n+2a},
+$$
+
+with risk
+
+$$
+\boxed{
+R(\theta,\delta_a)
+=
+\frac{n\theta(1-\theta)+a^2(1-2\theta)^2}{(n+2a)^2}.
+}
+$$
+
+Choosing
+
+$$
+\boxed{a=\frac{\sqrt n}{2}}
+$$
+
+makes the risk constant:
+
+$$
+\boxed{
+R(\theta,\delta^\star)
+=
+\frac{1}{4(\sqrt n+1)^2}.
+}
+$$
+
+Because the rule is proper Bayes and equalizer, it is minimax.
+
+If proper priors \\(\pi_k\\) satisfy
+
+$$
+r_{\pi_k}(\delta_{\pi_k})
+\longrightarrow
+C
+=
+\sup_\theta R(\theta,\delta^\star),
+$$
+
+then \\(\delta^\star\\) is minimax. This sequence-of-priors result is the appropriate route for many generalized Bayes equalizer rules; generalized Bayes plus constant risk is not sufficient by itself.
+
+For \\(X_i\sim U(0,\theta)\\), \\(\theta\ge a>0\\), the Pareto-type prior
+
+$$
+\boxed{
+\pi_{\alpha,a}(\theta)
+=
+(\alpha-1)a^{\alpha-1}\theta^{-\alpha}
+\mathbf 1_{\lbrace\theta\ge a\rbrace},
+\qquad \alpha>1,
+}
+$$
+
+is conjugate. With
+
+$$
+m=\max\lbrace a,X_{(n)}\rbrace,
+$$
+
+the posterior is
+
+$$
+\boxed{
+\pi(\theta\mid X)
+=
+(\alpha+n-1)m^{\alpha+n-1}
+\theta^{-(\alpha+n)}
+\mathbf 1_{\lbrace\theta\ge m\rbrace}.
+}
+$$
+
+If \\(\alpha+n>2\\),
+
+$$
+\boxed{
+\operatorname{E}[\theta\mid X]
+=
+\frac{\alpha+n-1}{\alpha+n-2}m.
+}
+$$
+
+For the unbounded endpoint problem \\(\Theta=(0,\infty)\\) under squared-error loss, every estimator satisfies
+
+$$
+\boxed{
+\sup_{\theta>0}R(\theta,\delta)=\infty.
+}
+$$
+
+The two-point argument in Lecture 8 gives
+
+$$
+\max\lbrace R(t,\delta),R(2t,\delta)\rbrace
+\ge
+\frac{t^2}{2^{n+3}}.
+$$
 
 ## 10. Useful distributional identities
 

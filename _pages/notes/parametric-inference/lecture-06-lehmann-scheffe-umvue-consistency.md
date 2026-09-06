@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Proves the Lehmann–Scheffé theorem and its Rao–Blackwell construction form, develops UMVUEs across standard models, and gives an exam-oriented treatment of weak, strong, mean-square, root-n, uniform, and asymptotic consistency concepts."
+description: "Proves Lehmann–Scheffé and constructs UMVUEs, then develops weak and strong consistency, stochastic rates, sample-median and regression consistency, convergence in distribution, and maximum-likelihood consistency."
 topics:
   - "Lehmann–Scheffé theorem"
   - "complete sufficiency"
@@ -18,6 +18,10 @@ topics:
   - "mean-square and Lp consistency"
   - "root-n consistency and stochastic order"
   - "asymptotic normality"
+  - "sample median consistency"
+  - "fixed-design regression consistency"
+  - "convergence in distribution"
+  - "MLE consistency"
   - "uniform consistency"
 previous: "lecture-05-completeness-exponential-families-basu"
 next: "lecture-07-hypothesis-testing-likelihood-ratio"
@@ -61,6 +65,10 @@ This section was added to make the lecture easier to use as a self-contained stu
 - Define stochastic order \\(O_P\\) and \\(o_P\\), root-\\(n\\) consistency, and general convergence rates.
 - Distinguish consistency, rate of consistency, asymptotic unbiasedness, and asymptotic normality.
 - Prove a useful consistency theorem for sequences of UMVUEs.
+- Prove sample-median consistency by reducing the deviation events to binomial tails.
+- Derive consistency conditions for least-squares slope and intercept estimators in fixed-design simple linear regression.
+- Explain why convergence in distribution is defined through continuity points of the limiting cdf.
+- State a rigorous argmax criterion for MLE consistency and verify consistency of the uniform-endpoint MLE.
 
 ## 1. Lehmann–Scheffé theorem and construction principle
 
@@ -878,6 +886,68 @@ $$
 
 The converse need not hold.
 
+<div class="theorem" markdown="1">
+
+**Theorem 6.8 — A nondegenerate asymptotic distribution at rate \\(\sqrt n\\) implies consistency.**
+
+Suppose
+
+$$
+\sqrt n\bigl(T_n-\psi(\theta)\bigr)
+\xrightarrow{d}
+Z,
+$$
+
+where \\(Z\\) is a proper random variable. Then
+
+$$
+T_n\xrightarrow{P}\psi(\theta).
+$$
+
+</div>
+
+**Proof.**
+
+Write
+
+$$
+T_n-\psi(\theta)
+=
+\frac{1}{\sqrt n}
+\left[
+\sqrt n\bigl(T_n-\psi(\theta)\bigr)
+\right].
+$$
+
+The first factor satisfies
+
+$$
+\frac{1}{\sqrt n}\to0,
+$$
+
+while the bracketed random variable converges in distribution to \\(Z\\). By Slutsky's theorem,
+
+$$
+\frac{1}{\sqrt n}
+\left[
+\sqrt n\bigl(T_n-\psi(\theta)\bigr)
+\right]
+\xrightarrow{d}
+0\cdot Z=0.
+$$
+
+Convergence in distribution to a constant is equivalent to convergence in probability to that constant. Hence
+
+$$
+T_n-\psi(\theta)\xrightarrow{P}0,
+$$
+
+which is the desired consistency.
+
+\\(\square\\)
+
+> **Source connection.** This is exactly the Slutsky argument written in the 28 August notes: multiply the asymptotically normal quantity by \\(1/\sqrt n\\), which tends to zero.
+
 ### 9.7 General rates of convergence
 
 More generally, if \\(a_n\to\infty\\) and
@@ -941,7 +1011,592 @@ $$
 
 which is faster than the usual root-\\(n\\) rate. This is possible because the uniform endpoint problem is nonregular: the support depends on \\(\theta\\).
 
-### 9.8 Asymptotic unbiasedness does not imply consistency
+### 9.8 Sample median consistency
+
+The 28 August notes ask for a complete proof that the sample median consistently estimates a population median.
+
+<div class="theorem" markdown="1">
+
+**Theorem 6.9 — Consistency of the sample median.**
+
+Let \\(X_1,X_2,\ldots\\) be iid with cdf \\(F\\). Suppose \\(\theta\\) is the unique median in the sense that
+
+$$
+F(\theta)=\frac12,
+$$
+
+and \\(F\\) is continuous and strictly increasing in a neighbourhood of \\(\theta\\). Let \\(\widetilde X_n\\) be any usual sample median, for example \\(X\_{(\lceil n/2\rceil)}\\). Then
+
+$$
+\boxed{
+\widetilde X_n\xrightarrow{P}\theta.
+}
+$$
+
+</div>
+
+**Proof.**
+
+Fix \\(\varepsilon>0\\). Because \\(F\\) is strictly increasing around \\(\theta\\),
+
+$$
+F(\theta+\varepsilon)>\frac12,
+\qquad
+F(\theta-\varepsilon)<\frac12.
+$$
+
+We prove the upper and lower deviations separately.
+
+For the upper tail, define
+
+$$
+Y_i^{+}
+=
+\mathbf 1_{\lbrace X_i>\theta+\varepsilon\rbrace }.
+$$
+
+Then the \\(Y_i^{+}\\) are iid Bernoulli with
+
+$$
+p_{+}
+=
+\Pr(X_i>\theta+\varepsilon)
+=
+1-F(\theta+\varepsilon)
+<\frac12.
+$$
+
+If the sample median exceeds \\(\theta+\varepsilon\\), then at least about half the sample must exceed \\(\theta+\varepsilon\\). More precisely,
+
+$$
+\lbrace \widetilde X_n>\theta+\varepsilon\rbrace
+\subseteq
+\left\lbrace
+\frac1n\sum_{i=1}^nY_i^{+}
+\ge
+\frac12-o(1)
+\right\rbrace .
+$$
+
+But by the weak law of large numbers,
+
+$$
+\frac1n\sum_{i=1}^nY_i^{+}
+\xrightarrow{P}
+p_{+}<\frac12.
+$$
+
+Therefore
+
+$$
+\Pr(\widetilde X_n>\theta+\varepsilon)\to0.
+$$
+
+For the lower tail, define
+
+$$
+Y_i^{-}
+=
+\mathbf 1_{\lbrace X_i<\theta-\varepsilon\rbrace }.
+$$
+
+Then
+
+$$
+p_{-}
+=
+F(\theta-\varepsilon)
+<\frac12.
+$$
+
+If \\(\widetilde X_n<\theta-\varepsilon\\), at least about half the observations must lie below \\(\theta-\varepsilon\\), so
+
+$$
+\Pr(\widetilde X_n<\theta-\varepsilon)\to0
+$$
+
+by the same Bernoulli weak-law argument. Hence
+
+$$
+\begin{aligned}
+\Pr(
+\lvert\widetilde X_n-\theta\rvert>\varepsilon
+)
+&\le
+\Pr(\widetilde X_n>\theta+\varepsilon)
++
+\Pr(\widetilde X_n<\theta-\varepsilon)\\
+&\longrightarrow0.
+\end{aligned}
+$$
+
+Thus \\(\widetilde X_n\xrightarrow{P}\theta\\).
+
+\\(\square\\)
+
+### Worked Example 6.12 — Binomial-tail form of the median proof
+
+For the upper deviation, the number of observations exceeding \\(\theta+\varepsilon\\) is
+
+$$
+N_n^{+}
+=
+\sum_{i=1}^nY_i^{+}
+\sim
+\operatorname{Bin}(n,p_{+}),
+$$
+
+with \\(p\_{+}<1/2\\). Hence the probability appearing in the handwritten proof is a binomial upper tail,
+
+$$
+\Pr(N_n^{+}\ge n/2),
+$$
+
+up to the harmless integer convention for even and odd \\(n\\). Since \\(N_n^{+}/n\xrightarrow{P}p\_{+}<1/2\\), this tail tends to zero. The lower deviation is identical with
+
+$$
+N_n^{-}
+\sim
+\operatorname{Bin}(n,p_{-}),
+\qquad
+p_{-}<1/2.
+$$
+
+This completes the homework direction in the source notes.
+
+### 9.9 Consistency in fixed-design simple linear regression
+
+Consider the fixed-design simple linear regression model
+
+$$
+Y_i=\alpha+\beta x_i+\varepsilon_i,
+\qquad i=1,\ldots,n,
+$$
+
+where \\(x_1,\ldots,x_n\\) are nonrandom design points and
+
+$$
+\operatorname{E}[\varepsilon_i]=0,
+\qquad
+\operatorname{Var}(\varepsilon_i)=\sigma^2,
+$$
+
+with independent, or at least pairwise uncorrelated, errors.
+
+Define
+
+$$
+\bar x=\frac1n\sum_{i=1}^nx_i,
+\qquad
+\bar Y=\frac1n\sum_{i=1}^nY_i,
+$$
+
+and
+
+$$
+S_{xx}
+=
+\sum_{i=1}^n(x_i-\bar x)^2.
+$$
+
+The least-squares estimators are
+
+$$
+\widehat\beta_n
+=
+\frac{
+\sum_{i=1}^n(x_i-\bar x)(Y_i-\bar Y)
+}{S_{xx}}
+=
+\frac{
+\sum_{i=1}^n(x_i-\bar x)Y_i
+}{S_{xx}},
+$$
+
+and
+
+$$
+\widehat\alpha_n
+=
+\bar Y-\widehat\beta_n\bar x.
+$$
+
+<div class="proposition" markdown="1">
+
+**Proposition 6.10 — Unbiasedness and variance of the slope estimator.**
+
+Under the fixed-design assumptions above,
+
+$$
+\operatorname{E}[\widehat\beta_n]=\beta,
+$$
+
+and
+
+$$
+\boxed{
+\operatorname{Var}(\widehat\beta_n)
+=
+\frac{\sigma^2}{S_{xx}}.
+}
+$$
+
+</div>
+
+**Proof.**
+
+Substitute \\(Y_i=\alpha+\beta x_i+\varepsilon_i\\):
+
+$$
+\begin{aligned}
+\widehat\beta_n
+&=
+\frac{
+\sum_i(x_i-\bar x)(\alpha+\beta x_i+\varepsilon_i)
+}{S_{xx}}\\
+&=
+\frac{
+\alpha\sum_i(x_i-\bar x)
++
+\beta\sum_i(x_i-\bar x)x_i
++
+\sum_i(x_i-\bar x)\varepsilon_i
+}{S_{xx}}.
+\end{aligned}
+$$
+
+Now
+
+$$
+\sum_i(x_i-\bar x)=0
+$$
+
+and
+
+$$
+\sum_i(x_i-\bar x)x_i
+=
+\sum_i(x_i-\bar x)^2
+=
+S_{xx}.
+$$
+
+Therefore
+
+$$
+\widehat\beta_n-\beta
+=
+\frac{
+\sum_i(x_i-\bar x)\varepsilon_i
+}{S_{xx}}.
+$$
+
+Taking expectations gives unbiasedness. Using uncorrelated errors,
+
+$$
+\begin{aligned}
+\operatorname{Var}(\widehat\beta_n)
+&=
+\frac{1}{S_{xx}^2}
+\sum_i(x_i-\bar x)^2\sigma^2\\
+&=
+\frac{\sigma^2}{S_{xx}}.
+\end{aligned}
+$$
+
+\\(\square\\)
+
+Hence, if
+
+$$
+\boxed{S_{xx}\to\infty,}
+$$
+
+then
+
+$$
+\operatorname{Var}(\widehat\beta_n)\to0,
+$$
+
+so the unbiased slope estimator is mean-square, and therefore weakly, consistent:
+
+$$
+\boxed{
+\widehat\beta_n\xrightarrow{P}\beta.
+}
+$$
+
+For the intercept,
+
+$$
+\widehat\alpha_n-\alpha
+=
+\bar\varepsilon
+-
+\bar x(\widehat\beta_n-\beta).
+$$
+
+A direct covariance calculation gives
+
+$$
+\boxed{
+\operatorname{Var}(\widehat\alpha_n)
+=
+\sigma^2
+\left(
+\frac1n+
+\frac{\bar x^2}{S_{xx}}
+\right).
+}
+$$
+
+Therefore a convenient sufficient condition for intercept consistency is
+
+$$
+\boxed{
+\frac{\bar x^2}{S_{xx}}\to0.
+}
+$$
+
+Together with \\(n\to\infty\\), this gives
+
+$$
+\widehat\alpha_n\xrightarrow{P}\alpha.
+$$
+
+A simple stronger condition is that \\(\bar x\\) remains bounded while \\(S\_{xx}\to\infty\\). Another common sufficient design condition is \\(S\_{xx}/n\to\tau_x^2>0\\), which automatically forces \\(S\_{xx}\to\infty\\).
+
+<div class="remark" markdown="1">
+
+**Answer to the source homework direction.**
+For \\(\widehat\beta_n\\), \\(S\_{xx}\to\infty\\) is enough under the stated homoskedastic uncorrelated-error assumptions. For \\(\widehat\alpha_n\\), one additionally needs the design not to drift so rapidly that \\(\bar x^2/S\_{xx}\\) fails to vanish.
+
+</div>
+
+### 9.10 Convergence in distribution and continuity points
+
+<div class="definition" markdown="1">
+
+**Definition 6.11 — Convergence in distribution via cdfs.**
+
+Let \\(F_n\\) and \\(F\\) be the cdfs of \\(X_n\\) and \\(X\\). We write
+
+$$
+X_n\xrightarrow{d}X
+$$
+
+if
+
+$$
+\boxed{
+F_n(t)\longrightarrow F(t)
+}
+$$
+
+for every continuity point \\(t\\) of \\(F\\).
+
+</div>
+
+Why do we require convergence only at continuity points of the limiting cdf? Because convergence in distribution should agree with stronger modes of convergence, even when the limiting distribution has jumps.
+
+### Worked Example 6.13 — Why discontinuity points are excluded
+
+Let
+
+$$
+X\sim N(0,1),
+\qquad
+X_n=\frac{X}{n}.
+$$
+
+Then for every outcome,
+
+$$
+X_n\to0,
+$$
+
+so
+
+$$
+X_n\xrightarrow{\mathrm{a.s.}}0
+$$
+
+and therefore certainly \\(X_n\xrightarrow{d}0\\).
+
+The limiting random variable is the constant zero, whose cdf is
+
+$$
+F(t)
+=
+\begin{cases}
+0, & t<0,\\
+1, & t\ge0.
+\end{cases}
+$$
+
+This cdf is discontinuous at \\(t=0\\). But
+
+$$
+F_n(0)
+=
+\Pr(X/n\le0)
+=
+\Pr(X\le0)
+=
+\frac12
+$$
+
+for every \\(n\\). Hence
+
+$$
+F_n(0)\not\to F(0)=1.
+$$
+
+So requiring cdf convergence at **all** points would incorrectly rule out a sequence that actually converges almost surely to its limit. This is why the definition uses continuity points of \\(F\\).
+
+### 9.11 Consistency of maximum-likelihood estimators
+
+The 28 August notes ask whether MLEs are consistent and illustrate the answer with the uniform endpoint model.
+
+<div class="warning" markdown="1">
+
+**Editorial note — uniqueness of the likelihood equation is not enough by itself.**
+The source note suggests consistency under regularity conditions together with a unique likelihood-equation solution. A unique finite-sample score root alone does not guarantee consistency. One also needs an asymptotic identification argument showing that the population objective is uniquely maximized at the true parameter and that the sample objective converges to it sufficiently well.
+
+</div>
+
+A standard useful formulation is the following.
+
+<div class="theorem" markdown="1">
+
+**Theorem 6.12 — A basic argmax consistency theorem for the MLE.**
+
+Suppose the true parameter is \\(\theta_0\\), and define the normalized log-likelihood
+
+$$
+M_n(\theta)
+=
+\frac1n\ell_n(\theta).
+$$
+
+Assume:
+
+1. there is a deterministic function \\(M(\theta)\\) such that \\(M_n\to M\\) uniformly in probability over the parameter set under consideration;
+2. \\(M(\theta)\\) has the unique maximizer \\(\theta_0\\);
+3. \\(\widehat\theta_n\\) is an exact or approximate maximizer of \\(M_n\\).
+
+Then
+
+$$
+\boxed{
+\widehat\theta_n\xrightarrow{P}\theta_0.
+}
+$$
+
+</div>
+
+**Proof sketch.**
+
+Fix a neighbourhood \\(U\\) of \\(\theta_0\\). By uniqueness of the maximizer, under the usual compactness/separation condition there exists \\(\eta>0\\) such that
+
+$$
+M(\theta_0)
+-
+\sup_{\theta\notin U}M(\theta)
+>
+2\eta.
+$$
+
+If
+
+$$
+\sup_\theta\lvert M_n(\theta)-M(\theta)\rvert<\eta,
+$$
+
+then every maximizer of \\(M_n\\) must lie inside \\(U\\). The probability of this uniform-approximation event tends to one, so
+
+$$
+\Pr(\widehat\theta_n\notin U)\to0.
+$$
+
+That is convergence in probability.
+
+\\(\square\\)
+
+In iid models,
+
+$$
+M(\theta)
+=
+\operatorname{E}_{\theta_0}[\log f_\theta(X_1)]
+$$
+
+is often uniquely maximized at \\(\theta_0\\) by identifiability and the nonnegativity of Kullback–Leibler divergence. Establishing uniform convergence is the main technical regularity step.
+
+### Worked Example 6.14 — Consistency of the MLE in \\(\operatorname{Uniform}(0,\theta)\\)
+
+Let
+
+$$
+X_1,\ldots,X_n
+\overset{\mathrm{iid}}{\sim}
+\operatorname{Uniform}(0,\theta),
+\qquad \theta>0.
+$$
+
+The likelihood is
+
+$$
+L(\theta;x)
+=
+\theta^{-n}
+\mathbf 1_{\lbrace \theta\ge X_{(n)}\rbrace }.
+$$
+
+For \\(\theta\ge X\_{(n)}\\), the factor \\(\theta^{-n}\\) decreases as \\(\theta\\) increases. Therefore
+
+$$
+\boxed{
+\widehat\theta_{\mathrm{MLE}}=X_{(n)}.
+}
+$$
+
+To prove consistency, fix \\(\varepsilon>0\\). Since \\(X\_{(n)}\le\theta\\) almost surely,
+
+$$
+\Pr_\theta(
+\lvert X_{(n)}-\theta\rvert>\varepsilon
+)
+=
+\Pr_\theta(X_{(n)}<\theta-\varepsilon)
+$$
+
+for \\(0<\varepsilon<\theta\\). But
+
+$$
+\begin{aligned}
+\Pr_\theta(X_{(n)}<\theta-\varepsilon)
+&=
+\Pr_\theta(X_1<\theta-\varepsilon,\ldots,X_n<\theta-\varepsilon)\\
+&=
+\left(
+\frac{\theta-\varepsilon}{\theta}
+\right)^n\\
+&\longrightarrow0.
+\end{aligned}
+$$
+
+Hence
+
+$$
+\boxed{
+X_{(n)}\xrightarrow{P}\theta.
+}
+$$
+
+This example is important because the model is nonregular: the support depends on \\(\theta\\). The MLE is nevertheless consistent, even though some standard score-based regularity arguments fail.
+
+### 9.12 Asymptotic unbiasedness does not imply consistency
 
 An estimator is asymptotically unbiased if
 
@@ -965,7 +1620,7 @@ $$
 
 for every \\(n\\). The noise does not shrink, so convergence to \\(\theta\\) need not occur.
 
-### 9.9 Pointwise versus uniform consistency
+### 9.13 Pointwise versus uniform consistency
 
 Ordinary consistency is usually pointwise in the parameter: for each fixed \\(\theta\\),
 
@@ -990,13 +1645,13 @@ $$
 
 The supremum is taken over the parameter space before the limit. Uniform consistency therefore controls the worst parameter value at each sample size.
 
-### 9.10 Consistency of a sequence of UMVUEs
+### 9.14 Consistency of a sequence of UMVUEs
 
 The source notes give a useful sufficient condition for consistency of UMVUEs.
 
 <div class="theorem" markdown="1">
 
-**Theorem 6.8 — A finite-variance unbiased estimator forces UMVUE consistency.**
+**Theorem 6.13 — A finite-variance unbiased estimator forces UMVUE consistency.**
 
 Let \\(X_1,X_2,\ldots\\) be iid from \\(P\_\theta\\). Suppose there exists a one-observation estimator \\(U(X_1)\\) such that
 
@@ -1071,7 +1726,7 @@ The theorem does not say that every sequence of UMVUEs is automatically consiste
 
 </div>
 
-### 9.11 Exam summary of the main implications
+### 9.15 Exam summary of the main implications
 
 The most useful implication diagram is
 
@@ -1207,6 +1862,57 @@ Can a parametric estimator converge faster than \\(n^{-1/2}\\)?
 **Answer.**
 
 Yes in nonregular models. For the endpoint of \\(\operatorname{Uniform}(0,\theta)\\), the sample maximum has error of order \\(n^{-1}\\).
+
+**Question.**
+Why does asymptotic normality at the \\(\sqrt n\\) scale imply consistency?
+
+**Answer.**
+
+Because
+
+$$
+T_n-\theta
+=
+\frac1{\sqrt n}\left[\sqrt n(T_n-\theta)\right],
+$$
+
+where the bracketed term has a proper limiting distribution and \\(1/\sqrt n\to0\\). Slutsky's theorem gives \\(T_n-\theta\xrightarrow{d}0\\), hence convergence in probability to zero.
+
+**Question.**
+Why is the sample median consistent?
+
+**Answer.**
+
+If \\(F(\theta)=1/2\\) and \\(F\\) is strictly increasing near \\(\theta\\), then for every \\(\varepsilon>0\\), both tail probabilities \\(P(X>\theta+\varepsilon)\\) and \\(P(X<\theta-\varepsilon)\\) are strictly below \\(1/2\\). The event that the median lies outside the \\(\varepsilon\\)-neighbourhood requires at least about half the sample to fall in one of these tails, and the corresponding binomial proportion converges to a number strictly below \\(1/2\\).
+
+**Question.**
+What design condition makes the least-squares slope estimator consistent?
+
+**Answer.**
+
+Under homoskedastic uncorrelated errors,
+
+$$
+\operatorname{Var}(\widehat\beta_n)
+=
+\frac{\sigma^2}{S_{xx}}.
+$$
+
+Thus \\(S\_{xx}\to\infty\\) implies \\(\widehat\beta_n\xrightarrow{P}\beta\\). For the intercept it is enough additionally that \\(\bar x^2/S\_{xx}\to0\\).
+
+**Question.**
+Why does convergence in distribution require cdf convergence only at continuity points of the limiting cdf?
+
+**Answer.**
+
+The example \\(X_n=X/n\\) with \\(X\sim N(0,1)\\) converges almost surely to zero, but at the discontinuity point \\(t=0\\), \\(F_n(0)=1/2\\) for every \\(n\\) whereas the degenerate limiting cdf has \\(F(0)=1\\). Requiring convergence there would contradict the stronger almost-sure convergence.
+
+**Question.**
+Are MLEs always consistent if the likelihood equation has a unique solution?
+
+**Answer.**
+
+No. Uniqueness of a finite-sample score root is not enough. A standard consistency proof also needs identification of the true parameter as the unique maximizer of the population log-likelihood and sufficiently uniform convergence of the sample log-likelihood to that population objective.
 
 ## References and further reading
 

@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Develops randomized tests, power and size, proves that sufficient-statistic conditioning preserves the power function, shows that the likelihood ratio itself is sufficient in a two-point model, and proves the Neyman–Pearson lemma."
+description: "Develops randomized tests, power and size, sufficient-statistic reduction, the Neyman–Pearson lemma, uniformly most powerful one-sided tests, monotone likelihood ratio families, and normal, binomial, exponential-family, and Cauchy examples."
 topics:
   - "hypothesis testing"
   - "randomized tests"
@@ -18,6 +18,11 @@ topics:
   - "likelihood ratio"
   - "likelihood-ratio sufficiency"
   - "Neyman–Pearson lemma"
+  - "uniformly most powerful tests"
+  - "monotone likelihood ratio"
+  - "Karlin–Rubin principle"
+  - "binomial MLR"
+  - "exponential-family MLR"
 previous: "lecture-06-lehmann-scheffe-umvue-consistency"
 next: "lecture-08-bayesian-inference-bayes-risk"
 contents: "course-contents"
@@ -599,8 +604,7 @@ where \\(\theta_1>\theta_0\\). Find the most powerful level-\\(\alpha\\) test.
 
 **Solution.**
 
-Because the restricted parameter space is \(\lbrace heta_0, heta_1
-brace\), Proposition 7.7 first tells us that the likelihood ratio itself is sufficient for this two-point model.
+Because the restricted parameter space is \\(\lbrace\theta_0,\theta_1\rbrace\\), Proposition 7.7 first tells us that the likelihood ratio itself is sufficient for this two-point model.
 
 The likelihood ratio is
 
@@ -771,6 +775,341 @@ $$
 
 This is a direct example of the principle that a sufficient statistic is enough for testing.
 
+## 9. From most powerful to uniformly most powerful tests
+
+The 25 August notes make an important observation in the normal example: the critical value chosen from the null distribution does **not** depend on the particular simple alternative \\(\theta_1>\theta_0\\).
+
+For
+
+$$
+X\sim N(\theta,1),
+$$
+
+consider testing
+
+$$
+H_0:\theta=\theta_0
+\qquad\text{against}\qquad
+H_1:\theta=\theta_1,
+$$
+
+where \\(\theta_1>\theta_0\\). Section 7 showed that the Neyman–Pearson most powerful level-\\(\alpha\\) test rejects when
+
+$$
+X>c_\alpha,
+$$
+
+where
+
+$$
+P_{\theta_0}(X>c_\alpha)=\alpha.
+$$
+
+Thus
+
+$$
+c_\alpha=\theta_0+z_{1-\alpha}.
+$$
+
+The striking point is that \\(c\_\alpha\\) contains \\(\theta_0\\) and \\(\alpha\\), but not \\(\theta_1\\). Therefore the **same** rejection region is most powerful against every fixed \\(\theta_1>\theta_0\\).
+
+<div class="definition" markdown="1">
+
+**Definition 7.9 — Uniformly most powerful test.**
+
+A level-\\(\alpha\\) test \\(\phi^{\ast}\\) for
+
+$$
+H_0:\theta\in\Theta_0
+\qquad\text{versus}\qquad
+H_1:\theta\in\Theta_1
+$$
+
+is _uniformly most powerful_ (UMP) if, for every other level-\\(\alpha\\) test \\(\phi\\),
+
+$$
+\operatorname{E}_\theta[\phi(X)]
+\le
+\operatorname{E}_\theta[\phi^{\ast}(X)]
+\qquad
+\text{for every }\theta\in\Theta_1.
+$$
+
+</div>
+
+### Worked Example 7.2 — UMP upper-tail test in the normal location family
+
+Consider
+
+$$
+H_0:\theta\le\theta_0
+\qquad\text{versus}\qquad
+H_1:\theta>\theta_0.
+$$
+
+Take
+
+$$
+\phi^{\ast}(x)
+=
+\mathbf 1_{\lbrace x>\theta_0+z_{1-\alpha}\rbrace }.
+$$
+
+First check the level. Since \\(P\_\theta(X>c)\\) is increasing in \\(\theta\\),
+
+$$
+\sup_{\theta\le\theta_0}
+P_\theta(X>c_\alpha)
+=
+P_{\theta_0}(X>c_\alpha)
+=
+\alpha.
+$$
+
+Now fix any \\(\theta_1>\theta_0\\). By the Neyman–Pearson lemma, this same upper-tail test is most powerful of level \\(\alpha\\) for testing \\(\theta_0\\) against \\(\theta_1\\). Since the argument holds for **every** \\(\theta_1>\theta_0\\), the test is UMP for the one-sided composite alternative.
+
+**Final result.**
+
+$$
+\boxed{
+\text{Reject }H_0
+\text{ when }
+X>\theta_0+z_{1-\alpha}.
+}
+$$
+
+For an iid sample from \\(N(\theta,\sigma^2)\\), the corresponding UMP test rejects when
+
+$$
+\boxed{
+\bar X
+>
+\theta_0+
+\frac{\sigma}{\sqrt n}z_{1-\alpha}.
+}
+$$
+
+## 10. Monotone likelihood ratio families
+
+The preceding normal argument is not accidental. It is a special case of the monotone likelihood ratio structure introduced in the 25 August notes.
+
+<div class="definition" markdown="1">
+
+**Definition 7.10 — Monotone likelihood ratio in a statistic.**
+
+A one-parameter family \\(\lbrace f\_\theta:\theta\in\Theta\rbrace\\) has a _monotone likelihood ratio_ (MLR) in a statistic \\(T(X)\\) if, whenever \\(\theta_1>\theta_0\\), the ratio
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+$$
+
+is a nondecreasing function of \\(T(x)\\).
+
+If the ratio is nonincreasing instead, one obtains the analogous lower-tail theory after reversing the direction of \\(T\\).
+
+</div>
+
+The definition says that larger values of \\(T\\) systematically favour larger parameter values.
+
+### 10.1 Why MLR leads to one-sided UMP tests
+
+<div class="theorem" markdown="1">
+
+**Theorem 7.11 — One-sided UMP principle for an MLR family.**
+
+Suppose the family has MLR in \\(T(X)\\). Consider
+
+$$
+H_0:\theta\le\theta_0
+\qquad\text{versus}\qquad
+H_1:\theta>\theta_0.
+$$
+
+If a threshold \\(c\_\alpha\\), together with boundary randomization if needed, is chosen so that
+
+$$
+P_{\theta_0}(T>c_\alpha)
++\gamma P_{\theta_0}(T=c_\alpha)
+=
+\alpha,
+$$
+
+then the resulting upper-tail test is UMP of level \\(\alpha\\), under the standard stochastic-monotonicity consequence of MLR.
+
+</div>
+
+**Reasoning.**
+
+Fix any simple alternative \\(\theta_1>\theta_0\\). Since
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+$$
+
+is nondecreasing in \\(T(x)\\), the Neyman–Pearson rejection region \\(\lbrace f\_{\theta_1}/f\_{\theta_0}>k\rbrace\\) can be written as an upper-tail region in \\(T\\). The size condition is determined under \\(\theta_0\\), so the same threshold is usable for all \\(\theta_1>\theta_0\\). MLR also implies that upper-tail probabilities of \\(T\\) increase with \\(\theta\\), hence the largest Type I error over \\(\theta\le\theta_0\\) occurs at the boundary \\(\theta_0\\). Therefore the same test is most powerful against every \\(\theta_1>\theta_0\\), which is exactly the UMP property.
+
+<div class="remark" markdown="1">
+
+**Remark.**
+This result is often presented as the one-parameter Karlin–Rubin theorem. For the exam, the key proof idea is Neyman–Pearson plus monotonicity of the likelihood ratio in a common statistic.
+
+</div>
+
+### Worked Example 7.3 — The binomial family has MLR in \\(X\\)
+
+Let
+
+$$
+X\sim\operatorname{Bin}(n,\theta),
+\qquad 0<\theta<1.
+$$
+
+Take \\(\theta_1>\theta_0\\). The likelihood ratio is
+
+$$
+\begin{aligned}
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+&=
+\frac{
+\binom nx\theta_1^x(1-\theta_1)^{n-x}
+}{
+\binom nx\theta_0^x(1-\theta_0)^{n-x}
+}\\
+&=
+\left(
+\frac{1-\theta_1}{1-\theta_0}
+\right)^n
+\left[
+\frac{\theta_1(1-\theta_0)}
+{\theta_0(1-\theta_1)}
+\right]^x.
+\end{aligned}
+$$
+
+Because \\(\theta_1>\theta_0\\),
+
+$$
+\frac{\theta_1(1-\theta_0)}
+{\theta_0(1-\theta_1)}
+>1.
+$$
+
+Hence the likelihood ratio is strictly increasing in \\(x\\). Therefore
+
+$$
+\boxed{
+\operatorname{Bin}(n,\theta)
+\text{ has MLR in }X.
+}
+$$
+
+Consequently, upper-tail tests in \\(X\\) are the natural UMP tests for one-sided alternatives of the form \\(\theta>\theta_0\\).
+
+### 10.2 One-parameter exponential families have MLR under monotone natural parameter
+
+<div class="proposition" markdown="1">
+
+**Proposition 7.12 — Exponential-family MLR criterion.**
+
+Suppose
+
+$$
+f_\theta(x)
+=
+h(x)c(\theta)
+\exp\lbrace \eta(\theta)T(x)\rbrace,
+$$
+
+where \\(\eta(\theta)\\) is nondecreasing in \\(\theta\\). Then the family has MLR in \\(T(X)\\).
+
+</div>
+
+**Proof.**
+
+For \\(\theta_1>\theta_0\\),
+
+$$
+\begin{aligned}
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+&=
+\frac{c(\theta_1)}{c(\theta_0)}
+\exp\left\lbrace
+[\eta(\theta_1)-\eta(\theta_0)]T(x)
+\right\rbrace .
+\end{aligned}
+$$
+
+The prefactor does not depend on \\(x\\). Since
+
+$$
+\eta(\theta_1)-\eta(\theta_0)\ge0,
+$$
+
+the exponential factor is nondecreasing in \\(T(x)\\). Therefore the likelihood ratio is nondecreasing in \\(T(x)\\).
+
+\\(\square\\)
+
+This result explains at once why many standard one-parameter exponential families—binomial, Poisson, and normal location with known variance—have MLR in their canonical sufficient statistics.
+
+### Worked Example 7.4 — Normal location as an MLR family
+
+For \\(X\sim N(\theta,1)\\),
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+=
+\exp\left\lbrace
+(\theta_1-\theta_0)x
+-
+\frac12(\theta_1^2-\theta_0^2)
+\right\rbrace .
+$$
+
+If \\(\theta_1>\theta_0\\), this is strictly increasing in \\(x\\). Hence the normal location family has MLR in \\(X\\), which is precisely why the upper-tail critical value does not depend on which \\(\theta_1>\theta_0\\) is chosen.
+
+### Worked Example 7.5 — Why the Cauchy location family is not MLR in \\(X\\)
+
+Let
+
+$$
+f_\theta(x)
+=
+\frac{1}{\pi\lbrace 1+(x-\theta)^2\rbrace }.
+$$
+
+For \\(\theta_1\ne\theta_0\\),
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+=
+\frac{1+(x-\theta_0)^2}
+{1+(x-\theta_1)^2}.
+$$
+
+As \\(x\to\infty\\),
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+\to1,
+$$
+
+and as \\(x\to-\infty\\), the same limit holds:
+
+$$
+\frac{f_{\theta_1}(x)}{f_{\theta_0}(x)}
+\to1.
+$$
+
+But the ratio is not identically equal to \\(1\\) when \\(\theta_1\ne\theta_0\\). A nonconstant monotone function on the whole real line cannot have the same finite limit at both \\(-\infty\\) and \\(+\infty\\). Therefore the ratio is not monotone in \\(x\\).
+
+**Final result.**
+
+$$
+\boxed{
+\text{The Cauchy location family is not MLR in the observation }X.
+}
+$$
+
 ## Questions answered in this lecture
 
 **Question.**
@@ -825,6 +1164,55 @@ Why do the source notes compare the likelihood ratio with \\(1\\), while the Ney
 
 The threshold \\(1\\) simply chooses the model assigning the larger likelihood to the observation. A frequentist level-\\(\alpha\\) test instead chooses \\(k\\) so that the null rejection probability is \\(\alpha\\), with randomisation on the boundary if necessary. The two thresholds coincide only in special circumstances.
 
+**Question.**
+Why does the normal critical value become independent of the particular alternative \\(\theta_1>\theta_0\\)?
+
+**Answer.**
+
+For every \\(\theta_1>\theta_0\\), the likelihood ratio is increasing in \\(X\\), so Neyman–Pearson always gives an upper-tail region. The level condition is imposed under \\(\theta_0\\), hence the threshold is determined only by \\(\theta_0\\) and \\(\alpha\\), not by \\(\theta_1\\). This is what makes the same test UMP for the one-sided alternative.
+
+**Question.**
+Does the binomial family have the MLR property?
+
+**Answer.**
+
+Yes. For \\(\theta_1>\theta_0\\), the ratio is a positive constant times
+
+$$
+\left[
+\frac{\theta_1(1-\theta_0)}
+{\theta_0(1-\theta_1)}
+\right]^X,
+$$
+
+and the bracketed base exceeds \\(1\\), so the ratio increases with \\(X\\).
+
+**Question.**
+Why does a one-parameter exponential family often have MLR?
+
+**Answer.**
+
+If
+
+$$
+f_\theta(x)=h(x)c(\theta)e^{\eta(\theta)T(x)}
+$$
+
+with \\(\eta(\theta)\\) increasing, then for \\(\theta_1>\theta_0\\) the likelihood ratio is a positive constant times
+
+$$
+e^{[\eta(\theta_1)-\eta(\theta_0)]T(x)},
+$$
+
+which is increasing in \\(T(x)\\).
+
+**Question.**
+Why is the Cauchy location family not MLR in \\(X\\)?
+
+**Answer.**
+
+Its likelihood ratio for two different locations is a nonconstant ratio of quadratics that tends to \\(1\\) at both \\(-\infty\\) and \\(+\infty\\). Such a function cannot be monotone on all of \\(\mathbb R\\).
+
 ## Lecture summary
 
 The essential objects are
@@ -849,6 +1237,9 @@ $$
 2. For \\(X_1,\ldots,X_n\sim\operatorname{Poisson}(\theta)\\), show that the simple-versus-simple likelihood ratio is a monotone function of \\(\sum_iX_i\\).
 3. Prove directly that Rao–Blackwellising a randomized test with respect to a sufficient statistic preserves both Type I and Type II error probabilities.
 4. In the normal example, derive the corresponding lower-tail test when \\(\theta_1<\theta_0\\).
+5. Prove directly that the binomial likelihood ratio is increasing in \\(X\\) when \\(\theta_1>\theta_0\\).
+6. For a Poisson family, verify MLR in \\(X\\) and derive the form of a UMP upper-tail test.
+7. Show that a nonconstant function on \\(\mathbb R\\) with the same finite limits at \\(-\infty\\) and \\(+\infty\\) cannot be monotone, and apply this to the Cauchy likelihood ratio.
 
 ## References and further reading
 
