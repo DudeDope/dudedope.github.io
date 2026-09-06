@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Develops posterior distributions and conjugate families through beta-binomial, Poisson, normal, and Cauchy examples; proves posterior-mean optimality under squared-error loss; and studies Bayes risk, sufficiency, improper priors, and generalized Bayes rules."
+description: "Develops posterior distributions and conjugate families through beta-binomial, Poisson, normal, and Cauchy examples; proves posterior-mean optimality under squared-error loss; and connects Bayes risk with minimaxity, equalizer rules, admissibility, sufficiency, and generalized Bayes procedures."
 topics:
   - "Bayesian inference"
   - "prior and posterior"
@@ -16,6 +16,8 @@ topics:
   - "Cauchy reciprocal-polynomial conjugate family"
   - "Bayes estimator"
   - "Bayes risk"
+  - "minimax risk"
+  - "equalizer rules and admissibility"
   - "sufficiency"
   - "improper priors"
   - "generalized Bayes"
@@ -23,7 +25,7 @@ previous: "lecture-07-hypothesis-testing-likelihood-ratio"
 next: null
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/
@@ -53,11 +55,13 @@ After this lecture, you should be able to:
 - derive the beta-binomial and normal-normal conjugate updates and compare two Poisson prior constructions;
 - prove that reciprocal-polynomial densities form a conjugate family for the Cauchy location model;
 - explain why the family of all proper densities is formally a conjugate family for every model, and why this fact is mathematically important but computationally uninformative;
-- define frequentist risk and Bayes risk;
+- define frequentist risk and Bayes risk and distinguish a risk function from its worst-case supremum;
 - prove that the posterior mean is the Bayes estimator under squared-error loss;
 - show that the posterior depends on the data only through a sufficient statistic;
 - understand why a proper-prior posterior mean cannot usually also be unbiased for every parameter value;
-- work with an improper prior when it yields a proper posterior and identify the resulting generalized Bayes estimator.
+- work with an improper prior when it yields a proper posterior and identify the resulting generalized Bayes estimator;
+- derive the fundamental inequality relating Bayes risk and minimax risk, and use it to recognize minimax Bayes/equalizer rules;
+- distinguish admissibility, dominance, minimaxity, and least-favourable-prior arguments.
 
 ## 1. Prior, likelihood, marginal distribution, and posterior
 
@@ -1363,7 +1367,365 @@ $$
 
 The excess Bayes risk is exactly the mean squared distance from the posterior mean.
 
-## 10. Relationship with earlier lectures
+## 10. Minimax risk, equalizer rules, and admissibility
+
+<div class="intuition" markdown="1">
+
+**Additional context.**
+The source develops Bayes risk as an average of the frequentist risk. The following decision-theoretic consequences make explicit how that average is used in minimax arguments.
+
+</div>
+
+For a fixed decision rule \\(\delta\\), the quantity
+
+$$
+R(\theta,\delta)
+=
+\operatorname{E}_{\theta}
+\left[
+L\bigl(\theta,\delta(X)\bigr)
+\right]
+$$
+
+is generally a **function of the true parameter \\(\theta\\)**. By contrast,
+
+$$
+M(\delta)
+:=
+\sup_{\theta\in\Theta}R(\theta,\delta)
+$$
+
+is a single number once \\(\delta\\) has been fixed: it is the worst-case risk of the rule.
+
+If the supremum is attained at some \\(\theta^{\star}\\), then
+
+$$
+M(\delta)
+=
+R(\theta^{\star},\delta).
+$$
+
+The symbol \\(\theta^{\star}\\) denotes a maximizing parameter value; the equality does not mean that \\(M(\delta)\\) remains a function of an arbitrary \\(\theta\\).
+
+<div class="definition" markdown="1">
+
+**Definition 8.11 — Minimax rule and minimax value.**
+The minimax value is
+
+$$
+R^{\star}
+=
+\inf_{\delta}
+\sup_{\theta\in\Theta}
+R(\theta,\delta).
+$$
+
+A rule \\(\delta^{\star}\\) is minimax if
+
+$$
+\sup_{\theta\in\Theta}
+R(\theta,\delta^{\star})
+=
+R^{\star}.
+$$
+
+</div>
+
+The Bayes risk of any fixed rule is an average of its risk function:
+
+$$
+r_{\pi}(\delta)
+=
+\int_{\Theta}
+R(\theta,\delta)\pi(\theta)\,\mathrm d\theta.
+$$
+
+Since
+
+$$
+R(\theta,\delta)
+\le
+\sup_{\nu\in\Theta}R(\nu,\delta)
+$$
+
+for every \\(\theta\\), integration gives
+
+$$
+\begin{aligned}
+r_{\pi}(\delta)
+&=
+\int_{\Theta}
+R(\theta,\delta)\pi(\theta)\,\mathrm d\theta\\
+&\le
+\int_{\Theta}
+\sup_{\nu\in\Theta}R(\nu,\delta)
+\,\pi(\theta)\,\mathrm d\theta\\
+&=
+\sup_{\nu\in\Theta}R(\nu,\delta).
+\end{aligned}
+$$
+
+Thus
+
+$$
+\boxed{
+r_{\pi}(\delta)
+\le
+\sup_{\theta\in\Theta}R(\theta,\delta).
+}
+$$
+
+This is simply the statement that an average cannot exceed the maximum of the quantities being averaged.
+
+Now let
+
+$$
+r_{\pi}^{\star}
+=
+\inf_{\delta}r_{\pi}(\delta)
+$$
+
+denote the minimum Bayes risk under the prior \\(\pi\\). Because the preceding inequality holds for every \\(\delta\\),
+
+$$
+\boxed{
+r_{\pi}^{\star}
+\le
+R^{\star}.
+}
+$$
+
+So **every minimum Bayes risk is a lower bound on the minimax value**.
+
+### Worked Example 8.7 — Average risk versus worst-case risk
+
+Suppose a parameter can take three values and a rule has risks
+
+$$
+R(\theta_1,\delta)=2,
+\qquad
+R(\theta_2,\delta)=5,
+\qquad
+R(\theta_3,\delta)=8.
+$$
+
+Its worst-case risk is
+
+$$
+\sup_{\theta}R(\theta,\delta)=8.
+$$
+
+For prior probabilities \\(0.2,0.5,0.3\\),
+
+$$
+\begin{aligned}
+r_{\pi}(\delta)
+&=
+0.2(2)+0.5(5)+0.3(8)\\
+&=
+5.3.
+\end{aligned}
+$$
+
+Therefore
+
+$$
+5.3\le8,
+$$
+
+illustrating the general inequality.
+
+<div class="definition" markdown="1">
+
+**Definition 8.12 — Equalizer rule.**
+A rule \\(\delta\\) is an equalizer rule if its risk is constant over the parameter space:
+
+$$
+R(\theta,\delta)=c
+\qquad
+\text{for every }\theta\in\Theta.
+$$
+
+Then
+
+$$
+\sup_{\theta}R(\theta,\delta)=c.
+$$
+
+</div>
+
+Constant risk alone does **not** automatically prove minimaxity. One must still show that no competing rule has worst-case risk strictly below \\(c\\).
+
+A particularly useful sufficient condition is the following.
+
+<div class="proposition" markdown="1">
+
+**Proposition 8.13 — A Bayes equalizer rule is minimax.**
+Suppose \\(\delta\_{\pi}\\) is Bayes under a proper prior \\(\pi\\) and
+
+$$
+R(\theta,\delta_{\pi})=c
+\qquad
+\text{for every }\theta.
+$$
+
+Then \\(\delta\_{\pi}\\) is minimax and the minimax value is \\(c\\).
+
+</div>
+
+**Proof.**
+
+Because the risk is constant,
+
+$$
+r_{\pi}(\delta_{\pi})
+=
+\int_{\Theta}
+c\,\pi(\theta)\,\mathrm d\theta
+=
+c.
+$$
+
+The general Bayes lower bound gives
+
+$$
+r_{\pi}(\delta_{\pi})
+\le
+R^{\star}.
+$$
+
+On the other hand, using \\(\delta\_{\pi}\\) as one candidate in the minimax infimum gives
+
+$$
+R^{\star}
+\le
+\sup_{\theta}
+R(\theta,\delta_{\pi})
+=
+c.
+$$
+
+Hence
+
+$$
+c
+\le
+R^{\star}
+\le
+c,
+$$
+
+and therefore
+
+$$
+\boxed{
+R^{\star}=c.
+}
+$$
+
+Thus \\(\delta\_{\pi}\\) is minimax.
+
+\\(\square\\)
+
+<div class="definition" markdown="1">
+
+**Definition 8.14 — Dominance and admissibility.**
+A rule \\(\delta_1\\) **dominates** \\(\delta_0\\) if
+
+$$
+R(\theta,\delta_1)
+\le
+R(\theta,\delta_0)
+\qquad
+\text{for every }\theta,
+$$
+
+with strict inequality for at least one parameter value.
+
+A rule is **admissible** if no other rule dominates it. Otherwise it is inadmissible.
+
+</div>
+
+Admissibility and minimaxity answer different questions:
+
+- admissibility asks whether a rule can be uniformly improved;
+- minimaxity asks whether its **largest** risk is as small as possible.
+
+An equalizer rule that is admissible is automatically minimax.
+
+<div class="proposition" markdown="1">
+
+**Proposition 8.15 — An admissible equalizer rule is minimax.**
+If
+
+$$
+R(\theta,\delta)=c
+\qquad
+\text{for every }\theta
+$$
+
+and \\(\delta\\) is admissible, then \\(\delta\\) is minimax.
+
+</div>
+
+**Proof.**
+
+Suppose \\(\delta\\) were not minimax. Then there would exist a rule \\(\delta_1\\) such that
+
+$$
+\sup_{\theta}R(\theta,\delta_1)<c.
+$$
+
+Therefore, for every \\(\theta\\),
+
+$$
+R(\theta,\delta_1)
+<
+c
+=
+R(\theta,\delta).
+$$
+
+Thus \\(\delta_1\\) would dominate \\(\delta\\), contradicting admissibility. Hence \\(\delta\\) must be minimax.
+
+\\(\square\\)
+
+<div class="definition" markdown="1">
+
+**Definition 8.16 — Least favourable prior.**
+A prior \\(\pi^{\star}\\) is called least favourable, when the relevant extrema exist, if its minimum Bayes risk is as large as possible:
+
+$$
+r_{\pi^{\star}}^{\star}
+=
+\sup_{\pi}r_{\pi}^{\star}.
+$$
+
+</div>
+
+The terminology reflects the game-theoretic interpretation: the statistician chooses a rule while an adversary chooses a prior or parameter value. A least favourable prior makes the best achievable average risk as large as possible.
+
+A standard minimax proof strategy is to find a prior \\(\pi^{\star}\\) and its Bayes rule \\(\delta^{\star}\\) such that
+
+$$
+r_{\pi^{\star}}(\delta^{\star})
+=
+\sup_{\theta}R(\theta,\delta^{\star}).
+$$
+
+Then
+
+$$
+r_{\pi^{\star}}(\delta^{\star})
+\le
+R^{\star}
+\le
+\sup_{\theta}R(\theta,\delta^{\star}),
+$$
+
+and the two endpoints are equal. Hence \\(\delta^{\star}\\) is minimax.
+
+## 11. Relationship with earlier lectures
 
 The same estimator can be evaluated under several different criteria:
 
@@ -1371,6 +1733,8 @@ The same estimator can be evaluated under several different criteria:
 - **frequentist risk:** \\(R(\theta,\delta)\\) is compared pointwise in \\(\theta\\);
 - **UMVUE:** minimum variance among unbiased estimators at every \\(\theta\\);
 - **Bayes rule:** minimum integrated risk under a specified prior;
+- **minimax rule:** minimum worst-case risk over the parameter space;
+- **admissible rule:** no competing rule has everywhere no larger risk and somewhere strictly smaller risk;
 - **MLE:** maximises the likelihood for the observed sample.
 
 None of these definitions is interchangeable with another.
@@ -1490,6 +1854,54 @@ $$
 
 More generally, if the integral is finite and positive, a constant rescaling of \\(p\\) can normalize the reciprocal to a density.
 
+**Question.**
+Why is Bayes risk no larger than the worst-case risk of the same rule?
+
+**Answer.**
+
+For fixed \\(\delta\\), \\(r\_{\pi}(\delta)\\) is an average of the numbers \\(R(\theta,\delta)\\) under the prior, while \\(\sup\_{\theta}R(\theta,\delta)\\) is their largest possible value. Hence
+
+$$
+r_{\pi}(\delta)
+\le
+\sup_{\theta}R(\theta,\delta).
+$$
+
+Taking the infimum over rules yields the useful lower bound
+
+$$
+r_{\pi}^{\star}
+\le
+R^{\star}.
+$$
+
+**Question.**
+Is \\(R(\theta,\delta)\\) generally a function of \\(\theta\\), and what does \\(\sup\_{\theta}R(\theta,\delta)\\) represent?
+
+**Answer.**
+
+Yes. For fixed \\(\delta\\), the risk function \\(\theta\mapsto R(\theta,\delta)\\) generally varies with \\(\theta\\). The supremum is a single worst-case number. If it is attained at \\(\theta^{\star}\\), then
+
+$$
+\sup_{\theta}R(\theta,\delta)
+=
+R(\theta^{\star},\delta).
+$$
+
+**Question.**
+Does constant risk by itself imply that a rule is minimax?
+
+**Answer.**
+
+No. Constant risk only makes the rule an equalizer rule. Minimaxity follows, for example, if the equalizer rule is Bayes for some proper prior or if it is admissible.
+
+**Question.**
+What does admissible mean?
+
+**Answer.**
+
+A rule is admissible if no other rule has risk no larger for every parameter value and strictly smaller for at least one parameter value. In other words, an admissible rule cannot be uniformly improved.
+
 ## Lecture summary
 
 The posterior is
@@ -1510,7 +1922,7 @@ $$
 
 minimises both posterior expected loss and Bayes risk. If \\(T\\) is sufficient, the posterior and therefore every Bayes rule based on it are functions of \\(T\\).
 
-Conjugate families are closed under Bayesian updating, but the family need not be unique. The beta-binomial, gamma-Poisson, and normal-normal examples are finite-dimensional conjugate families; the reciprocal-polynomial Cauchy construction is a larger conjugate family; and the class of all proper densities is the universal, formally conjugate family. Improper priors can lead to generalized Bayes rules, as in the flat-prior normal example.
+Conjugate families are closed under Bayesian updating, but the family need not be unique. The beta-binomial, gamma-Poisson, and normal-normal examples are finite-dimensional conjugate families; the reciprocal-polynomial Cauchy construction is a larger conjugate family; and the class of all proper densities is the universal, formally conjugate family. Improper priors can lead to generalized Bayes rules, as in the flat-prior normal example. Bayes risk is always bounded above by the worst-case risk of the same rule, so minimum Bayes risks provide lower bounds on the minimax value. Bayes or admissible equalizer rules therefore give important routes to minimaxity.
 
 ## Review problems
 
@@ -1524,6 +1936,10 @@ Conjugate families are closed under Bayesian updating, but the family need not b
 8. Prove the Bayes-risk decomposition in Section 9 from the law of total expectation.
 9. For \\(X_1,\ldots,X_n\sim N(\theta,\sigma^2)\\) with known \\(\sigma^2\\), derive the generalized Bayes estimator under the flat prior.
 10. Explain exactly where properness of the prior is used in Proposition 8.8.
+11. Prove that the minimum Bayes risk under any proper prior is a lower bound on the minimax value.
+12. Give an example of two risk functions that cross, and explain why neither rule necessarily dominates the other.
+13. Prove that a Bayes equalizer rule is minimax.
+14. Explain why an admissible equalizer rule must be minimax.
 
 ## References and further reading
 

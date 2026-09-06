@@ -6,8 +6,8 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Cumulative notation, identities, estimator formulas, regularity conditions, testing results, exponential-family forms, and Bayesian updating formulas for the Parametric Inference lectures."
-last_updated: "2026-08-17"
+description: "Cumulative notation, identities, estimator formulas, regularity conditions, consistency rates, testing results, exponential-family forms, Bayesian updating formulas, and minimax decision-theory results for the Parametric Inference lectures."
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/formula-sheet/
@@ -109,7 +109,7 @@ An MLE satisfies
 $$
 \widehat\theta_{\mathrm{MLE}}
 \in
-\mathop{\mathrm{arg\,max}}_{\theta\in\Theta}L(\theta;x).
+\underset{\theta\in\Theta}{\operatorname{arg\,max}}\,L(\theta;x).
 $$
 
 At an interior differentiability point, the likelihood equation is
@@ -182,24 +182,70 @@ Minimality forces \\(\operatorname{Var}\_\theta(T_1-T_2)=0\\), proving almost-su
 
 ### Score, Fisher information, and CRLB
 
-For a regular scalar model with density or mass function \\(f\_\theta\\),
+For a regular scalar model with density or mass function \\(f\_\theta\\), the score is
 
 $$
 \mathcal S_\theta(X)
-=\frac{\partial}{\partial\theta}\log f_\theta(X)
+=
+\frac{\partial}{\partial\theta}\log f_\theta(X).
 $$
 
-is the score. Under the interchange-of-differentiation regularity condition,
+Whenever \\(f\_\theta(x)>0\\),
 
 $$
-\operatorname{E}_\theta[\mathcal S_\theta(X)]=0.
+\boxed{
+\frac{\partial}{\partial\theta}f_\theta(x)
+=
+f_\theta(x)\mathcal S_\theta(x).
+}
+$$
+
+If differentiation may be passed through the integral or sum and the support does not create a moving-boundary term, then
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[\mathcal S_\theta(X)]
+&=
+\int
+\frac{\partial}{\partial\theta}f_\theta(x)
+\,\mathrm dx\\
+&=
+\frac{\partial}{\partial\theta}
+\int f_\theta(x)\,\mathrm dx\\
+&=
+0.
+\end{aligned}
+$$
+
+For a statistic \\(T(X)\\) that does not itself depend on \\(\theta\\),
+
+$$
+\boxed{
+\frac{\mathrm d}{\mathrm d\theta}
+\operatorname{E}_\theta[T(X)]
+=
+\operatorname{E}_\theta[T(X)\mathcal S_\theta(X)]
+}
+$$
+
+under the same differentiation regularity condition. Therefore, if \\(T\\) is unbiased for \\(\psi(\theta)\\),
+
+$$
+\boxed{
+\operatorname{Cov}_\theta(T,\mathcal S_\theta)
+=
+\psi'(\theta).
+}
 $$
 
 The Fisher information in one observation is
 
 $$
 \mathcal I_1(\theta)
-=\operatorname{E}_\theta[\mathcal S_\theta(X)^2],
+=
+\operatorname{E}_\theta[\mathcal S_\theta(X)^2]
+=
+\operatorname{Var}_\theta(\mathcal S_\theta(X)),
 $$
 
 and for iid data,
@@ -212,32 +258,37 @@ When the second-derivative identity is valid,
 
 $$
 \mathcal I_1(\theta)
-=-\operatorname{E}_\theta\left[
-\frac{\partial^2}{\partial\theta^2}\log f_\theta(X)
+=
+-\operatorname{E}_\theta\left[
+\frac{\partial^2}{\partial\theta^2}
+\log f_\theta(X)
 \right].
 $$
 
-If \\(T\\) is unbiased for \\(\psi(\theta)\\) and the ordinary CRLB regularity assumptions hold,
+If \\(T\\) is unbiased for \\(\psi(\theta)\\), the scalar Cramér–Rao lower bound is
 
 $$
+\boxed{
 \operatorname{Var}_\theta(T)
 \ge
-\frac{\bigl(\psi'(\theta)\bigr)^2}{\mathcal I_n(\theta)}.
+\frac{\bigl(\psi'(\theta)\bigr)^2}
+{\mathcal I_n(\theta)}.
+}
 $$
 
-Equality at a parameter value holds exactly when
+Equality at a parameter value occurs exactly when equality holds in the Cauchy–Schwarz step, namely when
 
 $$
-T(X)-\psi(\theta)=a(\theta)\mathcal S_\theta(X)
+\boxed{
+T(X)-\psi(\theta)
+=
+\frac{\psi'(\theta)}
+{\mathcal I_n(\theta)}
+\mathcal S_\theta(X)
+}
 $$
 
-almost surely, with
-
-$$
-a(\theta)=\frac{\psi'(\theta)}{\mathcal I_n(\theta)}
-$$
-
-for an unbiased efficient estimator.
+almost surely at that parameter value.
 
 For vector parameter \\(\eta\\) and scalar target \\(g(\eta)\\),
 
@@ -249,7 +300,53 @@ $$
 \nabla g(\eta).
 $$
 
-**Regularity warning:** the ordinary formula should not be used blindly when the support depends on the parameter. See [Lecture 2]({{ '/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/' | relative_url }}).
+For one observation from \\(N(\mu,\sigma^2)\\), parameterized by \\((\mu,\sigma^2)\\),
+
+$$
+\mathcal S_\mu
+=
+\frac{X-\mu}{\sigma^2},
+\qquad
+\mathcal S_{\sigma^2}
+=
+\frac{(X-\mu)^2-\sigma^2}{2\sigma^4}.
+$$
+
+Using
+
+$$
+\operatorname{E}[(X-\mu)^2]=\sigma^2,
+\qquad
+\operatorname{E}[(X-\mu)^3]=0,
+\qquad
+\operatorname{E}[(X-\mu)^4]=3\sigma^4,
+$$
+
+one obtains
+
+$$
+\boxed{
+\mathcal I_1(\mu,\sigma^2)
+=
+\begin{pmatrix}
+1/\sigma^2 & 0\\
+0 & 1/(2\sigma^4)
+\end{pmatrix},
+}
+$$
+
+and hence
+
+$$
+\mathcal I_n(\mu,\sigma^2)
+=
+\begin{pmatrix}
+n/\sigma^2 & 0\\
+0 & n/(2\sigma^4)
+\end{pmatrix}.
+$$
+
+**Regularity warning.** In models whose support depends on the parameter, such as \\(\operatorname{Uniform}(0,\theta)\\), the usual zero-mean score identity and ordinary CRLB can fail because differentiating an integral with moving endpoints creates boundary terms. See [Lecture 2]({{ '/notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/' | relative_url }}).
 
 ### Standard estimation examples
 
@@ -349,13 +446,26 @@ $$
 so an unbiasedly estimable target must be a polynomial in \\(\theta\\) of degree at most \\(n\\). Falling factorials satisfy
 
 $$
+\boxed{
 \operatorname{E}_\theta[(X)_k]=(n)_k\theta^k,
+}
 $$
 
-hence
+because
 
 $$
+(x)_k\binom{n}{x}
+=
+(n)_k
+\binom{n-k}{x-k},
+$$
+
+and the remaining sum is the binomial expansion of \\(1\\). Hence
+
+$$
+\boxed{
 \frac{(X)_k}{(n)_k}
+}
 $$
 
 is unbiased for \\(\theta^k\\).
@@ -364,14 +474,55 @@ For \\(X\sim\operatorname{Poisson}(\theta)\\),
 
 $$
 e^\theta\psi(\theta)
-=\sum_{x=0}^{\infty}T(x)\frac{\theta^x}{x!}.
+=
+\sum_{x=0}^{\infty}
+T(x)\frac{\theta^x}{x!}.
 $$
 
-Under integrability for every positive \\(\theta\\), the series has infinite radius of convergence, giving the entire-function condition and the coefficient identity
+Integrability of \\(T\\) for every \\(\theta>0\\) means
 
 $$
-T(x)=\left.\frac{d^x}{dz^x}\bigl(e^z\psi(z)\bigr)\right\rvert_{z=0}.
+\operatorname{E}_\theta[\lvert T(X)\rvert]
+=
+e^{-\theta}
+\sum_{x=0}^{\infty}
+\frac{\lvert T(x)\rvert}{x!}\theta^x
+<
+\infty.
 $$
+
+Thus the corresponding power series converges absolutely for every positive \\(\theta\\), so its radius of convergence is infinite. Therefore
+
+$$
+F(z)=e^z\psi(z)
+$$
+
+extends to an entire function with coefficients
+
+$$
+a_x=\frac{T(x)}{x!}.
+$$
+
+Power-series coefficients are unique and satisfy
+
+$$
+a_x=\frac{F^{(x)}(0)}{x!},
+$$
+
+hence
+
+$$
+\boxed{
+T(x)=F^{(x)}(0)
+=
+\left.
+\frac{\mathrm d^x}{\mathrm dz^x}
+\bigl(e^z\psi(z)\bigr)
+\right\rvert_{z=0}.
+}
+$$
+
+Conversely, if \\(F(z)=\sum\_{x\ge0}a_xz^x\\) is entire and \\(T(x)=x!a_x\\), absolute convergence gives \\(\operatorname{E}\_\theta[\lvert T(X)\rvert]<\infty\\) for every \\(\theta>0\\). Thus the entire condition both constructs the estimator and guarantees that its expectation exists.
 
 For one exponential observation with mean \\(\theta\\), uniqueness is obtained from
 
@@ -438,6 +589,48 @@ Canonical sufficient statistics from the lecture are
 - uniform endpoint model: \\(M=X\_{(n)}\\).
 
 See [Lecture 4]({{ '/notes/parametric-inference/lecture-04-sufficiency-rao-blackwell-ancillarity/' | relative_url }}).
+
+### Functions of sufficient statistics and minimal sufficiency
+
+If \\(S\\) is sufficient and \\(U=g(S)\\) with \\(g\\) one-to-one on the range of \\(S\\), then \\(U\\) is sufficient because \\(S\\) can be recovered from \\(U\\). A many-to-one transformation need not remain sufficient.
+
+A statistic \\(S\_{\min}\\) is minimal sufficient if it is a function of every sufficient statistic:
+
+$$
+\boxed{
+S_{\min}=g(U)
+\quad
+\text{for every sufficient statistic }U.
+}
+$$
+
+Thus two minimal sufficient statistics are equivalent up to one-to-one transformations on their ranges.
+
+### Law of total variance
+
+For square-integrable \\(T\\) and any statistic \\(U\\),
+
+$$
+\boxed{
+\operatorname{Var}(T)
+=
+\operatorname{Var}\!\bigl(\operatorname{E}[T\mid U]\bigr)
++
+\operatorname{E}\!\bigl[\operatorname{Var}(T\mid U)\bigr].
+}
+$$
+
+It follows from the decomposition
+
+$$
+T-\operatorname{E}[T]
+=
+\bigl(T-\operatorname{E}[T\mid U]\bigr)
++
+\bigl(\operatorname{E}[T\mid U]-\operatorname{E}[T]\bigr),
+$$
+
+whose cross term has expectation zero. This identity is the variance form underlying Rao–Blackwell improvement. See [Lecture 4]({{ '/notes/parametric-inference/lecture-04-sufficiency-rao-blackwell-ancillarity/' | relative_url }}).
 
 ### Rao–Blackwell theorem
 
@@ -597,28 +790,172 @@ $$
 
 Polynomial, power-series, Laplace-transform, and absolute-continuity uniqueness arguments respectively prove completeness. See [Lecture 5]({{ '/notes/parametric-inference/lecture-05-completeness-exponential-families-basu/' | relative_url }}).
 
+### Exponential sums and uniform order statistics
+
+If
+
+$$
+X_1,\ldots,X_n
+\overset{\mathrm{iid}}{\sim}
+\operatorname{Exp}(\text{mean }\theta),
+$$
+
+then
+
+$$
+\boxed{
+S=\sum_{i=1}^nX_i
+\sim
+\operatorname{Gamma}(n,\text{scale }\theta).
+}
+$$
+
+Its density is
+
+$$
+f_S(s)
+=
+\frac{s^{n-1}e^{-s/\theta}}
+{\Gamma(n)\theta^n},
+\qquad
+s>0.
+$$
+
+For iid \\(X_i\sim\operatorname{Uniform}(0,\theta)\\), let
+
+$$
+X_{(1)}=\min_iX_i,
+\qquad
+X_{(n)}=\max_iX_i.
+$$
+
+For \\(0<x<\theta\\),
+
+$$
+\boxed{
+F_{X_{(n)}}(x)
+=
+\left(\frac{x}{\theta}\right)^n,
+\qquad
+f_{X_{(n)}}(x)
+=
+\frac{n x^{n-1}}{\theta^n}.
+}
+$$
+
+Similarly,
+
+$$
+\boxed{
+F_{X_{(1)}}(x)
+=
+1-
+\left(1-\frac{x}{\theta}\right)^n,
+\qquad
+f_{X_{(1)}}(x)
+=
+\frac{n(\theta-x)^{n-1}}{\theta^n}.
+}
+$$
+
+Equivalently,
+
+$$
+\frac{X_{(n)}}{\theta}\sim\operatorname{Beta}(n,1),
+\qquad
+\frac{X_{(1)}}{\theta}\sim\operatorname{Beta}(1,n).
+$$
+
+For completeness of \\(M=X\_{(n)}\\), if
+
+$$
+\int_0^\theta g(m)m^{n-1}\,\mathrm dm=0
+\qquad
+\text{for every }\theta>0,
+$$
+
+define
+
+$$
+H(\theta)=\int_0^\theta g(m)m^{n-1}\,\mathrm dm.
+$$
+
+Then \\(H\equiv0\\), while absolute continuity gives
+
+$$
+H'(\theta)=g(\theta)\theta^{n-1}
+$$
+
+for almost every \\(\theta>0\\). Since \\(\theta^{n-1}>0\\),
+
+$$
+g(\theta)=0
+$$
+
+almost everywhere. This proves completeness of the maximum. See [Lecture 5]({{ '/notes/parametric-inference/lecture-05-completeness-exponential-families-basu/' | relative_url }}).
+
 ### Full natural exponential families
 
-For a natural exponential family
+For a one-parameter natural exponential family
 
 $$
 f_\eta(x)
-=h(x)\exp\lbrace \eta^\top T(x)-A(\eta)\rbrace ,
+=
+h(x)\exp\lbrace \eta T(x)-A(\eta)\rbrace ,
 $$
 
-if the natural parameter space contains a nonempty open set and
+an iid sample has canonical statistic
 
 $$
-\operatorname{E}_\eta[g(T)]=0
+S=\sum_{i=1}^nT(X_i).
 $$
 
-throughout that set, then
+The induced density of \\(S\\) can be written in the form
 
 $$
-\int g(T(x))h(x)e^{\eta^\top T(x)}\,\mathrm dx=0.
+f_{S,\eta}(s)
+=
+q(s)e^{\eta s-nA(\eta)},
 $$
 
-The left side is a multivariate Laplace transform. Uniqueness of that transform implies \\(g(T)=0\\) almost surely, establishing completeness under the stated full-family conditions. See [Lecture 5]({{ '/notes/parametric-inference/lecture-05-completeness-exponential-families-basu/' | relative_url }}).
+where \\(q(s)\\) does not depend on \\(\eta\\).
+
+If \\(S\\) is integrable against a function \\(g\\) and
+
+$$
+\operatorname{E}_\eta[g(S)]=0
+\qquad
+\text{for every }\eta
+$$
+
+through a nonempty open interval of natural-parameter values, then
+
+$$
+\int
+g(s)q(s)e^{\eta s}\,\mathrm ds
+=
+0
+$$
+
+throughout that interval. Choosing an interior point \\(\eta_0\\) and writing \\(\eta=\eta_0+t\\),
+
+$$
+\int
+\bigl[g(s)q(s)e^{\eta_0s}\bigr]e^{ts}
+\,\mathrm ds
+=
+0
+$$
+
+for all sufficiently small positive and negative \\(t\\). This is a bilateral Laplace transform. Uniqueness of the transform implies
+
+$$
+g(s)q(s)=0
+$$
+
+almost everywhere, so \\(g(S)=0\\) almost surely. Thus \\(S\\) is complete.
+
+For a \\(k\\)-parameter full natural exponential family, the same idea uses the multivariate transform and requires the natural parameter space to contain a nonempty open subset of \\(\mathbb R^k\\). See [Lecture 5]({{ '/notes/parametric-inference/lecture-05-completeness-exponential-families-basu/' | relative_url }}).
 
 ### Exponential-family form
 
@@ -863,38 +1200,186 @@ The lecture separates the following statements:
 
 See [Lecture 6]({{ '/notes/parametric-inference/lecture-06-lehmann-scheffe-umvue-consistency/' | relative_url }}).
 
-### Consistency of UMVUE sequences
+### Consistency and rates of convergence
 
 Weak consistency for \\(\psi(\theta)\\) means
 
 $$
-T_n\xrightarrow{P_\theta}\psi(\theta).
+T_n\xrightarrow{P_\theta}\psi(\theta),
 $$
 
-If a one-observation unbiased estimator \\(U(X_1)\\) exists with finite variance and \\(T_n\\) is a UMVUE based on \\(n\\) iid observations, then
+or equivalently, for every \\(\varepsilon>0\\),
+
+$$
+\Pr_\theta
+\left(
+\lvert T_n-\psi(\theta)\rvert>\varepsilon
+\right)
+\longrightarrow0.
+$$
+
+A useful sufficient condition is
+
+$$
+\operatorname{E}_\theta[T_n]\to\psi(\theta)
+\qquad\text{and}\qquad
+\operatorname{Var}_\theta(T_n)\to0.
+$$
+
+Indeed,
+
+$$
+\operatorname{E}_\theta
+\left[
+\bigl(T_n-\psi(\theta)\bigr)^2
+\right]
+=
+\operatorname{Var}_\theta(T_n)
++
+\bigl(\operatorname{E}_\theta[T_n]-\psi(\theta)\bigr)^2
+\to0.
+$$
+
+Thus \\(T_n\to\psi(\theta)\\) in \\(L^2\\), hence in probability. Exact unbiasedness for every \\(n\\) is stronger than needed; asymptotic unbiasedness suffices together with vanishing variance.
+
+Strong consistency means
+
+$$
+\boxed{
+T_n\xrightarrow{\mathrm{a.s.}}\psi(\theta).
+}
+$$
+
+Mean-square consistency means
+
+$$
+\boxed{
+\operatorname{E}_\theta
+\left[
+\bigl(T_n-\psi(\theta)\bigr)^2
+\right]
+\to0.
+}
+$$
+
+More generally, \\(L^p\\)-consistency means
+
+$$
+\operatorname{E}_\theta
+\left[
+\lvert T_n-\psi(\theta)\rvert^p
+\right]
+\to0.
+$$
+
+The stochastic-order notation
+
+$$
+Y_n=O_P(1)
+$$
+
+means that \\(Y_n\\) is bounded in probability, while
+
+$$
+Y_n=o_P(1)
+$$
+
+means \\(Y_n\xrightarrow{P}0\\).
+
+Root-\\(n\\) consistency means
+
+$$
+\boxed{
+\sqrt n\,
+\bigl(T_n-\psi(\theta)\bigr)
+=
+O_P(1),
+}
+$$
+
+equivalently,
+
+$$
+T_n-\psi(\theta)
+=
+O_P(n^{-1/2}).
+$$
+
+It gives a convergence rate and therefore implies weak consistency. It is weaker than a specific asymptotic distribution. If
+
+$$
+\sqrt n\,
+\bigl(T_n-\psi(\theta)\bigr)
+\xrightarrow{d}
+N(0,V(\theta)),
+$$
+
+then root-\\(n\\) consistency follows automatically.
+
+More generally, \\(a_n\\)-rate consistency is expressed by
+
+$$
+a_n
+\bigl(T_n-\psi(\theta)\bigr)
+=
+O_P(1),
+\qquad
+a_n\to\infty.
+$$
+
+For iid data with finite variance,
+
+$$
+\sqrt n(\bar X-\mu)
+\xrightarrow{d}N(0,\sigma^2),
+$$
+
+so \\(\bar X\\) is root-\\(n\\) consistent.
+
+For the nonregular endpoint model \\(X_i\sim\operatorname{Uniform}(0,\theta)\\),
+
+$$
+n(\theta-X_{(n)})
+$$
+
+has a nondegenerate limit with survival function
+
+$$
+\Pr(Y>y)=e^{-y/\theta},
+\qquad
+y>0.
+$$
+
+Thus
+
+$$
+X_{(n)}-\theta=O_P(n^{-1}),
+$$
+
+showing that root-\\(n\\) is not the only possible parametric rate.
+
+Pointwise consistency is for each fixed \\(\theta\\). Uniform consistency requires
+
+$$
+\boxed{
+\sup_{\theta\in\Theta}
+\Pr_\theta
+\left(
+\lvert T_n-\psi(\theta)\rvert>\varepsilon
+\right)
+\to0.
+}
+$$
+
+If a one-observation unbiased estimator \\(U(X_1)\\) exists with finite variance and \\(T_n\\) is the UMVUE based on \\(n\\) iid observations, then
 
 $$
 \operatorname{Var}_\theta(T_n)
 \le
-\frac{\operatorname{Var}_\theta(U(X_1))}{n}.
+\frac{\operatorname{Var}_\theta(U(X_1))}{n},
 $$
 
-Therefore
-
-$$
-\operatorname{MSE}_\theta(T_n)
-=
-\operatorname{Var}_\theta(T_n)
-\to0,
-$$
-
-and Chebyshev's inequality gives
-
-$$
-T_n\xrightarrow{P_\theta}\psi(\theta).
-$$
-
-See [Lecture 6]({{ '/notes/parametric-inference/lecture-06-lehmann-scheffe-umvue-consistency/' | relative_url }}).
+so \\(T_n\\) is mean-square and weakly consistent. See [Lecture 6]({{ '/notes/parametric-inference/lecture-06-lehmann-scheffe-umvue-consistency/' | relative_url }}).
 
 ## 8. Lecture 7 — Hypothesis testing and likelihood ratios
 
@@ -966,6 +1451,34 @@ $$
 $$
 
 The Neyman–Pearson most powerful level-\\(\alpha\\) test rejects for large \\(\Lambda(x)\\), with possible randomization on the boundary.
+
+For the restricted two-point model
+
+$$
+\Theta=\lbrace\theta_0,\theta_1\rbrace ,
+$$
+
+the likelihood ratio \\(\Lambda(X)\\) is itself sufficient. Indeed,
+
+$$
+f_\theta(x)
+=
+f_{\theta_0}(x)
+\begin{cases}
+1, & \theta=\theta_0,\\
+\Lambda(x), & \theta=\theta_1,
+\end{cases}
+$$
+
+which is a factorisation through \\(\Lambda(x)\\).
+
+The source also considers the pure likelihood-comparison rule
+
+$$
+\Lambda(x)>1,
+$$
+
+which chooses \\(H_1\\) whenever the observed data are more likely under \\(\theta_1\\) than under \\(\theta_0\\). This is **not** the same as a prescribed level-\\(\alpha\\) Neyman–Pearson test unless its induced Type I error happens to equal the desired level. For level \\(\alpha\\), the threshold is chosen as \\(c\_\alpha\\), not necessarily \\(1\\). See [Lecture 7]({{ '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url }}).
 
 Let \\(\Phi\\) denote the standard normal cdf and \\(z_q=\Phi^{-1}(q)\\) its \\(q\\)th quantile. For \\(X\sim N(\theta,1)\\) and \\(\theta_1>\theta_0\\),
 
@@ -1159,32 +1672,59 @@ v_n\left(
 \right).
 $$
 
-### Cauchy reciprocal-polynomial conjugacy
+### Cauchy reciprocal-polynomial conjugate family
 
-For the Cauchy location likelihood
+For the Cauchy location model
 
 $$
 f(x\mid\theta)
 =
-\frac{1}{\pi\left\lbrace 1+(x-\theta)^2\right\rbrace},
+\frac{1}{\pi\lbrace1+(x-\theta)^2\rbrace},
 $$
 
-let \\(\pi_p(\theta)=1/p(\theta)\\), where \\(p\\) is a strictly positive polynomial and \\(1/p\\) is normalized to integrate to \\(1\\). After observing \\(X=x\\),
+the source considers prior densities of the form
+
+$$
+\boxed{
+\pi_p(\theta)=\frac{1}{p(\theta)},
+}
+$$
+
+where \\(p\\) is a real polynomial satisfying
+
+$$
+p(\theta)>0
+\qquad
+\text{for every }\theta\in\mathbb R
+$$
+
+and
+
+$$
+\int_{\mathbb R}
+\frac{1}{p(\theta)}
+\,\mathrm d\theta
+=
+1.
+$$
+
+More generally, any strictly positive reciprocal polynomial with finite positive integral can be normalized.
+
+After one observation \\(x\\),
 
 $$
 \pi_p(\theta\mid x)
-=
-\frac{1}
-{\pi Z_p(x)\,p(\theta)\left\lbrace 1+(x-\theta)^2\right\rbrace}
-=
-\frac{1}{q_x(\theta)},
+\propto
+\frac{1}{
+p(\theta)\lbrace1+(x-\theta)^2\rbrace
+}.
 $$
 
-where \\(q_x\\) is again a strictly positive polynomial whose reciprocal integrates to \\(1\\). Thus the reciprocal-polynomial family is conjugate; for an iid sample, the denominator acquires the factor
+The new denominator is again a strictly positive polynomial, so the posterior remains in the same reciprocal-polynomial family. For iid observations, the denominator is multiplied by one positive quadratic factor for each observation.
 
-$$
-\prod_{i=1}^{n}\left\lbrace 1+(x_i-\theta)^2\right\rbrace.
-$$
+The ordinary fixed two-parameter Cauchy family is not closed under this update. The conjugate family intended by the source is the larger reciprocal-polynomial class.
+
+A second important fact is that the class of **all proper densities** on the parameter space is formally a conjugate family for any likelihood model whenever updating produces a proper posterior. This is mathematically true but computationally unhelpful; useful conjugate families are much smaller structured subclasses. See [Lecture 8]({{ '/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/' | relative_url }}).
 
 ### Sufficiency and the posterior
 
@@ -1229,6 +1769,128 @@ $$
 $$
 
 See [Lecture 8]({{ '/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/' | relative_url }}).
+
+### Minimax risk, equalizer rules, and admissibility
+
+For a fixed rule \\(\delta\\),
+
+$$
+R(\theta,\delta)
+$$
+
+is generally a function of \\(\theta\\), whereas
+
+$$
+\boxed{
+M(\delta)
+=
+\sup_{\theta\in\Theta}
+R(\theta,\delta)
+}
+$$
+
+is a single worst-case number.
+
+The minimax value is
+
+$$
+\boxed{
+R^{\star}
+=
+\inf_\delta
+\sup_{\theta\in\Theta}
+R(\theta,\delta).
+}
+$$
+
+For any proper prior \\(\pi\\),
+
+$$
+\begin{aligned}
+r_\pi(\delta)
+&=
+\int_\Theta
+R(\theta,\delta)\pi(\theta)\,\mathrm d\theta\\
+&\le
+\sup_{\theta\in\Theta}R(\theta,\delta).
+\end{aligned}
+$$
+
+Consequently, if
+
+$$
+r_\pi^{\star}
+=
+\inf_\delta r_\pi(\delta),
+$$
+
+then
+
+$$
+\boxed{
+r_\pi^{\star}\le R^{\star}.
+}
+$$
+
+Thus minimum Bayes risks are lower bounds on the minimax value.
+
+An **equalizer rule** has constant risk,
+
+$$
+R(\theta,\delta)=c
+\qquad
+\text{for every }\theta.
+$$
+
+Constant risk by itself does not prove minimaxity. Two standard sufficient conditions are
+
+$$
+\boxed{
+\text{Bayes}+\text{equalizer}
+\Longrightarrow
+\text{minimax},
+}
+$$
+
+and
+
+$$
+\boxed{
+\text{admissible}+\text{equalizer}
+\Longrightarrow
+\text{minimax}.
+}
+$$
+
+A rule \\(\delta_1\\) dominates \\(\delta_0\\) if
+
+$$
+R(\theta,\delta_1)
+\le
+R(\theta,\delta_0)
+\quad
+\text{for every }\theta,
+$$
+
+with strict inequality somewhere. A rule is **admissible** if it is not dominated.
+
+A least favourable prior, when it exists, maximizes the minimum Bayes risk:
+
+$$
+r_{\pi^\star}^{\star}
+=
+\sup_\pi r_\pi^{\star}.
+$$
+
+If a Bayes rule \\(\delta^\star\\) satisfies
+
+$$
+r_{\pi^\star}(\delta^\star)
+=
+\sup_\theta R(\theta,\delta^\star),
+$$
+
+then the Bayes lower bound and the rule's worst-case upper bound coincide, proving that \\(\delta^\star\\) is minimax. See [Lecture 8]({{ '/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/' | relative_url }}).
 
 ## 10. Useful distributional identities
 

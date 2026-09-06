@@ -8,19 +8,21 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Develops completeness in standard models, derives sufficient statistics in one- and multiparameter exponential families, and proves and applies Basu’s theorem."
+description: "Develops completeness in standard models, derives order-statistic and gamma identities used in the proofs, proves completeness for full one- and multiparameter exponential families using ordinary integral transforms, and proves and applies Basu’s theorem."
 topics:
   - "completeness"
   - "exponential families"
   - "natural parameter space"
   - "complete sufficient statistics"
+  - "uniform order statistics"
+  - "Laplace-transform completeness"
   - "uniform endpoints"
   - "Basu’s theorem"
 previous: "lecture-04-sufficiency-rao-blackwell-ancillarity"
 next: "lecture-06-lehmann-scheffe-umvue-consistency"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-05-completeness-exponential-families-basu/
@@ -51,7 +53,7 @@ This section was added to make the lecture easier to use as a self-contained stu
 </div>
 
 - State completeness as an injectivity property of the expectation operator.
-- Prove completeness for the standard binomial, Poisson, exponential, and uniform statistics.
+- Prove completeness for the standard binomial, Poisson, exponential, and uniform statistics, including the distributional calculations needed in those proofs.
 - Understand why continuity is unnecessary in the uniform proof.
 - Apply the full natural exponential-family completeness theorem with its required conditions.
 - Put one- and multiparameter models into natural exponential-family form.
@@ -191,7 +193,38 @@ is complete.
 
 **Proof.**
 
-The density of \\(S\\) is gamma:
+First derive the distribution of the sum. For one exponential observation with mean \\(\theta\\),
+
+$$
+M_X(t)
+=
+\operatorname{E}[e^{tX}]
+=
+\frac{1}{1-\theta t},
+\qquad t<\frac1\theta.
+$$
+
+By independence,
+
+$$
+M_S(t)
+=
+\prod_{i=1}^n M_{X_i}(t)
+=
+(1-\theta t)^{-n}.
+$$
+
+This is the moment-generating function of a gamma random variable with shape \\(n\\) and scale \\(\theta\\). Therefore
+
+$$
+\boxed{
+S=\sum_{i=1}^nX_i
+\sim
+\operatorname{Gamma}(n,\text{scale }\theta).
+}
+$$
+
+Its density is
 
 $$
 f_{S,\theta}(s)
@@ -223,7 +256,117 @@ Since \\(s^{n-1}>0\\) for \\(s>0\\), \\(g(s)=0\\) almost everywhere.
 
 \\(\square\\)
 
-## 5. Completeness of the uniform maximum
+## 5. Distribution of the minimum and maximum for \\(U(0,\theta)\\)
+
+The uniform completeness argument uses the sample maximum, so it is useful to derive the order-statistic distributions explicitly.
+
+### Worked Example 5.1 — Minimum and maximum of an iid uniform sample
+
+Let
+
+$$
+X_1,\ldots,X_n
+\overset{\mathrm{iid}}{\sim}
+\operatorname{Uniform}(0,\theta),
+$$
+
+and define
+
+$$
+X_{(1)}=\min_iX_i,
+\qquad
+X_{(n)}=\max_iX_i.
+$$
+
+**Maximum.** For \\(0<m<\theta\\),
+
+$$
+\begin{aligned}
+F_{X_{(n)}}(m)
+&=\Pr(X_{(n)}\le m)\\
+&=\Pr(X_1\le m,\ldots,X_n\le m)\\
+&=\prod_{i=1}^n\Pr(X_i\le m)\\
+&=\left(\frac{m}{\theta}\right)^n.
+\end{aligned}
+$$
+
+Thus
+
+$$
+F_{X_{(n)}}(m)
+=
+\begin{cases}
+0, & m\le0,\\
+(m/\theta)^n, & 0<m<\theta,\\
+1, & m\ge\theta,
+\end{cases}
+$$
+
+and differentiating on \\((0,\theta)\\) gives
+
+$$
+\boxed{
+f_{X_{(n)}}(m)
+=
+\frac{nm^{n-1}}{\theta^n},
+\qquad 0<m<\theta.
+}
+$$
+
+Equivalently,
+
+$$
+\frac{X_{(n)}}{\theta}
+\sim
+\operatorname{Beta}(n,1).
+$$
+
+**Minimum.** It is easiest to begin with the survival probability. For \\(0<m<\theta\\),
+
+$$
+\begin{aligned}
+\Pr(X_{(1)}>m)
+&=\Pr(X_1>m,\ldots,X_n>m)\\
+&=\left(1-\frac{m}{\theta}\right)^n.
+\end{aligned}
+$$
+
+Hence
+
+$$
+F_{X_{(1)}}(m)
+=
+1-\left(1-\frac{m}{\theta}\right)^n,
+\qquad 0<m<\theta,
+$$
+
+and
+
+$$
+\boxed{
+f_{X_{(1)}}(m)
+=
+\frac{n}{\theta}
+\left(1-\frac{m}{\theta}\right)^{n-1}
+=
+\frac{n(\theta-m)^{n-1}}{\theta^n},
+\qquad 0<m<\theta.
+}
+$$
+
+Equivalently,
+
+$$
+\frac{X_{(1)}}{\theta}
+\sim
+\operatorname{Beta}(1,n).
+$$
+
+**Final result.**
+
+The maximum has density proportional to \\(m^{n-1}\\), while the minimum has density proportional to \\((\theta-m)^{n-1}\\). These two formulas will repeatedly appear in endpoint-estimation problems.
+
+## 6. Completeness of the uniform maximum
 
 <div class="theorem" markdown="1">
 
@@ -254,17 +397,51 @@ $$
 \qquad\text{for every }\theta>0.
 $$
 
-The left side is an absolutely continuous function of \\(\theta\\). Differentiating almost everywhere gives
+Define
 
 $$
-g(\theta)\theta^{n-1}=0.
+H(\theta)
+=
+\int_0^\theta g(m)m^{n-1}\,\mathrm dm.
 $$
 
-Hence \\(g(\theta)=0\\) for almost every \\(\theta>0\\), proving completeness.
+The preceding equation says
+
+$$
+H(\theta)=0
+\qquad
+\text{for every }\theta>0.
+$$
+
+Thus \\(H\\) is the constant-zero function. Because \\(g(m)m^{n-1}\\) is locally integrable, \\(H\\) is absolutely continuous. The fundamental theorem of calculus for such integrals gives
+
+$$
+H'(\theta)
+=
+g(\theta)\theta^{n-1}
+$$
+
+for almost every \\(\theta>0\\). But \\(H(\theta)\equiv0\\), so \\(H'(\theta)=0\\) wherever the derivative exists. Therefore
+
+$$
+g(\theta)\theta^{n-1}=0
+\qquad\text{for almost every }\theta>0.
+$$
+
+Since \\(\theta^{n-1}>0\\) for every \\(\theta>0\\),
+
+$$
+\boxed{
+g(\theta)=0
+\quad\text{for almost every }\theta>0.
+}
+$$
+
+Renaming the dummy variable \\(\theta\\) as \\(m\\) gives the desired conclusion \\(g(m)=0\\) almost everywhere on the support of the maximum. Hence \\(g(M)=0\\) almost surely for every parameter value, proving completeness.
 
 \\(\square\\)
 
-## 6. Exponential families: structure and sufficient statistics
+## 7. Exponential families: structure and sufficient statistics
 
 The new handwritten material develops exponential families explicitly. It is useful to place that material here because exponential-family structure explains both sufficiency and many completeness results.
 
@@ -340,7 +517,7 @@ is sufficient for \\(\theta\\).
 
 </div>
 
-### Worked Example 5.1 — Binomial distribution as an exponential family
+### Worked Example 5.2 — Binomial distribution as an exponential family
 
 For
 
@@ -379,7 +556,7 @@ $$
 
 and the natural parameter space is all of \\(\mathbb R\\).
 
-### Worked Example 5.2 — Poisson distribution as an exponential family
+### Worked Example 5.3 — Poisson distribution as an exponential family
 
 For
 
@@ -405,7 +582,7 @@ T(x)=x,
 \eta=\log\theta\in\mathbb R.
 $$
 
-### Worked Example 5.3 — Normal location with known variance
+### Worked Example 5.4 — Normal location with known variance
 
 Let
 
@@ -450,7 +627,7 @@ shows that the correct sign is positive.
 
 </div>
 
-### Worked Example 5.4 — Gamma scale family with known shape
+### Worked Example 5.5 — Gamma scale family with known shape
 
 Suppose
 
@@ -491,7 +668,7 @@ $$
 
 For an iid sample, \\(\sum_iX_i\\) is sufficient. Since \\((-\infty,0)\\) contains a nonempty open interval, the full-family completeness theorem applies as well.
 
-## 7. Completeness in full exponential families
+## 8. Completeness in full exponential families
 
 The natural parameter space is the set of all \\(\eta\\) for which the normalising integral is finite:
 
@@ -499,9 +676,13 @@ $$
 \mathcal N
 =
 \left\lbrace \eta:
-\int h(x)e^{\eta T(x)}\,\mathrm d\mu(x)<\infty
-\right\rbrace .
+\int_{\mathcal X} h(x)e^{\eta T(x)}\,\mathrm dx<\infty
+\right\rbrace
+
+
 $$
+
+For a discrete model, the corresponding normalising condition is the same statement with the integral replaced by a sum over the support.
 
 <div class="theorem" markdown="1">
 
@@ -516,30 +697,105 @@ is complete, provided the relevant expectations exist.
 
 </div>
 
-**Proof idea.**
+**Proof.**
 
-If
+We give the continuous version using ordinary integrals. The discrete proof is the same argument with sums.
+
+Because the joint density of the iid sample is
+
+$$
+\left(\prod_{i=1}^nh(x_i)\right)
+\exp\left\lbrace
+\eta\sum_{i=1}^nT(x_i)-nA(\eta)
+\right\rbrace,
+$$
+
+the density of
+
+$$
+S=\sum_{i=1}^nT(X_i)
+$$
+
+has the form
+
+$$
+\boxed{
+f_{S,\eta}(s)
+=
+q(s)e^{\eta s-nA(\eta)},
+}
+$$
+
+where \\(q(s)\\) does not depend on \\(\eta\\). The exact expression for \\(q\\) is usually unnecessary.
+
+Assume
 
 $$
 \operatorname{E}_\eta[g(S)]=0
-\qquad\text{for every }\eta\in\mathcal N,
+\qquad
+\text{for every }\eta\in\mathcal N,
 $$
 
-then after multiplying by the normalising factor one obtains a Laplace-transform identity
+with \\(\operatorname{E}\_\eta[\lvert g(S)\rvert]<\infty\\). Then
 
 $$
-\int g(s)e^{\eta s}\,\nu(\mathrm ds)=0
+\begin{aligned}
+0
+&=\int g(s)f_{S,\eta}(s)\,\mathrm ds\\
+&=e^{-nA(\eta)}
+\int g(s)q(s)e^{\eta s}\,\mathrm ds.
+\end{aligned}
 $$
 
-on an open interval of \\(\eta\\)-values. Uniqueness of the Laplace transform implies that the signed measure
+Since the normalising factor is positive,
 
 $$
-g(s)\nu(\mathrm ds)
+\int g(s)q(s)e^{\eta s}\,\mathrm ds
+=0
+\qquad
+\text{for every }\eta\in\mathcal N.
 $$
 
-is zero. Hence \\(g(S)=0\\) almost surely.
+Choose an interior point \\(\eta_0\\) of an open interval contained in \\(\mathcal N\\). Then there is \\(\varepsilon>0\\) such that \\(\eta_0+t\in\mathcal N\\) whenever \\(\lvert t\rvert<\varepsilon\\). Hence
 
-The same idea extends to several natural parameters.
+$$
+\int
+\left[g(s)q(s)e^{\eta_0s}\right]e^{ts}\,\mathrm ds
+=0
+\qquad
+\text{for every }\lvert t\rvert<\varepsilon.
+$$
+
+Define
+
+$$
+h_0(s)=g(s)q(s)e^{\eta_0s}.
+$$
+
+The preceding integral is the bilateral Laplace transform of \\(h_0\\). By uniqueness of the Laplace transform, a transform that is zero on a nonempty open interval forces
+
+$$
+h_0(s)=0
+$$
+
+for almost every \\(s\\). Because \\(e^{\eta_0s}>0\\), and \\(q(s)>0\\) on the support of \\(S\\),
+
+$$
+g(s)=0
+$$
+
+for almost every \\(s\\) in that support. Therefore
+
+$$
+g(S)=0
+\quad\text{almost surely},
+$$
+
+which proves completeness.
+
+\\(\square\\)
+
+The open-interval condition is doing real work: it gives a whole interval of transform values, not merely one isolated equation.
 
 <div class="theorem" markdown="1">
 
@@ -572,7 +828,7 @@ is complete under the usual integrability conditions.
 
 A \\(k\\)-dimensional rectangle contained in \\(\mathcal N\\) is a convenient sufficient condition, but the essential requirement is a nonempty open subset of the full \\(k\\)-dimensional natural parameter space.
 
-### Worked Example 5.5 — Normal family with both mean and variance unknown
+### Worked Example 5.6 — Normal family with both mean and variance unknown
 
 Let
 
@@ -644,7 +900,7 @@ The equivalent statistic \\((\bar X,\sum_i(X_i-\bar X)^2)\\) is also sufficient 
 
 </div>
 
-### Worked Example 5.6 — Multinomial family
+### Worked Example 5.7 — Multinomial family
 
 Let
 
@@ -698,7 +954,7 @@ $$
 
 As \\((p_1,\ldots,p\_{k+1})\\) ranges over the interior of the probability simplex, \\(\eta\\) ranges over all of \\(\mathbb R^k\\). Thus the corresponding count vector is complete for the full multinomial family.
 
-## 8. Power-series families
+## 9. Power-series families
 
 The handwritten notes also isolate a useful discrete family:
 
@@ -751,9 +1007,9 @@ which has nonempty interior, so \\(S\\) is complete.
 
 This framework includes many familiar count distributions as special cases.
 
-## 9. A complete sufficient statistic outside the regular exponential-family template
+## 10. A complete sufficient statistic outside the regular exponential-family template
 
-### Worked Example 5.7 — Uniform distribution with both endpoints unknown
+### Worked Example 5.8 — Uniform distribution with both endpoints unknown
 
 Let
 
@@ -800,74 +1056,58 @@ $$
 \text{for every }\phi<\psi.
 $$
 
-Then
+After removing the positive normalising constant, this means
 
 $$
-\int_{\phi<u<v<\psi}
-g(u,v)(v-u)^{n-2}\,\mathrm du\,\mathrm dv
-=
-0
+F(\phi,\psi)
+:=
+\int_{\phi}^{\psi}
+\int_{u}^{\psi}
+ g(u,v)(v-u)^{n-2}
+\,\mathrm dv\,\mathrm du
+=0
 \qquad
 \text{for every }\phi<\psi.
 $$
 
-Define the signed measure
+Fix \\(\phi\\). Under the integrability assumption, \\(F(\phi,\psi)\\) is absolutely continuous as a function of \\(\psi\\). Differentiating with respect to \\(\psi\\) gives, for almost every \\(\psi>\phi\\),
 
 $$
-\mu(A)
+\frac{\partial F}{\partial\psi}(\phi,\psi)
 =
-\int_A
-g(u,v)(v-u)^{n-2}\,\mathrm du\,\mathrm dv
+\int_{\phi}^{\psi}
+ g(u,\psi)(\psi-u)^{n-2}
+\,\mathrm du
+=0.
 $$
 
-on the region \\(\lbrace u<v\rbrace \\). The preceding identity says
+Now fix such a \\(\psi\\) and regard the last integral as a function of its lower limit \\(\phi\\). Differentiating with respect to \\(\phi\\) gives
 
 $$
-\mu\lbrace (u,v):a<u<v<b\rbrace =0
+-\,g(\phi,\psi)(\psi-\phi)^{n-2}=0
 $$
 
-for every \\(a<b\\).
-
-Now choose
+for almost every pair \\(\phi<\psi\\). Since
 
 $$
-a<c<d<b.
+(\psi-\phi)^{n-2}>0
+\qquad
+\text{whenever }\phi<\psi,
 $$
 
-By taking the combination
+we conclude that
 
 $$
-\mu\Delta(a,b)
--\mu\Delta(a,d)
--\mu\Delta(c,b)
-+\mu\Delta(c,d),
+g(\phi,\psi)=0
 $$
 
-where
-
-$$
-\Delta(r,s)=\lbrace (u,v):r<u<v<s\rbrace ,
-$$
-
-we obtain
-
-$$
-\mu\bigl((a,c]\times[d,b)\bigr)=0.
-$$
-
-Such separated rectangles generate the Borel sets in the open region \\(\lbrace u<v\rbrace \\). Therefore \\(\mu\\) is the zero signed measure, and
-
-$$
-g(u,v)(v-u)^{n-2}=0
-$$
-
-for almost every \\(u<v\\). Since \\((v-u)^{n-2}>0\\) there,
+for almost every \\((\phi,\psi)\\) with \\(\phi<\psi\\). Relabeling \\((\phi,\psi)\\) as generic values \\((u,v)\\) shows
 
 $$
 g(u,v)=0
 $$
 
-almost everywhere.
+almost everywhere on the support of \\((U,V)\\).
 
 Thus
 
@@ -885,7 +1125,7 @@ This is a useful contrast with the location family \\(\operatorname{Uniform}(\th
 
 </div>
 
-## 10. Basu's theorem
+## 11. Basu's theorem
 
 <div class="theorem" markdown="1">
 
@@ -949,7 +1189,7 @@ almost surely for every Borel set \\(B\\), which is exactly independence of \\(A
 
 \\(\square\\)
 
-### Worked Example 5.8 — Normal sample mean and residual sum of squares
+### Worked Example 5.9 — Normal sample mean and residual sum of squares
 
 Let
 
@@ -1038,7 +1278,7 @@ Why does a Laplace-transform identity prove completeness?
 
 **Answer.**
 
-The transform uniquely determines the underlying signed measure under the stated integrability conditions, so a transform that is zero on an open set forces that measure to be zero.
+After centering at an interior natural-parameter value, the expectation identity is a Laplace transform of an integrable function. Uniqueness of the Laplace transform forces that function, and hence the original \\(g\\), to be zero almost everywhere.
 
 **Question.**
 Why should this theorem not be invoked mechanically?
@@ -1059,7 +1299,7 @@ Is \\((X\_{(1)},X\_{(n)})\\) complete for iid \\(\operatorname{Uniform}(\phi,\ps
 
 **Answer.**
 
-Yes, for \\(n\ge2\\). The proof uses the joint density of the minimum and maximum and shows that a signed measure vanishing on all triangular regions must vanish on all separated rectangles and hence everywhere.
+Yes, for \\(n\ge2\\). The proof writes the zero-expectation condition as a double integral over \\(\phi<u<v<\psi\\) and differentiates first with respect to the upper endpoint and then with respect to the lower endpoint, forcing \\(g(u,v)=0\\) almost everywhere.
 
 **Question.**
 Why are \\(\bar X\\) and the residual sum of squares independent in the normal location model with known variance?

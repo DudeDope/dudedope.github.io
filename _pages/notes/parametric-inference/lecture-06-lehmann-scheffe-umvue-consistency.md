@@ -8,19 +8,22 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Proves the Lehmann–Scheffé theorem, constructs UMVUEs across standard models, distinguishes UMVUE and CRLB optimality, and develops weak and mean-square consistency results."
+description: "Proves the Lehmann–Scheffé theorem and its Rao–Blackwell construction form, develops UMVUEs across standard models, and gives an exam-oriented treatment of weak, strong, mean-square, root-n, uniform, and asymptotic consistency concepts."
 topics:
   - "Lehmann–Scheffé theorem"
   - "complete sufficiency"
   - "UMVUE construction"
   - "CRLB versus UMVUE"
-  - "weak consistency"
-  - "mean-square consistency"
+  - "weak and strong consistency"
+  - "mean-square and Lp consistency"
+  - "root-n consistency and stochastic order"
+  - "asymptotic normality"
+  - "uniform consistency"
 previous: "lecture-05-completeness-exponential-families-basu"
 next: "lecture-07-hypothesis-testing-likelihood-ratio"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-06-lehmann-scheffe-umvue-consistency/
@@ -54,7 +57,10 @@ This section was added to make the lecture easier to use as a self-contained stu
 - Construct UMVUEs in Bernoulli, binomial, Poisson, exponential, uniform, and normal models.
 - Use falling-factorial and gamma moments in UMVUE construction.
 - Distinguish unique unbiasedness, UMVUE uniqueness, CRLB attainment, and MSE optimality.
-- Define weak consistency and prove a useful consistency theorem for sequences of UMVUEs.
+- Distinguish weak, strong, mean-square, and \\(L^p\\) consistency.
+- Define stochastic order \\(O_P\\) and \\(o_P\\), root-\\(n\\) consistency, and general convergence rates.
+- Distinguish consistency, rate of consistency, asymptotic unbiasedness, and asymptotic normality.
+- Prove a useful consistency theorem for sequences of UMVUEs.
 
 ## 1. Lehmann–Scheffé theorem and construction principle
 
@@ -97,7 +103,55 @@ for every unbiased \\(U\\) and every \\(\theta\\). Thus \\(h(S)\\) is a UMVUE. U
 \\(\square\\)
 
 > **Key point.**
-> Practical recipe: find a sufficient statistic \\(S\\); prove it is complete; find any unbiased function \\(h(S)\\). Then \\(h(S)\\) is automatically the unique UMVUE.
+> You do **not** need to begin with an unbiased estimator already written as \\(h(S)\\). Start with any unbiased estimator \\(T(X)\\), Rao–Blackwellise it to \\(\operatorname{E}[T\mid S]\\), and then use completeness. The result is the unique UMVUE.
+
+<div class="proposition" markdown="1">
+
+**Equivalent construction form of Lehmann–Scheffé.**
+
+Let \\(S\\) be complete and sufficient for \\(\theta\\). If \\(T(X)\\) is any integrable unbiased estimator of \\(\psi(\theta)\\), then
+
+$$
+\boxed{
+\delta^{\star}(S)
+=
+\operatorname{E}_\theta[T(X)\mid S]
+}
+$$
+
+can be chosen as a function of \\(S\\) that does not depend on the unknown parameter and is the unique UMVUE of \\(\psi(\theta)\\).
+
+</div>
+
+**Why this works.**
+
+Sufficiency ensures that the conditional distribution of the sample given \\(S\\) is parameter-free. Therefore the conditional expectation above is a genuine statistic, say \\(h(S)\\). The tower property gives
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[h(S)]
+&=\operatorname{E}_\theta\left[\operatorname{E}_\theta[T\mid S]\right]\\
+&=\operatorname{E}_\theta[T]\\
+&=\psi(\theta).
+\end{aligned}
+$$
+
+Thus \\(h(S)\\) is unbiased. Rao–Blackwell gives
+
+$$
+\operatorname{Var}_\theta(h(S))
+\le
+\operatorname{Var}_\theta(T),
+$$
+
+and completeness makes the unbiased function of \\(S\\) unique. Hence \\(h(S)\\) is the unique UMVUE.
+
+The original \\(T\\) itself is already the UMVUE only when it is almost surely a function of \\(S\\); equivalently,
+
+$$
+\operatorname{Var}_\theta(T\mid S)=0
+\quad\text{almost surely}.
+$$
 
 ## 2. Binomial and Bernoulli models
 
@@ -141,10 +195,29 @@ Work through the source example “UMVUE of \\(\theta^k\\)” in full.
 
 **Solution.**
 
-For \\(1\le k\le n\\),
+For \\(1\le k\le n\\), begin from the binomial mass function of \\(S\\):
 
 $$
-\operatorname{E}_\theta[(S)_{k}]=(n)_{k}\theta^k.
+\Pr_\theta(S=s)
+=
+\binom ns\theta^s(1-\theta)^{n-s}.
+$$
+
+Then
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[(S)_k]
+&=\sum_{s=k}^{n}
+\frac{s!}{(s-k)!}
+\binom ns
+\theta^s(1-\theta)^{n-s}\\
+&=(n)_k\theta^k
+\sum_{y=0}^{n-k}
+\binom{n-k}{y}
+\theta^y(1-\theta)^{n-k-y}\\
+&=(n)_k\theta^k.
+\end{aligned}
 $$
 
 Therefore
@@ -454,30 +527,29 @@ For \\(n=1\\), \\(X\\) is the unique unbiased estimator of \\(\theta\\); for \\(
 
 3.  In nonregular models, such as \\(\operatorname{Uniform}(0,\theta)\\), the usual CRLB may not apply at all, while Lehmann–Scheffé remains valid.
 
-## 9. Consistency of a sequence of UMVUEs
+## 9. Consistency and asymptotic rates
 
-The new notes introduce weak consistency and give a useful sufficient condition for consistency of UMVUEs.
+Consistency is an asymptotic property of a sequence of estimators \\(T_n=T_n(X_1,\ldots,X_n)\\). It is useful to separate three questions:
+
+1. does \\(T_n\\) converge to the target \\(\psi(\theta)\\)?
+2. in what mode does it converge?
+3. how fast does the estimation error go to zero?
+
+The third question is about **rate**, not a new mode of convergence.
+
+### 9.1 Weak consistency
 
 <div class="definition" markdown="1">
 
 **Definition 6.2 — Weak consistency.**
-Let
 
-$$
-T_n=T_n(X_1,\ldots,X_n)
-$$
-
-estimate \\(\psi(\theta)\\) for each \\(n\\). The sequence \\(\lbrace T_n\rbrace\\) is weakly consistent for \\(\psi(\theta)\\) if
+The sequence \\(T_n\\) is weakly consistent for \\(\psi(\theta)\\) if
 
 $$
 T_n\xrightarrow{P_\theta}\psi(\theta)
-\qquad
-\text{for every }\theta.
 $$
 
-</div>
-
-That is, for every \\(\varepsilon>0\\),
+for every fixed \\(\theta\\). Equivalently, for every \\(\varepsilon>0\\),
 
 $$
 \Pr_\theta\left(
@@ -486,9 +558,446 @@ $$
 \longrightarrow0.
 $$
 
+</div>
+
+<div class="proposition" markdown="1">
+
+**Proposition 6.3 — A standard mean-and-variance criterion.**
+
+If
+
+$$
+\operatorname{E}_\theta[T_n]
+\longrightarrow
+\psi(\theta)
+$$
+
+and
+
+$$
+\operatorname{Var}_\theta(T_n)
+\longrightarrow0,
+$$
+
+then \\(T_n\\) is mean-square consistent and therefore weakly consistent for \\(\psi(\theta)\\).
+
+</div>
+
+**Proof.**
+
+Use the MSE decomposition:
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta\left[
+(T_n-\psi(\theta))^2
+\right]
+&=
+\operatorname{Var}_\theta(T_n)
++
+\left(
+\operatorname{E}_\theta[T_n]-\psi(\theta)
+\right)^2.
+\end{aligned}
+$$
+
+Both terms tend to zero, so
+
+$$
+\operatorname{E}_\theta\left[
+(T_n-\psi(\theta))^2
+\right]
+\to0.
+$$
+
+By Markov's inequality applied to the nonnegative random variable \\((T_n-\psi(\theta))^2\\),
+
+$$
+\Pr_\theta\left(
+\lvert T_n-\psi(\theta)\rvert>\varepsilon
+\right)
+\le
+\frac{
+\operatorname{E}_\theta[(T_n-\psi(\theta))^2]
+}{\varepsilon^2}
+\to0.
+$$
+
+\\(\square\\)
+
+In particular, if \\(T_n\\) is unbiased for every \\(n\\),
+
+$$
+\operatorname{E}_\theta[T_n]=\psi(\theta),
+$$
+
+then the single condition
+
+$$
+\operatorname{Var}_\theta(T_n)\to0
+$$
+
+is enough.
+
+### 9.2 Strong consistency
+
+<div class="definition" markdown="1">
+
+**Definition 6.4 — Strong consistency.**
+
+The sequence \\(T_n\\) is strongly consistent for \\(\psi(\theta)\\) if
+
+$$
+T_n\xrightarrow{\mathrm{a.s.}}\psi(\theta),
+$$
+
+that is,
+
+$$
+\Pr_\theta\left(
+\lim_{n\to\infty}T_n=\psi(\theta)
+\right)=1.
+$$
+
+</div>
+
+Almost-sure convergence implies convergence in probability:
+
+$$
+\boxed{
+T_n\xrightarrow{\mathrm{a.s.}}\psi(\theta)
+\quad\Longrightarrow\quad
+T_n\xrightarrow{P}\psi(\theta).
+}
+$$
+
+For example, if \\(X_1,X_2,\ldots\\) are iid with \\(\operatorname{E}\_\theta[\lvert X\_1\rvert]<\infty\\), then the strong law gives
+
+$$
+\bar X_n
+\xrightarrow{\mathrm{a.s.}}
+\operatorname{E}_\theta[X_1].
+$$
+
+### 9.3 Mean-square and \\(L^p\\) consistency
+
+<div class="definition" markdown="1">
+
+**Definition 6.5 — Mean-square consistency.**
+
+\\(T_n\\) is mean-square consistent if
+
+$$
+\operatorname{E}_\theta\left[
+(T_n-\psi(\theta))^2
+\right]
+\to0.
+$$
+
+</div>
+
+Because this is exactly the MSE,
+
+$$
+\operatorname{MSE}_\theta(T_n)
+=
+\operatorname{Var}_\theta(T_n)
++
+\operatorname{Bias}_\theta(T_n)^2,
+$$
+
+mean-square consistency is equivalent to variance tending to zero together with bias tending to zero.
+
+More generally, \\(L^p\\)-consistency means
+
+$$
+\operatorname{E}_\theta\left[
+\lvert T_n-\psi(\theta)\rvert^p
+\right]
+\to0.
+$$
+
+For every \\(p>0\\), \\(L^p\\)-convergence implies convergence in probability by Markov's inequality.
+
+Strong consistency and mean-square consistency are different notions; without extra assumptions neither one generally implies the other. Both, however, imply weak consistency under their respective standard conditions.
+
+### 9.4 Stochastic order: \\(O_P\\) and \\(o_P\\)
+
+<div class="definition" markdown="1">
+
+**Definition 6.6 — Bounded in probability and stochastic order.**
+
+A sequence \\(Y_n\\) is \\(O_P(1)\\) if it is bounded in probability: for every \\(\varepsilon>0\\), there exist \\(M<\infty\\) and \\(n_0\\) such that
+
+$$
+\Pr(\lvert Y_n\rvert>M)<\varepsilon
+\qquad
+\text{for every }n\ge n_0.
+$$
+
+More generally,
+
+$$
+Y_n=O_P(a_n)
+$$
+
+means
+
+$$
+\frac{Y_n}{a_n}=O_P(1).
+$$
+
+</div>
+
+The notation
+
+$$
+Y_n=o_P(a_n)
+$$
+
+means
+
+$$
+\frac{Y_n}{a_n}\xrightarrow{P}0.
+$$
+
+In particular,
+
+$$
+Y_n=o_P(1)
+$$
+
+is exactly the statement \\(Y_n\xrightarrow{P}0\\).
+
+### 9.5 Root-\\(n\\) consistency
+
+<div class="definition" markdown="1">
+
+**Definition 6.7 — Root-\\(n\\) consistency.**
+
+An estimator \\(T_n\\) is root-\\(n\\) consistent for \\(\psi(\theta)\\) if
+
+$$
+\boxed{
+\sqrt n\left(T_n-\psi(\theta)\right)=O_P(1).
+}
+$$
+
+Equivalently,
+
+$$
+T_n-\psi(\theta)=O_P(n^{-1/2}).
+$$
+
+</div>
+
+Root-\\(n\\) consistency gives a rate. It is stronger than merely saying the error is \\(o_P(1)\\):
+
+$$
+\sqrt n(T_n-\psi(\theta))=O_P(1)
+\quad\Longrightarrow\quad
+T_n-\psi(\theta)=o_P(1),
+$$
+
+so every root-\\(n\\) consistent estimator is weakly consistent.
+
+### Worked Example 6.10 — The sample mean has the parametric root-\\(n\\) rate
+
+Suppose
+
+$$
+\operatorname{E}_\theta[X_i]=\theta,
+\qquad
+\operatorname{Var}_\theta(X_i)=\sigma^2<\infty.
+$$
+
+Then
+
+$$
+\operatorname{Var}_\theta(\bar X_n)=\frac{\sigma^2}{n}.
+$$
+
+Therefore
+
+$$
+\operatorname{Var}_\theta\left(
+\sqrt n(\bar X_n-\theta)
+\right)
+=\sigma^2,
+$$
+
+which is bounded. Chebyshev's inequality gives
+
+$$
+\sqrt n(\bar X_n-\theta)=O_P(1).
+$$
+
+Hence
+
+$$
+\boxed{
+\bar X_n-\theta=O_P(n^{-1/2}).
+}
+$$
+
+If the central limit theorem applies, we have the stronger statement
+
+$$
+\sqrt n(\bar X_n-\theta)
+\xrightarrow{d}
+N(0,\sigma^2).
+$$
+
+### 9.6 Root-\\(n\\) consistency versus asymptotic normality
+
+These are not the same statement.
+
+Root-\\(n\\) consistency says only
+
+$$
+\sqrt n(T_n-\psi(\theta))=O_P(1).
+$$
+
+Asymptotic normality specifies the limiting distribution:
+
+$$
+\sqrt n(T_n-\psi(\theta))
+\xrightarrow{d}
+N(0,V(\theta)).
+$$
+
+Convergence in distribution to a proper random variable implies boundedness in probability. Therefore
+
+$$
+\boxed{
+\sqrt n(T_n-\psi(\theta))\xrightarrow{d}N(0,V(\theta))
+\quad\Longrightarrow\quad
+T_n\text{ is root-}n\text{ consistent}.
+}
+$$
+
+The converse need not hold.
+
+### 9.7 General rates of convergence
+
+More generally, if \\(a_n\to\infty\\) and
+
+$$
+a_n(T_n-\psi(\theta))=O_P(1),
+$$
+
+then the estimation error has order
+
+$$
+T_n-\psi(\theta)=O_P(a_n^{-1}).
+$$
+
+The regular parametric rate is usually \\(a_n=\sqrt n\\), but nonregular models can have different rates.
+
+### Worked Example 6.11 — The uniform endpoint has an \\(n\\)-rate
+
+Let
+
+$$
+X_1,\ldots,X_n
+\overset{\mathrm{iid}}{\sim}
+\operatorname{Uniform}(0,\theta),
+\qquad
+M_n=X_{(n)}.
+$$
+
+For \\(0<m<\theta\\),
+
+$$
+\Pr(M_n\le m)=\left(\frac m\theta\right)^n.
+$$
+
+For \\(y>0\\),
+
+$$
+\begin{aligned}
+\Pr\left(n(\theta-M_n)>y\right)
+&=\Pr\left(M_n<\theta-\frac yn\right)\\
+&=\left(1-\frac{y}{n\theta}\right)^n\\
+&\longrightarrow e^{-y/\theta}.
+\end{aligned}
+$$
+
+Thus
+
+$$
+n(\theta-M_n)
+\xrightarrow{d}
+\operatorname{Exp}(\text{mean }\theta).
+$$
+
+Consequently
+
+$$
+\boxed{
+M_n-\theta=O_P(n^{-1}),
+}
+$$
+
+which is faster than the usual root-\\(n\\) rate. This is possible because the uniform endpoint problem is nonregular: the support depends on \\(\theta\\).
+
+### 9.8 Asymptotic unbiasedness does not imply consistency
+
+An estimator is asymptotically unbiased if
+
+$$
+\operatorname{E}_\theta[T_n]
+\to
+\psi(\theta).
+$$
+
+This controls the bias but not the dispersion. It does not by itself imply consistency. For example, an estimator can satisfy
+
+$$
+\operatorname{E}_\theta[T_n]=\theta
+$$
+
+for every \\(n\\) while
+
+$$
+\operatorname{Var}_\theta(T_n)=1
+$$
+
+for every \\(n\\). The noise does not shrink, so convergence to \\(\theta\\) need not occur.
+
+### 9.9 Pointwise versus uniform consistency
+
+Ordinary consistency is usually pointwise in the parameter: for each fixed \\(\theta\\),
+
+$$
+\Pr_\theta\left(
+\lvert T_n-\psi(\theta)\rvert>\varepsilon
+\right)
+\to0.
+$$
+
+Uniform consistency requires the stronger condition
+
+$$
+\boxed{
+\sup_{\theta\in\Theta}
+\Pr_\theta\left(
+\lvert T_n-\psi(\theta)\rvert>\varepsilon
+\right)
+\to0.
+}
+$$
+
+The supremum is taken over the parameter space before the limit. Uniform consistency therefore controls the worst parameter value at each sample size.
+
+### 9.10 Consistency of a sequence of UMVUEs
+
+The source notes give a useful sufficient condition for consistency of UMVUEs.
+
 <div class="theorem" markdown="1">
 
-**Theorem 6.3 — A finite-variance unbiased estimator forces UMVUE consistency.**
+**Theorem 6.8 — A finite-variance unbiased estimator forces UMVUE consistency.**
+
 Let \\(X_1,X_2,\ldots\\) be iid from \\(P\_\theta\\). Suppose there exists a one-observation estimator \\(U(X_1)\\) such that
 
 $$
@@ -505,11 +1014,13 @@ $$
 T_n\xrightarrow{P_\theta}\psi(\theta).
 $$
 
+In fact the proof gives mean-square consistency.
+
 </div>
 
 **Proof.**
 
-Form the sample average
+Form
 
 $$
 \bar U_n
@@ -517,108 +1028,86 @@ $$
 \frac1n\sum_{i=1}^nU(X_i).
 $$
 
-Because the observations are iid,
+Then
 
 $$
-\operatorname{E}_\theta[\bar U_n]
-=
-\psi(\theta),
+\operatorname{E}_\theta[\bar U_n]=\psi(\theta)
 $$
 
-so \\(\bar U_n\\) is an unbiased estimator based on \\(n\\) observations.
-
-Its variance is
+and, by independence,
 
 $$
-\begin{aligned}
-\operatorname{Var}_\theta(\bar U_n)
-&=
-\frac1{n^2}
-\sum_{i=1}^n
-\operatorname{Var}_\theta(U(X_i))\\
-&=
-\frac1n
-\operatorname{Var}_\theta(U(X_1)).
-\end{aligned}
-$$
-
-Since \\(T_n\\) is the UMVUE,
-
-$$
-\operatorname{Var}_\theta(T_n)
-\le
 \operatorname{Var}_\theta(\bar U_n)
 =
 \frac{\operatorname{Var}_\theta(U(X_1))}{n}.
 $$
 
-Therefore
+Because \\(T_n\\) is the UMVUE,
 
 $$
-\operatorname{Var}_\theta(T_n)\longrightarrow0.
+\operatorname{Var}_\theta(T_n)
+\le
+\frac{\operatorname{Var}_\theta(U(X_1))}{n}
+\longrightarrow0.
 $$
 
 Since \\(T_n\\) is unbiased,
 
 $$
-\operatorname{E}_\theta[T_n]=\psi(\theta).
-$$
-
-Chebyshev's inequality gives
-
-$$
-\begin{aligned}
-\Pr_\theta\left(
-\lvert T_n-\psi(\theta)\rvert>\varepsilon
-\right)
-&\le
-\frac{
+\operatorname{E}_\theta[(T_n-\psi(\theta))^2]
+=
 \operatorname{Var}_\theta(T_n)
-}{\varepsilon^2}\\
-&\le
-\frac{
-\operatorname{Var}_\theta(U(X_1))
-}{
-n\varepsilon^2
-}
 \longrightarrow0.
-\end{aligned}
 $$
 
-Hence \\(T_n\\) is weakly consistent.
+Thus \\(T_n\\) is mean-square consistent and hence weakly consistent.
 
 \\(\square\\)
 
-<div class="remark" markdown="1">
+<div class="warning" markdown="1">
 
-**Remark.**
-The theorem is not saying that every UMVUE sequence is automatically consistent. The argument uses the existence of a finite-variance unbiased estimator from a single observation, which produces a benchmark estimator with variance of order \\(1/n\\).
-
-</div>
-
-<div class="intuition" markdown="1">
-
-**Additional context.**
-Since
-
-$$
-\operatorname{MSE}_\theta(T_n)
-=
-\operatorname{Var}_\theta(T_n)
-$$
-
-for an unbiased estimator, the proof actually gives mean-square consistency:
-
-$$
-\operatorname{E}_\theta[
-(T_n-\psi(\theta))^2
-]
-\to0.
-$$
-
-Mean-square convergence implies convergence in probability.
+**Important qualification.**
+The theorem does not say that every sequence of UMVUEs is automatically consistent. The one-observation finite-variance unbiased estimator supplies the comparison estimator whose variance decreases like \\(1/n\\).
 
 </div>
+
+### 9.11 Exam summary of the main implications
+
+The most useful implication diagram is
+
+$$
+T_n\xrightarrow{\mathrm{a.s.}}\psi(\theta)
+\quad\Longrightarrow\quad
+T_n\xrightarrow{P}\psi(\theta),
+$$
+
+and
+
+$$
+T_n\xrightarrow{L^2}\psi(\theta)
+\quad\Longrightarrow\quad
+T_n\xrightarrow{P}\psi(\theta).
+$$
+
+For rates,
+
+$$
+\sqrt n(T_n-\psi(\theta))=O_P(1)
+\quad\Longrightarrow\quad
+T_n\xrightarrow{P}\psi(\theta).
+$$
+
+And if
+
+$$
+\sqrt n(T_n-\psi(\theta))
+\xrightarrow{d}
+N(0,V(\theta)),
+$$
+
+then \\(T_n\\) is automatically root-\\(n\\) consistent.
+
+> **Key distinction.** Consistency asks whether the error goes to zero; a convergence rate asks how quickly it goes to zero; an asymptotic distribution describes the limiting law of the properly scaled error.
 
 ## Questions answered in this lecture
 
@@ -684,6 +1173,40 @@ Why does a finite-variance one-observation unbiased estimator imply consistency 
 **Answer.**
 
 Averaging independent copies of the one-observation estimator gives an unbiased benchmark with variance proportional to \\(1/n\\). The UMVUE has no larger variance, so its variance tends to zero; unbiasedness plus Chebyshev's inequality then gives convergence in probability.
+
+**Question.**
+If \\(\operatorname{E}\_\theta[T\_n]=\psi(\theta)\\) and \\(\operatorname{Var}\_\theta(T_n)\to0\\), is \\(T_n\\) weakly consistent?
+
+**Answer.**
+
+Yes. The estimator is actually mean-square consistent because its MSE equals its variance, and mean-square convergence implies convergence in probability.
+
+**Question.**
+Is root-\\(n\\) consistency a different mode of convergence?
+
+**Answer.**
+
+No. It is a rate statement:
+
+$$
+\sqrt n(T_n-\psi(\theta))=O_P(1).
+$$
+
+It implies weak consistency but says more by specifying that the error is of order \\(n^{-1/2}\\).
+
+**Question.**
+Does root-\\(n\\) consistency imply asymptotic normality?
+
+**Answer.**
+
+No. Root-\\(n\\) consistency only gives boundedness in probability of the scaled error. Asymptotic normality additionally identifies the limiting distribution.
+
+**Question.**
+Can a parametric estimator converge faster than \\(n^{-1/2}\\)?
+
+**Answer.**
+
+Yes in nonregular models. For the endpoint of \\(\operatorname{Uniform}(0,\theta)\\), the sample maximum has error of order \\(n^{-1}\\).
 
 ## References and further reading
 

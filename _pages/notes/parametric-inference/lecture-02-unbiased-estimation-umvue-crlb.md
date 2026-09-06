@@ -8,10 +8,11 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Introduces unbiased estimation and UMVUEs, proves uniqueness, derives Fisher information and the Cramér–Rao lower bound, and develops normal, exponential, and normal-variance examples in detail."
+description: "Introduces unbiased estimation and UMVUEs, proves uniqueness, derives the score and its zero-mean identity, proves the scalar and matrix Cramér–Rao bounds with equality conditions, and develops normal, exponential, and normal-variance examples in detail."
 topics:
   - "unbiased estimation"
   - "UMVUE"
+  - "score function and zero-mean score"
   - "Fisher information"
   - "Cramér–Rao lower bound"
   - "efficiency"
@@ -20,7 +21,7 @@ previous: "lecture-01-point-estimation-risk-mse"
 next: "lecture-03-existence-uniqueness-unbiased-estimators"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/
@@ -99,7 +100,7 @@ For \\(n\ge2\\), unbiased estimators of \\(\theta\\) are not unique.
 
 **Definition 2.1 — UMVUE.**
 
-An estimator \\(T^{\ast}\\) is a _uniformly minimum-variance unbiased estimator_ of \\(\psi(\theta)\\) if:
+An estimator \\(T^{\ast}\\) is a _uniformly minimum-variance unbiased estimator_ of \\(\psi(\theta)\\) when both of the following hold:
 
 1.  \\(\operatorname{E}\_\theta[T^{\ast}]=\psi(\theta)\\) for every \\(\theta\in\Theta\\), and
 
@@ -136,7 +137,37 @@ $$
 \operatorname{Var}_\theta(W)\ge v_\theta.
 $$
 
-Because \\(T_1\\) and \\(T_2\\) have equal expectations,
+Because \\(T_1\\) and \\(T_2\\) have equal expectations, it is useful to rewrite the variance of their average in terms of the variance of their difference. First,
+
+$$
+\operatorname{Var}_\theta(T_1-T_2)
+=
+\operatorname{Var}_\theta(T_1)
++\operatorname{Var}_\theta(T_2)
+-2\operatorname{Cov}_\theta(T_1,T_2).
+$$
+
+Hence
+
+$$
+2\operatorname{Cov}_\theta(T_1,T_2)
+=
+\operatorname{Var}_\theta(T_1)
++\operatorname{Var}_\theta(T_2)
+-\operatorname{Var}_\theta(T_1-T_2).
+$$
+
+Substituting this identity into
+
+$$
+\operatorname{Var}_\theta(T_1+T_2)
+=
+\operatorname{Var}_\theta(T_1)
++\operatorname{Var}_\theta(T_2)
++2\operatorname{Cov}_\theta(T_1,T_2)
+$$
+
+gives
 
 $$
 \begin{aligned}
@@ -144,7 +175,7 @@ $$
 &=\frac14\operatorname{Var}_\theta(T_1+T_2)\\
 &=\frac12\operatorname{Var}_\theta(T_1)
   +\frac12\operatorname{Var}_\theta(T_2)\\
-&\quad-\frac14\operatorname{Var}_\theta(T_1-T_2)\\
+&\qquad-\frac14\operatorname{Var}_\theta(T_1-T_2)\\
 &=v_\theta-\frac14\operatorname{Var}_\theta(T_1-T_2).
 \end{aligned}
 $$
@@ -185,13 +216,68 @@ whenever the derivative exists.
 
 </div>
 
-Under standard regularity conditions, differentiation may be passed under the integral sign:
+The definition can also be written as
 
 $$
-\operatorname{E}_\theta[\mathcal{S}_\theta(X)]
-=\int \frac{\partial}{\partial\theta}f_\theta(x)\,\mathrm{d}x
-=\frac{\partial}{\partial\theta}\int f_\theta(x)\,\mathrm{d}x=0.
+\mathcal{S}_\theta(x)
+=
+\frac{1}{f_\theta(x)}
+\frac{\partial f_\theta(x)}{\partial\theta}.
 $$
+
+Therefore
+
+$$
+\boxed{
+\frac{\partial f_\theta(x)}{\partial\theta}
+=
+f_\theta(x)\mathcal{S}_\theta(x)
+}.
+$$
+
+This identity is the mechanism behind both the zero-mean property of the score and the Cramér–Rao proof.
+
+### Why does the score have expectation zero?
+
+Suppose first that the support of \\(f\_\theta\\) does not depend on \\(\theta\\) and that differentiation may be passed through the integral. Then
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[\mathcal{S}_\theta(X)]
+&=\int \mathcal{S}_\theta(x)f_\theta(x)\,\mathrm{d}x\\
+&=\int \frac{\partial f_\theta(x)}{\partial\theta}\,\mathrm{d}x\\
+&=\frac{\partial}{\partial\theta}\int f_\theta(x)\,\mathrm{d}x\\
+&=\frac{\partial}{\partial\theta}(1)\\
+&=0.
+\end{aligned}
+$$
+
+For a discrete model with mass function \\(p\_\theta(x)\\), the same calculation is
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[\mathcal{S}_\theta(X)]
+&=\sum_x \mathcal{S}_\theta(x)p_\theta(x)\\
+&=\sum_x \frac{\partial p_\theta(x)}{\partial\theta}\\
+&=\frac{\partial}{\partial\theta}\sum_x p_\theta(x)\\
+&=0.
+\end{aligned}
+$$
+
+<div class="warning" markdown="1">
+
+**Regularity warning.**
+The conclusion \\(\operatorname{E}\_\theta[\mathcal S\_\theta]=0\\) is not automatic. A common sufficient set of conditions is: the support is independent of \\(\theta\\); the derivative \\(\partial f\_\theta(x)/\partial\theta\\) exists; and differentiation may be interchanged with integration. When the support moves with \\(\theta\\), boundary terms can appear.
+
+For example, if \\(X\sim\operatorname{Uniform}(0,\theta)\\), then on the interior of the support
+
+$$
+\frac{\partial}{\partial\theta}\log f_\theta(x)=-\frac1\theta,
+$$
+
+whose expectation is \\(-1/\theta\\), not zero. This is one reason the ordinary regular Cramér–Rao argument cannot be used blindly for this model.
+
+</div>
 
 <div class="definition" markdown="1">
 
@@ -232,6 +318,25 @@ $$
 </div>
 
 **Proof.**
+
+The key identity is worth deriving carefully. Because \\(T=T(X)\\) is a statistic, it does not itself contain the unknown parameter. Hence
+
+$$
+\operatorname{E}_\theta[T]
+=
+\int T(x)f_\theta(x)\,\mathrm{d}x.
+$$
+
+Under the regularity conditions,
+
+$$
+\begin{aligned}
+\frac{\mathrm d}{\mathrm d\theta}\operatorname{E}_\theta[T]
+&=\int T(x)\frac{\partial f_\theta(x)}{\partial\theta}\,\mathrm{d}x\\
+&=\int T(x)\mathcal S_\theta(x)f_\theta(x)\,\mathrm{d}x\\
+&=\operatorname{E}_\theta[T\mathcal S_\theta(X)].
+\end{aligned}
+$$
 
 Since \\(\operatorname{E}\_\theta[T]=\psi(\theta)\\), differentiation under the integral gives
 
@@ -280,6 +385,45 @@ a(\theta)=\frac{\psi'(\theta)}{\mathcal{I}_n(\theta)}.
 $$
 
 </div>
+
+**Proof of the equality condition.**
+
+The only inequality used in the Cramér–Rao proof is Cauchy–Schwarz applied to
+
+$$
+T-\psi(\theta)
+\quad\text{and}\quad
+\mathcal S_\theta.
+$$
+
+Equality in Cauchy–Schwarz holds exactly when these two centered random variables are linearly dependent almost surely. Therefore
+
+$$
+T-\psi(\theta)
+=
+a(\theta)\mathcal S_\theta
+$$
+
+for some scalar \\(a(\theta)\\). To determine the scalar, multiply by the score and take expectations:
+
+$$
+\begin{aligned}
+\psi'(\theta)
+&=\operatorname{E}_\theta[(T-\psi(\theta))\mathcal S_\theta]\\
+&=a(\theta)\operatorname{E}_\theta[\mathcal S_\theta^2]\\
+&=a(\theta)\mathcal I_n(\theta).
+\end{aligned}
+$$
+
+Hence
+
+$$
+\boxed{
+a(\theta)=\frac{\psi'(\theta)}{\mathcal I_n(\theta)}
+}.
+$$
+
+This condition is restrictive because the left side \\(T(X)\\) cannot depend on the unknown parameter, whereas the right side contains \\(\theta\\). For an estimator to attain the bound for every parameter value, the parameter dependence must simplify to a function of the data alone.
 
 <div class="warning" markdown="1">
 
@@ -589,15 +733,7 @@ Thus the biased estimator \\(Q/(n+1)\\) has smaller MSE than the unbiased estima
 
 **Final result.**
 
-The optimal coefficient and MSE comparison are
-
-$$
-\begin{aligned}
-c^{\ast}&=\frac{1}{n+1},\\
-\operatorname{MSE}(T_{c^{\ast}})&=\frac{2\sigma^4}{n+1}\\
-&<\frac{2\sigma^4}{n-1}=\operatorname{MSE}(S^2).
-\end{aligned}
-$$
+The optimum is \\(c^{\ast}=1/(n+1)\\). It gives \\(\operatorname{MSE}(T\_{c^{\ast}})=2\sigma^4/(n+1)\\), whereas \\(\operatorname{MSE}(S^2)=2\sigma^4/(n-1)\\). Thus \\(T\_{c^{\ast}}\\) has the smaller mean squared error.
 
 <div class="remark" markdown="1">
 
@@ -623,14 +759,105 @@ It has lower MSE than \\(S^2\\), but it is not the best member of the full class
 
 ## 9. CRLB for \\(\sigma^2\\) when \\(\mu\\) is unknown
 
-For one normal observation, with parameter \\(\eta=(\mu,\sigma^2)\\), the information matrix is
+Let the parameter vector be
 
 $$
+\eta=
+\begin{pmatrix}
+\mu\\
+\sigma^2
+\end{pmatrix}.
+$$
+
+For one observation,
+
+$$
+\ell(\mu,\sigma^2)
+=
+-\frac12\log(2\pi)
+-\frac12\log\sigma^2
+-\frac{(X-\mu)^2}{2\sigma^2}.
+$$
+
+The two score components are
+
+$$
+\boxed{
+\frac{\partial\ell}{\partial\mu}
+=\frac{X-\mu}{\sigma^2}
+}
+$$
+
+and
+
+$$
+\boxed{
+\frac{\partial\ell}{\partial\sigma^2}
+=
+-\frac1{2\sigma^2}
++\frac{(X-\mu)^2}{2\sigma^4}
+=
+\frac{(X-\mu)^2-\sigma^2}{2\sigma^4}.
+}
+$$
+
+Now compute the information entries. First,
+
+$$
+\begin{aligned}
+I_{\mu\mu}
+&=\operatorname{E}\left[\left(\frac{X-\mu}{\sigma^2}\right)^2\right]\\
+&=\frac{\operatorname{E}[(X-\mu)^2]}{\sigma^4}\\
+&=\frac1{\sigma^2}.
+\end{aligned}
+$$
+
+For the cross term,
+
+$$
+\begin{aligned}
+I_{\mu,\sigma^2}
+&=\operatorname{E}\left[
+\frac{X-\mu}{\sigma^2}
+\frac{(X-\mu)^2-\sigma^2}{2\sigma^4}
+\right]\\
+&=\frac1{2\sigma^6}\left(
+\operatorname{E}[(X-\mu)^3]
+-\sigma^2\operatorname{E}[X-\mu]
+\right)\\
+&=0,
+\end{aligned}
+$$
+
+because the first and third centered moments of a normal variable are zero. Finally,
+
+$$
+\begin{aligned}
+I_{\sigma^2,\sigma^2}
+&=\frac1{4\sigma^8}
+\operatorname{E}\left[
+\left((X-\mu)^2-\sigma^2\right)^2
+\right]\\
+&=\frac1{4\sigma^8}\left(
+\operatorname{E}[(X-\mu)^4]
+-2\sigma^2\operatorname{E}[(X-\mu)^2]
++\sigma^4
+\right)\\
+&=\frac1{4\sigma^8}\left(3\sigma^4-2\sigma^4+\sigma^4\right)\\
+&=\frac1{2\sigma^4}.
+\end{aligned}
+$$
+
+Therefore
+
+$$
+\boxed{
 \mathcal{I}_1(\mu,\sigma^2)=
 \begin{pmatrix}
 1/\sigma^2 & 0\\
 0 & 1/(2\sigma^4)
 \end{pmatrix}.
+}
 $$
 
 For \\(n\\) observations,

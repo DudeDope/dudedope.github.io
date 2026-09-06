@@ -8,7 +8,7 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Characterises unbiasedly estimable functions in binomial, Poisson, exponential, and negative-binomial sampling models using polynomial, power-series, analytic, and Laplace-transform arguments."
+description: "Characterises unbiasedly estimable functions in binomial, Poisson, exponential, and negative-binomial sampling models, with detailed factorial-moment, power-series convergence, coefficient-uniqueness, analytic, and Laplace-transform arguments."
 topics:
   - "unbiased estimability"
   - "binomial polynomials"
@@ -22,7 +22,7 @@ previous: "lecture-02-unbiased-estimation-umvue-crlb"
 next: "lecture-04-sufficiency-rao-blackwell-ancillarity"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-03-existence-uniqueness-unbiased-estimators/
@@ -148,35 +148,126 @@ Every term on the left contains a factor \\(\theta\\), so the left side vanishes
 
 The conclusion is the final result derived in the solution above.
 
-### Worked Example 3.2 — Constructing unbiased estimators
+### Worked Example 3.2 — Constructing unbiased estimators and deriving the binomial factorial moment
 
 **Problem.**
 
-Construct unbiased estimators of \\(\theta\\), \\(\theta^2\\), and more generally \\(\theta^k\\) in the binomial model.
+For \\(X\sim\operatorname{Bin}(n,\theta)\\), show directly that
+
+$$
+\frac{(X)_k}{(n)_k}
+$$
+
+is unbiased for \\(\theta^k\\), where
+
+$$
+(X)_k=X(X-1)\cdots(X-k+1),
+\qquad
+(n)_k=n(n-1)\cdots(n-k+1).
+$$
 
 **Solution.**
 
-For \\(X\sim\operatorname{Bin}(n,\theta)\\):
+We first derive the factorial moment rather than quoting it. Since \\((x)\_k=0\\) for \\(x<k\\),
 
 $$
-\frac Xn\quad\text{is unbiased for }\theta,
+\begin{aligned}
+\operatorname{E}_\theta[(X)_k]
+&=\sum_{x=k}^{n}(x)_k\binom nx\theta^x(1-\theta)^{n-x}\\
+&=\sum_{x=k}^{n}
+\frac{x!}{(x-k)!}
+\frac{n!}{x!(n-x)!}
+\theta^x(1-\theta)^{n-x}\\
+&=\sum_{x=k}^{n}
+\frac{n!}{(x-k)!(n-x)!}
+\theta^x(1-\theta)^{n-x}.
+\end{aligned}
 $$
 
-$$
-\frac{X(X-1)}{n(n-1)}\quad\text{is unbiased for }\theta^2,
-$$
-
-and more generally
+Now use
 
 $$
-\frac{(X)_{k}}{(n)_{k}}
-\quad\text{is unbiased for }\theta^k,
-\qquad 0\le k\le n.
+(n)_k=\frac{n!}{(n-k)!}
 $$
+
+to write
+
+$$
+\frac{n!}{(x-k)!(n-x)!}
+=
+(n)_k
+\binom{n-k}{x-k}.
+$$
+
+Therefore
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[(X)_k]
+&=(n)_k
+\sum_{x=k}^{n}
+\binom{n-k}{x-k}
+\theta^x(1-\theta)^{n-x}\\
+&=(n)_k\theta^k
+\sum_{x=k}^{n}
+\binom{n-k}{x-k}
+\theta^{x-k}(1-\theta)^{n-x}.
+\end{aligned}
+$$
+
+Put \\(y=x-k\\). Then \\(y=0,1,\ldots,n-k\\), and
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[(X)_k]
+&=(n)_k\theta^k
+\sum_{y=0}^{n-k}
+\binom{n-k}{y}
+\theta^y(1-\theta)^{n-k-y}\\
+&=(n)_k\theta^k
+\left(\theta+(1-\theta)\right)^{n-k}\\
+&=(n)_k\theta^k.
+\end{aligned}
+$$
+
+Hence
+
+$$
+\boxed{
+\operatorname{E}_\theta\left[\frac{(X)_k}{(n)_k}\right]
+=\theta^k.
+}
+$$
+
+There is also a useful probabilistic interpretation. Write \\(X=I_1+\cdots+I_n\\), where the \\(I_i\\) are iid Bernoulli\\((\theta)\\). Then \\((X)\_k\\) counts ordered \\(k\\)-tuples of successful distinct trials:
+
+$$
+(X)_k
+=
+\sum_{i_1,\ldots,i_k\text{ distinct}}
+I_{i_1}\cdots I_{i_k}.
+$$
+
+There are \\((n)\_k\\) ordered distinct \\(k\\)-tuples, and independence gives
+
+$$
+\operatorname{E}[I_{i_1}\cdots I_{i_k}]=\theta^k.
+$$
+
+Thus the same identity follows immediately.
 
 **Final result.**
 
-For \\(0\le k\le n\\), \\((X)\_k/(n)\_k\\) is unbiased for \\(\theta^k\\).
+For every integer \\(0\le k\le n\\),
+
+$$
+\boxed{
+\frac{(X)_k}{(n)_k}
+\text{ is unbiased for }\theta^k.
+}
+$$
+
+In particular, \\(X/n\\) is unbiased for \\(\theta\\), and \\(X(X-1)/[n(n-1)]\\) is unbiased for \\(\theta^2\\).
 
 ## 2. The Poisson model
 
@@ -228,30 +319,141 @@ Equivalently, \\(\psi\\) must extend to an entire function on \\(\mathbb C\\).
 
 **Proof.**
 
-If \\(T\\) is integrable for every positive \\(\theta\\), then for every \\(r>0\\),
+We prove both directions and explicitly track the convergence requirement.
+
+**Necessity.** Suppose \\(T\\) is integrable for every \\(\theta>0\\) and unbiased for \\(\psi(\theta)\\). Integrability means
 
 $$
-\sum_{x=0}^\infty \lvert T(x)\rvert\frac{r^x}{x!}<\infty.
+\operatorname{E}_\theta[\lvert T(X)\rvert]
+=
+e^{-\theta}
+\sum_{x=0}^{\infty}
+\lvert T(x)\rvert
+\frac{\theta^x}{x!}
+<\infty
+\qquad
+\text{for every }\theta>0.
 $$
 
-Thus the series
+Since \\(e^{-\theta}>0\\),
 
 $$
-F(z)=\sum_{x=0}^\infty T(x)\frac{z^x}{x!}
+\sum_{x=0}^{\infty}
+\frac{\lvert T(x)\rvert}{x!}\theta^x
+<\infty
+\qquad
+\text{for every }\theta>0.
 $$
 
-converges absolutely for every complex \\(z\\), so it is entire, and \\(F(\theta)=e^\theta\psi(\theta)\\).
-
-Conversely, if \\(F(z)=\sum a_xz^x\\) is entire, define \\(T(x)=x!a_x\\). Then
+Define
 
 $$
+F(z)=\sum_{x=0}^{\infty}\frac{T(x)}{x!}z^x.
+$$
+
+The series converges absolutely for every positive real value of \\(z\\). A power series has a single radius of convergence \\(R\\). Since it converges for arbitrarily large positive values, necessarily
+
+$$
+R=\infty.
+$$
+
+Hence \\(F\\) is entire. Unbiasedness gives
+
+$$
+\begin{aligned}
+\psi(\theta)
+&=\operatorname{E}_\theta[T(X)]\\
+&=e^{-\theta}
+\sum_{x=0}^{\infty}\frac{T(x)}{x!}\theta^x\\
+&=e^{-\theta}F(\theta),
+\end{aligned}
+$$
+
+so
+
+$$
+\boxed{F(\theta)=e^{\theta}\psi(\theta).}
+$$
+
+**Sufficiency.** Conversely, suppose
+
+$$
+F(z)=\sum_{x=0}^{\infty}a_xz^x
+$$
+
+is entire, and define
+
+$$
+T(x)=x!a_x.
+$$
+
+Because the radius of convergence is infinite, the power series converges absolutely at every \\(\theta>0\\):
+
+$$
+\sum_{x=0}^{\infty}\lvert a_x\rvert\theta^x<\infty.
+$$
+
+Therefore
+
+$$
+\begin{aligned}
+\operatorname{E}_\theta[\lvert T(X)\rvert]
+&=e^{-\theta}
+\sum_{x=0}^{\infty}
+\lvert x!a_x\rvert\frac{\theta^x}{x!}\\
+&=e^{-\theta}
+\sum_{x=0}^{\infty}\lvert a_x\rvert\theta^x\\
+&<\infty.
+\end{aligned}
+$$
+
+Thus the constructed statistic really is integrable. Its expectation is
+
+$$
+\begin{aligned}
 \operatorname{E}_\theta[T(X)]
-=e^{-\theta}\sum_{x=0}^\infty a_x\theta^x
-=e^{-\theta}F(\theta)
-=\psi(\theta).
+&=e^{-\theta}
+\sum_{x=0}^{\infty}a_x\theta^x\\
+&=e^{-\theta}F(\theta)\\
+&=\psi(\theta).
+\end{aligned}
 $$
 
-Uniqueness follows from uniqueness of power-series coefficients.
+So \\(T\\) is unbiased.
+
+**Uniqueness and the coefficients.** If
+
+$$
+F(z)=\sum_{x=0}^{\infty}a_xz^x,
+$$
+
+then power-series coefficients are uniquely determined by the derivatives of \\(F\\) at zero. Differentiating \\(x\\) times and then setting \\(z=0\\) leaves only the \\(x\\)th term:
+
+$$
+F^{(x)}(0)=x!a_x.
+$$
+
+Hence
+
+$$
+\boxed{
+a_x=\frac{F^{(x)}(0)}{x!},
+\qquad
+T(x)=x!a_x=F^{(x)}(0).
+}
+$$
+
+If \\(T_1\\) and \\(T_2\\) were two unbiased estimators of the same \\(\psi\\), then
+
+$$
+\sum_{x=0}^{\infty}\frac{T_1(x)}{x!}z^x
+=
+F(z)
+=
+\sum_{x=0}^{\infty}\frac{T_2(x)}{x!}z^x.
+$$
+
+Uniqueness of the power-series coefficients gives \\(T_1(x)=T_2(x)\\) for every nonnegative integer \\(x\\). Thus the unbiased estimator is unique.
 
 \\(\square\\)
 
@@ -680,10 +882,6 @@ $$
 $$
 
 is unbiased for \\(\theta\\). The full coefficient-matching derivation is given in Worked Example 3.5.
-
-## Lecture summary
-
-Unbiased estimability depends on the sampling model. In the binomial model, the estimable targets are precisely polynomials of degree at most \\(n\\); in the Poisson model, coefficient matching imposes an entire-function condition on \\(e^\theta\psi(\theta)\\). For one exponential observation, Laplace-transform uniqueness makes \\(X\\) the unique unbiased estimator of the mean. The negative-binomial stopping example also shows why two experiments involving the same coin parameter can admit different unbiased estimators.
 
 ## References and further reading
 

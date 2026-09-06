@@ -22,7 +22,7 @@ previous: "lecture-06-lehmann-scheffe-umvue-consistency"
 next: "lecture-08-bayesian-inference-bayes-risk"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/
@@ -140,7 +140,7 @@ for some rejection region \\(C\subseteq\mathcal X\\).
 <div class="remark" markdown="1">
 
 **Remark.**
-Modern statistical language usually says “reject” or “fail to reject” \\(H_0\\), rather than “accept \\(H_1\\).” The mathematical test function is the same.
+Modern statistical language usually says “reject” or “fail to reject” \\(H_0\\), rather than “accept \\(H_1\\)”. The mathematical test function is the same.
 
 </div>
 
@@ -599,8 +599,8 @@ where \\(\theta_1>\theta_0\\). Find the most powerful level-\\(\alpha\\) test.
 
 **Solution.**
 
-Because the restricted parameter space is \\(\lbrace heta_0, heta_1
-brace\\), Proposition 7.7 first tells us that the likelihood ratio itself is sufficient for this two-point model.
+Because the restricted parameter space is \(\lbrace heta_0, heta_1
+brace\), Proposition 7.7 first tells us that the likelihood ratio itself is sufficient for this two-point model.
 
 The likelihood ratio is
 

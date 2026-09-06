@@ -8,10 +8,13 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Develops sufficiency and the factorisation theorem, proves Rao–Blackwell improvement, and studies ancillary statistics and non-completeness through normal, beta, Cauchy, and uniform examples."
+description: "Develops sufficiency, transformations and minimal sufficiency, proves the law of total variance and Rao–Blackwell improvement, and studies ancillary statistics and non-completeness through normal, beta, Cauchy, and uniform examples."
 topics:
   - "sufficiency"
   - "factorisation theorem"
+  - "transformations of sufficient statistics"
+  - "minimal sufficiency"
+  - "law of total variance"
   - "Rao–Blackwell theorem"
   - "ancillary statistics"
   - "normal and uniform examples"
@@ -20,7 +23,7 @@ previous: "lecture-03-existence-uniqueness-unbiased-estimators"
 next: "lecture-05-completeness-exponential-families-basu"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-08-17"
+last_updated: "2026-09-06"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-04-sufficiency-rao-blackwell-ancillarity/
@@ -51,8 +54,10 @@ This section was added to make the lecture easier to use as a self-contained stu
 </div>
 
 - State the definition of sufficiency and the Neyman–Fisher factorisation theorem.
+- Determine when a function of a sufficient statistic remains sufficient and explain the role of one-to-one transformations.
+- Define minimal sufficiency and relate a minimal sufficient statistic to every other sufficient statistic.
 - Find sufficient statistics in Bernoulli, Poisson, exponential, and uniform models.
-- Prove the Rao–Blackwell theorem under squared-error loss.
+- Derive the law of total variance and use it to prove the Rao–Blackwell theorem under squared-error loss.
 - Compute Rao–Blackwell improvements explicitly.
 - Define ancillarity and use ancillary functions to prove non-completeness.
 - Find sufficient statistics in normal, beta, Cauchy, and translated-uniform models.
@@ -87,9 +92,143 @@ for every \\(x\\) and \\(\theta\\), where \\(h\\) does not depend on \\(\theta\\
 
 The factorisation theorem is usually the fastest way to prove sufficiency.
 
-## 3. Bernoulli sample
+## 3. Transformations of sufficient statistics and minimal sufficiency
 
-### Worked Example 4.1 — The total number of successes is sufficient
+A common source of confusion is the difference between preserving information and discarding information.
+
+<div class="proposition" markdown="1">
+
+**Proposition 4.3 — One-to-one transforms preserve sufficiency.**
+
+If \\(T(X)\\) is sufficient for \\(\theta\\) and \\(U=g(T)\\), where \\(g\\) is one-to-one on the range of \\(T\\), then \\(U\\) is also sufficient for \\(\theta\\).
+
+</div>
+
+**Reason.**
+
+Because \\(g\\) is one-to-one, \\(T\\) can be recovered from \\(U\\):
+
+$$
+T=g^{-1}(U).
+$$
+
+Thus conditioning on \\(U\\) is equivalent to conditioning on \\(T\\); no information about \\(\theta\\) has been lost.
+
+The one-to-one condition is sufficient, but it is not necessary. A non-one-to-one transformation can still be sufficient if the distinctions it removes are irrelevant to \\(\theta\\).
+
+<div class="warning" markdown="1">
+
+**Important distinction.**
+An arbitrary function of a sufficient statistic need not be sufficient. A many-to-one map can merge values of the sufficient statistic that have different parameter-dependent likelihood ratios.
+
+</div>
+
+### Worked Example 4.1 — A many-to-one transform that is not sufficient
+
+Let
+
+$$
+X\sim N(\theta,1).
+$$
+
+The full observation \\(T=X\\) is sufficient for \\(\theta\\). Consider
+
+$$
+U=X^2.
+$$
+
+Given \\(U=u>0\\), the only possibilities are \\(X=\sqrt u\\) and \\(X=-\sqrt u\\). Their conditional odds are proportional to their normal densities:
+
+$$
+\frac{
+\Pr_\theta(X=\sqrt u\mid X^2=u)
+}{
+\Pr_\theta(X=-\sqrt u\mid X^2=u)
+}
+=\frac{f_\theta(\sqrt u)}{f_\theta(-\sqrt u)}.
+$$
+
+The density ratio is
+
+$$
+\begin{aligned}
+\frac{f_\theta(\sqrt u)}{f_\theta(-\sqrt u)}
+&=
+\exp\left\lbrace
+-\frac12(\sqrt u-\theta)^2
++\frac12(-\sqrt u-\theta)^2
+\right\rbrace\\
+&=\exp\left(2\theta\sqrt u\right),
+\end{aligned}
+$$
+
+which depends on \\(\theta\\). Therefore the conditional distribution of \\(X\\) given \\(X^2\\) depends on the parameter, so \\(X^2\\) is not sufficient.
+
+**Final result.**
+
+A function of a sufficient statistic need not be sufficient if the transformation is many-to-one.
+
+<div class="definition" markdown="1">
+
+**Definition 4.4 — Minimal sufficient statistic.**
+
+A sufficient statistic \\(T\\) is _minimal sufficient_ if, for every other sufficient statistic \\(U\\), there exists a function \\(g\\) such that
+
+$$
+T=g(U)
+$$
+
+almost surely.
+
+</div>
+
+Thus a minimal sufficient statistic contains no avoidable parameter-relevant information: every sufficient statistic must contain enough information to reconstruct it.
+
+A useful interpretation is
+
+$$
+\boxed{
+T\text{ minimal sufficient}
+\quad\Longrightarrow\quad
+T\text{ is a function of every sufficient statistic}.
+}
+$$
+
+Two minimal sufficient statistics are therefore functions of each other and are equivalent up to one-to-one transformations on their effective ranges.
+
+### Worked Example 4.2 — Normal mean with known variance
+
+Suppose
+
+$$
+X_1,\ldots,X_n
+\overset{\mathrm{iid}}{\sim}
+N(\mu,\sigma^2),
+$$
+
+with \\(\sigma^2\\) known. The statistic
+
+$$
+T=\sum_{i=1}^nX_i
+$$
+
+is minimal sufficient for \\(\mu\\). The entire sample
+
+$$
+U=(X_1,\ldots,X_n)
+$$
+
+is also sufficient, and indeed
+
+$$
+T=X_1+\cdots+X_n
+$$
+
+is a function of \\(U\\). The reverse is impossible in general: the sum does not determine every individual observation. This illustrates why a sufficient statistic need not be a function of another arbitrary sufficient statistic, while a minimal sufficient statistic must be a function of every sufficient statistic.
+
+## 4. Bernoulli sample
+
+### Worked Example 4.3 — The total number of successes is sufficient
 
 **Problem.**
 
@@ -151,9 +290,9 @@ which is independent of \\(\theta\\). If \\(\sum x_i\ne t\\), the conditional pr
 
 \\(S=\sum_iX_i\\) is sufficient, and conditional on \\(S=t\\) each binary sequence with \\(t\\) successes has probability \\(1/\binom nt\\), independent of \\(\theta\\).
 
-## 4. Poisson sample
+## 5. Poisson sample
 
-### Worked Example 4.2 — The total count is sufficient
+### Worked Example 4.4 — The total count is sufficient
 
 **Problem.**
 
@@ -196,9 +335,9 @@ This is the multinomial mass function with cell probabilities \\(1/n,\dots,1/n\\
 
 \\(S\\) is sufficient; conditional on \\(S=t\\), \\((X_1,\ldots,X_n)\\) is multinomial with total \\(t\\) and cell probabilities \\(1/n,\ldots,1/n\\).
 
-## 5. Exponential sample
+## 6. Exponential sample
 
-### Worked Example 4.3 — The sum is sufficient
+### Worked Example 4.5 — The sum is sufficient
 
 **Problem.**
 
@@ -243,9 +382,9 @@ has the \\(\operatorname{Dirichlet}(1,\dots,1)\\) distribution, which does not i
 
 \\(S=\sum_iX_i\\) is sufficient; conditional on \\(S\\), the proportions \\((X_1/S,\ldots,X_n/S)\\) have a \\(\operatorname{Dirichlet}(1,\ldots,1)\\) law independent of \\(\theta\\).
 
-## 6. Uniform sample
+## 7. Uniform sample
 
-### Worked Example 4.4 — The sample maximum is sufficient
+### Worked Example 4.6 — The sample maximum is sufficient
 
 **Problem.**
 
@@ -282,11 +421,103 @@ Hence the sample maximum \\(X\_{(n)}\\) is sufficient for \\(\theta\\).
 
 \\(X\_{(n)}\\) is sufficient for the endpoint parameter \\(\theta\\).
 
-## 7. Rao–Blackwell theorem and variance improvement
+## 8. Law of total variance and Rao–Blackwell improvement
+
+Before proving Rao–Blackwell, it is useful to isolate the variance identity behind the theorem.
 
 <div class="theorem" markdown="1">
 
-**Theorem 4.3 — Rao–Blackwell.**
+**Law of total variance.**
+
+For square-integrable random variables \\(T\\) and \\(U\\),
+
+$$
+\boxed{
+\operatorname{Var}(T)
+=
+\operatorname{Var}\bigl(\operatorname{E}[T\mid U]\bigr)
++
+\operatorname{E}\bigl[\operatorname{Var}(T\mid U)\bigr].
+}
+$$
+
+</div>
+
+**Proof.**
+
+Write
+
+$$
+T-\operatorname{E}[T]
+=
+\left(T-\operatorname{E}[T\mid U]\right)
++
+\left(\operatorname{E}[T\mid U]-\operatorname{E}[T]\right).
+$$
+
+Squaring and taking expectations gives three terms. The cross term is zero because
+
+$$
+\begin{aligned}
+&\operatorname{E}\left[
+\left(T-\operatorname{E}[T\mid U]\right)
+\left(\operatorname{E}[T\mid U]-\operatorname{E}[T]\right)
+\right]\\
+&=\operatorname{E}\left[
+\left(\operatorname{E}[T\mid U]-\operatorname{E}[T]\right)
+\operatorname{E}\left[
+T-\operatorname{E}[T\mid U]\mid U
+\right]
+\right]\\
+&=0.
+\end{aligned}
+$$
+
+The first squared term becomes
+
+$$
+\operatorname{E}\left[
+\left(T-\operatorname{E}[T\mid U]\right)^2
+\right]
+=
+\operatorname{E}\bigl[\operatorname{Var}(T\mid U)\bigr],
+$$
+
+and the second becomes
+
+$$
+\operatorname{Var}\bigl(\operatorname{E}[T\mid U]\bigr).
+$$
+
+Adding them proves the identity.
+
+\\(\square\\)
+
+The decomposition has a useful interpretation:
+
+$$
+\boxed{
+\text{total variability}
+=
+\text{variability explained by }U
++
+\text{average variability left after conditioning on }U.
+}
+$$
+
+The second term is nonnegative, so
+
+$$
+\operatorname{Var}\bigl(\operatorname{E}[T\mid U]\bigr)
+\le
+\operatorname{Var}(T).
+$$
+
+This is exactly the variance comparison used by Rao–Blackwell.
+
+<div class="theorem" markdown="1">
+
+**Theorem 4.5 — Rao–Blackwell.**
 
 Let \\(S\\) be sufficient for \\(\theta\\), and let \\(U\\) be an estimator with finite second moment. Define
 
@@ -346,7 +577,7 @@ For unbiased estimators, MSE equals variance. Equality holds exactly when \\(\op
 
 \\(\square\\)
 
-### Worked Example 4.5 — Rao–Blackwellising \\(X_1\\) in the exponential model
+### Worked Example 4.7 — Rao–Blackwellising \\(X_1\\) in the exponential model
 
 **Problem.**
 
@@ -390,11 +621,11 @@ $$
 
 The conclusion is the final result derived in the solution above.
 
-## 8. Further factorisation examples
+## 9. Further factorisation examples
 
 The new handwritten pages add several examples in which the sufficient statistic is not merely a sum.
 
-### Worked Example 4.6 — Normal location with known variance
+### Worked Example 4.8 — Normal location with known variance
 
 Let
 
@@ -429,7 +660,7 @@ $$
 
 Hence \\(S\\), and equivalently \\(\bar X=S/n\\), is sufficient for \\(\theta\\).
 
-### Worked Example 4.7 — A two-parameter beta family
+### Worked Example 4.9 — A two-parameter beta family
 
 Suppose
 
@@ -496,18 +727,18 @@ Sufficiency is preserved under one-to-one transformations of a statistic.
 
 </div>
 
-## 9. Ancillary statistics and a first non-completeness argument
+## 10. Ancillary statistics and a first non-completeness argument
 
 <div class="definition" markdown="1">
 
-**Definition 4.4 — Ancillary statistic.**
+**Definition 4.6 — Ancillary statistic.**
 A statistic \\(A=A(X)\\) is _ancillary_ for \\(\theta\\) if its distribution does not depend on \\(\theta\\).
 
 </div>
 
 Ancillarity and sufficiency describe different ideas. A sufficient statistic retains all parameter information in the sample, while an ancillary statistic has a parameter-free distribution.
 
-### Worked Example 4.8 — Cauchy location: sufficient but not complete
+### Worked Example 4.10 — Cauchy location: sufficient but not complete
 
 Let
 
@@ -568,7 +799,7 @@ Therefore the sufficient statistic \\(S\\) is **not complete**.
 
 This is the basic pattern behind many non-completeness proofs: find a nonconstant ancillary function of the proposed sufficient statistic and centre it to have expectation zero.
 
-### Worked Example 4.9 — Uniform location family and Rao–Blackwell improvement
+### Worked Example 4.11 — Uniform location family and Rao–Blackwell improvement
 
 Let
 
