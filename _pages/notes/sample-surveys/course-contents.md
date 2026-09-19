@@ -29,12 +29,12 @@ toc:
 {% assign lecture_3_url = '/notes/sample-surveys/lecture-03-design-based-estimation/' | relative_url %}
 {% assign lecture_4_url = '/notes/sample-surveys/lecture-04-confidence-intervals-and-sample-size/' | relative_url %}
 
-| Lecture | Topic                                                                | Main coverage                                                                                                                                                                                  | Status    |
-| ------: | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-|       1 | [Survey Foundations and Representativeness]({{ lecture_1_url }})     | Survey motivation; observation and sampling units; target and sampled populations; frames; census versus sampling; representativeness; selection bias; probability and nonprobability sampling | Published |
-|       2 | [Finite Populations and Simple Random Sampling]({{ lecture_2_url }}) | Finite-population notation; sampling designs; selection and inclusion probabilities; SRSWR; SRSWOR; random-number and software implementation                                                  | Published |
-|       3 | [Design-Based Estimation]({{ lecture_3_url }})                       | Unbiasedness; sampling variance; finite-population correction; variance estimation; SRSWR versus SRSWOR; distinct units; totals; proportions; accuracy                                         | Published |
-|       4 | [Confidence Intervals and Sample Size]({{ lecture_4_url }})          | Confidence intervals; finite-population normal approximation; margins of error; absolute and relative precision; sample-size formulae                                                          | Published |
+| Lecture | Topic                                                                         | Main coverage                                                                                                                                                                                  | Status    |
+| ------: | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+|       1 | [Foundations of Sample Surveys and Representativeness]({{ lecture_1_url }})   | Survey motivation; observation and sampling units; target and sampled populations; frames; census versus sampling; representativeness; selection bias; probability and nonprobability sampling | Published |
+|       2 | [Finite-Population Framework and Simple Random Sampling]({{ lecture_2_url }}) | Finite-population notation; sampling designs; selection and inclusion probabilities; SRSWR; SRSWOR; random-number and software implementation                                                  | Published |
+|       3 | [Design-Based Estimation under Simple Random Sampling]({{ lecture_3_url }})   | Unbiasedness; sampling variance; finite-population correction; variance estimation; SRSWR versus SRSWOR; distinct units; totals; proportions; accuracy                                         | Published |
+|       4 | [Confidence Intervals and Sample-Size Determination]({{ lecture_4_url }})     | Confidence intervals; finite-population normal approximation; margins of error; absolute and relative precision; sample-size formulae                                                          | Published |
 
 ## Formula sheet
 

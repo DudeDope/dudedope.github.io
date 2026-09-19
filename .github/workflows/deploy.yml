@@ -9,7 +9,6 @@ on:
       - "_books/**"
       - "_data/**"
       - "_news/**"
-      - "_notes/**"
       - "_pages/**"
       - "_posts/**"
       - "_projects/**"

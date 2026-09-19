@@ -1,17 +1,14 @@
 ---
 layout: page
-title: "Nonlinear-MLP: Controlled Experiments on Neural-Network Nonlinearity"
-description: A PyTorch framework for controlled comparisons of activation replacement, learned gates, unit zeroing, and reduced-width networks.
+title: "Nonlinear-MLP: Controlled Studies of Neural-Network Nonlinearity"
+description: A reproducible PyTorch framework for testing how fixed, learned, removed, and structurally controlled nonlinearities affect neural-network accuracy and efficiency.
 permalink: /projects/nonlinear-mlp/
 type: project
 project_area: Applied machine learning
-status: Research software in development
+status: Independent research software
 organisation: Independent project
 featured: true
-importance: 4
-home_label: Empirical machine learning
-home_summary: A PyTorch framework comparing fixed and learned activation assignments with unit-zeroing and reduced-width controls. Comparative findings remain under evaluation.
-home_context: In progress · Public code
+importance: 2
 tags:
   - neural networks
   - activation functions
@@ -29,13 +26,9 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    A PyTorch framework for studying the effect of replacing selected ReLUs with identity mappings. It compares fixed and learned activation
-    assignments with unit-zeroing and reduced-width controls, measuring predictive performance, calibration, and runtime. The framework is public;
-    comparative findings are still being evaluated.
+    An experimentation and analysis toolkit for asking how much nonlinearity a neural network needs, where nonlinear units matter, and how predictive
+    performance changes when nonlinear computation is reduced or learned.
   </p>
-  <nav class="aa-artifacts aa-entry-artifacts" aria-label="Nonlinear-MLP artifact">
-    <a href="{{ page.repository_url }}">Public code and experiment guide</a>
-  </nav>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
       <span class="aa-tag">{{ tag }}</span>
@@ -113,7 +106,7 @@ image:
   </div>
 
   <aside class="aa-entry-rail" aria-label="Project metadata">
-    <h2>Project</h2>
+    <h2>Project record</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Type</dt>

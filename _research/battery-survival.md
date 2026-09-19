@@ -1,17 +1,17 @@
 ---
 layout: page
-title: Battery-Health Modelling and Survival Analysis
-description: Statistical and machine-learning models for degradation, early risk, and survival-style ranking.
+title: Battery Degradation, Alert Prediction, and Survival Modelling
+description: Statistical pipelines for early degradation signals, operational alerts, and time-to-event outcomes.
 permalink: /research/battery-life/
 research_area: Probabilistic modelling and decision-making
-status: Industry project
+status: Industry research
 organisation: Ranial Systems
 collaborators: []
 period: May 2026–Present
 featured: true
 importance: 2
 research_question: How can early operational measurements support defensible degradation, alert, and survival estimates for battery energy storage systems?
-summary: Battery degradation, early-risk modelling, anomaly detection, and survival-style ranking using laboratory cell data.
+summary: Machine-learning and statistical methods for battery degradation, anomaly detection, alert prediction, and survival modelling.
 tags:
   - battery degradation
   - survival analysis
@@ -32,9 +32,8 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    This work compares statistical and machine-learning approaches to battery degradation, early risk, and survival-style ranking. Current prototypes
-    use early-cycle measurements from cell-level laboratory data. The analysis distinguishes lifetime prediction, risk ranking, and anomaly
-    detection, with transfer to operational battery systems remaining a validation question.
+    Applied statistical and machine-learning work on battery performance and degradation, anomaly detection, alert prediction, survival modelling,
+    and decision-support outputs for U.S. battery energy storage systems.
   </p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
@@ -46,11 +45,12 @@ image:
 <div class="aa-entry-layout">
   <div class="aa-entry-main">
     <p class="aa-notice">
-      <strong>Confidentiality.</strong> This page describes the methodology; company data, code, and internal performance results are not public.
+      <strong>Confidentiality.</strong> This record describes public-level statistical methods only. It does not expose company data, customer
+      information, internal reports, or proprietary implementation details.
     </p>
 
     <section id="abstract" class="aa-entry-section">
-      <h2>Overview</h2>
+      <h2>Abstract</h2>
       <p>
         Battery-health modelling combines longitudinal electrochemical measurements, operational context, rare alerts, and partially observed
         lifetimes. This work develops leakage-aware pipelines for early degradation signals, cycle-life and horizon-risk prediction, unusualness
@@ -105,13 +105,13 @@ image:
 
     <section id="artifacts" class="aa-entry-section">
       <h2>References and artifacts</h2>
-      <p class="aa-empty">Public summary; company data, code, and internal results are not released.</p>
+      <p class="aa-empty">No public dataset, code, or report is attached. Links will be added only after confidentiality review.</p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Research record metadata">
-    <h2>Industry project</h2>
+    <h2>Record</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Status</dt>
@@ -136,7 +136,7 @@ image:
     </dl>
     <nav class="aa-entry-toc" aria-label="On this page">
       <span>On this page</span>
-      <a href="#abstract">Overview</a>
+      <a href="#abstract">Abstract</a>
       <a href="#question">Question</a>
       <a href="#methods">Methods</a>
       <a href="#evaluation">Evaluation</a>

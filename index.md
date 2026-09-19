@@ -1,31 +1,28 @@
 ---
 layout: page
 title: Aditya Aryan
-description: Aditya Aryan, B.Stat student at ISI Kolkata. Research, projects, and notes in theoretical and applied statistics and machine learning.
-permalink: /
+description: Statistics, probabilistic modelling, machine learning, and optimisation under uncertainty.
 ---
 
 <div class="aa-home-grid">
   <div class="aa-home-intro">
-    <p class="aa-home-identity">Theoretical and applied statistics and machine learning</p>
-    <p class="aa-affiliation">Bachelor of Statistics student <span aria-hidden="true">·</span> Indian Statistical Institute, Kolkata</p>
+    <span class="aa-kicker">Statistics · Probabilistic Modelling · Machine Learning · Optimisation</span>
 
     <p class="aa-lede">
-      I am interested in the mathematical foundations of statistical and machine-learning methods, and in how these methods behave on data. I
-      currently work with Prof. Xin Bing on population and sample EM for Gaussian mixture-type models.
+      I am a Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, interested in statistical learning, probabilistic
+      modelling, machine learning, and optimisation for problems involving uncertainty.
     </p>
 
     <p class="aa-lede">
-      My applied work includes statistical modelling and forecasting for energy systems at Ranial Systems, following an internship on medical
-      vision-language models at Mercity AI. My projects explore estimation, dependence modelling, optimal stopping, and neural-network experiments.
+      My work spans academic research at the University of Toronto and applied data science at Ranial Systems, following an earlier research
+      internship at Mercity AI. Across these settings, I study how statistical and machine-learning methods can support reliable inference,
+      prediction, and decision-making, with experience in latent-variable models, energy systems, and multimodal learning.
     </p>
 
     <nav class="aa-actions" aria-label="Homepage shortcuts">
       <a href="{{ '/research/' | relative_url }}">Research</a>
       <a href="{{ '/projects/' | relative_url }}">Projects</a>
-      <a href="{{ '/assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf' | relative_url }}">CV PDF</a>
-      <a href="mailto:{{ site.data.socials.email }}">Email</a>
-      <a href="https://github.com/{{ site.data.socials.github_username }}">GitHub</a>
+      <a href="{{ '/cv/' | relative_url }}">CV</a>
     </nav>
 
   </div>
@@ -57,91 +54,99 @@ permalink: /
   </aside>
 </div>
 
-<section class="aa-section" aria-labelledby="current-work">
-  <div class="aa-section-head aa-section-head-compact">
-    <h2 id="current-work">Current research and applied work</h2>
+<section class="aa-section" aria-labelledby="experience">
+  <div class="aa-section-head">
+    <h2 id="experience">Experience</h2>
+    <p>Research and industry experience spanning statistical learning, probabilistic modelling, machine learning, and optimisation.</p>
   </div>
+
   <div class="aa-list">
     <article class="aa-row">
-      <div class="aa-row-meta"><span class="aa-status">In progress</span></div>
+      <div class="aa-row-meta">Apr 2026–Present</div>
       <div>
-        <h3><a href="{{ '/research/em-convergence/' | relative_url }}">EM Convergence in Gaussian Mixture-Type Models</a></h3>
-        <p>Population and sample EM: fixed points, local contraction, and the effects of mixture imbalance and sampling error.</p>
-        <div class="aa-row-context">University of Toronto · with Prof. Xin Bing · In progress</div>
+        <h3><a href="{{ '/research/em-convergence/' | relative_url }}">Student Researcher</a></h3>
+        <p>Working on theoretical questions in statistical learning through the analysis of population and sample expectation-maximisation algorithms.</p>
+        <div class="aa-row-context">University of Toronto · Remote · with Prof. Xin Bing</div>
       </div>
-      <a class="aa-row-link" href="{{ '/research/em-convergence/' | relative_url }}">Research details</a>
+      <a class="aa-row-link" href="{{ '/research/em-convergence/' | relative_url }}">Record</a>
     </article>
 
     <article class="aa-row">
-      <div class="aa-row-meta"><span class="aa-status">In progress</span></div>
+      <div class="aa-row-meta">May 2026–Present</div>
       <div>
-        <h3>Statistical and Machine-Learning Methods for Energy Systems</h3>
+        <h3><a href="{{ '/research/battery-dispatch/' | relative_url }}">Data Science Intern</a></h3>
         <p>
-          Applied work on battery-health modelling and probabilistic forecasting, with separate evaluation of prediction, uncertainty, and
-          operational decisions.
+          Working on battery modelling, anomaly detection, probabilistic forecasting, and optimisation for electricity-market and operational
+          decisions.
         </p>
-        <div class="aa-row-context">Ranial Systems · Data Science Intern · In progress</div>
-        <nav class="aa-inline-links" aria-label="Energy project details">
-          <a href="{{ '/research/battery-life/' | relative_url }}">Battery-health project</a>
-          <a href="{{ '/research/battery-dispatch/' | relative_url }}">Forecasting and market decisions</a>
-        </nav>
+        <div class="aa-row-context">Ranial Systems · Remote</div>
       </div>
+      <a class="aa-row-link" href="{{ '/research/battery-dispatch/' | relative_url }}">Record</a>
+    </article>
+
+    <article class="aa-row">
+      <div class="aa-row-meta">Apr–Aug 2025</div>
+      <div>
+        <h3><a href="{{ '/research/medical-vlm/' | relative_url }}">Machine Learning Research Intern</a></h3>
+        <p>Worked on efficient multimodal learning, including representation compression, supervised training, and preference optimisation.</p>
+        <div class="aa-row-context">Mercity AI · Bengaluru</div>
+      </div>
+      <a class="aa-row-link" href="{{ '/research/medical-vlm/' | relative_url }}">Record</a>
     </article>
 
   </div>
 </section>
 
-{% assign project_slugs = "sequential-testing|copula-air-pollution|nonlinear-mlp|biostat-policyopt" | split: "|" %}
+{% assign selected_research = site.research | where: "featured", true | sort: "importance" %}
 
-<section class="aa-section" aria-labelledby="selected-projects">
-  <div class="aa-section-head aa-section-head-compact">
-    <h2 id="selected-projects">Selected projects</h2>
+<section class="aa-section" aria-labelledby="selected-research">
+  <div class="aa-section-head">
+    <h2 id="selected-research">Selected research</h2>
+    <p>Current and completed work across statistical learning, probabilistic modelling, optimisation, and machine-learning systems.</p>
   </div>
+
   <div class="aa-list">
-    {% for slug in project_slugs %}
-      {% assign project = site.projects | where_exp: "item", "item.slug == slug" | first %}
+    {% for project in selected_research limit: 4 %}
       <article class="aa-row">
-        <div class="aa-row-meta">{{ project.home_label }}</div>
+        <div class="aa-row-meta">
+          <span class="aa-status">{{ project.status }}</span>
+          <div>{{ project.period }}</div>
+        </div>
         <div>
           <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
-          <p>{{ project.home_summary | default: project.description }}</p>
-          <div class="aa-row-context">{{ project.home_context }}</div>
+          <p>{{ project.summary | default: project.description }}</p>
+          <div class="aa-row-context">{{ project.organisation }}</div>
         </div>
-        <a class="aa-row-link" href="{{ project.url | relative_url }}">Project details</a>
+        <a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
       </article>
     {% endfor %}
   </div>
-  <p class="aa-more-link"><a href="{{ '/projects/' | relative_url }}">All projects</a></p>
 </section>
 
-<section class="aa-section" aria-labelledby="selected-notes">
+{% assign selected_projects = site.projects | where: "type", "project" | where: "featured", true | sort: "importance" %}
+
+<section class="aa-section" aria-labelledby="selected-projects">
   <div class="aa-section-head">
-    <h2 id="selected-notes">Selected notes</h2>
-    <p>Expanded course notes with proofs and worked examples.</p>
+    <h2 id="selected-projects">Selected projects</h2>
+    <p>Independent and supervised projects in statistical inference, machine learning, optimisation, and predictive modelling.</p>
   </div>
   <div class="aa-list">
-    <article class="aa-row aa-row-simple">
-      <div>
-        <h3>
-          <a href="{{ '/notes/parametric-inference/lecture-05-completeness-exponential-families-basu/' | relative_url }}"
-            >Completeness, Exponential Families, and Basu’s Theorem</a
-          >
-        </h3>
-      </div>
-      <a class="aa-row-link" href="{{ '/notes/parametric-inference/lecture-05-completeness-exponential-families-basu/' | relative_url }}">Read</a>
-    </article>
-    <article class="aa-row aa-row-simple">
-      <div>
-        <h3>
-          <a href="{{ '/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/' | relative_url }}"
-            >Bayesian Estimation and Minimax Risk</a
-          >
-        </h3>
-      </div>
-      <a class="aa-row-link" href="{{ '/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/' | relative_url }}">Read</a>
-    </article>
+    {% for project in selected_projects limit: 3 %}
+      <article class="aa-row">
+        <div class="aa-row-meta">{{ project.project_area }}</div>
+        <div>
+          <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+          <p>{{ project.description }}</p>
+          {% if project.supervisor %}
+            <div class="aa-row-context">Supervised by {{ project.supervisor }}</div>
+          {% else %}
+            <div class="aa-row-context">{{ project.organisation }}</div>
+          {% endif %}
+        </div>
+        <a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
+      </article>
+    {% endfor %}
   </div>
-  <p class="aa-more-link"><a href="{{ '/notes/' | relative_url }}">All course notes</a></p>
 </section>
 
 <script type="application/ld+json">

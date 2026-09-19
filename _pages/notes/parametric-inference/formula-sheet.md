@@ -21,14 +21,6 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
-<details class="aa-mobile-toc" markdown="1">
-<summary>Contents</summary>
-
-- Contents
-  {:toc}
-
-</details>
-
 > **Source and attribution.** This cumulative sheet accompanies the unofficial expanded Fall 2026 Parametric Inference notes based on lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">

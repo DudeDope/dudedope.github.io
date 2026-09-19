@@ -1,7 +1,6 @@
 ---
 layout: page
-title: "Survey Foundations and Representativeness"
-short_title: "Survey Foundations and Representativeness"
+title: "Lecture 1: Foundations of Sample Surveys and Representativeness"
 course: "Sample Surveys"
 lecture: 1
 instructor: "Ambarish Chattopadhyay"
@@ -25,20 +24,10 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
-<details class="aa-mobile-toc" markdown="1">
-<summary>Contents</summary>
-
-- Contents
-  {:toc}
-
-</details>
-
-<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
-
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Sample Surveys lectures of Prof. Ambarish Chattopadhyay at the Indian Statistical Institute, Kolkata. The exposition includes additional definitions, derivations, and worked solutions. Any remaining errors belong to the note maintainer, not to the instructor or the Institute.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Formula reference]({{ '/notes/sample-surveys/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }})
+[Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }})
 </nav>
 
 ## Statistics as the science of learning from data
@@ -444,7 +433,7 @@ This is an administrative prompt. The slides contain no answer, and statistical 
 ---
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Formula reference]({{ '/notes/sample-surveys/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }})
+[Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }})
 </nav>
 
 </div>

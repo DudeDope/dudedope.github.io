@@ -1,7 +1,7 @@
 ---
 layout: page
-title: EM Convergence in Gaussian Mixture-Type Models
-description: Ongoing analysis of population and sample EM for Gaussian mixture-type models.
+title: EM in k-Component Gaussian Mixture-Type Models
+description: Population and sample EM under nonconvex geometry, mixture imbalance, and high-dimensional noise.
 permalink: /research/em-convergence/
 research_area: Statistical learning and inference
 status: Research in progress
@@ -12,7 +12,7 @@ period: Apr 2026–Present
 featured: true
 importance: 1
 research_question: When do population and sample EM updates contract toward the target parameters in k-component Gaussian mixture-type models?
-summary: Population and sample EM—fixed points, local contraction, mixture imbalance, and sampling error.
+summary: Theoretical analysis of expectation-maximisation algorithms for latent-variable models.
 tags:
   - EM algorithm
   - Gaussian mixtures
@@ -33,9 +33,8 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    This project studies when population and sample EM updates contract toward the target parameters in Gaussian mixture-type models. Working with
-    Prof. Xin Bing, I examine the update map, fixed points, and the effects of component imbalance and sampling error. The analysis is ongoing; no
-    completed theorem or public manuscript is claimed here.
+    A theoretical study of population and sample expectation-maximisation for k-component Gaussian mixture-type models, with emphasis on fixed
+    points, local contraction, mixture imbalance, nonconvex geometry, and high-dimensional sampling error.
   </p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
@@ -47,7 +46,7 @@ image:
 <div class="aa-entry-layout">
   <div class="aa-entry-main">
     <section id="abstract" class="aa-entry-section">
-      <h2>Overview</h2>
+      <h2>Abstract</h2>
       <p>
         EM is easy to state but its behaviour can depend delicately on component separation, weights, initialisation, dimension, and sampling noise.
         The project first isolates the deterministic population map, then studies how finite-sample updates deviate from that map.
@@ -69,7 +68,7 @@ image:
     </section>
 
     <section id="methods" class="aa-entry-section">
-      <h2>Current analysis</h2>
+      <h2>Methods</h2>
       <ul>
         <li>Derivation and analysis of population and sample EM maps.</li>
         <li>Fixed-point identities and local Jacobian/operator-norm bounds.</li>
@@ -108,13 +107,13 @@ image:
 
     <section id="artifacts" class="aa-entry-section">
       <h2>References and artifacts</h2>
-      <p class="aa-empty">No public manuscript or implementation is currently linked.</p>
+      <p class="aa-empty">A public technical note and code link will be added after they are ready for release.</p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Research record metadata">
-    <h2>Research project</h2>
+    <h2>Record</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Status</dt>
@@ -139,7 +138,7 @@ image:
     </dl>
     <nav class="aa-entry-toc" aria-label="On this page">
       <span>On this page</span>
-      <a href="#abstract">Overview</a>
+      <a href="#abstract">Abstract</a>
       <a href="#question">Question</a>
       <a href="#setup">Setup</a>
       <a href="#methods">Methods</a>

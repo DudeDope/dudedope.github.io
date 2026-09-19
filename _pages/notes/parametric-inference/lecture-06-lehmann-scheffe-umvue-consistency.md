@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lehmann–Scheffé and Consistency"
-short_title: "Lehmann–Scheffé and Consistency"
+title: "Lecture 6: Lehmann–Scheffé Theory, UMVUE Constructions, and Consistency"
+short_title: "Lehmann–Scheffé and consistency"
 course: "Parametric Inference"
 lecture: 6
 instructor: "Probal Chaudhuri"
@@ -42,16 +42,6 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
-<details class="aa-mobile-toc" markdown="1">
-<summary>Contents</summary>
-
-- Contents
-  {:toc}
-
-</details>
-
-<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
-
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
@@ -59,6 +49,13 @@ toc:
 </nav>
 
 ## Learning objectives
+
+<div class="intuition" markdown="1">
+
+**Additional context.**
+This section was added to make the lecture easier to use as a self-contained study note.
+
+</div>
 
 - Prove the Lehmann–Scheffé theorem from Rao–Blackwellisation and completeness.
 - Construct UMVUEs in Bernoulli, binomial, Poisson, exponential, uniform, and normal models.

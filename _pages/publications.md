@@ -2,12 +2,19 @@
 layout: page
 permalink: /publications/
 title: Publications
-description: Publication status and public research artifacts.
+description: Publications, preprints, working manuscripts, and public technical reports.
 nav: false
-redirect_to: /research/#publications
 ---
 
-<p class="aa-empty">
-  Publication status and available artifacts are listed on the
-  <a href="{{ '/research/#publications' | relative_url }}">Research page</a>.
-</p>
+{% if site.data.profile.publications_available %}
+{% include bib_search.liquid %}
+
+  <div class="publications">
+    {% bibliography %}
+  </div>
+{% else %}
+  <p class="aa-empty">
+    No publications or public manuscripts at present. Current work is described on the
+    <a href="{{ '/research/' | relative_url }}">Research page</a>.
+  </p>
+{% endif %}

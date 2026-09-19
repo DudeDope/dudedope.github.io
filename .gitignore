@@ -14,8 +14,6 @@ al-folio-upgrade-report.md
 node_modules/
 output/playwright/
 output/report-audit/
-output/site/
-output/repos/
 assets/pdf/projects/*.pdf
 !assets/pdf/projects/*-public.pdf
 test-results/

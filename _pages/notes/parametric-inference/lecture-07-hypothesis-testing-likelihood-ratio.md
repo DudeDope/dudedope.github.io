@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Hypothesis Testing and Likelihood Ratios"
-short_title: "Hypothesis Testing and Likelihood Ratios"
+title: "Lecture 7: Hypothesis Testing, Power, Sufficiency, and Likelihood-Ratio Tests"
+short_title: "Hypothesis testing"
 course: "Parametric Inference"
 lecture: 7
 instructor: "Probal Chaudhuri"
@@ -41,16 +41,6 @@ toc:
 ---
 
 <div class="aa-course-note" markdown="1">
-
-<details class="aa-mobile-toc" markdown="1">
-<summary>Contents</summary>
-
-- Contents
-  {:toc}
-
-</details>
-
-<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
 
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 

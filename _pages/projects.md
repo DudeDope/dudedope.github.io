@@ -2,62 +2,57 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Independent and supervised projects in theoretical and applied statistics and machine learning.
+description: Independent and supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning.
 nav: true
-nav_order: 2
+nav_order: 3
 ---
 
 <p class="aa-page-intro">
-  Independent and supervised projects in theoretical and applied statistics and machine learning. The pages combine mathematical formulation,
-  implementation, and evaluation, with ongoing work labelled separately from completed projects.
+  Selected independent and supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning. Each record
+  summarises the problem, methodology, current evidence, and limitations.
 </p>
 
-{% assign project_slugs = "sequential-testing|stein-shrinkage|copula-air-pollution|nonlinear-mlp|biostat-policyopt|football-probability" | split: "|" %}
+{% assign project_areas = "Statistical inference and probabilistic modelling|Optimisation and decision-making|Applied machine learning" | split: "|" %}
+{% assign portfolio_projects = site.projects | where: "type", "project" | sort: "importance" %}
 
-<section class="aa-section aa-index-group" aria-labelledby="project-list">
-  <div class="aa-section-head aa-section-head-compact">
-    <h2 id="project-list">Selected work</h2>
-  </div>
-  <div class="aa-list">
-    {% for slug in project_slugs %}
-      {% assign project = site.projects | where_exp: "item", "item.slug == slug" | first %}
-      <article class="aa-row">
-        <div class="aa-row-meta"><span class="aa-status">{{ project.status }}</span></div>
-        <div>
-          <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
-          <p>{{ project.description }}</p>
-          {% if project.supervisor %}
-            <div class="aa-row-context">Supervised by {{ project.supervisor }}</div>
-          {% else %}
-            <div class="aa-row-context">{{ project.organisation }}</div>
-          {% endif %}
-          <div class="aa-tags" aria-label="Topics">
-            {% for tag in project.tags limit: 4 %}
-              <span class="aa-tag">{{ tag }}</span>
-            {% endfor %}
-          </div>
-        </div>
-        <a class="aa-row-link" href="{{ project.url | relative_url }}">Project details</a>
-      </article>
-    {% endfor %}
-  </div>
+{% for area in project_areas %}
+{% assign area_projects = portfolio_projects | where: "project_area", area %}
+{% if area_projects.size > 0 %}
+
+<section class="aa-section aa-index-group" aria-labelledby="{{ area | slugify }}">
+<div class="aa-section-head">
+<h2 id="{{ area | slugify }}">{{ area }}</h2>
+{% case area %}
+{% when "Statistical inference and probabilistic modelling" %}
+<p>Estimation, shrinkage, dependence modelling, and uncertainty quantification.</p>
+{% when "Optimisation and decision-making" %}
+<p>Dynamic programming, optimal stopping, and computational decision methods.</p>
+{% when "Applied machine learning" %}
+<p>Predictive modelling, signal processing, calibration, and evaluation.</p>
+{% endcase %}
+</div>
+<div class="aa-list">
+{% for project in area_projects %}
+<article class="aa-row">
+<div class="aa-row-meta"><span class="aa-status">{{ project.status }}</span></div>
+<div>
+<h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
+<p>{{ project.description }}</p>
+{% if project.supervisor %}
+<div class="aa-row-context">Supervised by {{ project.supervisor }}</div>
+{% else %}
+<div class="aa-row-context">{{ project.organisation }}</div>
+{% endif %}
+<div class="aa-tags" aria-label="Topics">
+{% for tag in project.tags limit: 4 %}
+<span class="aa-tag">{{ tag }}</span>
+{% endfor %}
+</div>
+</div>
+<a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
+</article>
+{% endfor %}
+</div>
 </section>
-
-{% assign audio_project = site.projects | where_exp: "item", "item.slug == 'audio-denoising'" | first %}
-
-<section class="aa-section aa-index-group" aria-labelledby="earlier-coursework">
-  <div class="aa-section-head aa-section-head-compact">
-    <h2 id="earlier-coursework">Earlier coursework</h2>
-  </div>
-  <div class="aa-list">
-    <article class="aa-row">
-      <div class="aa-row-meta"><span class="aa-status">{{ audio_project.status }}</span></div>
-      <div>
-        <h3><a href="{{ audio_project.url | relative_url }}">{{ audio_project.title }}</a></h3>
-        <p>{{ audio_project.description }}</p>
-        <div class="aa-row-context">Supervised by {{ audio_project.supervisor }}</div>
-      </div>
-      <a class="aa-row-link" href="{{ audio_project.url | relative_url }}">Project details</a>
-    </article>
-  </div>
-</section>
+{% endif %}
+{% endfor %}

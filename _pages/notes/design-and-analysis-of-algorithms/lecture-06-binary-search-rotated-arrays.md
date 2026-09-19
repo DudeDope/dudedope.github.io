@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Binary Search in Rotated Arrays"
-short_title: "Binary Search in Rotated Arrays"
+title: "Lecture 6: Binary Search and Medians in Rotated Sorted Arrays"
+short_title: "Binary search and rotations"
 course: "Design and Analysis of Algorithms"
 lecture: 6
 instructor: "Sandip Das"
@@ -33,25 +33,6 @@ toc:
 ---
 
 <div class="aa-course-note" markdown="1">
-
-<details class="aa-mobile-toc" markdown="1">
-<summary>Contents</summary>
-
-- Contents
-  {:toc}
-
-</details>
-
-<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
-
-{% assign note_base = '/notes/design-and-analysis-of-algorithms/' %}
-
-<nav class="aa-note-nav aa-note-nav-top" aria-label="Course navigation">
-  {% if page.previous %}<a href="{{ note_base | append: page.previous | append: '/' | relative_url }}">Previous lecture</a> · {% endif %}
-  <a href="{{ note_base | relative_url }}">Course contents</a> ·
-  <a href="{{ '/notes/design-and-analysis-of-algorithms/formula-sheet/' | relative_url }}">Formula reference</a>
-  {% if page.next %} · <a href="{{ note_base | append: page.next | append: '/' | relative_url }}">Next lecture</a>{% endif %}
-</nav>
 
 > These are unofficial expanded notes based on the lectures of  
 > Sandip Das, Indian Statistical Institute, Kolkata.  

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Point Estimation, Risk, and Likelihood"
-short_title: "Point Estimation, Risk, and Likelihood"
+title: "Lecture 1: Point Estimation, Risk, Mean Squared Error, and Estimator Comparison"
+short_title: "Point estimation and MSE"
 course: "Parametric Inference"
 lecture: 1
 instructor: "Probal Chaudhuri"
@@ -41,16 +41,6 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
-<details class="aa-mobile-toc" markdown="1">
-<summary>Contents</summary>
-
-- Contents
-  {:toc}
-
-</details>
-
-<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
-
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
@@ -58,6 +48,13 @@ toc:
 </nav>
 
 ## Learning objectives
+
+<div class="intuition" markdown="1">
+
+**Additional context.**
+This section was added to make the lecture easier to use as a self-contained study note.
+
+</div>
 
 - Formulate a parametric estimation problem precisely.
 - Define loss, risk, MSE, bias, and variance.
@@ -277,7 +274,7 @@ No universally best estimator exists over the unrestricted estimator class in th
 <div class="intuition" markdown="1">
 
 **Additional context.**
-The Cauchy location model gives a nonlinear maximum-likelihood equation and motivates the numerical methods below.
+The handwritten continuation asks for the maximum-likelihood equation in the Cauchy location model. The definitions below are added so that the example is self-contained.
 
 </div>
 

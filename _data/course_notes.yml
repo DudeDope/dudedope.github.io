@@ -1,25 +1,4 @@
 courses:
-  - slug: parametric-inference
-    title: Parametric Inference
-    instructor: Prof. Probal Chaudhuri
-    institution: Indian Statistical Institute, Kolkata
-    term: Fall 2026
-    status: Complete through Lecture 8
-    lecture_count: 8
-    landing_description: Estimation, sufficiency, completeness, testing, and Bayesian decision theory.
-    description: >
-      Point estimation, unbiased estimation, risk and efficiency, Fisher information,
-      sufficiency, completeness, UMVUE construction, hypothesis testing, and Bayesian inference.
-    contents_url: /notes/parametric-inference/
-    formula_url: /notes/parametric-inference/formula-sheet/
-    topics:
-      - Point estimation
-      - Unbiased estimation
-      - Sufficiency and completeness
-      - UMVUE theory
-      - Hypothesis testing
-      - Bayesian inference
-
   - slug: sample-surveys
     title: Sample Surveys
     instructor: Prof. Ambarish Chattopadhyay
@@ -27,7 +6,6 @@ courses:
     term: Fall 2026
     status: Ongoing
     lecture_count: 4
-    landing_description: Sampling designs, design-based estimation, and uncertainty for finite populations.
     description: >
       Design-based survey foundations, finite-population sampling, simple random sampling,
       variance estimation, confidence intervals, and sample-size determination.
@@ -46,7 +24,6 @@ courses:
     term: Fall 2026
     status: Complete through Lecture 9
     lecture_count: 9
-    landing_description: Correctness arguments, complexity, geometric algorithms, selection, and search structures.
     description: >
       Algorithm specification and correctness, recurrences, computational geometry,
       deterministic selection, binary search, search trees, and balanced structures.
@@ -57,3 +34,23 @@ courses:
       - Correctness proofs
       - Selection and search
       - Search trees
+
+  - slug: parametric-inference
+    title: Parametric Inference
+    instructor: Prof. Probal Chaudhuri
+    institution: Indian Statistical Institute, Kolkata
+    term: Fall 2026
+    status: Complete through Lecture 8
+    lecture_count: 8
+    description: >
+      Point estimation, unbiased estimation, risk and efficiency, Fisher information,
+      sufficiency, completeness, UMVUE construction, hypothesis testing, and Bayesian inference.
+    contents_url: /notes/parametric-inference/
+    formula_url: /notes/parametric-inference/formula-sheet/
+    topics:
+      - Point estimation
+      - Unbiased estimation
+      - Sufficiency and completeness
+      - UMVUE theory
+      - Hypothesis testing
+      - Bayesian inference

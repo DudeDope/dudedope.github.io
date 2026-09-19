@@ -1,17 +1,14 @@
 ---
 layout: page
-title: "BioStat-PO: Selecting Analysis Pipelines for Causal Survival Inference"
-description: A Python–R framework for selecting causal restricted-mean-survival-time analysis pipelines under missingness and censoring.
+title: "BioStat-PO: Policy Selection for Causal Survival Analysis"
+description: An integrated Python–R research framework for selecting causal RMST analysis pipelines under missingness, censoring, and statistical-validity constraints.
 permalink: /projects/biostat-policyopt/
 type: project
 project_area: Statistical inference and probabilistic modelling
-status: Research software in development
+status: Independent research software
 organisation: Independent project
 featured: true
-importance: 5
-home_label: Statistics and machine learning
-home_summary: A Python–R framework comparing analysis procedures under missingness and censoring, accounting for statistical performance and computational cost.
-home_context: In progress · Code and development pilots
+importance: 1
 tags:
   - causal inference
   - survival analysis
@@ -22,7 +19,6 @@ repository_url: https://github.com/DudeDope/biostat-policyopt
 benchmark_repository_url: https://github.com/DudeDope/biostat-simbench
 notebook_url: https://colab.research.google.com/github/DudeDope/biostat-policyopt/blob/main/notebooks/biostat_po_all_experiments_colab.ipynb
 technical_note_url: https://github.com/DudeDope/biostat-policyopt/blob/main/docs/RESEARCH_PROSPECTUS.md
-pilot_results_url: https://github.com/DudeDope/biostat-simbench/blob/main/docs/PILOT_RESULTS.md
 image:
 ---
 
@@ -32,15 +28,9 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    BioStat-PO is a Python–R framework for selecting analysis pipelines for causal restricted mean survival time. It compares procedures under missing
-    covariates and censoring, accounting for estimation error, interval coverage, failures, and computational cost. Public code and development
-    pilots are available; confirmatory evaluation and policy-training results remain incomplete.
+    A paired Python and R system for studying how a policy can select among causal survival-analysis pipelines while accounting for missing
+    covariates, censoring, inferential validity, failures, and computational cost.
   </p>
-  <nav class="aa-artifacts aa-entry-artifacts" aria-label="BioStat-PO artifacts">
-    <a href="{{ page.repository_url }}">Python policy code</a>
-    <a href="{{ page.benchmark_repository_url }}">R simulation code</a>
-    <a href="{{ page.pilot_results_url }}">Development pilot results</a>
-  </nav>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
       <span class="aa-tag">{{ tag }}</span>
@@ -59,8 +49,7 @@ image:
     <section id="problem" class="aa-entry-section">
       <h2>Problem</h2>
       <p>
-        Restricted mean survival time (RMST) is the expected survival time accumulated up to a fixed horizon. Estimating a causal contrast in RMST
-        can require choices about adjustment, missing-data handling, censoring,
+        Estimating a causal difference in restricted mean survival time can require choices about adjustment, missing-data handling, censoring,
         interval construction, and computational budget. A method that works well under one data-generating process may have poor bias, coverage,
         stability, or failure behaviour under another. BioStat-PO treats analysis-pipeline selection as a constrained decision problem rather than
         assuming that one procedure is uniformly best.
@@ -118,21 +107,6 @@ image:
       </ul>
     </section>
 
-    <section id="worked-task" class="aa-entry-section">
-      <h2>Illustrative selection task</h2>
-      <p>
-        Consider a synthetic study described only by information available to an analyst: sample size, observed missingness and censoring rates,
-        covariate balance, the requested RMST horizon, and a computational budget. The policy chooses one implemented analysis pipeline—for example,
-        weighted Kaplan–Meier or Cox standardisation with a specified missing-data procedure—without access to the simulator's latent parameters or
-        true treatment effect.
-      </p>
-      <p>
-        Selection replicates provide estimated bias, interval coverage, failure frequency, and runtime for learning or ranking candidate actions.
-        Independent evaluation replicates then score the chosen action against prespecified constraints. This example describes the implemented
-        decision structure; it is not evidence that a learned policy outperforms the baselines.
-      </p>
-    </section>
-
     <section id="limitations" class="aa-entry-section">
       <h2>Current limitations</h2>
       <p>
@@ -149,15 +123,13 @@ image:
         <a href="{{ page.benchmark_repository_url }}">R simulation repository</a>
         <a href="{{ page.notebook_url }}">Colab experiment runner</a>
         <a href="{{ page.technical_note_url }}">Research prospectus</a>
-        <a href="{{ page.pilot_results_url }}">Development pilot results</a>
       </nav>
-      <p class="aa-empty">The small public pilots are development checks, not confirmatory evidence of superiority or nominal interval coverage.</p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Project metadata">
-    <h2>Project</h2>
+    <h2>Project record</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Type</dt>
@@ -187,7 +159,6 @@ image:
       <a href="#statistical-benchmark">Statistical benchmark</a>
       <a href="#policy-system">Policy system</a>
       <a href="#evaluation">Evaluation</a>
-      <a href="#worked-task">Illustrative task</a>
       <a href="#limitations">Limitations</a>
       <a href="#artifacts">Artifacts</a>
     </nav>

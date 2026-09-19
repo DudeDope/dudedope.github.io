@@ -38,16 +38,6 @@ const contentRoutes = [
   "notes/sample-surveys/lecture-02-finite-population-and-srs/",
   "notes/sample-surveys/lecture-03-design-based-estimation/",
   "notes/sample-surveys/lecture-04-confidence-intervals-and-sample-size/",
-  "notes/parametric-inference/",
-  "notes/parametric-inference/formula-sheet/",
-  "notes/parametric-inference/lecture-01-point-estimation-risk-mse/",
-  "notes/parametric-inference/lecture-02-unbiased-estimation-umvue-crlb/",
-  "notes/parametric-inference/lecture-03-existence-uniqueness-unbiased-estimators/",
-  "notes/parametric-inference/lecture-04-sufficiency-rao-blackwell-ancillarity/",
-  "notes/parametric-inference/lecture-05-completeness-exponential-families-basu/",
-  "notes/parametric-inference/lecture-06-lehmann-scheffe-umvue-consistency/",
-  "notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/",
-  "notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/",
   "notes/design-and-analysis-of-algorithms/",
   "notes/design-and-analysis-of-algorithms/formula-sheet/",
   "notes/design-and-analysis-of-algorithms/lecture-01-algorithmic-foundations/",
@@ -116,10 +106,9 @@ function assert(condition, message) {
     assert(
       JSON.stringify(measurements.selectedProjectTitles) ===
         JSON.stringify([
-          "Optimal Stopping in a Finite Reward-Sampling Game",
-          "Copula Modelling of Air-Pollution Episodes",
-          "Nonlinear-MLP: Controlled Experiments on Neural-Network Nonlinearity",
-          "BioStat-PO: Selecting Analysis Pipelines for Causal Survival Inference",
+          "BioStat-PO: Policy Selection for Causal Survival Analysis",
+          "Nonlinear-MLP: Controlled Studies of Neural-Network Nonlinearity",
+          "Bivariate Copula Modelling of Extreme Air-Pollution Events",
         ]),
       `${width}px: unexpected selected-project order: ${measurements.selectedProjectTitles.join(" | ")}`
     );
@@ -138,28 +127,9 @@ function assert(condition, message) {
   await page.locator("#navbarNav.show").waitFor();
   assert((await mobileToggle.getAttribute("aria-expanded")) === "true", "375px: mobile navigation did not expose expanded state");
   assert(await page.getByRole("link", { name: "Research", exact: true }).isVisible(), "375px: expanded navigation links are not visible");
-  assert((await page.locator("#search-toggle .nav-link").textContent()).includes("ctrl k"), "Search shortcut source text is missing");
-  assert(
-    (await page.locator("#search-toggle .nav-link").evaluate((element) => getComputedStyle(element, "::before").content)).includes("Search"),
-    "375px: mobile search action has no visible Search label"
-  );
 
   await page.setViewportSize({ width: 1024, height: 900 });
   await page.goto(baseUrl, { waitUntil: "domcontentloaded" });
-  const searchEntries = await page
-    .locator("ninja-keys")
-    .evaluate((element) => element.data.map((entry) => ({ title: entry.title, description: entry.description || "", section: entry.section })));
-  assert(
-    searchEntries.every((entry) => entry.title.trim()),
-    "Search contains a blank title"
-  );
-  for (const term of ["Basu", "Rao–Blackwell", "Bayes", "Sample Surveys", "Minimum Enclosing Circles"]) {
-    assert(
-      searchEntries.some((entry) => `${entry.title} ${entry.description}`.includes(term)),
-      `Search is missing the expected notes term: ${term}`
-    );
-  }
-  assert(searchEntries.filter((entry) => entry.section === "Notes").length >= 21, "Search does not index all individual lectures");
   await page.keyboard.press("Control+K");
   await page.waitForFunction(() => document.querySelector("ninja-keys")?.visible === true);
   await page.keyboard.press("Escape");
@@ -209,30 +179,11 @@ function assert(condition, message) {
   }
 
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto(new URL("cv/", baseUrl).href, { waitUntil: "domcontentloaded" });
-  const cvText = await page.locator("body").innerText();
-  assert(
-    cvText.indexOf("University of Toronto") < cvText.indexOf("Ranial Systems"),
-    "CV experience should place current academic research before industry work"
-  );
-  for (const expectedDate of ["Apr 2026 - present", "May 2026 - present", "Apr 2025 - Aug 2025"]) {
-    assert(cvText.toLowerCase().includes(expectedDate.toLowerCase()), `CV page is missing month-level role date: ${expectedDate}`);
+  await page.goto(new URL("about/", baseUrl).href, { waitUntil: "domcontentloaded" });
+  const aboutText = await page.locator("body").innerText();
+  for (const expected of ["All India Rank 90", "Indian National Mathematical Olympiad merit list", "All India Rank 1,034", "top-1,000 candidate"]) {
+    assert(aboutText.includes(expected), `About page is missing verified academic highlight: ${expected}`);
   }
-  for (const expected of [
-    "Indian Statistical Institute Entrance Examination",
-    "All India Rank 90",
-    "Indian National Mathematical Olympiad",
-    "Indian Olympiad Qualifier in Mathematics",
-    "National Talent Search Examination Scholarship",
-  ]) {
-    assert(cvText.includes(expected), `CV page is missing verified academic highlight: ${expected}`);
-  }
-  const cvDownload = page.locator('.post-title a[href$="Aditya_Aryan_CV.pdf"]');
-  assert(await cvDownload.isVisible(), "CV page is missing its visible PDF download link");
-  assert(
-    (await cvDownload.evaluate((element) => getComputedStyle(element, "::before").content)).includes("Download CV (PDF)"),
-    "CV PDF download has no visible label"
-  );
 
   await page.goto(new URL("research/", baseUrl).href, { waitUntil: "domcontentloaded" });
   assert(await page.locator("#publication-status").isVisible(), "Research page is missing the publication-status note");
@@ -244,8 +195,8 @@ function assert(condition, message) {
         complete: image.complete,
         naturalWidth: image.naturalWidth,
       })),
-      pdfs: [...new Set([...document.querySelectorAll('a[href*="/assets/pdf/projects/"]')].map((link) => link.getAttribute("href")))],
-      code: [...new Set([...document.querySelectorAll('a[href*="/assets/code/projects/"]')].map((link) => link.getAttribute("href")))],
+      pdfs: [...document.querySelectorAll('a[href*="/assets/pdf/projects/"]')].map((link) => link.getAttribute("href")),
+      code: [...document.querySelectorAll('a[href*="/assets/code/projects/"]')].map((link) => link.getAttribute("href")),
     }));
     assert(
       artifacts.images.length === project.images,

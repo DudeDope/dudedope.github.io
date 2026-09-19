@@ -1,19 +1,16 @@
 ---
 layout: page
-title: Optimal Stopping in a Finite Reward-Sampling Game
-description: A finite reward-sampling game solved by Bellman recursion, backward induction, and exhaustive verification.
+title: "Sequential Testing: Optimal Stopping under a Reward–Cost Trade-off"
+description: A finite-horizon Markov decision problem solved by Bellman recursion, backward induction, memoisation, and stopping cutoffs.
 permalink: /projects/sequential-testing/
 type: project
 project_area: Optimisation and decision-making
-status: Completed supervised project
+status: Supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Arnab Chakraborty
 period: March 2024
 featured: true
-importance: 1
-home_label: Probability and decision methods
-home_summary: Derived a Bellman recursion and implemented the optimal policy in C++; exhaustive enumeration verified the reported solution.
-home_context: Completed · Proof, report, code
+importance: 5
 math: true
 tags:
   - optimal stopping
@@ -33,14 +30,9 @@ image: /assets/img/projects/sequential/cutoff-growth.png
     <span>with {{ page.supervisor }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    A finite reward-sampling game is formulated as a Markov decision problem and solved by Bellman recursion. A backward-induction proof establishes
-    the optimal policy, and a C++ implementation is checked against exhaustive enumeration. For the reported instance with 20 boxes, five rewards,
-    reward value five, and unit opening cost, the expected gain is 7.6876, compared with 6.6393 for the initial heuristic.
+    A finite stochastic game reduced to a two-dimensional Markov state, solved exactly through a Bellman recursion and a backward-induction proof of
+    optimality.
   </p>
-  <nav class="aa-artifacts aa-entry-artifacts" aria-label="Optimal stopping artifacts">
-    <a href="{{ page.report_url | relative_url }}">Report (PDF)</a>
-    <a href="{{ page.code_url | relative_url }}">Memoised C++ implementation</a>
-  </nav>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
       <span class="aa-tag">{{ tag }}</span>
@@ -58,8 +50,8 @@ image: /assets/img/projects/sequential/cutoff-growth.png
         reward already collected and incurs no further gain or loss.
       </p>
       <p>
-        The reported instance uses \(N=20\), \(C=5\), \(V=5\), and unit opening cost. The central question is sequential: after seeing part of the
-        random placement, should one pay for another observation or preserve the current gain?
+        The reported instance uses \(N=20\), \(C=5\), and \(V=5\). The central question is sequential: after seeing part of the random placement,
+        should one pay for another observation or preserve the current gain?
       </p>
     </section>
 
@@ -222,13 +214,13 @@ $$
         <a href="{{ page.report_url | relative_url }}">Read the public report (PDF)</a>
         <a href="{{ page.code_url | relative_url }}">Download the memoised C++ implementation</a>
       </nav>
-      <p class="aa-empty">The C++ download is the memoised implementation used for the published calculation; the report contains the formulation, proof, and verification.</p>
+      <p class="aa-empty">The public PDF begins after the original identifying cover page. Its analysis, proof, algorithms, and appendices are unchanged.</p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Project metadata">
-    <h2>Project</h2>
+    <h2>Project record</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Type</dt>
@@ -244,7 +236,7 @@ $$
       </div>
       <div>
         <dt>Reported instance</dt>
-        <dd>\(N=20,\ C=5,\ V=5\), unit opening cost</dd>
+        <dd>\(N=20,\ C=5,\ V=5\)</dd>
       </div>
       <div>
         <dt>Completed</dt>
