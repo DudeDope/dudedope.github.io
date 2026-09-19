@@ -2,20 +2,27 @@
 layout: page
 title: Research
 permalink: /research/
-description: Research and technical work in statistical learning, probabilistic modelling, machine learning, and optimisation.
+description: Theoretical and applied work in statistics and machine learning.
 nav: true
-nav_order: 2
+nav_order: 1
 ---
 
 <div class="aa-page-grid aa-index-intro">
-  <p class="aa-page-intro">
-    This page presents current and completed research experience across statistical learning, probabilistic modelling, machine learning, and
-    optimisation. Each record describes the problem, methodology, contributions, and limitations of the work.
-  </p>
-  <aside class="aa-index-legend" aria-label="Research record guide">
-    <h2>Record guide</h2>
-    <p><strong>Status</strong> describes the type of work, not publication status.</p>
-    <p><strong>Artifacts</strong> are listed only after they are approved for public release.</p>
+  <div>
+    <p class="aa-page-intro">
+      My research interests connect the mathematical analysis of statistical and machine-learning methods with their behaviour on data. I currently
+      study population and sample EM with Prof. Xin Bing and work on statistical modelling and forecasting at Ranial Systems. My previous internship
+      explored compact medical vision-language models.
+    </p>
+    <p class="aa-page-intro aa-page-intro-secondary">
+      My interests span theoretical and applied statistics and machine learning. I am particularly interested in estimation, the behaviour of
+      learning algorithms, and the relationship between model assumptions and empirical performance. My current work includes EM convergence and
+      statistical modelling for energy systems; my independent projects explore analysis-pipeline selection and neural-network nonlinearity.
+    </p>
+  </div>
+  <aside class="aa-index-legend" aria-label="Research status note">
+    <h2>Status</h2>
+    <p>Status labels distinguish ongoing work, completed projects, and available public artifacts.</p>
   </aside>
 </div>
 
@@ -27,15 +34,14 @@ nav_order: 2
 {% if area_projects.size > 0 %}
 
 <section class="aa-section aa-index-group" aria-labelledby="{{ area | slugify }}">
-<div class="aa-section-head">
-<h2 id="{{ area | slugify }}">{{ area }}</h2>
+<div class="aa-section-head aa-section-head-compact">
 {% case area %}
 {% when "Statistical learning and inference" %}
-<p>Theoretical and computational questions in estimation, latent-variable models, and finite-sample behaviour.</p>
+<h2 id="{{ area | slugify }}">Academic research</h2>
 {% when "Probabilistic modelling and decision-making" %}
-<p>Forecasting, uncertainty quantification, anomaly detection, and optimisation for sequential and market decisions.</p>
+<h2 id="{{ area | slugify }}">Industry projects</h2>
 {% when "Machine-learning systems" %}
-<p>Efficient representation learning, multimodal modelling, training methods, and evaluation.</p>
+<h2 id="{{ area | slugify }}">Previous ML research internship</h2>
 {% endcase %}
 </div>
 <div class="aa-list">
@@ -60,7 +66,7 @@ nav_order: 2
 {% endfor %}
 </div>
 </div>
-<a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
+<a class="aa-row-link" href="{{ project.url | relative_url }}">Project details</a>
 </article>
 {% endfor %}
 </div>
@@ -68,9 +74,9 @@ nav_order: 2
 {% endif %}
 {% endfor %}
 
-<section class="aa-section" aria-labelledby="publication-status">
+<section id="publications" class="aa-section" aria-labelledby="publication-status">
   <div class="aa-section-head">
-    <h2 id="publication-status">Publication status</h2>
-    <p>No publications or public manuscripts at present. Public research outputs will be listed here when they become available.</p>
+    <h2 id="publication-status">Publications</h2>
+    <p>No publications or public manuscripts are currently listed. Research summaries and available project artifacts are linked above.</p>
   </div>
 </section>

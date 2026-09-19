@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 8: Bayesian Point Estimation, Conjugate Priors, Bayes Risk, and Generalized Bayes Rules"
-short_title: "Bayesian point estimation"
+title: "Bayesian Estimation and Minimax Risk"
+short_title: "Bayesian Estimation and Minimax Risk"
 course: "Parametric Inference"
 lecture: 8
 instructor: "Probal Chaudhuri"
@@ -44,6 +44,16 @@ toc:
 ---
 
 <div class="aa-course-note" markdown="1">
+
+<details class="aa-mobile-toc" markdown="1">
+<summary>Contents</summary>
+
+- Contents
+  {:toc}
+
+</details>
+
+<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
 
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 

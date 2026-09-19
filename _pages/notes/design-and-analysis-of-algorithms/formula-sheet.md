@@ -22,6 +22,14 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
+<details class="aa-mobile-toc" markdown="1">
+<summary>Contents</summary>
+
+- Contents
+  {:toc}
+
+</details>
+
 This sheet is cumulative. Every symbol is defined and every bound is accompanied by the assumptions under which it is valid. The lecture in which an item first appears is indicated explicitly.
 
 ## 1. Global notation and conventions

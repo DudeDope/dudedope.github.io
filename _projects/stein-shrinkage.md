@@ -1,16 +1,16 @@
 ---
 layout: page
-title: "Stein's Paradox: Inadmissibility and Risk-Optimal Shrinkage"
-description: Decision-theoretic risk, James–Stein shrinkage, heteroscedastic extensions, empirical Bayes estimation, and SURE.
+title: James–Stein Shrinkage and Empirical Bayes Risk
+description: Classical James–Stein risk calculations and configuration-specific empirical Bayes simulation studies.
 permalink: /projects/stein-shrinkage/
 type: project
 project_area: Statistical inference and probabilistic modelling
-status: Supervised project
+status: Completed supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Ayanendranath Basu
 period:
 featured: false
-importance: 3
+importance: 2
 math: true
 tags:
   - decision theory
@@ -29,8 +29,11 @@ image:
     <span>with {{ page.supervisor }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    A decision-theoretic study of how biased joint estimation can dominate coordinate-wise maximum likelihood under multivariate squared-error risk.
+    This supervised project studies why joint shrinkage can improve on coordinate-wise estimation in the normal-means model. It develops the
+    classical James–Stein risk comparison and examines empirical Bayes extensions through simulation. The computational analysis compares Monte
+    Carlo risk with SURE; numerical findings apply to the simulated configurations.
   </p>
+  <p class="aa-artifact-status">The report and simulation code are not yet public.</p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
       <span class="aa-tag">{{ tag }}</span>
@@ -195,15 +198,15 @@ $$
     <section id="artifacts" class="aa-entry-section">
       <h2>Artifacts</h2>
       <p class="aa-empty">
-        No report or source file was supplied for public release. A technical note and reproducible simulation package will be linked only when the
-        parameter grid, seeds, baselines, and uncertainty summaries are ready.
+        The report and simulation code are not yet public. Comparative numerical results should be read only as configuration-specific findings,
+        not as a simulation proof of uniform dominance.
       </p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Project metadata">
-    <h2>Project record</h2>
+    <h2>Project</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Type</dt>

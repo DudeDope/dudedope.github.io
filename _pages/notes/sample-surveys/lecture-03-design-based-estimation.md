@@ -1,6 +1,7 @@
 ---
 layout: page
-title: "Lecture 3: Design-Based Estimation under Simple Random Sampling"
+title: "Design-Based Estimation"
+short_title: "Design-Based Estimation"
 course: "Sample Surveys"
 lecture: 3
 instructor: "Ambarish Chattopadhyay"
@@ -24,10 +25,20 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
+<details class="aa-mobile-toc" markdown="1">
+<summary>Contents</summary>
+
+- Contents
+  {:toc}
+
+</details>
+
+<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
+
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Sample Surveys lectures of Prof. Ambarish Chattopadhyay at the Indian Statistical Institute, Kolkata. The exposition includes additional definitions, derivations, and worked solutions. Any remaining errors belong to the note maintainer, not to the instructor or the Institute.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-04-confidence-intervals-and-sample-size/' | relative_url }})
+[← Previous lecture]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Formula reference]({{ '/notes/sample-surveys/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-04-confidence-intervals-and-sample-size/' | relative_url }})
 </nav>
 
 ## Sampling distributions and design unbiasedness
@@ -963,7 +974,7 @@ Code the characteristic as a binary $Y$. Then $P=\overline{Y}$ and $\widehat{P}=
 ---
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-04-confidence-intervals-and-sample-size/' | relative_url }})
+[← Previous lecture]({{ '/notes/sample-surveys/lecture-02-finite-population-and-srs/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Formula reference]({{ '/notes/sample-surveys/formula-sheet/' | relative_url }}) · [Next lecture →]({{ '/notes/sample-surveys/lecture-04-confidence-intervals-and-sample-size/' | relative_url }})
 </nav>
 
 </div>

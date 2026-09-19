@@ -1,13 +1,13 @@
 cv:
   name: Aditya Aryan
-  label: B.Stat student and researcher
+  label: Bachelor of Statistics student
   email: adityaharshit012345@gmail.com
   location: Kolkata, West Bengal, India
   image: ""
   summary: >
     Bachelor of Statistics student at the Indian Statistical Institute, Kolkata, interested in
-    mathematical statistics, probabilistic modelling, machine learning, and optimisation under
-    uncertainty, with experience across theoretical research and applied modelling.
+    theoretical and applied statistics and machine learning. Experience includes EM convergence
+    research, applied statistical modelling, and medical vision-language learning.
 
   social_networks:
     - network: LinkedIn
@@ -19,7 +19,7 @@ cv:
     Education:
       - institution: Indian Statistical Institute
         area: Statistics
-        degree: Bachelor of Statistics (B.Stat), First Division with Honours (projected)
+        degree: Bachelor of Statistics (B.Stat)
         location: Kolkata, West Bengal
         start_date: 2023-07
         end_date: 2027
@@ -40,151 +40,112 @@ cv:
       - company: University of Toronto
         position: Student Researcher
         location: Remote
-        start_date: 2026-04
+        start_date: Apr 2026
         end_date: present
-        summary: Research with Prof. Xin Bing on expectation-maximisation for k-component Gaussian mixture-type models.
+        summary: Research with Prof. Xin Bing on expectation-maximisation for Gaussian mixture-type models.
         highlights:
-          - Studying population and sample EM under nonconvex geometry, mixture imbalance, and high-dimensional noise.
-          - Analysing population maps, fixed points, and local contraction using Stein's lemma and Fisher/missing-information decompositions.
-          - Developing concentration-style bounds that connect population dynamics with finite-sample behaviour.
+          - Study population and sample EM for Gaussian mixture-type models with Prof. Xin Bing.
+          - Analyse update maps, fixed points, and local contraction, including the effects of component imbalance and sampling error.
 
       - company: Ranial Systems
         position: Data Science Intern
         location: Remote
-        start_date: 2026-05
+        start_date: May 2026
         end_date: present
-        summary: Applied machine learning, probabilistic modelling, and optimisation for energy-system monitoring, forecasting, and electricity-market decision support.
+        summary: Statistical and machine-learning methods for energy systems.
         highlights:
-          - Developing degradation and performance models, machine-learning and deep-learning methods for anomaly and alert prediction, and survival-modelling workflows.
-          - Applying vine-copula methods to model dependence between solar generation and weather variables and support probabilistic forecasting.
-          - Studying stochastic market-clearing-price (MCP) models and quantile-based bidding strategies for electricity-market decisions.
-          - Building Python pipelines for time-aware evaluation, backtesting, operational optimisation under battery constraints, and decision support.
+          - Develop statistical and machine-learning workflows for battery-health modelling and probabilistic forecasting in energy systems.
+          - Build evaluation pipelines that distinguish prediction, risk ranking, and decision performance, with attention to time and group structure.
+          - Investigate forecasting and battery-constrained decision methods for electricity-market applications.
 
       - company: Mercity AI
         position: Machine Learning Research Intern
         location: Bengaluru
-        start_date: 2025-04
-        end_date: 2025-08
+        start_date: Apr 2025
+        end_date: Aug 2025
         summary: Compact multimodal modelling for medical image caption generation.
         highlights:
-          - Connected medSigLIP and Qwen-2.5-7B through a Q-Former, compressing 256 image tokens into 32 latent queries.
-          - Achieved an 8× visual-token compression and approximately 70% memory reduction while preserving probabilistic calibration in the frozen-language-model setup.
-          - Trained the Q-Former with cross-entropy on MIMIC captions and explored SFT, PPO, DPO, and GRPO with the Hugging Face trl stack.
-          - Extended a DeepSeek-R1 GRPO workflow to multimodal inputs; recorded improved BLEU and lower perplexity in the reported experiments.
+          - Worked on a Q-Former interface between medSigLIP and frozen Qwen-2.5-7B for medical caption generation, compressing 256 visual tokens into 32 queries.
+          - Explored supervised and reward-based training for multimodal models.
 
     Projects:
-      - name: "Stein's Paradox: Inadmissibility and Risk-Optimal Shrinkage"
+      - name: James–Stein Shrinkage and Empirical Bayes Risk
+        url: https://dudedope.github.io/projects/stein-shrinkage/
         summary: Supervised by Dr. Ayanendranath Basu, Indian Statistical Institute.
         highlights:
-          - Studied inadmissibility of the usual estimator for multivariate normal means when d ≥ 3.
-          - Compared James–Stein and mean-centred shrinkage, heteroscedastic whitening, Normal–Normal empirical Bayes, Monte Carlo risk, and SURE.
-          - Recovered uniform James–Stein dominance and observed the lowest heteroscedastic simulation risk for the MMLE estimator.
+          - Studied classical shrinkage risk and empirical Bayes extensions; compared Monte Carlo risk with SURE under specified normal-means models.
 
-      - name: Bivariate Copula Modelling of Extreme Air Pollution Events
+      - name: Optimal Stopping in a Finite Reward-Sampling Game
+        url: https://dudedope.github.io/projects/sequential-testing/
+        summary: Supervised by Dr. Arnab Chakraborty, Indian Statistical Institute.
+        highlights:
+          - Formulated a Bellman recursion and implemented the optimal policy in C++; checked the reported instance by exhaustive enumeration.
+          - "For N = 20, C = 5, reward value V = 5, and unit opening cost, obtained expected gain 7.6876."
+
+      - name: Copula Modelling of Air-Pollution Episodes
+        url: https://dudedope.github.io/projects/copula-air-pollution/
         summary: Supervised by Dr. Shyamal Krishna De, Indian Statistical Institute.
         highlights:
-          - Modelled duration and severity of AQI episodes in Bengaluru from 2015–2024 using six copula families and nonparametric marginals.
-          - Estimated Kendall's τ = 0.881 and Spearman's ρ = 0.972; the selected Gumbel model had θ = 6.183 and upper-tail dependence 0.881.
-          - Obtained a model-derived estimate P(S > 2000 given D ≥ 12) ≈ 0.9998 under the project's definitions.
+          - Compared six copula families for pollution-episode duration and cumulative severity, interpreting tail dependence alongside the variables' structural relationship.
 
-      - name: "Sequential Testing: Optimal Stopping under a Reward–Cost Trade-off"
-        summary: Supervised by Dr. Arnab Chakraborty, Indian Statistical Institute.
+      - name: "Nonlinear-MLP: Controlled Experiments on Neural-Network Nonlinearity"
+        url: https://dudedope.github.io/projects/nonlinear-mlp/
+        summary: Independent research software in development.
         highlights:
-          - Formulated a Bellman recursion over the state S(x, y) and implemented memoised dynamic programming with backtracking and cutoffs.
-          - For N = 20 and C = 5, the specified instance produced an expected gain of 7.6875.
+          - Built an experimental framework for activation replacement, learned gates, and control comparisons; comparative evaluation ongoing.
 
-      - name: Variance-Based Audio Denoising via Amplitude Thresholding
-        summary: Supervised by Dr. Arnab Chakraborty, Indian Statistical Institute.
+      - name: "BioStat-PO: Selecting Analysis Pipelines for Causal Survival Inference"
+        url: https://dudedope.github.io/projects/biostat-policyopt/
+        summary: Independent research software in development.
         highlights:
-          - Estimated local variance over approximately 0.1-second windows and used a modal variance-bin cutoff for suppression and scaling.
-          - Implemented the workflow in R with time-domain and FFT-based diagnostics.
-
-      - name: Elo-Based Football Betting
-        summary: Supervised by Dr. Ayanendranath Basu, Indian Statistical Institute.
-        highlights:
-          - Modelled English Premier League outcomes from 2014–2024 with Elo features and logistic regression.
-          - Recorded a Brier score of 0.2176 and log loss of 0.6249.
-          - A historical value-betting simulation returned 5,139 units of profit on a 10,000-unit test bankroll; this is a retrospective simulation, not a claim of future profitability.
+          - Developed a Python–R framework for analysis-pipeline selection under missingness and censoring; synthetic-data development pilots available.
 
     Skills:
-      - name: Mathematical and statistical methods
+      - name: Statistical methods
         keywords:
-          - Probability
-          - Markov processes
-          - High-dimensional statistics
-          - Hypothesis testing
-          - Linear modelling
-          - Time series
-      - name: Programming and data
+          - Estimation and decision theory
+          - Probabilistic modelling
+          - Dependence modelling
+          - Simulation-based evaluation
+      - name: Machine learning
+        keywords:
+          - PyTorch experiments
+          - Neural networks
+          - Vision-language modelling
+          - Supervised and reward-based training workflows
+      - name: Programming
         keywords:
           - Python
           - R
+          - C++ for dynamic programming
+      - name: Libraries
+        keywords:
           - PyTorch
-          - scikit-learn
-          - statsmodels
-          - pandas
           - NumPy
           - SciPy
-      - name: Machine-learning tooling
-        keywords:
-          - Hugging Face trl
-          - Accelerate
-          - bitsandbytes
-          - PEFT
-      - name: Machine-learning topics
-        keywords:
-          - Transformers
-          - Vision transformers
-          - CNNs
-          - Diffusion models
-          - Deep reinforcement learning
-          - Computer vision
-          - Language modelling
+          - pandas
+          - scikit-learn
+          - statsmodels
+          - Hugging Face tools
 
     Coursework:
-      - bullet: Real Analysis; Probability Theory; Stochastic Processes; Statistical Methods; Linear Algebra; Differential Equations
-      - bullet: Programming and Data Structures; Molecular Biology; Psychology
+      - bullet: Probability Theory; Real Analysis; Linear Algebra; Stochastic Processes; Statistical Methods
+      - bullet: Parametric Inference; Sample Surveys; Design and Analysis of Algorithms (in progress, Fall 2026)
 
     Honors and Awards:
-      - title: Indian Statistical Institute Entrance Examination
+      - name: Indian Statistical Institute Entrance Examination
+        title: Indian Statistical Institute Entrance Examination
         date: 2023
         summary: All India Rank 90
-      - title: Joint Entrance Examination (Main)
-        date: 2023
-        summary: 98.9 percentile among approximately 1.5 million candidates
-      - title: BITS Admission Test
-        date: 2023
-        summary: 331/390
-      - title: Kishore Vaigyanik Protsahan Yojana, SA stream
-        date: 2022
-        summary: All India Rank 1,034
-      - title: Indian National Mathematical Olympiad
+      - name: Indian National Mathematical Olympiad
+        title: Indian National Mathematical Olympiad
         date: 2022
         summary: Merit list
-      - title: Indian Olympiad Qualifier in Mathematics
+      - name: Indian Olympiad Qualifier in Mathematics
+        title: Indian Olympiad Qualifier in Mathematics
         date: 2022
         summary: Karnataka top 20
-      - title: National Talent Search Examination Scholarship
+      - name: National Talent Search Examination Scholarship
+        title: National Talent Search Examination Scholarship
         date: 2021
-        summary: Top 1,000 among approximately 2 million candidates
-      - title: National Talent Search Examination, Stage I
-        date: 2021
-        summary: Rank 72
-
-    Academic Interests:
-      - name: Statistics and probabilistic modelling
-        icon: fa-solid fa-tag
-        keywords:
-          - Mathematical statistics
-          - Statistical inference
-          - Latent-variable models
-          - Probabilistic modelling
-          - High-dimensional statistics
-      - name: Machine learning and decision methods
-        icon: fa-solid fa-tag
-        keywords:
-          - Machine learning and deep learning
-          - Optimisation
-          - Sequential decision-making
-          - Forecasting and uncertainty quantification
-          - Reliable evaluation of predictive models
+        summary: National scholarship recipient; Stage I Rank 72

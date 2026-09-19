@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 2: Unbiased Estimation, UMVUEs, Fisher Information, and the Cramér–Rao Bound"
-short_title: "Unbiased estimation and CRLB"
+title: "Unbiased Estimation and the Cramér–Rao Bound"
+short_title: "Unbiased Estimation and the Cramér–Rao Bound"
 course: "Parametric Inference"
 lecture: 2
 instructor: "Probal Chaudhuri"
@@ -36,6 +36,16 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
+<details class="aa-mobile-toc" markdown="1">
+<summary>Contents</summary>
+
+- Contents
+  {:toc}
+
+</details>
+
+<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
+
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
@@ -43,13 +53,6 @@ toc:
 </nav>
 
 ## Learning objectives
-
-<div class="intuition" markdown="1">
-
-**Additional context.**
-This section was added to make the lecture easier to use as a self-contained study note.
-
-</div>
 
 - Distinguish unbiasedness, variance optimality, and MSE optimality.
 - Define a UMVUE and prove its uniqueness.

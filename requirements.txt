@@ -1,4 +1,6 @@
 nbconvert
 pyyaml
 rendercv[full]
+reportlab
+pypdf
 scholarly

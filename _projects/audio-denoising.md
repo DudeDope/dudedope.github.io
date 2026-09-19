@@ -1,16 +1,16 @@
 ---
 layout: page
 title: Variance-Gated Suppression of Noise-Dominated Audio
-description: An interpretable time-domain speech-pause detector developed after a frequency-domain separation attempt failed on real audio.
+description: An early R project using local amplitude variance to suppress noise-dominated pauses in speech recordings.
 permalink: /projects/audio-denoising/
 type: project
 project_area: Applied statistics and signal processing
-status: Supervised project
+status: Earlier supervised coursework
 organisation: Indian Statistical Institute
 supervisor: Dr. Arnab Chakraborty
 period: November 2023
 featured: false
-importance: 6
+importance: 7
 math: true
 tags:
   - signal processing
@@ -31,9 +31,13 @@ output_image: /assets/img/projects/audio/denoised-waveform.png
     <span>with {{ page.supervisor }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    An interpretable signal-processing study that moved from an unsuccessful spectral filter to a local-variance rule for detecting and suppressing
-    noise-dominated pauses.
+    An early R project using local amplitude variance to suppress noise-dominated pauses in speech recordings. A failed frequency-domain approach
+    motivated the gate; the analysis documents quiet-speech failure modes, overlapping-window effects, and the limits of qualitative evaluation.
   </p>
+  <nav class="aa-artifacts aa-entry-artifacts" aria-label="Audio variance-gating artifacts">
+    <a href="{{ page.report_url | relative_url }}">Report (PDF)</a>
+    <a href="{{ page.code_url | relative_url }}">Cleaned R transcription</a>
+  </nav>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
       <span class="aa-tag">{{ tag }}</span>
@@ -185,18 +189,17 @@ $$
       <h2>Report and code</h2>
       <nav class="aa-artifacts" aria-label="Audio variance-gating artifacts">
         <a href="{{ page.report_url | relative_url }}">Read the public report (PDF)</a>
-        <a href="{{ page.code_url | relative_url }}">Download the cleaned R implementation</a>
+        <a href="{{ page.code_url | relative_url }}">Cleaned R transcription</a>
       </nav>
       <p class="aa-empty">
-        The public PDF begins after the original identifying cover page. The R file is a cleaned transcription of the documented main algorithm;
-        audio samples are not redistributed.
+        The R file is a cleaned transcription of the documented main algorithm; audio samples are not redistributed.
       </p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Project metadata">
-    <h2>Project record</h2>
+    <h2>Project</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Type</dt>

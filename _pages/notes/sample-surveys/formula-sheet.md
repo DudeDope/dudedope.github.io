@@ -5,7 +5,7 @@ course: "Sample Surveys"
 instructor: "Ambarish Chattopadhyay"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
-description: "Cumulative formula sheet for the Sample Surveys course; update after each lecture."
+description: "Formula and notation reference for the published Sample Surveys lectures."
 math: true
 last_updated: "2026-08-06"
 status: "ongoing"
@@ -22,11 +22,19 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
+<details class="aa-mobile-toc" markdown="1">
+<summary>Contents</summary>
+
+- Contents
+  {:toc}
+
+</details>
+
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
 [← Course contents]({{ '/notes/sample-surveys/' | relative_url }})
 </nav>
 
-> This is a **cumulative page**. Add new notation and formulae here after every lecture, while keeping the derivations in the lecture pages.
+> Derivations and worked examples appear in the corresponding lecture notes.
 
 ## Finite-population quantities
 

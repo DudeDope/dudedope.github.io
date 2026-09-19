@@ -1,16 +1,16 @@
 ---
 layout: page
-title: Elo-Based Football Probability Modelling and Betting Simulation
-description: A chronological Elo state model, logistic probability calibration, proper scoring rules, and a retrospective value-betting simulation.
+title: Elo-Based Football Probability Modelling
+description: Chronological Elo features, logistic home-win probabilities, proper scoring rules, and a separate retrospective odds simulation.
 permalink: /projects/football-probability/
 type: project
 project_area: Applied machine learning
-status: Supervised project
+status: Completed supervised project
 organisation: Indian Statistical Institute
 supervisor: Dr. Ayanendranath Basu
 period: May 2025
 featured: false
-importance: 7
+importance: 6
 math: true
 tags:
   - Elo ratings
@@ -30,9 +30,14 @@ image: /assets/img/projects/football/elo-top-five.png
     <span>with {{ page.supervisor }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    A chronological probability pipeline in which match results update latent club strength, logistic regression maps rating differences to
-    home-win probabilities, and quoted odds define a retrospective decision rule.
+    This project uses pre-match Elo ratings to model Premier League home-win probabilities and evaluates predictions with Brier score and log loss. A
+    separate historical simulation compares model probabilities with quoted odds. Its profitability figures remain subject to unresolved assumptions
+    about tuning, odds availability, and the wager ledger.
   </p>
+  <nav class="aa-artifacts aa-entry-artifacts" aria-label="Football probability artifacts">
+    <a href="{{ page.report_url | relative_url }}">Report (PDF)</a>
+    <a href="{{ page.code_url | relative_url }}">Equation-level reference implementation</a>
+  </nav>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
       <span class="aa-tag">{{ tag }}</span>
@@ -223,18 +228,17 @@ $$
       <h2>Report and code</h2>
       <nav class="aa-artifacts" aria-label="Football probability artifacts">
         <a href="{{ page.report_url | relative_url }}">Read the public report (PDF)</a>
-        <a href="{{ page.code_url | relative_url }}">Download the equation-level Python reference</a>
+        <a href="{{ page.code_url | relative_url }}">Equation-level reference implementation</a>
       </nav>
       <p class="aa-empty">
-        The public PDF begins after the original identifying cover page. The Python file implements the documented equations and metrics; it is not
-        presented as the unavailable original backtest pipeline.
+        The Python file implements the documented equations and metrics; it is not presented as the original complete backtest pipeline.
       </p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Project metadata">
-    <h2>Project record</h2>
+    <h2>Project</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Type</dt>

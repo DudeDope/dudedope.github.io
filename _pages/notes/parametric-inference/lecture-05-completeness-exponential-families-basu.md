@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 5: Completeness, Exponential Families, and Basu’s Theorem"
-short_title: "Completeness and Basu"
+title: "Completeness, Exponential Families, and Basu’s Theorem"
+short_title: "Completeness, Exponential Families, and Basu’s Theorem"
 course: "Parametric Inference"
 lecture: 5
 instructor: "Probal Chaudhuri"
@@ -37,6 +37,16 @@ toc:
 
 <div class="aa-course-note" markdown="1">
 
+<details class="aa-mobile-toc" markdown="1">
+<summary>Contents</summary>
+
+- Contents
+  {:toc}
+
+</details>
+
+<p class="aa-note-meta">{{ page.course }} · Lecture {{ page.lecture }} · {{ page.semester }}</p>
+
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
@@ -44,13 +54,6 @@ toc:
 </nav>
 
 ## Learning objectives
-
-<div class="intuition" markdown="1">
-
-**Additional context.**
-This section was added to make the lecture easier to use as a self-contained study note.
-
-</div>
 
 - State completeness as an injectivity property of the expectation operator.
 - Prove completeness for the standard binomial, Poisson, exponential, and uniform statistics, including the distributional calculations needed in those proofs.
@@ -443,7 +446,7 @@ Renaming the dummy variable \\(\theta\\) as \\(m\\) gives the desired conclusion
 
 ## 7. Exponential families: structure and sufficient statistics
 
-The new handwritten material develops exponential families explicitly. It is useful to place that material here because exponential-family structure explains both sufficiency and many completeness results.
+Exponential-family structure connects sufficiency with several completeness results.
 
 <div class="definition" markdown="1">
 
