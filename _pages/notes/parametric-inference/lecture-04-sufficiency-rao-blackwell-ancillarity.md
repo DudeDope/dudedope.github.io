@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 4: Sufficiency, Rao–Blackwell Improvement, and Ancillary Statistics"
-short_title: "Sufficiency and ancillarity"
+title: "Sufficiency, Rao–Blackwell, and Ancillarity"
+short_title: "Sufficiency, Rao–Blackwell, and Ancillarity"
 course: "Parametric Inference"
 lecture: 4
 instructor: "Probal Chaudhuri"
@@ -45,13 +45,6 @@ toc:
 </nav>
 
 ## Learning objectives
-
-<div class="intuition" markdown="1">
-
-**Additional context.**
-This section was added to make the lecture easier to use as a self-contained study note.
-
-</div>
 
 - State the definition of sufficiency and the Neyman–Fisher factorisation theorem.
 - Determine when a function of a sufficient statistic remains sufficient and explain the role of one-to-one transformations.
@@ -623,7 +616,7 @@ The conclusion is the final result derived in the solution above.
 
 ## 9. Further factorisation examples
 
-The new handwritten pages add several examples in which the sufficient statistic is not merely a sum.
+The following examples show that a sufficient statistic need not be a sum.
 
 ### Worked Example 4.8 — Normal location with known variance
 

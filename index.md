@@ -57,7 +57,7 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
 <section class="aa-section" aria-labelledby="experience">
   <div class="aa-section-head">
     <h2 id="experience">Experience</h2>
-    <p>Research and industry experience spanning statistical learning, probabilistic modelling, machine learning, and optimisation.</p>
+    <p>Research and industry experience across theoretical and applied statistics, machine learning, deep learning, and optimisation.</p>
   </div>
 
   <div class="aa-list">
@@ -65,7 +65,7 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
       <div class="aa-row-meta">Apr 2026–Present</div>
       <div>
         <h3><a href="{{ '/research/em-convergence/' | relative_url }}">Student Researcher</a></h3>
-        <p>Working on theoretical questions in statistical learning through the analysis of population and sample expectation-maximisation algorithms.</p>
+        <p>Studying population and sample expectation-maximisation for Gaussian mixture-type models, with emphasis on fixed points, local contraction, mixture imbalance, and sampling error.</p>
         <div class="aa-row-context">University of Toronto · Remote · with Prof. Xin Bing</div>
       </div>
       <a class="aa-row-link" href="{{ '/research/em-convergence/' | relative_url }}">Record</a>
@@ -76,8 +76,8 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
       <div>
         <h3><a href="{{ '/research/battery-dispatch/' | relative_url }}">Data Science Intern</a></h3>
         <p>
-          Working on battery modelling, anomaly detection, probabilistic forecasting, and optimisation for electricity-market and operational
-          decisions.
+          Developing statistical and machine-learning methods for battery-health modelling, probabilistic forecasting, and optimisation for
+          electricity-market and operational decisions.
         </p>
         <div class="aa-row-context">Ranial Systems · Remote</div>
       </div>
@@ -88,7 +88,7 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
       <div class="aa-row-meta">Apr–Aug 2025</div>
       <div>
         <h3><a href="{{ '/research/medical-vlm/' | relative_url }}">Machine Learning Research Intern</a></h3>
-        <p>Worked on efficient multimodal learning, including representation compression, supervised training, and preference optimisation.</p>
+        <p>Investigated compact medical vision-language models through representation compression, supervised training, and preference optimisation.</p>
         <div class="aa-row-context">Mercity AI · Bengaluru</div>
       </div>
       <a class="aa-row-link" href="{{ '/research/medical-vlm/' | relative_url }}">Record</a>
@@ -102,7 +102,7 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
 <section class="aa-section" aria-labelledby="selected-research">
   <div class="aa-section-head">
     <h2 id="selected-research">Selected research</h2>
-    <p>Current and completed work across statistical learning, probabilistic modelling, optimisation, and machine-learning systems.</p>
+    <p>Current and completed work connecting theoretical statistics, applied modelling, machine learning, deep learning, and optimisation.</p>
   </div>
 
   <div class="aa-list">
@@ -117,7 +117,7 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
           <p>{{ project.summary | default: project.description }}</p>
           <div class="aa-row-context">{{ project.organisation }}</div>
         </div>
-        <a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
+        <a class="aa-row-link" href="{{ project.url | relative_url }}">Research details</a>
       </article>
     {% endfor %}
   </div>
@@ -128,7 +128,7 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
 <section class="aa-section" aria-labelledby="selected-projects">
   <div class="aa-section-head">
     <h2 id="selected-projects">Selected projects</h2>
-    <p>Independent and supervised projects in statistical inference, machine learning, optimisation, and predictive modelling.</p>
+    <p>Independent and supervised work in statistical inference, machine learning, deep learning, and optimisation.</p>
   </div>
   <div class="aa-list">
     {% for project in selected_projects limit: 3 %}
@@ -143,7 +143,7 @@ description: Statistics, probabilistic modelling, machine learning, and optimisa
             <div class="aa-row-context">{{ project.organisation }}</div>
           {% endif %}
         </div>
-        <a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
+        <a class="aa-row-link" href="{{ project.url | relative_url }}">Project details</a>
       </article>
     {% endfor %}
   </div>

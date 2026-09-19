@@ -2,17 +2,17 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Independent and supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning.
+description: Independent and supervised projects in statistics, machine learning, deep learning, and optimisation.
 nav: true
 nav_order: 3
 ---
 
 <p class="aa-page-intro">
-  Selected independent and supervised projects in statistical inference, probabilistic modelling, optimisation, and machine learning. Each record
-  summarises the problem, methodology, current evidence, and limitations.
+  Selected independent and supervised projects across theoretical and applied statistics, machine learning, deep learning, and optimisation. Each
+  page presents the mathematical or computational problem, methodology, available evidence, and limitations.
 </p>
 
-{% assign project_areas = "Statistical inference and probabilistic modelling|Optimisation and decision-making|Applied machine learning" | split: "|" %}
+{% assign project_areas = "Statistical inference and probabilistic modelling|Optimisation and decision-making|Applied machine learning|Applied statistics and signal processing" | split: "|" %}
 {% assign portfolio_projects = site.projects | where: "type", "project" | sort: "importance" %}
 
 {% for area in project_areas %}
@@ -28,7 +28,9 @@ nav_order: 3
 {% when "Optimisation and decision-making" %}
 <p>Dynamic programming, optimal stopping, and computational decision methods.</p>
 {% when "Applied machine learning" %}
-<p>Predictive modelling, signal processing, calibration, and evaluation.</p>
+<p>Predictive modelling, deep-learning experiments, calibration, and evaluation.</p>
+{% when "Applied statistics and signal processing" %}
+<p>Earlier coursework applying statistical ideas to signal-processing problems.</p>
 {% endcase %}
 </div>
 <div class="aa-list">
@@ -49,7 +51,7 @@ nav_order: 3
 {% endfor %}
 </div>
 </div>
-<a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
+<a class="aa-row-link" href="{{ project.url | relative_url }}">Project details</a>
 </article>
 {% endfor %}
 </div>

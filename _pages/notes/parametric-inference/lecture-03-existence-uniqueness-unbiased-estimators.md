@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 3: Existence and Uniqueness of Unbiased Estimators"
-short_title: "Existence of unbiased estimators"
+title: "Existence and Uniqueness of Unbiased Estimators"
+short_title: "Existence and Uniqueness of Unbiased Estimators"
 course: "Parametric Inference"
 lecture: 3
 instructor: "Probal Chaudhuri"
@@ -44,13 +44,6 @@ toc:
 </nav>
 
 ## Learning objectives
-
-<div class="intuition" markdown="1">
-
-**Additional context.**
-This section was added to make the lecture easier to use as a self-contained study note.
-
-</div>
 
 - Determine when a target function can possess an unbiased estimator in finite-support models.
 - Use polynomial and power-series identities to construct or rule out unbiased estimators.
@@ -496,13 +489,6 @@ The function \\(1/\theta\\) has a pole at zero and does not extend to an entire 
 The conclusion is the final result derived in the solution above.
 
 ## Additional context: Analytic functions and the Poisson power-series condition
-
-<div class="intuition" markdown="1">
-
-**Additional context.**
-This explanation was added to make the lecture self-contained.
-
-</div>
 
 A real-valued function \\(f\\) is **analytic at \\(a\\)** if there exists \\(r>0\\) and coefficients \\(c_0,c_1,\ldots\\) such that
 

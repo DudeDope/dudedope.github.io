@@ -106,9 +106,9 @@ function assert(condition, message) {
     assert(
       JSON.stringify(measurements.selectedProjectTitles) ===
         JSON.stringify([
-          "BioStat-PO: Policy Selection for Causal Survival Analysis",
-          "Nonlinear-MLP: Controlled Studies of Neural-Network Nonlinearity",
-          "Bivariate Copula Modelling of Extreme Air-Pollution Events",
+          "Optimal Stopping in a Finite Reward-Sampling Game",
+          "Copula Modelling of Air-Pollution Episodes",
+          "Nonlinear-MLP: Controlled Experiments on Neural-Network Nonlinearity",
         ]),
       `${width}px: unexpected selected-project order: ${measurements.selectedProjectTitles.join(" | ")}`
     );
@@ -195,8 +195,8 @@ function assert(condition, message) {
         complete: image.complete,
         naturalWidth: image.naturalWidth,
       })),
-      pdfs: [...document.querySelectorAll('a[href*="/assets/pdf/projects/"]')].map((link) => link.getAttribute("href")),
-      code: [...document.querySelectorAll('a[href*="/assets/code/projects/"]')].map((link) => link.getAttribute("href")),
+      pdfs: [...new Set([...document.querySelectorAll('a[href*="/assets/pdf/projects/"]')].map((link) => link.getAttribute("href")))],
+      code: [...new Set([...document.querySelectorAll('a[href*="/assets/code/projects/"]')].map((link) => link.getAttribute("href")))],
     }));
     assert(
       artifacts.images.length === project.images,

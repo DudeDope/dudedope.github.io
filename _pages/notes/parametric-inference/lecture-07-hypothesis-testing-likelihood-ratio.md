@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 7: Hypothesis Testing, Power, Sufficiency, and Likelihood-Ratio Tests"
-short_title: "Hypothesis testing"
+title: "Hypothesis Testing and Likelihood Ratios"
+short_title: "Hypothesis Testing and Likelihood Ratios"
 course: "Parametric Inference"
 lecture: 7
 instructor: "Probal Chaudhuri"

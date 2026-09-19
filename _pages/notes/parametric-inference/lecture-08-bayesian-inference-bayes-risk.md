@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 8: Bayesian Point Estimation, Conjugate Priors, Bayes Risk, and Generalized Bayes Rules"
-short_title: "Bayesian point estimation"
+title: "Bayesian Estimation and Minimax Risk"
+short_title: "Bayesian Estimation and Minimax Risk"
 course: "Parametric Inference"
 lecture: 8
 instructor: "Probal Chaudhuri"

@@ -2,12 +2,15 @@
 layout: page
 permalink: /notes/
 title: Notes
-description: Lecture-wise notes in sample surveys, algorithms, and parametric inference.
+description: Expanded course notes in parametric inference, sample surveys, and algorithms.
 nav: true
 nav_order: 4
 ---
 
-<p class="aa-page-intro">Lecture-wise notes and formula sheets, organised by subject.</p>
+<p class="aa-page-intro">
+  Expanded course notes from ISI, with proofs, worked examples, and formula references. Sources, added exposition, and substantive corrections are
+  identified within the notes.
+</p>
 
 {% for course in site.data.course_notes.courses %}
 {% assign course_lectures = site.pages | where: "course_slug", course.slug | where: "note_kind", "lecture" | sort: "course_order" %}

@@ -34,17 +34,17 @@ toc:
 {% assign lecture_8_url = '/notes/design-and-analysis-of-algorithms/lecture-08-height-balanced-search-trees/' | relative_url %}
 {% assign lecture_9_url = '/notes/design-and-analysis-of-algorithms/lecture-09-consolidated-algorithm-review/' | relative_url %}
 
-| Lecture | Title                                                                                                      | Major topics                                                                                                               | Status   |
-| ------: | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------- |
-|       1 | [Algorithmic Foundations, Asymptotic Notation, and Correctness Proofs]({{ lecture_1_url }})                | Algorithm specifications, RAM and comparison models, Asymptotic notation, Correctness proofs                               | Complete |
-|       2 | [Minimum Enclosing Circles: Structure, Candidate Construction, and Exhaustive Search]({{ lecture_2_url }}) | Minimum enclosing circle, Minimax optimization, Support points, Geometric correctness proofs, Exhaustive algorithms        | Complete |
-|       3 | [Divide-and-Conquer Recurrences and the Polynomial Master Theorem]({{ lecture_3_url }})                    | Divide and conquer, Recurrence relations, Master Theorem, Geometric series, Recursion trees                                | Complete |
-|       4 | [Simultaneous Minimum and Maximum by the Pairing Method]({{ lecture_4_url }})                              | Comparison model, Minimum and maximum, Pairing method, Loop invariants, Exact comparison counts                            | Complete |
-|       5 | [Order Statistics and Deterministic Linear-Time Selection]({{ lecture_5_url }})                            | Order statistics, Selection problem, Median of medians, BFPRT, Worst-case linear time                                      | Complete |
-|       6 | [Binary Search and Medians in Rotated Sorted Arrays]({{ lecture_6_url }})                                  | Binary search, Loop invariants, Rotated arrays, Pivot search, Median indexing                                              | Complete |
-|       7 | [Binary Search Trees: Operations, Traversals, and Reconstruction]({{ lecture_7_url }})                     | Binary trees, Binary search trees, Insertion and deletion, Tree traversals, Predecessor and successor, Tree reconstruction | Complete |
-|       8 | [Height-Balanced Trees and Balanced Search Structures]({{ lecture_8_url }})                                | Height balance, Fibonacci recurrence, AVL trees, Red-black trees, B-trees, B+ trees                                        | Complete |
-|       9 | [Consolidated Algorithmic Results and Exam Review]({{ lecture_9_url }})                                    | Complexity summary, Proof checklist, Algorithm comparison, Exam review                                                     | Complete |
+| Lecture | Title                                                          | Major topics                                                                                                               | Status   |
+| ------: | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------- |
+|       1 | [Algorithmic Foundations and Correctness]({{ lecture_1_url }}) | Algorithm specifications, RAM and comparison models, Asymptotic notation, Correctness proofs                               | Complete |
+|       2 | [Minimum Enclosing Circles]({{ lecture_2_url }})               | Minimum enclosing circle, Minimax optimization, Support points, Geometric correctness proofs, Exhaustive algorithms        | Complete |
+|       3 | [Divide-and-Conquer Recurrences]({{ lecture_3_url }})          | Divide and conquer, Recurrence relations, Master Theorem, Geometric series, Recursion trees                                | Complete |
+|       4 | [Simultaneous Minimum and Maximum]({{ lecture_4_url }})        | Comparison model, Minimum and maximum, Pairing method, Loop invariants, Exact comparison counts                            | Complete |
+|       5 | [Deterministic Linear-Time Selection]({{ lecture_5_url }})     | Order statistics, Selection problem, Median of medians, BFPRT, Worst-case linear time                                      | Complete |
+|       6 | [Binary Search in Rotated Arrays]({{ lecture_6_url }})         | Binary search, Loop invariants, Rotated arrays, Pivot search, Median indexing                                              | Complete |
+|       7 | [Binary Search Trees]({{ lecture_7_url }})                     | Binary trees, Binary search trees, Insertion and deletion, Tree traversals, Predecessor and successor, Tree reconstruction | Complete |
+|       8 | [Balanced Search Structures]({{ lecture_8_url }})              | Height balance, Fibonacci recurrence, AVL trees, Red-black trees, B-trees, B+ trees                                        | Complete |
+|       9 | [Algorithm Review]({{ lecture_9_url }})                        | Complexity summary, Proof checklist, Algorithm comparison, Exam review                                                     | Complete |
 
 ## Formula and notation sheet
 

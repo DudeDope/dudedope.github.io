@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Compact Medical Vision-Language Modelling
-description: Visual-token compression, reproducible training, preference optimisation, and calibrated caption generation.
+description: A Q-Former interface for compact medical image-caption modelling and related training experiments.
 permalink: /research/medical-vlm/
 research_area: Machine-learning systems
 status: Completed internship
@@ -10,17 +10,15 @@ collaborators: []
 period: Apr–Aug 2025
 featured: true
 importance: 4
-research_question: How can a compact visual-language interface reduce training memory while preserving useful caption-generation behaviour?
-summary: Efficient multimodal learning through representation compression and targeted training.
+research_question: How can a compact visual-language interface connect a medical vision encoder to a frozen language model for caption generation?
+summary: A Q-Former interface between medSigLIP and frozen Qwen-2.5-7B, with supervised and reward-based training experiments.
 tags:
   - vision-language models
   - Q-Former
-  - preference optimisation
+  - reward-based training
   - evaluation
-paper_url:
-code_url:
-technical_note_url:
-image:
+synapse_repository_url: https://github.com/DudeDope/VisionLM-synapse
+grpo_repository_url: https://github.com/DudeDope/VisionLM-GRPO
 ---
 
 <header class="aa-entry-header">
@@ -30,8 +28,8 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    A medSigLIP-to-Qwen-2.5-7B pipeline using a Q-Former visual bottleneck, followed by supervised and preference-optimisation experiments for
-    medical image caption generation.
+    This project connected medSigLIP to frozen Qwen-2.5-7B through a trainable Q-Former, compressing 256 visual tokens into 32 latent queries for
+    medical caption generation. It also explored supervised and reward-based training for multimodal models.
   </p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
@@ -47,11 +45,11 @@ image:
       or fitness for patient care.
     </p>
 
-    <section id="abstract" class="aa-entry-section">
-      <h2>Abstract</h2>
+    <section id="overview" class="aa-entry-section">
+      <h2>Overview</h2>
       <p>
-        The project connected a medical vision encoder to a frozen large language model through a trainable Q-Former. The bottleneck compressed image
-        representations before caption generation, reducing the memory cost of the visual prefix while keeping the language model frozen.
+        During the internship, I worked on the Q-Former interface and on supervised and reward-based training experiments. The 256-to-32 reduction
+        describes the architecture; it is not presented here as a measured memory, latency, calibration, or clinical-performance result.
       </p>
     </section>
 
@@ -63,81 +61,71 @@ image:
     <section id="setup" class="aa-entry-section">
       <h2>Model and training setup</h2>
       <p>
-        medSigLIP supplied visual features and Qwen-2.5-7B supplied the language model. A Q-Former compressed 256 image tokens into 32 latent queries.
-        The Q-Former was trained with cross-entropy on MIMIC captions while the encoder and language model remained frozen.
+        medSigLIP supplied visual features and Qwen-2.5-7B supplied the language model. A Q-Former compressed 256 image tokens into 32 latent queries,
+        while the vision encoder and language model remained frozen in this setup.
       </p>
     </section>
 
     <section id="methods" class="aa-entry-section">
-      <h2>Methods</h2>
+      <h2>Work explored</h2>
       <ul>
-        <li>Q-Former visual bottleneck and frozen-LLM caption generation.</li>
-        <li>Supervised fine-tuning and experiments with PPO, DPO, and GRPO.</li>
+        <li>A Q-Former visual bottleneck and frozen-language-model caption generation.</li>
+        <li>Supervised training and experiments with reward-based optimisation for multimodal models.</li>
         <li>Hugging Face trl, Accelerate, bitsandbytes, and PEFT workflows.</li>
-        <li>Extension of a DeepSeek-R1 GRPO workflow to multimodal inputs.</li>
-        <li>Reproducible configurations and metric-based comparisons.</li>
+        <li>Adaptation of language-model training workflows to multimodal inputs.</li>
       </ul>
     </section>
 
-    <section id="results" class="aa-entry-section">
-      <h2>Reported results</h2>
-      <ul>
-        <li>8× visual-token compression, from 256 tokens to 32 latent queries.</li>
-        <li>Approximately 70% memory reduction in the reported frozen-language-model setup.</li>
-        <li>Probabilistic calibration was preserved in the reported caption-generation experiments.</li>
-        <li>The multimodal GRPO experiments improved BLEU and reduced perplexity relative to their recorded comparisons.</li>
-      </ul>
+    <section id="evidence" class="aa-entry-section">
+      <h2>Current public evidence</h2>
+      <p>
+        The public evidence supports the architectural description—256 visual tokens mapped to 32 latent queries—and documents related experimental
+        code. It does not currently support a public quantitative claim about memory reduction, calibration, BLEU, perplexity, or clinical utility.
+      </p>
     </section>
 
     <section id="limitations" class="aa-entry-section">
       <h2>Limitations</h2>
       <p>
-        BLEU, perplexity, and calibration summaries do not establish factual correctness or clinical reliability. The results are specific to the
-        recorded experimental setup and require task-specific error analysis, data-governance review, and stronger human evaluation before broader
-        claims.
+        Token compression alone does not determine memory or latency savings. Caption metrics alone would not establish factual correctness or
+        clinical reliability. Any quantitative comparison requires a named dataset and split, baseline, trainable components, hardware and precision,
+        metric definition, and a recorded configuration.
       </p>
     </section>
 
     <section id="artifacts" class="aa-entry-section">
-      <h2>References and artifacts</h2>
-      <p class="aa-empty">Public code and write-ups will be linked later. No private data or model artifact is distributed from this site.</p>
+      <h2>Related public experiments</h2>
+      <p>
+        These repositories document related experiments, not interchangeable evidence for every internship result. VisionLM-synapse is a public
+        medSigLIP/Qwen alignment variant using ROCO; VisionLM-GRPO explores SmolVLM2 on Path-VQA. Neither is labelled as a reproduction of an
+        unlinked MIMIC experiment.
+      </p>
+      <nav class="aa-artifacts" aria-label="Related medical vision-language repositories">
+        <a href="{{ page.synapse_repository_url }}">VisionLM-synapse code</a>
+        <a href="{{ page.grpo_repository_url }}">VisionLM-GRPO code</a>
+      </nav>
     </section>
 
   </div>
 
-  <aside class="aa-entry-rail" aria-label="Research record metadata">
-    <h2>Record</h2>
+  <aside class="aa-entry-rail" aria-label="Research project metadata">
+    <h2>Project</h2>
     <dl class="aa-fact-list">
-      <div>
-        <dt>Status</dt>
-        <dd>{{ page.status }}</dd>
-      </div>
-      <div>
-        <dt>Period</dt>
-        <dd>{{ page.period }}</dd>
-      </div>
-      <div>
-        <dt>Organisation</dt>
-        <dd>{{ page.organisation }}</dd>
-      </div>
-      <div>
-        <dt>Role</dt>
-        <dd>ML Research Intern</dd>
-      </div>
-      <div>
-        <dt>Public output</dt>
-        <dd>Not published</dd>
-      </div>
+      <div><dt>Status</dt><dd>{{ page.status }}</dd></div>
+      <div><dt>Period</dt><dd>{{ page.period }}</dd></div>
+      <div><dt>Organisation</dt><dd>{{ page.organisation }}</dd></div>
+      <div><dt>Role</dt><dd>Machine Learning Research Intern</dd></div>
+      <div><dt>Public output</dt><dd>Related experiment repositories</dd></div>
     </dl>
     <nav class="aa-entry-toc" aria-label="On this page">
       <span>On this page</span>
-      <a href="#abstract">Abstract</a>
+      <a href="#overview">Overview</a>
       <a href="#question">Question</a>
       <a href="#setup">Setup</a>
-      <a href="#methods">Methods</a>
-      <a href="#results">Results</a>
+      <a href="#methods">Work explored</a>
+      <a href="#evidence">Public evidence</a>
       <a href="#limitations">Limitations</a>
-      <a href="#artifacts">Artifacts</a>
+      <a href="#artifacts">Related experiments</a>
     </nav>
   </aside>
 </div>

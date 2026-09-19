@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 4: Simultaneous Minimum and Maximum by the Pairing Method"
-short_title: "Simultaneous minimum and maximum"
+title: "Simultaneous Minimum and Maximum"
+short_title: "Simultaneous Minimum and Maximum"
 course: "Design and Analysis of Algorithms"
 lecture: 4
 instructor: "Sandip Das"
@@ -33,6 +33,15 @@ toc:
 ---
 
 <div class="aa-course-note" markdown="1">
+
+{% assign note_base = '/notes/design-and-analysis-of-algorithms/' %}
+
+<nav class="aa-note-nav aa-note-nav-top" aria-label="Course navigation">
+  {% if page.previous %}<a href="{{ note_base | append: page.previous | append: '/' | relative_url }}">Previous lecture</a> · {% endif %}
+  <a href="{{ note_base | relative_url }}">Course contents</a> ·
+  <a href="{{ '/notes/design-and-analysis-of-algorithms/formula-sheet/' | relative_url }}">Formula reference</a>
+  {% if page.next %} · <a href="{{ note_base | append: page.next | append: '/' | relative_url }}">Next lecture</a>{% endif %}
+</nav>
 
 > These are unofficial expanded notes based on the lectures of  
 > Sandip Das, Indian Statistical Institute, Kolkata.  
@@ -148,8 +157,6 @@ $$
 $\square$
 
 > **Additional context.**  
-> This explanation was added to make the lecture self-contained.
->
 > This bound is optimal in the comparison model. An adversary can require every element except the maximum to lose at least one comparison and every element except the minimum to win at least one comparison. A comparison between two previously unseen elements can simultaneously create one win and one loss; after this first comparison, resolving which candidates are globally smallest and largest needs separate evidence. Formalizing this bookkeeping yields the lower bound $\left\lceil 3n/2\right\rceil-2$.
 
 ## 4. Worked example

@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Lecture 9: Consolidated Algorithmic Results and Exam Review"
-short_title: "Consolidated review"
+title: "Algorithm Review"
+short_title: "Algorithm Review"
 course: "Design and Analysis of Algorithms"
 lecture: 9
 instructor: "Sandip Das"
@@ -32,6 +32,15 @@ toc:
 ---
 
 <div class="aa-course-note" markdown="1">
+
+{% assign note_base = '/notes/design-and-analysis-of-algorithms/' %}
+
+<nav class="aa-note-nav aa-note-nav-top" aria-label="Course navigation">
+  {% if page.previous %}<a href="{{ note_base | append: page.previous | append: '/' | relative_url }}">Previous lecture</a> · {% endif %}
+  <a href="{{ note_base | relative_url }}">Course contents</a> ·
+  <a href="{{ '/notes/design-and-analysis-of-algorithms/formula-sheet/' | relative_url }}">Formula reference</a>
+  {% if page.next %} · <a href="{{ note_base | append: page.next | append: '/' | relative_url }}">Next lecture</a>{% endif %}
+</nav>
 
 > These are unofficial expanded notes based on the lectures of  
 > Sandip Das, Indian Statistical Institute, Kolkata.  

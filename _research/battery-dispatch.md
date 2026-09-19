@@ -4,14 +4,14 @@ title: Probabilistic Forecasting and Electricity-Market Bidding
 description: Probabilistic forecasting, stochastic price modelling, and optimisation for renewable generation and electricity-market decisions.
 permalink: /research/battery-dispatch/
 research_area: Probabilistic modelling and decision-making
-status: Industry research
+status: Industry project
 organisation: Ranial Systems
 collaborators: []
 period: May 2026–Present
 featured: true
 importance: 3
 research_question: How can probabilistic forecasts of generation, weather, and market prices support bidding and battery-operation decisions under uncertainty?
-summary: Probabilistic forecasting and optimisation for renewable generation and electricity-market decisions.
+summary: Statistical and machine-learning forecasts for renewable generation and electricity-market decisions.
 tags:
   - energy markets
   - vine copulas
@@ -30,8 +30,9 @@ image:
     <span>{{ page.organisation }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    Probabilistic forecasting and decision modelling for renewable generation and electricity markets, including vine-copula dependence models,
-    stochastic market-clearing-price models, quantile-based bidding, and battery-constrained optimisation.
+    This work develops statistical and machine-learning forecasts for renewable generation and electricity-market decisions. The modelling workflow
+    separates probabilistic forecasts, battery-constrained decisions, and historical market replay, so that each decision uses only information
+    available at the time. Evaluation distinguishes forecast accuracy and calibration from the performance of the resulting decisions.
   </p>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
@@ -43,12 +44,11 @@ image:
 <div class="aa-entry-layout">
   <div class="aa-entry-main">
     <p class="aa-notice">
-      <strong>Confidentiality.</strong> This record stays at the level of general statistical and optimisation methods. Private datasets, company
-      logic, customer information, and internal performance are not published.
+      <strong>Confidentiality.</strong> This page describes the methodology; company data, code, and internal performance results are not public.
     </p>
 
     <section id="abstract" class="aa-entry-section">
-      <h2>Abstract</h2>
+      <h2>Overview</h2>
       <p>
         Renewable generation, weather, market prices, and battery state interact across different time scales. This work separates forecasting,
         decision optimisation, and historical market replay so that uncertainty estimates can inform bids and dispatch without using information
@@ -76,7 +76,7 @@ image:
     </section>
 
     <section id="methods" class="aa-entry-section">
-      <h2>Methods</h2>
+      <h2>Implemented components</h2>
       <ul>
         <li>Leakage-safe machine-learning and deep-learning forecasts for solar generation, weather-dependent quantities, and market prices.</li>
         <li>Quantile forecasts, tail-event probabilities, and vine-copula models for multivariate dependence and probabilistic scenarios.</li>
@@ -85,6 +85,14 @@ image:
         <li>Quantile-based and opportunity-value bidding policies translated into finite price–quantity bid and offer curves.</li>
         <li>Physical replay under power, energy, efficiency, state-of-charge, cycle-budget, and degradation-cost assumptions.</li>
       </ul>
+    </section>
+
+    <section id="investigation" class="aa-entry-section">
+      <h2>Under investigation</h2>
+      <p>
+        Current questions include probabilistic calibration under changing weather and market regimes, the sensitivity of decisions to scenario
+        construction, and the separation of forecast improvements from gains caused by a particular replay or battery configuration.
+      </p>
     </section>
 
     <section id="evaluation" class="aa-entry-section">
@@ -119,13 +127,13 @@ image:
 
     <section id="artifacts" class="aa-entry-section">
       <h2>References and artifacts</h2>
-      <p class="aa-empty">No public code or report is attached. Links will be added only after confidentiality review.</p>
+      <p class="aa-empty">Public summary; code, company data, and internal results are not released.</p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Research record metadata">
-    <h2>Record</h2>
+    <h2>Industry project</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Status</dt>
@@ -150,10 +158,11 @@ image:
     </dl>
     <nav class="aa-entry-toc" aria-label="On this page">
       <span>On this page</span>
-      <a href="#abstract">Abstract</a>
+      <a href="#abstract">Overview</a>
       <a href="#question">Question</a>
       <a href="#setup">Setup</a>
-      <a href="#methods">Methods</a>
+      <a href="#methods">Implemented components</a>
+      <a href="#investigation">Under investigation</a>
       <a href="#evaluation">Evaluation</a>
       <a href="#contribution">Contribution</a>
       <a href="#limitations">Limitations</a>

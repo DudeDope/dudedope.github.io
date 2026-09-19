@@ -2,20 +2,20 @@
 layout: page
 title: Research
 permalink: /research/
-description: Research and technical work in statistical learning, probabilistic modelling, machine learning, and optimisation.
+description: Research and technical work across theoretical and applied statistics, machine learning, deep learning, and optimisation.
 nav: true
 nav_order: 2
 ---
 
 <div class="aa-page-grid aa-index-intro">
   <p class="aa-page-intro">
-    This page presents current and completed research experience across statistical learning, probabilistic modelling, machine learning, and
-    optimisation. Each record describes the problem, methodology, contributions, and limitations of the work.
+    My work connects mathematical questions in statistics and machine learning with applied modelling, deep-learning systems, and optimisation.
+    Each record states the problem, methodology, current evidence, and limitations without presenting ongoing work as a finished result.
   </p>
   <aside class="aa-index-legend" aria-label="Research record guide">
     <h2>Record guide</h2>
-    <p><strong>Status</strong> describes the type of work, not publication status.</p>
-    <p><strong>Artifacts</strong> are listed only after they are approved for public release.</p>
+    <p><strong>Status</strong> distinguishes ongoing research, completed internships, and industry work.</p>
+    <p><strong>Artifacts</strong> are linked only when they are public and approved for release.</p>
   </aside>
 </div>
 
@@ -31,11 +31,11 @@ nav_order: 2
 <h2 id="{{ area | slugify }}">{{ area }}</h2>
 {% case area %}
 {% when "Statistical learning and inference" %}
-<p>Theoretical and computational questions in estimation, latent-variable models, and finite-sample behaviour.</p>
+<p>Estimation, latent-variable models, learning algorithms, and finite-sample behaviour.</p>
 {% when "Probabilistic modelling and decision-making" %}
-<p>Forecasting, uncertainty quantification, anomaly detection, and optimisation for sequential and market decisions.</p>
+<p>Forecasting, uncertainty quantification, degradation modelling, and optimisation for energy-system decisions.</p>
 {% when "Machine-learning systems" %}
-<p>Efficient representation learning, multimodal modelling, training methods, and evaluation.</p>
+<p>Deep learning, efficient multimodal modelling, training methods, and careful empirical evaluation.</p>
 {% endcase %}
 </div>
 <div class="aa-list">
@@ -60,7 +60,7 @@ nav_order: 2
 {% endfor %}
 </div>
 </div>
-<a class="aa-row-link" href="{{ project.url | relative_url }}">Record</a>
+<a class="aa-row-link" href="{{ project.url | relative_url }}">Research details</a>
 </article>
 {% endfor %}
 </div>
@@ -71,6 +71,6 @@ nav_order: 2
 <section class="aa-section" aria-labelledby="publication-status">
   <div class="aa-section-head">
     <h2 id="publication-status">Publication status</h2>
-    <p>No publications or public manuscripts at present. Public research outputs will be listed here when they become available.</p>
+    <p>No publications or public manuscripts are currently listed. Available research summaries and public artifacts appear above.</p>
   </div>
 </section>

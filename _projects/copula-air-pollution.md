@@ -1,16 +1,19 @@
 ---
 layout: page
-title: Bivariate Copula Modelling of Extreme Air-Pollution Events
-description: Empirical marginals, canonical maximum likelihood, copula selection, upper-tail dependence, and conditional severity estimates.
+title: Copula Modelling of Air-Pollution Episodes
+description: Copula comparison for pollution-episode duration and cumulative severity, with explicit interpretation limits.
 permalink: /projects/copula-air-pollution/
 type: project
 project_area: Statistical inference and probabilistic modelling
-status: Supervised project
+status: Completed supervised project
 organisation: Indian Statistical Institute
 supervisor: Prof. Shyamal Krishna De
 period: April 2026
 featured: true
-importance: 4
+importance: 3
+home_label: Applied statistics
+home_summary: Modelled episode duration and cumulative severity, comparing dependence structures and examining how the variable definitions affect interpretation.
+home_context: Completed · Report and reference code
 math: true
 tags:
   - copulas
@@ -31,9 +34,14 @@ pseudo_observations_image: /assets/img/projects/copula/pseudo-observations.png
     <span>with {{ page.supervisor }}</span>
   </div>
   <p class="aa-entry-subtitle">
-    A semiparametric analysis of the duration and cumulative severity of unhealthy Bengaluru air-pollution episodes, with empirical margins and
-    explicit upper-tail dependence.
+    This project models the joint duration and cumulative severity of Bengaluru air-pollution episodes using empirical margins and six copula
+    families. Gumbel gave the lowest reported AIC among the fitted candidates. Because cumulative severity includes duration by construction, strong
+    dependence alone does not establish an independent effect or a validated alert threshold.
   </p>
+  <nav class="aa-artifacts aa-entry-artifacts" aria-label="Copula project artifacts">
+    <a href="{{ page.report_url | relative_url }}">Report (PDF)</a>
+    <a href="{{ page.code_url | relative_url }}">Selected Gumbel-workflow reference implementation</a>
+  </nav>
   <div class="aa-tags" aria-label="Topics">
     {% for tag in page.tags %}
       <span class="aa-tag">{{ tag }}</span>
@@ -283,18 +291,18 @@ $$
       <h2>Report and code</h2>
       <nav class="aa-artifacts" aria-label="Copula project artifacts">
         <a href="{{ page.report_url | relative_url }}">Read the public report (PDF)</a>
-        <a href="{{ page.code_url | relative_url }}">Download the Gumbel-workflow Python reference</a>
+        <a href="{{ page.code_url | relative_url }}">Selected Gumbel-workflow reference implementation</a>
       </nav>
       <p class="aa-empty">
-        The public PDF begins after the original identifying cover page. The Python file reconstructs event extraction, pseudo-observations, the
-        selected Gumbel fit, and conditional exceedance; it is not presented as the unavailable original six-family source.
+        The Python file reconstructs event extraction, pseudo-observations, the selected Gumbel fit, and conditional exceedance; it is not presented
+        as the original six-family pipeline.
       </p>
     </section>
 
   </div>
 
   <aside class="aa-entry-rail" aria-label="Project metadata">
-    <h2>Project record</h2>
+    <h2>Project</h2>
     <dl class="aa-fact-list">
       <div>
         <dt>Type</dt>

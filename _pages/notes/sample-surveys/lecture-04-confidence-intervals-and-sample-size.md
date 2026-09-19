@@ -1,6 +1,7 @@
 ---
 layout: page
-title: "Lecture 4: Confidence Intervals and Sample-Size Determination"
+title: "Confidence Intervals and Sample Size"
+short_title: "Confidence Intervals and Sample Size"
 course: "Sample Surveys"
 lecture: 4
 instructor: "Ambarish Chattopadhyay"
@@ -27,7 +28,7 @@ toc:
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Sample Surveys lectures of Prof. Ambarish Chattopadhyay at the Indian Statistical Institute, Kolkata. The exposition includes additional definitions, derivations, and worked solutions. Any remaining errors belong to the note maintainer, not to the instructor or the Institute.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/sample-surveys/lecture-03-design-based-estimation/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }})
+[← Previous lecture]({{ '/notes/sample-surveys/lecture-03-design-based-estimation/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Formula reference]({{ '/notes/sample-surveys/formula-sheet/' | relative_url }})
 </nav>
 
 ## From point estimation to interval estimation
@@ -567,7 +568,7 @@ An arbitrary $n$ cannot be judged adequate before data collection. The resulting
 ---
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[← Previous lecture]({{ '/notes/sample-surveys/lecture-03-design-based-estimation/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }})
+[← Previous lecture]({{ '/notes/sample-surveys/lecture-03-design-based-estimation/' | relative_url }}) · [Course contents]({{ '/notes/sample-surveys/' | relative_url }}) · [Formula reference]({{ '/notes/sample-surveys/formula-sheet/' | relative_url }})
 </nav>
 
 </div>
