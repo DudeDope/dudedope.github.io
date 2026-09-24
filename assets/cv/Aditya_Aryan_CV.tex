@@ -1,0 +1,345 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage{needspace}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\usepackage{graphicx}
+\input{glyphtounicode} % chktex 27
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{4.1pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\classesList}[4]{
+    \item\small{
+        {#1 #2 #3 #4 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \Needspace{4\baselineskip}
+    \item
+    \begin{tabularx}{\textwidth}{@{}Xr@{}}
+      \small#1 & \textbf{\small #2}\\
+    \end{tabularx}\nopagebreak[4]\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+
+\begin{table}
+    \begin{minipage}{0.125\linewidth}
+        \centering
+        \includegraphics[height=0.8in]{ISIlogo-blue.png} % chktex 36
+    \end{minipage}
+    \begin{minipage}{0.85\linewidth}
+        \centering
+        \def\arraystretch{1.1}
+        \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+            \textbf{\Large Aditya Aryan} & \href{mailto:adityaharshit012345@gmail.com}{{\faEnvelope} adityaharshit012345@gmail.com} \\
+            Bachelor of Statistics (Hons.) & \href{https://www.linkedin.com/in/aditya-aryan-8049b0282}{{\faLinkedin} aditya-aryan} \\
+            \textsl{Indian Statistical Institute, Kolkata} & \href{https://github.com/DudeDope}{{\faGithub} DudeDope} \\
+        \end{tabular*}
+    \end{minipage}\hfill
+\end{table}
+
+
+
+%-----------EDUCATION-----------
+
+
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Indian Statistical Institute}{Jul. 2023 -- Present}
+      {Bachelor of Statistics (B.Stat Hons.), \textit{Expected 2027}}{Kolkata, West Bengal}
+  \resumeSubHeadingListEnd
+  
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Kendriya Vidyalaya No. 2, Jalahalli East}{Apr. 2014 -- Mar. 2023}{12th CBSE Boards (PCM) - 95\% }{Bangalore, Karnataka}
+  \resumeSubHeadingListEnd
+  \vspace{0.01cm}
+\textit{\small 10th CBSE Boards - 98.8\%}
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Student Researcher}{Apr. 2026 -- Present}
+      {\textbf{University of Toronto}, \textbf{Advisor}: Prof.\ Xin Bing}{Remote}
+    \resumeItemListStart
+
+  \resumeItem{Working on theoretical and computational analysis of population and sample EM (Expectation-Maximization) for Gaussian mixture-type models.}
+
+  \resumeItem{Studying update maps, fixed points, local contraction, mixture imbalance, and sampling error using tools from probability, statistics, and analysis.}
+
+  \resumeItem{Using numerical simulations to investigate the behavior of EM iterates and support the development of results.}
+
+\resumeItemListEnd
+
+    \resumeSubheading
+      {Data Science Intern}{May 2026 -- Present}
+      {\textbf{Ranial Systems}}{New York, US (Remote)}
+   \resumeItemListStart
+
+  \resumeItem{Developed statistical and machine-learning methods for lithium-ion battery degradation and cycle-life prediction using early-cycle voltage, temperature, capacity, and charging-protocol information, including supervised and survival-analysis approaches.}
+
+  \resumeItem{Developed probabilistic forecasting and scenario-generation methods for NYISO electricity prices, incorporating quantile forecasts, extreme-price behavior, and uncertainty in day-ahead and real-time markets.}
+
+  \resumeItem{Formulated battery dispatch as a constrained sequential decision problem and applied stochastic dynamic programming under state-of-charge, efficiency, cycling, and degradation constraints to study day-ahead and real-time trading strategies.}
+    \resumeItemListEnd
+    \vspace{-10pt}
+
+    \resumeSubheading
+      {ML Research Intern}{Apr. -- Aug. 2025}
+      {\textbf{Mercity AI}}{Bengaluru, Karnataka}
+    \resumeItemListStart
+      \resumeItem{Developed a compact medical vision-language model by integrating medSigLIP with Qwen-2.5-7B through a Q-Former bottleneck, compressing 256 image tokens to 32 latent queries (8$\times$ compression, 70\% memory reduction) while preserving probabilistic calibration in frozen-LLM caption generation.}
+      \resumeItem{Trained the Q-Former with cross-entropy on MIMIC Captions; explored SFT, PPO, DPO, and GRPO using Hugging Face \texttt{trl}; extended a DeepSeek-R1-based GRPO pipeline for multimodal reasoning; increased BLEU, reduced perplexity, and published reproducible configurations and technical blog posts.}
+    \resumeItemListEnd
+
+
+  \resumeSubHeadingListEnd
+\vspace{-16pt}
+
+%-----------SELECTED PROGRAMS-----------
+\section{Programs \& Summer Schools}
+\vspace{-5pt}
+\resumeSubHeadingListStart
+
+\resumeProjectHeading
+{\textbf{exSPLORe: Explorations in Statistics, Probability, Learning and Optimization Research}\newline
+\textit{Safexpress Centre for Data, Learning and Decision Sciences, Ashoka University} }
+{2026}
+\resumeItemListStart
+  \resumeItem{Selected participant in a five-day research workshop covering probability, statistical inference, optimization, machine learning, and sequential decision-making, with tutorials and talks by researchers from Stanford, MIT, and DeepMind.}
+\resumeItemListEnd
+
+
+\resumeProjectHeading
+{\textbf{Oxford Machine Learning Summer School (OxML)}}
+{2025}
+\resumeItemListStart
+  \resumeItem{Selected for the 2025 programme, which offered MLx Fundamentals; MLx Generative AI (Agents, Alignments, Products); MLx Health \& Bio; and MLx Representation Learning \& Generative AI\@. Relevant areas included statistical learning, optimization, foundation models, Bayesian ML, reinforcement learning, computer vision, and geometric deep learning.}
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Summer School on Artificial Intelligence, IIIT Hyderabad}}
+{2025}
+\resumeItemListStart
+  \resumeItem{Selected for the CVIT summer school covering deep learning, CNNs, Transformers, domain adaptation, LLM reasoning, and generative modelling/diffusion; completed hands-on work with BERT fine-tuning, CLIP, and instruction tuning.}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+\vspace{-16pt}
+
+%-----------PROJECTS-----------
+\Needspace{6\baselineskip}
+\section{Selected Projects}
+\vspace{-5pt}
+\resumeSubHeadingListStart
+
+\resumeProjectHeading
+{\textbf{Vision-Language Model Training \& Reasoning (VisionLM)}}
+{Independent}
+\resumeItemListStart
+  \resumeItem{Building general experimental VLM training pipelines with a custom multimodal architecture and a standard baseline to compare representation and architecture choices.}
+  \resumeItem{Experimenting with GRPO-based reinforcement-learning post-training, multimodal reasoning, and reward design as an implementation-focused research testbed distinct from the medical VLM developed at Mercity AI.}
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Stein’s Paradox: Inadmissibility and Risk-Optimal Shrinkage}}
+{\emph{Supervisor: Dr.\ Ayanendranath Basu, ISI}}
+\resumeItemListStart
+  \resumeItem{Derived James--Stein and mean-centered shrinkage estimators under squared-error loss and extended the analysis to heteroscedastic normal means using whitening and Normal--Normal Empirical Bayes (MoM and MMLE).}
+  \resumeItem{Evaluated risk using Monte Carlo simulation and Stein's unbiased risk estimate (SURE), confirming James--Stein dominance over the MLE and the strong empirical performance of MMLE in heteroscedastic regimes.}
+\resumeItemListEnd
+\resumeProjectHeading
+{\textbf{Bivariate Copula Modelling of Extreme Air Pollution Events}}
+{\emph{Supervisor: Dr.\ Shyamal Krishna De, ISI}}
+\resumeItemListStart
+  \resumeItem{Modeled the joint duration $D$ and cumulative severity $S$ of extreme AQI episodes in Bangalore (2015--2024), using empirical marginals and average-rank pseudo-observations for discrete durations.}
+  \resumeItem{Fit six copulas by canonical MLE and selected Gumbel by {AIC}; estimated strong upper-tail dependence ($\hat{\tau}=0.881$, $\hat{\lambda}_U=0.881$) and $P(S>2000\mid D\geq12)\approx0.9998$.}
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Sequential Testing: Optimal Stopping under Reward Cost Tradeoff}}
+{\emph{Supervisor: Dr.\ Arnab Chakraborty, ISI}}
+\resumeItemListStart
+  \resumeItem{Formulated a finite-horizon Markov decision problem for sequential sampling with unknown reward locations and derived a dynamic-programming recursion for the optimal stopping strategy.}
+  \resumeItem{Implemented exact memoized DP and backtracking in C++; computed the optimal expected gain for $N=20$, $C=5$ as 7.6876 and verified agreement with the theoretical strategy.}
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Elo-Based Football Betting}}
+{\emph{Supervisor: Dr.\ Ayanendranath Basu, ISI}}
+\resumeItemListStart
+  \resumeItem{Built matchwise Elo features and calibrated logistic-regression probabilities for 2014--2024 EPL outcomes; evaluated forecasts using Brier score (0.2176) and log-loss (0.6249).}
+  \resumeItem{Backtested a value-betting rule using model probabilities and market odds, yielding 5,139 simulated profit units from a 10,000-unit bankroll over the test season.}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+%-----------RELEVANT COURSEWORK-----------
+\section{Relevant Coursework}
+\begin{multicols}{3}
+\small
+\raggedcolumns
+\begin{itemize}[itemsep=-4pt, parsep=4pt, topsep=0pt]
+    \item Probability Theory
+    \item Statistical Methods \& Inference
+    \item Parametric Inference
+    \item Linear Statistical Models
+\end{itemize}
+\columnbreak
+\begin{itemize}[itemsep=-4pt, parsep=4pt, topsep=0pt]
+    \item Stochastic Processes
+    \item Linear Algebra
+    \item Real Analysis
+    \item Programming \& Data Structures
+\end{itemize}
+\columnbreak
+\begin{itemize}[itemsep=-4pt, parsep=4pt, topsep=0pt]
+    \item Design \& Analysis of Algorithms
+    \item Numerical Analysis
+    \item Discrete Mathematics
+    \item Differential Equations
+\end{itemize}
+\end{multicols}
+\vspace*{1.5\multicolsep}
+
+%
+%-----------PROGRAMMING SKILLS-----------
+\section{Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Programming:} Python, C++, R, SQL.\\
+     \textbf{ML \& Computing:} PyTorch, scikit-learn, statsmodels, NumPy, SciPy, pandas, Hugging Face Transformers, TRL, Accelerate, PEFT, bitsandbytes\\
+     \textbf{Methods:} Statistical machine learning, Time Series forecasting, Survival analysis, Deep learning, and LLM post-training.\\
+    }}
+ \end{itemize}
+ \vspace{-16pt}
+
+
+%-----------INVOLVEMENT---------------
+\section{Scholastic Achievements}
+  \resumeSubHeadingListStart
+  \resumeSubItem{Secured All India \textbf{Rank 90} in ISI entrance examination.\hfill \textit{2023}}
+  
+  \resumeSubItem{Secured \textbf{98.9\%ile} in JEE Mains (B.Tech) among 1.5 million candidates.\hfill \textit{2023}}
+
+  \resumeSubItem{Scored \textbf{331/390} in BITSAT.\hfill \textit{2023}}
+
+  \resumeSubItem{Secured All India \textbf{Rank 1034} in KVPY (SA stream).\hfill \textit{2022}}
+  
+  \resumeSubItem{Qualified for INMO (Indian National Mathematics Olympiad) merit list.\hfill \textit{2022}}
+  
+  \resumeSubItem{Secured a \textbf{Top 20 Rank} in IOQM in Karnataka region.\hfill \textit{2022}}
+  
+  \resumeSubItem{Received \textbf{NTSE} scholarship for being in \textbf{top 1000} students among 2 million candidates.\hfill \textit{2021}} 
+
+  \resumeSubItem{Secured \textbf{Rank 72} in NTSE Stage-I.\hfill \textit{2021}}
+  
+  \resumeSubHeadingListEnd
+
+
+\end{document}

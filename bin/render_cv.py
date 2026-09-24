@@ -1,112 +1,68 @@
-"""Render the site CV while preserving al-folio's legacy HTML fields.
+"""Compile the portfolio CV from its custom LaTeX template.
 
-The CV plugin reads ``label`` and ``summary`` from ``_data/cv.yml``. RenderCV
-2.x instead accepts ``headline`` and section entries, so this script creates a
-temporary compatible document before invoking RenderCV. The canonical content
-remains in one checked-in YAML file.
+The source template and its logo live in assets/cv. The generated PDF is
+written to the stable public path already used by the website.
 """
 
 from __future__ import annotations
 
 import argparse
-import copy
-import re
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
 
-import yaml
 
+def render(source: Path, output: Path) -> None:
+    """Compile source twice with pdfLaTeX and copy the resulting PDF."""
 
-MONTHS = {
-    "Jan": "01",
-    "Feb": "02",
-    "Mar": "03",
-    "Apr": "04",
-    "May": "05",
-    "Jun": "06",
-    "Jul": "07",
-    "Aug": "08",
-    "Sep": "09",
-    "Oct": "10",
-    "Nov": "11",
-    "Dec": "12",
-}
+    compiler = shutil.which("pdflatex")
+    if compiler is None:
+        raise SystemExit("pdflatex is required to render the CV.")
 
+    source = source.resolve()
+    logo = source.with_name("ISIlogo-blue.png")
+    if not source.is_file():
+        raise SystemExit(f"CV source not found: {source}")
+    if not logo.is_file():
+        raise SystemExit(f"CV logo not found: {logo}")
 
-def rendercv_date(value: object) -> object:
-    """Convert the site's readable ``Mon YYYY`` dates for RenderCV 2.x."""
+    with tempfile.TemporaryDirectory(prefix="portfolio_cv_") as temporary:
+        build_dir = Path(temporary)
+        build_source = build_dir / source.name
+        shutil.copy2(source, build_source)
+        shutil.copy2(logo, build_dir / logo.name)
 
-    if not isinstance(value, str):
-        return value
-    match = re.fullmatch(r"([A-Z][a-z]{2}) (\d{4})", value.strip())
-    if not match or match.group(1) not in MONTHS:
-        return value
-    return f"{match.group(2)}-{MONTHS[match.group(1)]}"
-
-
-def render(source: Path, settings: Path) -> None:
-    document = yaml.safe_load(source.read_text(encoding="utf-8"))
-    cv = copy.deepcopy(document["cv"])
-
-    label = cv.pop("label", None)
-    summary = cv.pop("summary", None)
-    image = cv.pop("image", None)
-    if label:
-        cv["headline"] = label
-    if image:
-        cv["photo"] = image
-
-    sections = cv.get("sections", {})
-    if "Experience" in sections:
-        for entry in sections["Experience"]:
-            for key in ("start_date", "end_date"):
-                if key in entry:
-                    entry[key] = rendercv_date(entry[key])
-    if "Projects" in sections:
-        rendered_projects = []
-        for entry in sections["Projects"]:
-            rendered_entry = dict(entry)
-            url = rendered_entry.pop("url", None)
-            if url:
-                rendered_entry["name"] = f"[{rendered_entry['name']}]({url})"
-            rendered_projects.append(rendered_entry)
-        sections["Projects"] = rendered_projects
-    if "Skills" in sections:
-        sections["Skills"] = [
-            {"label": entry["name"], "details": ", ".join(entry.get("keywords", []))}
-            for entry in sections["Skills"]
+        command = [
+            compiler,
+            "-interaction=nonstopmode",
+            "-halt-on-error",
+            build_source.name,
         ]
-    if "Honors and Awards" in sections:
-        for entry in sections["Honors and Awards"]:
-            entry.pop("title", None)
-    if summary:
-        cv["sections"] = {"Profile": [{"bullet": summary.strip()}], **sections}
+        for _ in range(2):
+            subprocess.run(command, cwd=build_dir, check=True)
 
-    payload = {"cv": cv}
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".yml", prefix="rendercv_", dir=source.parent, encoding="utf-8", delete=False
-    ) as temporary:
-        yaml.safe_dump(payload, temporary, sort_keys=False, allow_unicode=True)
-        temporary_path = Path(temporary.name)
-
-    try:
-        subprocess.run(
-            ["rendercv", "render", str(temporary_path), "--settings", str(settings.resolve()), "--quiet"],
-            check=True,
-        )
-    finally:
-        temporary_path.unlink(missing_ok=True)
+        rendered_pdf = build_source.with_suffix(".pdf")
+        output = output.resolve()
+        output.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(rendered_pdf, output)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--source", type=Path, default=Path("_data/cv.yml"))
-    parser.add_argument("--settings", type=Path, default=Path("assets/rendercv/settings.yaml"))
+    parser.add_argument(
+        "--source",
+        type=Path,
+        default=Path("assets/cv/Aditya_Aryan_CV.tex"),
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf"),
+    )
     args = parser.parse_args()
-    render(args.source, args.settings)
+    render(args.source, args.output)
 
 
 if __name__ == "__main__":
     main()
-
