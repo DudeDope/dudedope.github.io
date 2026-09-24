@@ -1261,40 +1261,20 @@ mjx-container[display="true"] {
 }
 
 .aa-cv-toolbar {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2rem;
-  align-items: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 2rem;
-  padding: 1.4rem 0;
+  padding: 1.15rem 0;
   border-top: 1px solid var(--aa-border);
   border-bottom: 1px solid var(--aa-border);
-}
-
-.aa-cv-kicker {
-  margin: 0 0 0.55rem;
-  color: var(--aa-text-tertiary);
-  font-family: var(--aa-font-ui);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.aa-cv-summary {
-  max-width: 44rem;
-  margin: 0;
-  color: var(--aa-text-secondary);
-  font-family: var(--aa-font-prose);
-  font-size: 1rem;
-  line-height: 1.62;
 }
 
 .aa-cv-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .aa-cv-action {
@@ -1394,15 +1374,6 @@ footer .container::after {
   .aa-entry-rail {
     position: static;
     max-width: var(--aa-reading-width);
-  }
-
-  .aa-cv-toolbar {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  .aa-cv-actions {
-    justify-content: flex-start;
   }
 }
 

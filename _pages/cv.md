@@ -8,21 +8,12 @@ description: Two-page academic CV covering education, research and industry expe
 ---
 
 {% assign cv_pdf = '/assets/rendercv/rendercv_output/Aditya_Aryan_CV.pdf' | relative_url %}
-{% assign cv_tex = '/assets/cv/Aditya_Aryan_CV.tex' | relative_url %}
 
 <div class="aa-cv-shell">
   <header class="aa-cv-toolbar">
-    <div>
-      <p class="aa-cv-kicker">Academic CV · September 2026</p>
-      <p class="aa-cv-summary">
-        A two-page CV covering education, research and industry experience, selected projects, programmes, coursework, skills, and scholastic
-        achievements.
-      </p>
-    </div>
     <nav class="aa-cv-actions" aria-label="CV documents">
       <a class="aa-cv-action aa-cv-action-primary" href="{{ cv_pdf }}" target="_blank" rel="noopener">Open PDF</a>
       <a class="aa-cv-action" href="{{ cv_pdf }}" download>Download PDF</a>
-      <a class="aa-cv-action" href="{{ cv_tex }}" download>TeX source</a>
     </nav>
   </header>
 
