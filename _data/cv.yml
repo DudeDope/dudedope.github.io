@@ -94,12 +94,6 @@ cv:
         highlights:
           - Built an experimental framework for activation replacement, learned gates, and control comparisons; comparative evaluation ongoing.
 
-      - name: "BioStat-PO: Selecting Analysis Pipelines for Causal Survival Inference"
-        url: https://dudedope.github.io/projects/biostat-policyopt/
-        summary: Independent research software in development.
-        highlights:
-          - Developed a Python–R framework for analysis-pipeline selection under missingness and censoring; synthetic-data development pilots available.
-
     Skills:
       - name: Statistical methods
         keywords:

@@ -32,7 +32,6 @@ This file tracks verified content and the material still needed for a complete p
 
 ## Research and project artifacts
 
-- [x] Present BioStat-PO as the paired original `biostat-policyopt` and `biostat-simbench` research-software system.
 - [x] Present the original `Nonlinear-MLP` research-software project without overstating unfinished experimental results.
 - [x] Keep public forks out of project records and artifact links.
 - [ ] Add the EM technical note and GitHub repository when ready for public release.
