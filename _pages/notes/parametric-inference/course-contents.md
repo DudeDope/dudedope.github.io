@@ -6,8 +6,8 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Course index for the expanded Parametric Inference notes, covering point estimation and likelihood computation, sufficiency and completeness, UMVUE theory, consistency and asymptotic inference, hypothesis testing and MLR/UMP theory, Bayesian inference, and minimax decision theory."
-last_updated: "2026-09-06"
+description: "Course index for the expanded Parametric Inference notes, covering estimation, sufficiency and completeness, testing, Bayesian and minimax decision theory, admissibility, asymptotics, and multivariate inference."
+last_updated: "2026-11-02"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/
@@ -29,7 +29,7 @@ toc:
 
 ## Course description
 
-These notes develop the main ideas of parametric inference from point estimation and risk through unbiased estimation, sufficiency, completeness, UMVUE theory, consistency and rates of convergence, hypothesis testing, Bayesian estimation, and minimax decision theory. Examples, proof details, and substantive questions from the handwritten source are kept beside the theory they illustrate so that each lecture remains independently readable without creating separate example-only chapters.
+These notes develop parametric inference from point estimation and risk through unbiased estimation, sufficiency, completeness, UMVUE theory, hypothesis testing, Bayesian and minimax decision theory, asymptotic testing, admissibility, equivariance, and multivariate likelihood-ratio methods. Examples, proof details, and substantive questions from the handwritten source are kept beside the theory they illustrate so that each lecture remains independently readable without creating separate example-only chapters.
 
 ## Lectures
 
@@ -41,6 +41,10 @@ These notes develop the main ideas of parametric inference from point estimation
 {% assign lecture_06_url = '/notes/parametric-inference/lecture-06-lehmann-scheffe-umvue-consistency/' | relative_url %}
 {% assign lecture_07_url = '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url %}
 {% assign lecture_08_url = '/notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/' | relative_url %}
+{% assign lecture_09_url = '/notes/parametric-inference/lecture-09-unbiased-similar-neyman-structure-tests/' | relative_url %}
+{% assign lecture_10_url = '/notes/parametric-inference/lecture-10-consistent-asymptotic-tests/' | relative_url %}
+{% assign lecture_11_url = '/notes/parametric-inference/lecture-11-admissibility-equivariance-stein/' | relative_url %}
+{% assign lecture_12_url = '/notes/parametric-inference/lecture-12-likelihood-ratio-classical-multivariate-tests/' | relative_url %}
 
 | Lecture | Title                                                                          | Major topics                                                                                                                                                                                                                | Status   |
 | ------: | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -52,6 +56,10 @@ These notes develop the main ideas of parametric inference from point estimation
 |       6 | [Lehmann–Scheffé and Consistency]({{ lecture_06_url }})                        | Lehmann–Scheffé, UMVUE examples, weak/strong/Lp consistency, root-n rates, Slutsky consistency, sample median, fixed-design regression, convergence in distribution, MLE consistency                                        | Complete |
 |       7 | [Hypothesis Testing and Likelihood Ratios]({{ lecture_07_url }})               | test functions, power and size, sufficiency reduction, Neyman–Pearson lemma, UMP one-sided tests, monotone likelihood ratio, binomial/exponential-family MLR, Cauchy counterexample                                         | Complete |
 |       8 | [Bayesian Estimation and Minimax Risk]({{ lecture_08_url }})                   | conjugacy, Cauchy reciprocal-polynomial family, Bayes/generalized Bayes rules, minimax and admissibility, exact binomial minimax rule, sequence-of-priors theorem, Pareto conjugacy, uniform endpoint infinite maximum risk | Complete |
+|       9 | [Unbiased and Similar Tests]({{ lecture_09_url }})                             | unbiased and similar tests, boundary arguments, Neyman structure, conditional UMPU tests, nuisance parameters, Poisson, exponential, normal and two-binomial constructions                                                  | Complete |
+|      10 | [Consistent and Asymptotic Tests]({{ lecture_10_url }})                        | monotone power, consistent test sequences, asymptotically normal estimator tests, sample medians, MLE consistency and asymptotic normality                                                                                  | Complete |
+|      11 | [Admissibility, Equivariance, and Stein's Phenomenon]({{ lecture_11_url }})    | Bayesian testing, admissibility, Karlin's criterion, vector Rao–Blackwell theory, multivariate normal means, James–Stein shrinkage, and location equivariance                                                               | Complete |
+|      12 | [Likelihood-Ratio and Multivariate Tests]({{ lecture_12_url }})                | generalized likelihood ratios, classical t and F tests, Poisson equality, Hotelling statistics, union–intersection tests, and covariance-matrix testing                                                                     | Complete |
 
 ## Formula and notation sheet
 
@@ -59,7 +67,7 @@ The cumulative [formula and notation sheet]({{ '/notes/parametric-inference/form
 
 ## How this course is organised
 
-The lecture boundaries follow mathematical dependence rather than the page boundaries of the handwritten source notes. Point-estimation material stays compact; sufficiency is developed before completeness; completeness is paired with exponential-family theory and Basu’s theorem; Lehmann–Scheffé is followed immediately by UMVUE constructions and asymptotic consistency, including the sample-median, regression, cdf-convergence, and MLE-consistency examples from the August notes. Hypothesis testing is extended through UMP and monotone-likelihood-ratio theory. Bayesian inference and minimax decision theory remain together because the key minimax lower bounds are obtained from Bayes risks and least-favourable-prior arguments.
+The lecture boundaries follow mathematical dependence rather than the page boundaries of the handwritten source notes. Point-estimation material stays compact; sufficiency is developed before completeness; completeness is paired with exponential-family theory and Basu’s theorem; and Lehmann–Scheffé is followed by UMVUE constructions and consistency. The testing sequence moves from Neyman–Pearson and MLR theory to conditional UMPU methods and asymptotic tests. Bayesian inference leads into minimaxity and admissibility, followed by equivariant and multivariate procedures.
 
 No standalone examples, summary, workflow, or distribution-identity lectures are used. Examples remain with the results they illustrate, while reusable identities are collected in the formula sheet.
 

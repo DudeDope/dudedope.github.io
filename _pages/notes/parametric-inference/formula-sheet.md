@@ -6,8 +6,8 @@ instructor: "Probal Chaudhuri"
 institution: "Indian Statistical Institute, Kolkata"
 semester: "Fall 2026"
 author: "Aditya Aryan"
-description: "Cumulative notation and formulas for likelihood computation and scoring, unbiased estimation and CRLB, sufficiency and completeness, consistency and asymptotics, MLR/UMP testing, Bayesian updating, and minimax decision theory."
-last_updated: "2026-09-06"
+description: "Cumulative notation and formulas for estimation, sufficiency and completeness, UMVUE/CRLB theory, consistency and asymptotics, unbiased and conditional testing, Bayesian/minimax decision theory, admissibility, likelihood-ratio tests, and multivariate inference."
+last_updated: "2026-11-02"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/formula-sheet/
@@ -27,7 +27,7 @@ toc:
 [Course contents]({{ '/notes/parametric-inference/' | relative_url }})
 </nav>
 
-This is a cumulative reference for the eight-lecture version of the notes. It is not a substitute for the derivations in the lecture files. Distributional identities that previously appeared as a standalone chapter have been moved here and remain cross-referenced to the lectures where they are used.
+This is a cumulative reference for the twelve-lecture final-exam version of the notes. It is not a substitute for the derivations in the lecture files. Distributional identities that previously appeared as a standalone chapter have been moved here and remain cross-referenced to the lectures where they are used.
 
 ## 1. Global notation
 
@@ -2196,7 +2196,697 @@ $$
 \frac{t^2}{2^{n+3}}.
 $$
 
-## 10. Useful distributional identities
+## 10. Lecture 9 — Unbiased, similar, and conditional tests
+
+See [Lecture 9]({{ '/notes/parametric-inference/lecture-09-unbiased-similar-neyman-structure-tests/' | relative_url }}).
+
+### Unbiased test
+
+A level-\\(\alpha\\) test \\(\phi\\) is unbiased when
+
+$$
+E_\theta[\phi(X)]\ge\alpha
+\qquad\forall\theta\in\Theta_1.
+$$
+
+If a boundary point \\(\theta_0\\) is approached from both null and alternative sides and the power function is continuous, then
+
+$$
+\boxed{E_{\theta_0}[\phi(X)]=\alpha.}
+$$
+
+### Similarity and Neyman structure
+
+A test is \\(\alpha\\)-similar on \\(\Omega\subseteq\Theta_0\\) if
+
+$$
+E_\theta[\phi(X)]=\alpha
+\qquad\forall\theta\in\Omega.
+$$
+
+If \\(S\\) is complete sufficient for nuisance parameters on \\(\Omega\\), similarity is equivalent to the Neyman-structure condition
+
+$$
+\boxed{E[\phi(X)\mid S]=\alpha\quad\text{a.s. on }\Omega.}
+$$
+
+### Poisson conditioning
+
+For independent
+
+$$
+X\sim\operatorname{Poisson}(\lambda),
+\qquad
+Y\sim\operatorname{Poisson}(\mu),
+$$
+
+$$
+S=X+Y\sim\operatorname{Poisson}(\lambda+\mu),
+$$
+
+and
+
+$$
+\boxed{X\mid S=s\sim\operatorname{Bin}\left(s,\frac{\lambda}{\lambda+\mu}\right).}
+$$
+
+On \\(\lambda=\mu\\), this becomes \\(\operatorname{Bin}(s,1/2)\\). The one-sided UMPU test of \\(\lambda\le\mu\\) against \\(\lambda>\mu\\) rejects for large conditional \\(X\\), with boundary randomization chosen so that the conditional rejection probability is exactly \\(\alpha\\).
+
+### Exponential mean comparison
+
+For independent exponential variables parameterized by means \\(\lambda,\mu\\), with
+
+$$
+W=\frac{X}{X+Y},
+\qquad
+S=X+Y,
+$$
+
+the boundary \\(\lambda=\mu\\) gives
+
+$$
+\boxed{W\mid S\sim U(0,1).}
+$$
+
+For \\(H_0:\lambda\le\mu\\) versus \\(H_1:\lambda>\mu\\), reject when
+
+$$
+\boxed{W>1-\alpha}
+$$
+
+or equivalently
+
+$$
+\boxed{\frac XY>\frac{1-\alpha}{\alpha}.}
+$$
+
+### Normal variance with unknown mean
+
+For iid \\(N(\mu,\sigma^2)\\), testing
+
+$$
+H_0:\sigma^2\le\sigma_0^2
+\quad\text{vs}\quad
+H_1:\sigma^2>\sigma_0^2,
+$$
+
+use
+
+$$
+Q=\sum_{i=1}^n(X_i-\bar X)^2,
+\qquad
+\frac{Q}{\sigma_0^2}\sim\chi^2_{n-1}
+$$
+
+on the boundary. The UMPU rejection rule is
+
+$$
+\boxed{Q>\sigma_0^2\chi^2_{n-1,1-\alpha}.}
+$$
+
+### Normal mean with unknown variance
+
+For iid \\(N(\mu,\sigma^2)\\), testing \\(\mu\le0\\) against \\(\mu>0\\), the conditional exponential-family argument yields the standard one-sided statistic
+
+$$
+\boxed{t=\frac{\sqrt n\,\bar X}{S}},
+$$
+
+with rejection
+
+$$
+\boxed{t>t_{n-1,1-\alpha}.}
+$$
+
+### Two-sample pooled normal test
+
+With common unknown variance, the contrast natural parameter is
+
+$$
+\boxed{\eta=\frac{\mu_1-\mu_2}{\sigma^2}.}
+$$
+
+On the boundary \\(\mu_1=\mu_2\\), a complete sufficient nuisance statistic is
+
+$$
+\left(
+U,V
+\right)
+=
+\left(
+\sum_iX_i+\sum_jY_j,
+\sum_iX_i^2+\sum_jY_j^2
+\right).
+$$
+
+Conditionally, the contrast has an exponential-family kernel \\(h(c)e^{\eta c}\\), giving MLR in the mean contrast. The resulting statistic is
+
+$$
+\boxed{
+T=\frac{\bar X-\bar Y}{S_p\sqrt{1/n+1/m}}
+}
+$$
+
+and under the boundary \\(\mu_1=\mu_2\\),
+
+$$
+T\sim t_{n+m-2}.
+$$
+
+For \\(H_0:\mu_1\le\mu_2\\) against \\(\mu_1>\mu_2\\), reject for large \\(T\\).
+
+### Two binomial proportions
+
+For independent \\(X\sim\operatorname{Bin}(n,p_1)\\), \\(Y\sim\operatorname{Bin}(m,p_2)\\), on the boundary \\(p_1=p_2\\),
+
+$$
+\boxed{
+P(X=x\mid X+Y=s)
+=
+\frac{\binom nx\binom m{s-x}}{\binom{n+m}s}.
+}
+$$
+
+Away from the boundary the conditional kernel is proportional to
+
+$$
+\binom nx\binom m{s-x}\omega^x,
+\qquad
+\omega=\frac{p_1(1-p_2)}{p_2(1-p_1)},
+$$
+
+so the conditional family has MLR in \\(X\\).
+
+## 11. Lecture 10 — Consistent and asymptotic tests
+
+See [Lecture 10]({{ '/notes/parametric-inference/lecture-10-consistent-asymptotic-tests/' | relative_url }}).
+
+### Monotone power in an MLR family
+
+If \\(\theta_1>\theta_0\\), \\(r=f\_{\theta_1}/f\_{\theta_0}\\), and both \\(\phi\\) and \\(r\\) are increasing functions of the same MLR statistic, then
+
+$$
+\boxed{
+\beta(\theta_1)-\beta(\theta_0)
+=
+\operatorname{Cov}_{\theta_0}(\phi,r)\ge0.
+}
+$$
+
+For a Poisson upper-tail test \\(\phi=\mathbf1\lbraceX\ge c\rbrace\\),
+
+$$
+\boxed{
+\beta'(\theta)
+=e^{-\theta}\frac{\theta^{c-1}}{(c-1)!}>0.
+}
+$$
+
+### Consistent sequence of tests
+
+A sequence \\(\phi_n\\) is consistent if
+
+$$
+\boxed{E_\theta[\phi_n]\to1\quad\forall\theta\in\Theta_1.}
+$$
+
+If \\(T_n\xrightarrow{P}\theta\\) and an exact size-\\(\alpha\\) test rejects when
+
+$$
+\lvertT_n-\theta_0\rvert>c_n,
+$$
+
+then
+
+$$
+\boxed{c_n\to0}
+$$
+
+and the test is consistent for every fixed \\(\theta\ne\theta_0\\).
+
+### Asymptotically normal estimator test
+
+If
+
+$$
+\frac{\sqrt n(T_n-\theta_0)}{\tau(\theta_0)}
+\xrightarrow{d}N(0,1),
+$$
+
+then an asymptotic two-sided level-\\(\alpha\\) test rejects when
+
+$$
+\boxed{
+\lvertT_n-\theta_0\rvert
+>
+\frac{\tau(\theta_0)}{\sqrt n}z_{1-\alpha/2}.
+}
+$$
+
+### Sample median
+
+For a regular location family with density \\(f_0\\) positive at zero,
+
+$$
+\boxed{
+\sqrt n(M_n-\theta)
+\xrightarrow{d}
+N\left(0,\frac1{4f_0(0)^2}\right).
+}
+$$
+
+For \\(H_0:\theta\le0\\) against \\(\theta>0\\), an asymptotic critical value is
+
+$$
+\boxed{C_n=\frac{z_{1-\alpha}}{2f_0(0)\sqrt n}.}
+$$
+
+### MLE consistency template
+
+Define
+
+$$
+M_n(\theta)=\frac1n\ell_n(\theta),
+\qquad
+M(\theta)=E_{\theta_0}[\log f(X;\theta)].
+$$
+
+Under a uniform law of large numbers,
+
+$$
+\sup_\theta\lvertM_n(\theta)-M(\theta)\rvert\xrightarrow{P}0.
+$$
+
+The elementary inequality
+
+$$
+\log y\le y-1
+$$
+
+gives
+
+$$
+M(\theta)-M(\theta_0)
+\le
+E_{\theta_0}\left[\frac{f_\theta(X)}{f_{\theta_0}(X)}-1\right]
+=0,
+$$
+
+with equality only at \\(\theta_0\\) under identifiability. Hence the MLE is consistent.
+
+### MLE asymptotic normality
+
+From
+
+$$
+0=U_n(\widehat\theta_n)
+=
+U_n(\theta_0)
++
+(\widehat\theta_n-\theta_0)U_n'(\widetilde\theta_n),
+$$
+
+we obtain
+
+$$
+\boxed{
+\sqrt n(\widehat\theta_n-\theta_0)
+\xrightarrow{d}
+N\left(0,I(\theta_0)^{-1}\right).
+}
+$$
+
+For standard Cauchy location,
+
+$$
+\boxed{I=\frac12.}
+$$
+
+## 12. Lecture 11 — Admissibility, Karlin, equivariance, and Stein
+
+See [Lecture 11]({{ '/notes/parametric-inference/lecture-11-admissibility-equivariance-stein/' | relative_url }}).
+
+### Bayes test under 0-1 loss
+
+For simple \\(H_0:f_0\\) and \\(H_1:f_1\\), with prior probabilities \\(\pi_0,\pi_1\\), reject \\(H_0\\) when
+
+$$
+\boxed{
+\frac{f_1(x)}{f_0(x)}>\frac{\pi_0}{\pi_1},
+}
+$$
+
+equivalently when
+
+$$
+P(H_1\mid x)>\frac12.
+$$
+
+### Admissibility
+
+\\(\delta_1\\) dominates \\(\delta_2\\) if
+
+$$
+R(\theta,\delta_1)\le R(\theta,\delta_2)
+\quad\forall\theta,
+$$
+
+with strict inequality somewhere. An estimator is admissible if no rule dominates it.
+
+A proper Bayes rule is admissible when the prior gives positive mass to every open interval and the risk functions are continuous.
+
+### Karlin criterion
+
+For
+
+$$
+f_\theta(x)=\beta(\theta)e^{\theta T(x)}h(x),
+$$
+
+estimating \\(E\_\theta T\\) by
+
+$$
+\delta_{\lambda,\gamma}
+=
+\frac{T+\gamma\lambda}{1+\lambda},
+$$
+
+a sufficient admissibility condition is divergence at both endpoints of
+
+$$
+\boxed{
+\int
+\frac{e^{-\gamma\lambda\theta}}{\beta(\theta)^\lambda}\,d\theta.
+}
+$$
+
+Important applications:
+
+- \\(X\sim N(\mu,1)\\): \\(X/(1+\lambda)\\) admissible for all \\(\lambda\ge0\\); only \\(X\\) is minimax in this family.
+- Binomial \\(X\\): \\(X/(1+\lambda)\\) admissible for all \\(\lambda\ge0\\).
+- Poisson \\(X\\): \\(X/(1+\lambda)\\) admissible for all \\(\lambda\ge0\\).
+- Exponential rate model estimating \\(1/\mu\\): \\(X/2\\) is the distinguished admissible rule in the class \\(cX\\).
+- Geometric mean problem: \\(X/(1+\lambda)\\) is admissible iff \\(\lambda\ge1\\) within the class derived in Lecture 11.
+
+### Vector Rao–Blackwell identity
+
+For \\(\theta\in\mathbb R^k\\) under Euclidean squared loss and \\(T^{\star}=E[T\mid S]\\),
+
+$$
+\boxed{
+R(\theta,T)
+=
+E_\theta\lVertT-T^{\star}\rVert^2
++R(\theta,T^{\star}).
+}
+$$
+
+### Multivariate normal mean
+
+For
+
+$$
+X\sim N_k(\theta,I_k),
+$$
+
+$$
+\boxed{R(\theta,X)=k.}
+$$
+
+Moreover, \\(X\\) is complete sufficient. Hence for any unbiased vector estimator \\(\delta\\), each coordinate satisfies
+
+$$
+\operatorname{Var}(\delta_j)\ge1,
+$$
+
+so
+
+$$
+\boxed{R(\theta,\delta)\ge k.}
+$$
+
+Thus \\(X\\) has minimum risk among unbiased estimators. Diffuse normal priors give the same lower bound over all estimators in the minimax sense, hence \\(X\\) is minimax.
+
+For \\(k\ge3\\), the James–Stein estimator
+
+$$
+\boxed{
+\delta_{JS}(X)
+=
+\left(1-\frac{k-2}{\lVertX\rVert^2}\right)X
+}
+$$
+
+has risk
+
+$$
+\boxed{
+R(\theta,\delta_{JS})
+=
+k-(k-2)^2E_\theta\left[\frac1{\lVertX\rVert^2}\right]<k.
+}
+$$
+
+Thus \\(X\\) is inadmissible for \\(k\ge3\\), but admissible for \\(k=1,2\\).
+
+### Location equivariance
+
+A location-equivariant rule satisfies
+
+$$
+\boxed{
+T(x_1+a,\ldots,x_n+a)=T(x_1,\ldots,x_n)+a.
+}
+$$
+
+Its risk is constant in a location family. The flat-prior generalized Bayes/Pitman estimator is
+
+$$
+\boxed{
+\delta^{\star}(x)
+=
+\frac{\int \theta\prod_i f(x_i-\theta)\,d\theta}
+{\int\prod_i f(x_i-\theta)\,d\theta}.
+}
+$$
+
+For normal location this is \\(\bar X\\).
+
+## 13. Lecture 12 — Likelihood-ratio and multivariate tests
+
+See [Lecture 12]({{ '/notes/parametric-inference/lecture-12-likelihood-ratio-classical-multivariate-tests/' | relative_url }}).
+
+### Generalized likelihood ratio
+
+$$
+\boxed{
+\Lambda(x)
+=
+\frac{\sup_{\theta\in\Theta_0}L(\theta;x)}
+{\sup_{\theta\in\Theta}L(\theta;x)}.
+}
+$$
+
+Reject for small \\(\Lambda\\), equivalently large \\(-2\log\Lambda\\).
+
+### One-sample normal mean, unknown variance
+
+With
+
+$$
+t=\frac{\sqrt n\,\bar X}{S},
+$$
+
+the GLR is
+
+$$
+\boxed{
+\Lambda
+=
+\left(1+\frac{t^2}{n-1}\right)^{-n/2}.
+}
+$$
+
+Hence the GLRT is the two-sided \\(t\_{n-1}\\) test.
+
+### Two-sample pooled normal means
+
+With \\(N=n+m\\),
+
+$$
+t
+=
+\frac{\bar X-\bar Y}{S_p\sqrt{1/n+1/m}},
+$$
+
+$$
+\boxed{
+\Lambda
+=
+\left(1+\frac{t^2}{N-2}\right)^{-N/2}.
+}
+$$
+
+### Poisson equality GLR
+
+For one independent count from each population, with \\(s=x+y\\),
+
+$$
+\boxed{
+\Lambda(x,y)
+=
+\frac{(s/2)^s}{x^xy^y}.
+}
+$$
+
+Conditional on \\(S=s\\), this decreases as \\(\lvertx-y\rvert\\) increases, and
+
+$$
+X\mid S=s,H_0\sim\operatorname{Bin}(s,1/2).
+$$
+
+### Polar identity for two standard normals
+
+If \\(Z_1,Z_2\overset{\text{iid}}\sim N(0,1)\\) and
+
+$$
+Z_1=R\cos\Theta,
+\qquad Z_2=R\sin\Theta,
+$$
+
+then
+
+$$
+\boxed{R\perp\!\!\!\perp\Theta,\qquad \Theta\sim U(0,2\pi),}
+$$
+
+and
+
+$$
+\boxed{R^2\sim\chi^2_2=\operatorname{Exp}(\text{rate }1/2).}
+$$
+
+### Fixed directional normal test
+
+For iid \\(N_p(\mu,\Sigma)\\) and fixed nonzero \\(\ell\\), testing \\(\ell^T\mu=0\\) uses
+
+$$
+\boxed{
+T_\ell
+=
+\frac{\sqrt n\,\ell^T\bar X}{\sqrt{\ell^TS\ell}}
+\sim t_{n-1}
+\quad(H_0).
+}
+$$
+
+The union-intersection statistic maximizes
+
+$$
+\frac{T_\ell^2}{n}
+=
+\frac{(\ell^T\bar X)^2}{\ell^TS\ell}.
+$$
+
+### One-sample Hotelling statistic
+
+For iid \\(N_p(\mu,\Sigma)\\),
+
+$$
+\boxed{T^2=n\bar X^TS^{-1}\bar X,}
+$$
+
+and
+
+$$
+\boxed{
+\Lambda
+=
+\left(1+\frac{T^2}{n-1}\right)^{-n/2}.
+}
+$$
+
+Under \\(H_0:\mu=0\\),
+
+$$
+\boxed{
+\frac{n-p}{p(n-1)}T^2\sim F_{p,n-p}.
+}
+$$
+
+The union-intersection identity is
+
+$$
+\boxed{
+\sup_{\ell\ne0}
+\frac{(\ell^T\bar X)^2}{\ell^TS\ell}
+=
+\bar X^TS^{-1}\bar X.
+}
+$$
+
+### Two-sample Hotelling statistic
+
+Let \\(N=n+m\\), \\(D=\bar X-\bar Y\\), and \\(S_p\\) be the pooled covariance. Then
+
+$$
+\boxed{
+T^2
+=
+\frac{nm}{N}D^TS_p^{-1}D,
+}
+$$
+
+with
+
+$$
+\boxed{
+\frac{N-p-1}{p(N-2)}T^2
+\sim F_{p,N-p-1}
+}
+$$
+
+under equal means.
+
+### Equality of two normal variances
+
+With residual sums of squares \\(A,B\\),
+
+$$
+\boxed{
+\Lambda
+=
+\frac{(A/n)^{n/2}(B/m)^{m/2}}
+{\lbrace(A+B)/(n+m)\rbrace^{(n+m)/2}}.
+}
+$$
+
+The standard variance ratio is
+
+$$
+\boxed{
+F=\frac{A/(n-1)}{B/(m-1)}\sim F_{n-1,m-1}
+}
+$$
+
+under \\(H_0\\), and the LR rejection region is two-tailed.
+
+### Equality of covariance matrices
+
+For within-group SSCP matrices \\(A_X,A_Y\\),
+
+$$
+\boxed{
+\Lambda
+=
+\frac{\lvertA_X/n\rvert^{n/2}\lvertA_Y/m\rvert^{m/2}}
+{\lvert(A_X+A_Y)/(n+m)\rvert^{(n+m)/2}}.
+}
+$$
+
+The null distribution can be calibrated by simulating independent standard multivariate normal samples, because affine invariance removes the unknown common covariance under \\(H_0\\).
+
+## 14. Useful distributional identities
 
 For \\(X\sim\operatorname{Bin}(n,\theta)\\),
 
@@ -2228,9 +2918,7 @@ $$
 \theta^k\frac{\Gamma(\alpha+k)}{\Gamma(\alpha)}.
 $$
 
-See [the useful distributional identities section]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}).
-
-## 11. Quick model comparison
+## 15. Quick model comparison
 
 | Model                                               | Complete sufficient statistic | Typical target               | UMVUE               |
 | --------------------------------------------------- | ----------------------------- | ---------------------------- | ------------------- |
@@ -2242,22 +2930,26 @@ See [the useful distributional identities section]({{ '/notes/parametric-inferen
 | Normal\\((\theta,\sigma^2)\\), \\(\sigma^2\\) known | \\(\overline X\\)             | \\(\theta\\)                 | \\(\overline X\\)   |
 | Normal\\((\mu,\sigma^2)\\), both unknown            | \\((\sum X_i,\sum X_i^2)\\)   | \\(\sigma^2\\)               | \\(Q/(n-1)\\)       |
 
-See [the quick model comparison]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}).
+## 16. Quick conceptual comparison
 
-## 12. Quick conceptual comparison
-
-| Concept         | What is compared or required?                                         | Typical tool                               |
-| --------------- | --------------------------------------------------------------------- | ------------------------------------------ |
-| Unbiasedness    | \\(\operatorname{E}\_\theta[T]=\psi(\theta)\\) for every \\(\theta\\) | Direct expectation                         |
-| MSE             | Average squared error                                                 | Bias-variance decomposition                |
-| UMVUE           | Variance among unbiased estimators                                    | CRLB or Lehmann-Scheffe                    |
-| Sufficiency     | Conditional law given \\(S\\) is parameter-free                       | Factorisation theorem                      |
-| Completeness    | Zero expectation for all parameters forces zero function              | Polynomial / analytic / Laplace uniqueness |
-| Rao-Blackwell   | Improve an estimator by conditioning                                  | Conditional expectation                    |
-| CRLB            | Lower bound for unbiased variance in regular models                   | Fisher information                         |
-| Lehmann-Scheffe | Unique UMVUE from complete sufficiency                                | Rao-Blackwell + completeness               |
-
-[Course contents]({{ '/notes/parametric-inference/' | relative_url }})
+| Concept            | What is compared or required?                                         | Typical tool                               |
+| ------------------ | --------------------------------------------------------------------- | ------------------------------------------ |
+| Unbiasedness       | \\(\operatorname{E}\_\theta[T]=\psi(\theta)\\) for every \\(\theta\\) | Direct expectation                         |
+| MSE                | Average squared error                                                 | Bias-variance decomposition                |
+| UMVUE              | Variance among unbiased estimators                                    | CRLB or Lehmann-Scheffe                    |
+| Sufficiency        | Conditional law given \\(S\\) is parameter-free                       | Factorisation theorem                      |
+| Completeness       | Zero expectation for all parameters forces zero function              | Polynomial / analytic / Laplace uniqueness |
+| Rao-Blackwell      | Improve an estimator by conditioning                                  | Conditional expectation                    |
+| CRLB               | Lower bound for unbiased variance in regular models                   | Fisher information                         |
+| Lehmann-Scheffe    | Unique UMVUE from complete sufficiency                                | Rao-Blackwell + completeness               |
+| Unbiased test      | Power at every alternative is at least the level                      | Boundary power + similarity                |
+| Similar test       | Exact rejection probability on a null subset                          | Neyman structure                           |
+| UMPU test          | Maximal power within unbiased level-alpha tests                       | Conditional NP/MLR                         |
+| Consistent test    | Power tends to one at each fixed alternative                          | LLN / consistent estimator                 |
+| Admissibility      | No rule has uniformly smaller risk with strict improvement somewhere  | Bayes arguments / Karlin                   |
+| Minimaxity         | Minimize maximum risk                                                 | Bayes-risk lower bounds / equalizers       |
+| GLRT               | Compare restricted and unrestricted maximized likelihoods             | Likelihood ratio                           |
+| Union-intersection | Maximize evidence over projected alternatives                         | Rayleigh quotient / Hotelling T-squared    |
 
 ---
 

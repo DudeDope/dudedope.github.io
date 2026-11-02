@@ -1,7 +1,7 @@
 ---
 layout: page
-title: "Bayesian Estimation and Minimax Risk"
-short_title: "Bayesian Estimation and Minimax Risk"
+title: "Lecture 8: Bayesian Point Estimation, Conjugate Priors, Bayes Risk, and Generalized Bayes Rules"
+short_title: "Bayesian point estimation"
 course: "Parametric Inference"
 lecture: 8
 instructor: "Probal Chaudhuri"
@@ -27,10 +27,10 @@ topics:
   - "Pareto conjugacy"
   - "uniform endpoint maximum risk"
 previous: "lecture-07-hypothesis-testing-likelihood-ratio"
-next: null
+next: "lecture-09-unbiased-similar-neyman-structure-tests"
 contents: "course-contents"
 formula_sheet: "formula-sheet"
-last_updated: "2026-09-06"
+last_updated: "2026-11-02"
 status: "complete"
 math: true
 permalink: /notes/parametric-inference/lecture-08-bayesian-inference-bayes-risk/
@@ -48,7 +48,7 @@ toc:
 > **Source and attribution.** These are unofficial expanded notes based on the Fall 2026 Parametric Inference lectures of Prof. Probal Chaudhuri at the Indian Statistical Institute, Kolkata. Additional exposition and any remaining errors are the responsibility of the note author.
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[Previous lecture]({{ '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }})
+[Previous lecture]({{ '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture]({{ '/notes/parametric-inference/lecture-09-unbiased-similar-neyman-structure-tests/' | relative_url }})
 </nav>
 
 ## Learning objectives
@@ -2133,7 +2133,7 @@ $$
 
 This solves the conjugate-family question in the source.
 
-### 10.4 Why every estimator has infinite maximum squared-error risk in \\(U(0,\theta)\\) with unbounded \\(\theta\\)
+### 10.4 Why maximum squared-error risk is infinite in the unbounded uniform-endpoint model
 
 The 25 August page also asks to show that if
 
@@ -2558,7 +2558,7 @@ Conjugate families are closed under Bayesian updating, but the family need not b
 ---
 
 <nav class="aa-note-nav" aria-label="Course navigation" markdown="1">
-[Previous lecture]({{ '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }})
+[Previous lecture]({{ '/notes/parametric-inference/lecture-07-hypothesis-testing-likelihood-ratio/' | relative_url }}) · [Course contents]({{ '/notes/parametric-inference/' | relative_url }}) · [Formula sheet]({{ '/notes/parametric-inference/formula-sheet/' | relative_url }}) · [Next lecture]({{ '/notes/parametric-inference/lecture-09-unbiased-similar-neyman-structure-tests/' | relative_url }})
 </nav>
 
 </div>

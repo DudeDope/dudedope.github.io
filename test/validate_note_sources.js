@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const notesRoot = path.resolve("_pages/notes");
-const expectedPageCount = 27;
+const expectedPageCount = 31;
 const issues = [];
 
 function markdownFiles(directory) {
